@@ -9,6 +9,16 @@ use App\Providers\SocialAccountService;
 
 class SocialAuthController extends Controller
 {
+    public function login()
+    {
+        return view('auth.newlogin');
+    }
+
+    public function register()
+    {
+        return view('auth.register');
+    }
+
     public function redirect($provider)
     {
         return Socialite::driver($provider)->redirect();

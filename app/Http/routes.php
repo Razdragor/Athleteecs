@@ -12,12 +12,20 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.newlogin');
 });
 
+
+/*Route::get('/login', function () {
+    return view('auth.newlogin');
+});*/
+//Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
+
 Route::auth();
+//Vue pour afficher formulaire d'identification
+//Route::get('/login', ['as' => 'login', 'uses' => 'SocialAuthController@login']);
 //Social Login
 Route::get('/login/redirect/{provider}', 'SocialAuthController@redirect');
 Route::get('/login/callback/{provider}', 'SocialAuthController@callback');
 
-Route::get('/home', 'HomeController@index');
+Route::get('/inscription', ['as' => 'register', 'uses' => 'SocialAuthController@register']);
