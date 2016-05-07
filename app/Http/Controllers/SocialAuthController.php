@@ -11,7 +11,7 @@ class SocialAuthController extends Controller
 {
     public function login()
     {
-        return view('auth.newlogin');
+        return view('auth.login');
     }
 
     public function register()

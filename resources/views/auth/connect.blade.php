@@ -5,7 +5,7 @@
         <div class="row login_details">
           <div class="col-md-6">
               <div class="join">
-                 <h3>Why Join ?</h3>
+                 <h3>S'INSCRIRE</h3>
                  <h4>sed diam nonummy nibh euismod</h4>
                  <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam<br> nibh euismod tincidunt ut laoreet dolore magna . </p>
                  <div class="btn3">
@@ -15,7 +15,7 @@
             </div>
              <div class="col-md-6">
               <div class="join-right">
-                 <h3>Why Join ?</h3>
+                 <h3>CONNEXION</h3>
                  <h4>sed diam nonummy nibh euismod</h4>
                  <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam<br> nibh euismod tincidunt ut laoreet dolore magna . </p>
                  <div class="buttons_login">

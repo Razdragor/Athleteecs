@@ -12,18 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('auth.newlogin');
+    return view('auth.connect');
 });
-
-
-/*Route::get('/login', function () {
-    return view('auth.newlogin');
-});*/
-//Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
-
+// Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
+Route::get('/login', ['as' => 'login', 'uses' => 'SocialAuthController@login']);
 Route::auth();
-//Vue pour afficher formulaire d'identification
-//Route::get('/login', ['as' => 'login', 'uses' => 'SocialAuthController@login']);
+
 //Social Login
 Route::get('/login/redirect/{provider}', 'SocialAuthController@redirect');
 Route::get('/login/callback/{provider}', 'SocialAuthController@callback');
