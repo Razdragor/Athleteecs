@@ -14,12 +14,8 @@
 Route::get('/', function () {
     return view('auth.connect');
 });
-// Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
-Route::get('/login', ['as' => 'login', 'uses' => 'SocialAuthController@login']);
 Route::auth();
 
 //Social Login
 Route::get('/login/redirect/{provider}', 'SocialAuthController@redirect');
 Route::get('/login/callback/{provider}', 'SocialAuthController@callback');
-
-Route::get('/inscription', ['as' => 'register', 'uses' => 'SocialAuthController@register']);
