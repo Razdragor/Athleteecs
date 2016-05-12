@@ -12,12 +12,10 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.connect');
 });
-
 Route::auth();
+
 //Social Login
 Route::get('/login/redirect/{provider}', 'SocialAuthController@redirect');
 Route::get('/login/callback/{provider}', 'SocialAuthController@callback');
-
-Route::get('/home', 'HomeController@index');
