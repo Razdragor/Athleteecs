@@ -38,13 +38,13 @@ return [
     'facebook' => [
         'client_id'     => '1005451526197926',
         'client_secret' => 'b75af1574e95a4bf4688107a13f16801',
-        'redirect'      => env('APP_URL', 'http://localhost').'/login/callback/facebook',
+        'redirect'      => env('APP_URL', 'https://localhost').'/login/callback/facebook',
     ],
 
     'twitter' => [
         'client_id' => 'jvVgZoMJFDGF0nuSRFzrE4jO3',
         'client_secret' => 'onPJd84dU1ZrHgsGmWCFBI4iv5octmWDLQooJ1TZix1T34ttjf',
-        'redirect' => env('APP_URL', 'http://localhost').'login/callback/twitter',
+        'redirect' => env('APP_URL', 'https://localhost').'login/callback/twitter',
     ],
 
     'google' => [

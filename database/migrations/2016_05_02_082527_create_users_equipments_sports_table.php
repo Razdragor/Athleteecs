@@ -14,7 +14,7 @@ class CreateUsersEquipmentsSportsTable extends Migration
     {
         Schema::create('users_equips_sports', function (Blueprint $table) {
             $table->bigInteger('user_id');
-            $table->bigInteger('equipment_id');
+            $table->bigInteger('product_id');
             $table->bigInteger('sport_id');
         });
     }

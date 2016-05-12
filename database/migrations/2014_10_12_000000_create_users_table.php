@@ -21,6 +21,10 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->dateTime('birthday');
             $table->string('sexe');
+            $table->string('status');
+            $table->string('token_email');
+            $table->integer('score');
+            $table->string('picture')->nullable();
             $table->timestamps();
         });
     }

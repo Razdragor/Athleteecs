@@ -18,6 +18,7 @@ class CreatePublicationsTable extends Migration
             $table->bigInteger('user_id');
             $table->bigInteger('activity_id')->nullable();
             $table->bigInteger('group_id')->nullable();
+            $table->bigInteger('association_id')->nullable();
             $table->timestamps();
         });
     }

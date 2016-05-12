@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBrandsTable extends Migration
+class CreateProductsFeaturesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,9 @@ class CreateBrandsTable extends Migration
      */
     public function up()
     {
-        Schema::create('brands', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('picture')->nullable();;
-            $table->timestamps();
+        Schema::create('products_features', function (Blueprint $table) {
+            $table->bigInteger('product_id');
+            $table->bigInteger('feature_id');
         });
     }
 
@@ -27,6 +25,6 @@ class CreateBrandsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('brands');
+        Schema::drop('products_features');
     }
 }

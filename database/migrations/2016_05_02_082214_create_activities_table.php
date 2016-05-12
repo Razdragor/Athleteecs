@@ -19,6 +19,9 @@ class CreateActivitiesTable extends Migration
             $table->dateTime('date_start')->nullable();
             $table->dateTime('date_end')->nullable();
             $table->string('description')->nullable();
+            $table->integer('score');
+            $table->string('status');
+            $table->string('picture');
             $table->timestamps();
         });
     }

@@ -18,7 +18,7 @@ class SocialAccountService
 {
     public function createOrGetUser(Provider $provider)
     {
-        var_dump("1");
+        var_dump($provider);
         $providerUser = $provider->user();
         var_dump("1");
         $providerName = class_basename($provider);
