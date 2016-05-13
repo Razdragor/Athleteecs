@@ -23,7 +23,7 @@
                        <a href="{{ url('/login') }}">Connexion</a>
                      </div>
                      <div class="btn4">
-                       <a class="coulfb" href="#"><i class="fa fa-facebook" aria-hidden="true"></i>Facebook</a>
+                       <a class="coulfb" href="login/redirect/facebook"><i class="fa fa-facebook" aria-hidden="true"></i>Facebook</a>
                    </div><br><br><br>
                      <div class="btn4">
                        <a class="coulgplus" href="#"><i class="fa fa-google-plus" aria-hidden="true"></i>Google +</a>

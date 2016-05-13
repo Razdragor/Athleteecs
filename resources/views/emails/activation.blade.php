@@ -1,0 +1,1 @@
+Activate account <a href="{{ route('user.activate', $token) }}">here</a>

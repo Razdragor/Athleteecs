@@ -26,10 +26,6 @@ class SocialAuthController extends Controller
 
     public function callback(SocialAccountService $service, $provider)
     {
-        var_dump(12);
-
-        var_dump($service);
-        var_dump($provider);
         $user = $service->createOrGetUser(Socialite::driver($provider));
         auth()->login($user);
 

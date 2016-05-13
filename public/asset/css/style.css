@@ -3450,7 +3450,8 @@ fieldset.input input[type="submit"]:hover {
 	display: block;
 	text-transform: uppercase;
 }
-.register-top-grid input[type="text"], .register-bottom-grid input[type="text"] {
+.register-top-grid input[type="text"], .register-top-grid input[type="email"], .register-top-grid input[type="password"],
+.register-bottom-grid input[type="text"], .register-bottom-grid input[type="email"], .register-bottom-grid input[type="password"]{
 	border: 1px solid #EEE;
 	outline-color:#2469e9;
 	width: 96%;

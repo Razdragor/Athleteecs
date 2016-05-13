@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'from' => ['address' => null, 'name' => null],
+    'from' => ['address' => "esgi.athleteec@gmail.com", 'name' => "Athleteec"],
 
     /*
     |--------------------------------------------------------------------------

@@ -8,17 +8,28 @@
                     {!! csrf_field() !!}
                         <div class="register-top-grid">
                                 <h3>INFORMATIONS PERSONELLES</h3>
+                                <div style="width: 100%;">
+                                    <span>Sexe<label>*</label></span>
+                                    <span style="float: left; margin-left: 20px; margin-right: 20px;"> <input type="radio" name="sexe" value="Femme"> Femme </span>
+                                    <span> <input type="radio" name="sexe" value="Homme" > Homme </span>
+                                </div>
                                 <div>
                                     <span>Prénom<label>*</label></span>
-                                    <input type="text">
+                                    <input type="text" name="firstname" value="{{ old('firstname') }}">
+
+                                    @if ($errors->has('firstname'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('firstname') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
                                 <div>
                                     <span>Nom de famille<label>*</label></span>
-                                    <input type="text" name="name" value="{{ old('name') }}">
+                                    <input type="text" name="lastname" value="{{ old('lastname') }}">
 
-                                    @if ($errors->has('name'))
+                                    @if ($errors->has('lastname'))
                                         <span class="help-block">
-                                            <strong>{{ $errors->first('name') }}</strong>
+                                            <strong>{{ $errors->first('lastname') }}</strong>
                                         </span>
                                     @endif
                                 </div>
@@ -32,11 +43,16 @@
                                         </span>
                                     @endif
                                 </div>
-                                <div class="clear"> </div>
-                                    <a class="news-letter" href="#">
-                                        <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i> </i>S'inscrire à la newsletter</label>
-                                    </a>
-                                <div class="clear"> </div>
+                                <div>
+                                    <span>Confirmation Addresse Email<label>*</label></span>
+                                    <input type="email" name="email_confirmation" value="{{ old('email_confirmation') }}">
+
+                                    @if ($errors->has('email_confirmation'))
+                                        <span class="help-block">
+                                                <strong>{{ $errors->first('email_confirmation') }}</strong>
+                                            </span>
+                                    @endif
+                                </div>
                         </div>
                         <div class="clear"> </div>
                         <div class="register-bottom-grid">
@@ -62,6 +78,10 @@
                                     @endif
                                 </div>
                                 <div class="clear"> </div>
+                        </div>
+                        <div class="clear"> </div>
+                        <div class="news-letter">
+                            <input type="checkbox" name="newsletter" checked=""><i> </i>S'inscrire à la newsletter
                         </div>
                         <div class="clear"> </div>
                         <input type="submit" value="S'inscrire">

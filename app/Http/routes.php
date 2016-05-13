@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('auth.connect');
 });
 Route::auth();
+Route::get('user/activation/{token}', 'Auth\AuthController@activateUser')->name('user.activate');
 
 //Social Login
 Route::get('/login/redirect/{provider}', 'SocialAuthController@redirect');

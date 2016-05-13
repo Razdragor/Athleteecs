@@ -21,6 +21,16 @@
              <div id="loginbox" class="loginbox">
                  <form action="{{ url('/login') }}" method="post" name="login" id="login-form">
                     {!! csrf_field() !!}
+                     @if (session('status'))
+                         <div class="alert alert-success">
+                             {{ session('status') }}
+                         </div>
+                     @endif
+                     @if (session('warning'))
+                         <div class="alert alert-warning">
+                             {{ session('warning') }}
+                         </div>
+                     @endif
                    <fieldset class="input">
                      <p id="login-form-username">
                        <label for="modlgn_username">Email</label>

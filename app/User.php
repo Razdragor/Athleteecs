@@ -4,8 +4,11 @@ namespace App;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class User extends Model
+class User extends Model implements AuthenticatableContract
 {
     use Authenticatable;
     /**
@@ -20,7 +23,7 @@ class User extends Model
      * @var array
      */
     protected $fillable = [
-        'firstname', 'lastname', 'email', 'password', 'birthday', 'sexe'
+       'id', 'firstname', 'lastname', 'email', 'password', 'birthday', 'sexe', 'status','token_email','score', 'picture', 'newsletter', 'created_at', 'updated_at', 'activated'
     ];
 
     /**
@@ -51,5 +54,4 @@ class User extends Model
     {
         return $this->belongsToMany('App\Group', 'users_groups', 'user_id', 'group_id');
     }
-
 }

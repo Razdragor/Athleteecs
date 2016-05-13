@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use Illuminate\Http\Request;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use App\ActivationService;
 use Laravel\Socialite\Contracts\Factory as Socialite;
 
 class AuthController extends Controller
@@ -31,14 +33,17 @@ class AuthController extends Controller
      */
     protected $redirectTo = '/';
 
+    protected $activationService;
+
     /**
      * Create a new authentication controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(ActivationService $activationService)
     {
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+        $this->activationService = $activationService;
     }
 
     /**
@@ -50,8 +55,9 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
+            'firstname' => 'required|max:255',
+            'lastname' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users|confirmed',
             'password' => 'required|min:6|confirmed',
         ]);
     }
@@ -64,10 +70,42 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
+        $newsletter = 0;
+        if($data['newsletter'] == 'on')
+        {
+            $newsletter = 1;
+        }
         return User::create([
-            'name' => $data['name'],
+            'firstname' => $data['firstname'],
+            'lastname' => $data['lastname'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'sexe' => $data['sexe'],
+            'status' => 'validation email',
+            'newsletter' => $newsletter
         ]);
+    }
+
+    public function register(Request $request){
+
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            return redirect('register')->withErrors($validator);
+        }
+
+        $user = $this->create($request->all());
+
+        $this->activationService->sendActivationMail($user);
+        return redirect('/login')->with('status', 'We sent you an activation code. Check your email.');
+    }
+
+    public function activateUser($token)
+    {
+        if ($user = $this->activationService->activateUser($token)) {
+            auth()->login($user);
+            return redirect($this->redirectPath());
+        }
+        abort(404);
     }
 }
