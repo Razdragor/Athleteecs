@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use App\ActivationService;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Contracts\Factory as Socialite;
 
 class AuthController extends Controller
@@ -75,15 +77,18 @@ class AuthController extends Controller
         {
             $newsletter = 1;
         }
-        return User::create([
+        $user = User::create(array(
             'firstname' => $data['firstname'],
             'lastname' => $data['lastname'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'password' => $data['password'],
             'sexe' => $data['sexe'],
             'status' => 'validation email',
             'newsletter' => $newsletter
-        ]);
+        ));
+
+        var_dump($user);
+        exit;
     }
 
     public function register(Request $request){

@@ -20,7 +20,7 @@
              <h4 class="title">Compte existant</h4>
              <div id="loginbox" class="loginbox">
                  <form action="{{ url('/login') }}" method="post" name="login" id="login-form">
-                    {!! csrf_field() !!}
+                    {{ csrf_field() }}
                      @if (session('status'))
                          <div class="alert alert-success">
                              {{ session('status') }}
