@@ -26,7 +26,7 @@
                        <a class="coulfb" href="login/redirect/facebook"><i class="fa fa-facebook" aria-hidden="true"></i>Facebook</a>
                    </div><br><br><br>
                      <div class="btn4">
-                       <a class="coulgplus" href="#"><i class="fa fa-google-plus" aria-hidden="true"></i>Google +</a>
+                       <a class="coulgplus" href="login/redirect/google"><i class="fa fa-google-plus" aria-hidden="true"></i>Google +</a>
                      </div>
                      <div class="btn4">
                        <a class="coultwitter" href="#"><i class="fa fa-twitter" aria-hidden="true"></i>Twitter</a>

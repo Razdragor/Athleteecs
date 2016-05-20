@@ -26,9 +26,20 @@ class SocialAuthController extends Controller
 
     public function callback(SocialAccountService $service, $provider)
     {
-        $user = $service->createOrGetUser(Socialite::driver($provider));
+        if($provider == 'facebook') {
+            $user = $service->createOrGetUser(Socialite::driver($provider)->fields([
+                'name',
+                'first_name',
+                'last_name',
+                'email',
+                'gender',
+                'verified'
+            ])->scopes(['email', 'public_profile']));
+        }elseif($provider == 'google'){
+            $user = $service->createOrGetUser(Socialite::driver($provider));
+        }
         auth()->login($user);
 
-        return redirect()->to('/home');
+        return redirect()->to('/');
     }
 }

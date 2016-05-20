@@ -77,7 +77,7 @@ class AuthController extends Controller
         {
             $newsletter = 1;
         }
-        $user = User::create(array(
+        return User::create(array(
             'firstname' => $data['firstname'],
             'lastname' => $data['lastname'],
             'email' => $data['email'],
@@ -86,9 +86,6 @@ class AuthController extends Controller
             'status' => 'validation email',
             'newsletter' => $newsletter
         ));
-
-        var_dump($user);
-        exit;
     }
 
     public function register(Request $request){
