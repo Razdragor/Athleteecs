@@ -34,13 +34,13 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
-    // TODO: Changer l'url de redirection dans l'application en http://localhost/athleteecs/public/login/callback/facebook
+    
     'facebook' => [
         'client_id'     => '1005451526197926',
         'client_secret' => 'b75af1574e95a4bf4688107a13f16801',
         'redirect'      => env('APP_URL', 'https://localhost').'/login/callback/facebook',
     ],
-    // TODO: Changer l'url de redirection dans l'application en http://localhost/athleteecs/public/login/callback/twitter
+
     'twitter' => [
         'client_id' => 'jvVgZoMJFDGF0nuSRFzrE4jO3',
         'client_secret' => 'onPJd84dU1ZrHgsGmWCFBI4iv5octmWDLQooJ1TZix1T34ttjf',
