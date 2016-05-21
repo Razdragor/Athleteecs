@@ -34,7 +34,7 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
-    
+
     'facebook' => [
         'client_id'     => '1005451526197926',
         'client_secret' => 'b75af1574e95a4bf4688107a13f16801',
@@ -44,13 +44,13 @@ return [
     'twitter' => [
         'client_id' => 'jvVgZoMJFDGF0nuSRFzrE4jO3',
         'client_secret' => 'onPJd84dU1ZrHgsGmWCFBI4iv5octmWDLQooJ1TZix1T34ttjf',
-        'redirect' => env('APP_URL', 'https://localhost').'login/callback/twitter',
+        'redirect' => env('APP_URL', 'https://localhost').'/login/callback/twitter',
     ],
 
     'google' => [
         'client_id' => '416431167187-8k619vus9um4o7puj8umi7cle3kpsjg8.apps.googleusercontent.com',
         'client_secret' => 'f-eRNgK9ZtYiZgVjGVZJxpF5',
-        'redirect' => env('APP_URL', 'https://localhost').'login/callback/google',
+        'redirect' => env('APP_URL', 'https://localhost').'/login/callback/google',
     ]
 
 ];
