@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Role;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use App\ActivationService;
-use Illuminate\Support\Facades\Hash;
-use Laravel\Socialite\Contracts\Factory as Socialite;
 
 class AuthController extends Controller
 {
@@ -97,6 +95,8 @@ class AuthController extends Controller
         }
 
         $user = $this->create($request->all());
+        $roleUser = Role::find(2);
+        $user->attachRole($roleUser);
 
         $this->activationService->sendActivationMail($user);
         return redirect('/login')->with('status', 'We sent you an activation code. Check your email.');
