@@ -29,7 +29,7 @@
                        <a class="coulgplus" href="login/redirect/google"><i class="fa fa-google-plus" aria-hidden="true"></i>Google +</a>
                      </div>
                      <div class="btn4">
-                       <a class="coultwitter" href="#"><i class="fa fa-twitter" aria-hidden="true"></i>Twitter</a>
+                       <a class="coultwitter" href="login/redirect/twitter"><i class="fa fa-twitter" aria-hidden="true"></i>Twitter</a>
                      </div>
 
                  <div class="clear"></div>
