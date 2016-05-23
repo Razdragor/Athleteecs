@@ -20,3 +20,10 @@ Route::get('user/activation/{token}', 'Auth\AuthController@activateUser')->name(
 Route::get('/login/redirect/{provider}', 'SocialAuthController@redirect');
 Route::get('/login/callback/{provider}', 'SocialAuthController@callback');
 
+/*
+Authentifier
+    /home
+    /profil
+
+*/
+
