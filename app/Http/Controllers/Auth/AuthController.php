@@ -86,6 +86,14 @@ class AuthController extends Controller
         ));
     }
 
+    protected function authenticated($request, $user)
+    {
+        if($user->hasRole('admin')) {
+            return redirect()->intended('/admin');
+        }
+        return redirect()->intended('/');
+    }
+
     public function register(Request $request){
 
         $validator = $this->validator($request->all());

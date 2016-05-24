@@ -11,19 +11,31 @@
 |
 */
 
-Route::get('/', function () {
-    return view('auth.connect');
-});
+use Illuminate\Support\Facades\Auth;
+
+Route::model('association', 'App\Association');
+Route::model('groupe', 'App\Group');
+
+
+
 Route::auth();
 Route::get('user/activation/{token}', 'Auth\AuthController@activateUser')->name('user.activate');
+
 //Social Login
 Route::get('/login/redirect/{provider}', 'SocialAuthController@redirect');
 Route::get('/login/callback/{provider}', 'SocialAuthController@callback');
 
-/*
-Authentifier
-    /home
-    /profil
+Route::group(['middleware' => 'auth'], function () {
 
-*/
+    Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () {
+        Route::get('/', 'Admin\AdminController@index');
+    });
 
+    Route::group(['middleware' => ['role:user|admin']], function () {
+        Route::get('/', 'Front\IndexController@index');
+    });
+});
+
+Route::get('/connect', function () {
+    return view('auth.connect');
+});
