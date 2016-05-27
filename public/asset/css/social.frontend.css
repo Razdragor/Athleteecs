@@ -7,6 +7,18 @@
  * Purchase:       http://go.cesarlab.com/PurchaseSocial2
  * Based on Bootstrap v3 (Copyright 2013 Twitter, Inc) by @mdo and @fat.
  */
+
+body {
+  font-family: 'Lato';
+}
+
+.fa-btn {
+  margin-right: 6px;
+}
+.wrapper .main {
+  margin-top: 60px;
+}
+
 body {
   color: #777777;
   background: #f7f7f7;

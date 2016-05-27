@@ -20,126 +20,190 @@
     <link href="{{ asset('asset/css/jquery-ui/social/jquery.ui.css') }}" rel="stylesheet">
 
     <style>
-        body {
-            font-family: 'Lato';
-        }
 
-        .fa-btn {
-            margin-right: 6px;
-        }
     </style>
 </head>
 <body id="app-layout">
-    <header>
-        <div class="header-bottom">
-           <div class="container">
-              <div class="header-bottom_left">
-                  <i class="fa fa-phone-square" aria-hidden="true"></i><span>0712345678</span>
-              </div>
-              <div class="social">
-                 <ul>
-                    <li class="facebook"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                    <li class="twitter"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                    <li class="pinterest"><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-                    <li class="google"><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                    <li class="tumblr"><a href="#"><i class="fa fa-tumblr" aria-hidden="true"></i></a></li>
-                    <li class="instagram"><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                    <li class="rss"><a href="#"><i class="fa fa-rss" aria-hidden="true"></i></a></li>
-                 </ul>
-             </div>
-             <div class="clear"></div>
-          </div>
+    <div class="wrapper">
+        <header>
+            <nav id="navbar" role="navigation" class="social-navbar navbar navbar-default navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a href="#" class="navbar-brand">
+                            <h1>Social</h1>
+                        </a>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="./index.html">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">Pages<b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="./pages_login.html">Log in</a>
+                                    </li>
+                                    <li>
+                                        <a href="./pages_signup.html">Sign Up</a>
+                                    </li>
+                                    <li>
+                                        <a href="./pages_about.html">About Us</a>
+                                    </li>
+                                    <li>
+                                        <a href="./pages_blog_category.html">Blog Category</a>
+                                    </li>
+                                    <li>
+                                        <a href="./pages_blog_page.html">Blog Page</a>
+                                    </li>
+                                    <li>
+                                        <a href="./pages_pricing_tables.html">Pricing Tables</a>
+                                    </li>
+                                    <li>
+                                        <a href="./pages_faq.html">FAQ</a>
+                                    </li>
+                                    <li>
+                                        <a href="./pages_search_results.html">Search Results</a>
+                                    </li>
+                                    <li>
+                                        <a href="./pages_error_404.html">404 Error Page</a>
+                                    </li>
+                                    <li>
+                                        <a href="./pages_error_500.html">500 Error Page</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="./features.html">Features</a>
+                            </li>
+                            <li>
+                                <a href="./portfolio.html">Portfolio</a>
+                            </li>
+                            <li>
+                                <a href="./contact.html">Contact</a>
+                            </li>
+                            <li>
+                                <a href="../admin/index.html">Admin</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.nav-collapse-->
+                </div>
+            </nav>
+        </header>
+        <div class="main">
+            @yield('content')
         </div>
-        <div class="menu" id="menu">
-        <div class="container">
-           <div class="logo">
-              <a href="index.html"><img class="logo" src="asset/img/logo.svg" alt=""/></a>
-           </div>
-           <div class="h_menu4">
-             <a class="toggleMenu" href="#">Menu</a>
-               <ul class="nav">
-                 <li class="active"><a href="index.html">Accueil</a></li>
-                 <li><a href="about.html">A propos</a></li>
-                 <li><a href="trainers.html">Trainers</a></li>
-                 <li><a href="classes.html">Classes</a></li>
-                 <li><a href="pricing.html">Pricing</a></li>
-                 <li><a href="contact.html">Contact</a></li>
-               </ul>
-                <script type="text/javascript" src="js/nav.js"></script>
+        <footer class="section footer">
+            <div class="container">
+                <div class="row website-info">
+                    <div class="col-sm-4 col-md-4">
+                        <h4>Latest Posts</h4>
+                        <ul class="posts-list">
+                            <li>
+                                <a href="#">Lorem ipsum dolor sit amet, consectetur.</a>
+                            </li>
+                            <li>
+                                <a href="#">Lorem ipsum.</a>
+                            </li>
+                            <li>
+                                <a href="#">Lorem ipsum dolor.</a>
+                            </li>
+                            <li>
+                                <a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing.</a>
+                            </li>
+                            <li>
+                                <a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing.</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-4 col-md-4">
+                        <h4>Social Networks</h4>
+                        <div class="social-timeline">
+                            <dl class="dl-horizontal">
+                                <dt><i class="fa fa-twitter"></i>
+                                </dt>
+                                <dd>
+                                    <a href="#ignore">@juliomrqz</a>&nbsp;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum, modi.&nbsp;
+                                    <small>5 min ago</small>
+                                </dd>
+                            </dl>
+                            <dl class="dl-horizontal">
+                                <dt><i class="fa fa-facebook"></i>
+                                </dt>
+                                <dd>
+                                    <a href="#ignore">Julio Marquez</a>&nbsp;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum, modi.&nbsp;
+                                    <small>7 min ago</small>
+                                </dd>
+                            </dl>
+                        </div>
+                        <form action="#" class="form-inline">
+                            <div class="input-group">
+                                <input type="text" class="form-control">
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-inverse">Subscribe</button>
+                  </span>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-4 col-md-4 company-info">
+                        <h4>Who Are We?</h4>
+                        <p>Lorem ipsum dolor slo onsec tueraliquet Morbi nec In Curabitur lreaoreet nisl lorem in pellente pellente eget. Lorem ipsum dolor slo onsec Vivamus.</p>
+                        <address><strong>CESARLAB, Inc.</strong>
+                            <br>795 Street Ave, Suite 000
+                            <br>San Vegas, WT 9407
+                            <br><i class="fa fa-phone"></i>&nbsp;+1 (914) 820-6220</address><i class="fa fa-envelope"></i>&nbsp;support@cesarlab.com
+                    </div>
+                </div>
+                <div class="row social-network-footer">
+                    <div class="col-sm-12 align-center">
+                        <ul>
+                            <li>
+                                <a title="RSS" class="btn btn-social-icon btn-warning"><i class="fa fa-rss"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a title="Facebook" class="btn btn-social-icon btn-facebook"><i class="fa fa-facebook"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a title="Twitter" class="btn btn-social-icon btn-twitter"><i class="fa fa-twitter"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a title="Google+" class="btn btn-social-icon btn-google-plus"><i class="fa fa-google-plus"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a title="Linkedin" class="btn btn-social-icon btn-linkedin"><i class="fa fa-linkedin"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row copyright">
+                    <div class="col-sm-12">
+                        <p>Copyright © 2014 Social - by&nbsp;
+                            <a href="http://cesarlab.com" target="_blank">cesarlab.com</a>
+                        </p>
+                    </div>
+                </div>
             </div>
-           <div class="clear"></div>
-        </div>
-        </div>
-    </header>
+        </footer>
+    </div>
 
-    @yield('content')
+
 
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
-    <footer>
-        <div class="footer-bottom">
-		   <div class="container">
-		 	 <div class="row section group">
-				<div class="col-md-4">
-				   <h4 class="m_7">Newsletter Signup</h4>
-				   <p class="m_8">Lorem ipsum dolor sit amet, consectetuer adipiscing elit sed diam nonummy.</p>
-				      <form class="subscribe">
-			             <input type="text" value="Insert Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Insert Email';}">
-					  </form>
-			          <div class="subscribe1">
-			            <a href="#">Submit Email<i class="but_arrow"> </i></a>
-			          </div>
-				</div>
-				<div class="col-md-4">
-					<p class="m_9">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis</p>
-					<p class="address">Phone : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">(00) 222 666 444</span></p>
-					<p class="address">Email : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">info[at]mycompany.com</span></p>
-                    <div class="f-logo">
-						<img class="logo" src="asset/img/logo.svg" alt=""/>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<ul class="list">
-						<h4 class="m_7">Menu</h4>
-						<li><a href="#">About</a></li>
-						<li><a href="#">Trainers</a></li>
-						<li><a href="#">Classes</a></li>
-						<li><a href="#">Pricing</a></li>
-						<li><a href="#">Privacy</a></li>
-						<li><a href="#">Contact</a></li>
-					</ul>
-					<ul class="list1">
-						<h4 class="m_7">Community</h4>
-						<li><a href="#">Blog</a></li>
-						<li><a href="#">Forum</a></li>
-						<li><a href="#">Support</a></li>
-						<li><a href="#">Newsletter</a></li>
-					</ul>
-				</div>
-				<div class="clear"></div>
-	  		  </div>
-		 	</div>
-		 </div>
-		 <div class="copyright">
-		  <div class="container">
-		    <div class="copy">
-		        <p>© 2016 ATHLETEEC</p>
-		    </div>
-		    <div class="social">
-			   <ul>
-                   <li class="facebook"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                   <li class="twitter"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                   <li class="pinterest"><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-                   <li class="google"><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                   <li class="tumblr"><a href="#"><i class="fa fa-tumblr" aria-hidden="true"></i></a></li>
-                   <li class="instagram"><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                   <li class="rss"><a href="#"><i class="fa fa-rss" aria-hidden="true"></i></a></li>
-			   </ul>
-		    </div>
-		   <div class="clear"></div>
-		  </div>
-    </footer>
 </body>
 </html>
