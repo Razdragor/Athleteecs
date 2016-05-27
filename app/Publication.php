@@ -18,7 +18,7 @@ class Publication extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'activity_id', 'group_id', 'date_start', 'message'
+        'user_id', 'activity_id', 'group_id', 'date_start', 'message', 'picture'
     ];
 
     /**

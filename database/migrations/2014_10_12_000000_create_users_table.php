@@ -25,7 +25,8 @@ class CreateUsersTable extends Migration
             $table->boolean('activated')->default(false);
             $table->integer('score')->default(0);
             $table->string('picture')->nullable();
-            $table->boolean('newsletter');
+            $table->boolean('newsletter')->default(false);
+            $table->boolean('start')->default(false);
             $table->timestamps();
         });
     }
