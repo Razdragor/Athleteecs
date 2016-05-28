@@ -1,12 +1,14 @@
-@extends('layouts.app')
-<link href="{{ asset('asset/css/layouts/login2.css') }}" rel="stylesheet">
+@extends('layouts.app').
+@section('css')
+    <link href="{{ asset('asset/css/layouts/login2.css') }}" rel="stylesheet">
+@endsection
 @section('content')
     <div class="container">
         <!-- BEGIN SIGNIN SECTION-->
         <div class="signin">
             <!-- //Notice .title class-->
-            <h3 class="title">Login or
-                <a href="#"> Sign up</a>
+            <h3 class="title">
+                Connectez vous
             </h3>
             <div class="row row-sm-offset-3 social-buttons">
                 <div class="col-xs-4 col-sm-2">
@@ -74,6 +76,9 @@
             </div>
             <div class="row row-sm-offset-3">
                 <div class="col-xs-12 col-md-6">
+                    <p>
+                        <a href="{{ url("/register") }}"> Inscription</a>
+                    </p>
                     <!-- //Notice .forgot-password class-->
                     <p class="forgot-password">
                         <a href="#">Forgot password?</a>

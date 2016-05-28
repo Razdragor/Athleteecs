@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Role;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use App\Providers\SocialAccountService;
 
@@ -40,10 +41,11 @@ class SocialAuthController extends Controller
             $user = $service->createOrGetUser(Socialite::driver($provider));
         }
 
-        if(!isset($user)) {
+        if(isset($user)) {
             $roleUser = Role::find(2);
-            $user->attachRole($roleUser);
-
+            if(!$user->hasRole($roleUser)){
+                $user->attachRole($roleUser);
+            }
             auth()->login($user);
         }
 

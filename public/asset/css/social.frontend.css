@@ -601,3 +601,7 @@ a {
   -o-transition: all 0.2s;
           transition: all 0.2s;
 }
+
+.logo-athleteec{
+  width: 40%;
+}

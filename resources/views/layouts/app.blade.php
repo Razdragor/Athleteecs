@@ -17,6 +17,7 @@
     <link href="{{ asset('asset/css/font-awesome/font-awesome.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.social.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/jquery-ui/social/jquery.ui.css') }}" rel="stylesheet">
+    @yield('css')
 
     <style>
 
@@ -34,63 +35,66 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a href="#" class="navbar-brand">
-                            <h1>Social</h1>
+                        <a href="{{ url('/') }}" class="navbar-brand">
+                            <img class="logo-athleteec" src="asset/img/logo.svg" alt=""/>
                         </a>
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav navbar-right">
-                            <li>
-                                <a href="./index.html">Home</a>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">Pages<b class="caret"></b>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="./pages_login.html">Log in</a>
-                                    </li>
-                                    <li>
-                                        <a href="./pages_signup.html">Sign Up</a>
-                                    </li>
-                                    <li>
-                                        <a href="./pages_about.html">About Us</a>
-                                    </li>
-                                    <li>
-                                        <a href="./pages_blog_category.html">Blog Category</a>
-                                    </li>
-                                    <li>
-                                        <a href="./pages_blog_page.html">Blog Page</a>
-                                    </li>
-                                    <li>
-                                        <a href="./pages_pricing_tables.html">Pricing Tables</a>
-                                    </li>
-                                    <li>
-                                        <a href="./pages_faq.html">FAQ</a>
-                                    </li>
-                                    <li>
-                                        <a href="./pages_search_results.html">Search Results</a>
-                                    </li>
-                                    <li>
-                                        <a href="./pages_error_404.html">404 Error Page</a>
-                                    </li>
-                                    <li>
-                                        <a href="./pages_error_500.html">500 Error Page</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="./features.html">Features</a>
-                            </li>
-                            <li>
-                                <a href="./portfolio.html">Portfolio</a>
-                            </li>
-                            <li>
-                                <a href="./contact.html">Contact</a>
-                            </li>
-                            <li>
-                                <a href="../admin/index.html">Admin</a>
-                            </li>
+                            @if(Auth::check())
+                                <li>
+                                    <a href="./index.html">Home</a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">Pages<b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="./pages_login.html">Log in</a>
+                                        </li>
+                                        <li>
+                                            <a href="./pages_signup.html">Sign Up</a>
+                                        </li>
+                                        <li>
+                                            <a href="./pages_about.html">About Us</a>
+                                        </li>
+                                        <li>
+                                            <a href="./pages_blog_category.html">Blog Category</a>
+                                        </li>
+                                        <li>
+                                            <a href="./pages_blog_page.html">Blog Page</a>
+                                        </li>
+                                        <li>
+                                            <a href="./pages_pricing_tables.html">Pricing Tables</a>
+                                        </li>
+                                        <li>
+                                            <a href="./pages_faq.html">FAQ</a>
+                                        </li>
+                                        <li>
+                                            <a href="./pages_search_results.html">Search Results</a>
+                                        </li>
+                                        <li>
+                                            <a href="./pages_error_404.html">404 Error Page</a>
+                                        </li>
+                                        <li>
+                                            <a href="./pages_error_500.html">500 Error Page</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="./features.html">Features</a>
+                                </li>
+                                <li>
+                                    <a href="./portfolio.html">Portfolio</a>
+                                </li>
+                                <li>
+                                    <a href="./contact.html">Contact</a>
+                                </li>
+                                <li>
+                                    <a href="../admin/index.html">Admin</a>
+                                </li>
+                            @endif
+
                         </ul>
                     </div>
                     <!-- /.nav-collapse-->
@@ -203,6 +207,7 @@
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    @yield('js')
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 </body>
 </html>
