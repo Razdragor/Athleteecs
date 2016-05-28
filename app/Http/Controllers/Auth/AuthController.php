@@ -70,11 +70,9 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        $newsletter = 0;
-        if($data['newsletter'] == 'on')
-        {
-            $newsletter = 1;
-        }
+        createFromFormat('d/m/Y', '11/06/1990');
+        $bithdate = Carbon::createFromFomat('d/m/Y', $data['day'].'/'.$data['month'].'/'.$data['year']);
+
         return User::create(array(
             'firstname' => $data['firstname'],
             'lastname' => $data['lastname'],
@@ -82,7 +80,7 @@ class AuthController extends Controller
             'password' => $data['password'],
             'sexe' => $data['sexe'],
             'status' => 'validation email',
-            'newsletter' => $newsletter
+            'birthdate' => $bithdate
         ));
     }
 
@@ -102,7 +100,9 @@ class AuthController extends Controller
             return redirect('register')->withErrors($validator);
         }
 
+
         $user = $this->create($request->all());
+
         $roleUser = Role::find(2);
         $user->attachRole($roleUser);
 
