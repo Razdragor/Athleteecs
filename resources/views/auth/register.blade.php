@@ -115,15 +115,15 @@
                             <select class="form-control" name="month">
                                 <?php
                                 $months = array(
-                                '01' => 'Janvier',
-                                '02' => 'Février',
-                                '03' => 'Mars',
-                                '04' => 'Avril',
-                                '05' => 'Mai',
-                                '06' => 'Juin',
-                                '07' => 'Juillet',
-                                '08' => 'Août',
-                                '09' => 'Septembre',
+                                '1' => 'Janvier',
+                                '2' => 'Février',
+                                '3' => 'Mars',
+                                '4' => 'Avril',
+                                '5' => 'Mai',
+                                '6' => 'Juin',
+                                '7' => 'Juillet',
+                                '8' => 'Août',
+                                '9' => 'Septembre',
                                 '10' => 'Octobre',
                                 '11' => 'Novembre',
                                 '12' => 'Décembre');?>
@@ -145,19 +145,19 @@
                         </div>
                     </div>
 
-                    @if ($errors->has('birthdate'))
+                    @if ($errors->has('birthday'))
                         <span class="help-block">
-                                <strong>{{ $errors->first('birthdate') }}</strong>
+                                <strong>{{ $errors->first('birthday') }}</strong>
                             </span>
                     @endif
 
                 </div>
                 <div class="form-group text-center">
                     <label class="radio-inline">
-                        <input id="inlineCheckbox1" type="radio" name="sex" value="male">Homme
+                        <input id="inlineCheckbox1" type="radio" name="sexe" value="homme">Homme
                     </label>
                     <label class="radio-inline">
-                        <input id="inlineCheckbox2" type="radio" name="sex" value="female">Femme
+                        <input id="inlineCheckbox2" type="radio" name="sexe" value="femme">Femme
                     </label>
                 @if ($errors->has('sexe'))
                     <span class="help-block">
