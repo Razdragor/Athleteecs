@@ -12,9 +12,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
 
     <!-- Styles -->
-    <link href="{{ asset('asset/css/social.frontend.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/social.core.css') }}" rel="stylesheet">
-    <link href="{{ asset('asset/css/themes/frontend/blue.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/social.frontend.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/font-awesome/font-awesome.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.social.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/jquery-ui/social/jquery.ui.css') }}" rel="stylesheet">

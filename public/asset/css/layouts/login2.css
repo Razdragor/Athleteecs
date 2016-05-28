@@ -7,8 +7,6 @@
  * Purchase:       http://go.cesarlab.com/PurchaseSocial2
  */
 body {
-  padding-top: 40px;
-  padding-bottom: 40px;
   -webkit-box-shadow: 0px 0px 1px rgba(196, 197, 201, 0.75);
           box-shadow: 0px 0px 1px rgba(196, 197, 201, 0.75);
 }
@@ -20,6 +18,13 @@ form {
     For the media queries use @screen-sm-min instead of 768px.
     For .span-or use @body-bg instead of white.
 */
+
+.signin {
+  margin : 40px;
+  background-color: #fff;
+  border: 1px solid #c4c5c9;
+}
+
 @media (min-width: 768px) {
   .row-sm-offset-3 div:first-child[class*="col-"] {
     margin-left: 25%;
@@ -27,14 +32,12 @@ form {
 }
 @media screen and (max-width: 767px) {
   .signin {
+    margin : 5px;
     padding-left: 10px;
     padding-right: 10px;
   }
 }
-.signin {
-  background-color: #fff;
-  border: 1px solid #c4c5c9;
-}
+
 .signin .title {
   text-align: center;
   line-height: 300%;
