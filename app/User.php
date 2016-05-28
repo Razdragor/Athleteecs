@@ -58,6 +58,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->belongsToMany('App\Group', 'users_groups', 'user_id', 'group_id');
     }
 
+    public function equipments()
+    {
+        return $this->hasMany('App\Equipment', 'users_equips_sports', 'user_id', 'product_id');
+    }
+
+
     /**
      * Get the name of the unique identifier for the user.
      *
