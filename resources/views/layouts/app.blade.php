@@ -202,7 +202,11 @@
         </footer>
     </div>
 
-
+    <script src="{{ asset('asset/js/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('asset/js/plugins/bootstrap/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('asset/js/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker.js') }}"></script>
+    <script src="{{ asset('asset/js/demo/theme-switcher-frontend.js') }}"></script>
+    <script src="{{ asset('asset/js/app.js') }}"></script>
 
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>

@@ -104,9 +104,12 @@ class AuthController extends Controller
 
         $user = $this->create($request->all());
 
-        $roleUser = Role::find(2);
-        if(!$user->hasRole($roleUser)){
-            $user->attachRole($roleUser);
+        if(isset($user)) {
+            $roleUser = Role::find(2);
+            if(!$user->hasRole($roleUser->name)){
+                $user->attachRole($roleUser);
+            }
+            auth()->login($user);
         }
 
         $this->activationService->sendActivationMail($user);
