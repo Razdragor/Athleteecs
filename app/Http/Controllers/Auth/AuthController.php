@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use App\ActivationService;
+use Carbon\Carbon;
 
 class AuthController extends Controller
 {
@@ -70,8 +71,8 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        createFromFormat('d/m/Y', '11/06/1990');
-        $bithdate = Carbon::createFromFomat('d/m/Y', $data['day'].'/'.$data['month'].'/'.$data['year']);
+
+        $bithdate = Carbon::createFromFomat($data['day']."/".$data['month']."/".$data['year']);
 
         return User::create(array(
             'firstname' => $data['firstname'],

@@ -17,12 +17,12 @@
                     </a>
                 </div>
                 <div class="col-xs-4 col-sm-2">
-                    <a href="login/redirect/google" class="btn btn-lg btn-block btn-twitter"><i class="fa fa-twitter fa-lg visible-xs"></i>
+                    <a href="login/redirect/twitter" class="btn btn-lg btn-block btn-twitter"><i class="fa fa-twitter fa-lg visible-xs"></i>
                         <span class="hidden-xs">Twitter</span>
                     </a>
                 </div>
                 <div class="col-xs-4 col-sm-2">
-                    <a href="login/redirect/twitter" class="btn btn-lg btn-block btn-google-plus"><i class="fa fa-google-plus fa-lg visible-xs"></i>
+                    <a href="login/redirect/google" class="btn btn-lg btn-block btn-google-plus"><i class="fa fa-google-plus fa-lg visible-xs"></i>
                         <span class="hidden-xs">Google+</span>
                     </a>
                 </div>
@@ -33,7 +33,7 @@
                     <!-- //Notice .hr-or class-->
                     <hr class="hr-or">
                     <!-- //Notice .span-or class-->
-                    <span class="span-or">or</span>
+
                 </div>
             </div>
             <div class="row row-sm-offset-3">

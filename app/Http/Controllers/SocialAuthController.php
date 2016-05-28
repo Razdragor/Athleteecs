@@ -43,7 +43,7 @@ class SocialAuthController extends Controller
 
         if(isset($user)) {
             $roleUser = Role::find(2);
-            if(!$user->hasRole($roleUser)){
+            if(!$user->hasRole($roleUser->name)){
                 $user->attachRole($roleUser);
             }
             auth()->login($user);

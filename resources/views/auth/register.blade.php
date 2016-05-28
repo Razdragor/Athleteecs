@@ -64,7 +64,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <input name="youremail" placeholder="E-mail" type="email" class="form-control">
+                    <input name="email" placeholder="E-mail" type="email" class="form-control">
                     @if ($errors->has('email'))
                         <span class="help-block">
                                     <strong>{{ $errors->first('email') }}</strong>
@@ -72,7 +72,7 @@
                     @endif
                 </div>
                 <div class="form-group">
-                    <input name="reenteremail" placeholder="Confirmation votre e-mail" type="email" class="form-control">
+                    <input name="email_confirmation" placeholder="Confirmation votre e-mail" type="email" class="form-control">
                     @if ($errors->has('email_confirmation'))
                         <span class="help-block">
                                         <strong>{{ $errors->first('email_confirmation') }}</strong>
