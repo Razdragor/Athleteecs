@@ -71,8 +71,8 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-
-        $bithdate = Carbon::createFromFomat($data['day']."/".$data['month']."/".$data['year']);
+        $tz = "Europe/Paris";
+        $birthday = Carbon::createFromDate($data['year'], $data['month'], $data['day'], $tz);
 
         return User::create(array(
             'firstname' => $data['firstname'],
@@ -81,7 +81,7 @@ class AuthController extends Controller
             'password' => $data['password'],
             'sexe' => $data['sexe'],
             'status' => 'validation email',
-            'birthdate' => $bithdate
+            'birthday' => $birthday
         ));
     }
 
