@@ -36,7 +36,7 @@
                             <span class="icon-bar"></span>
                         </button>
                         <a href="{{ url('/') }}" class="navbar-brand">
-                            <img class="logo-athleteec" src="asset/img/logo.svg" alt=""/>
+                            <img class="logo-athleteec" src="{{ asset('asset/img/logo.svg') }}" alt=""/>
                         </a>
                     </div>
                     <div class="navbar-collapse collapse">

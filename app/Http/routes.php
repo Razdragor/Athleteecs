@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['middleware' => ['role:user|admin']], function () {
         Route::get('/', 'Front\IndexController@index');
+        Route::resource('user', 'UserController');
     });
 });
 

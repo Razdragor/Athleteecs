@@ -114,6 +114,9 @@ hr {
           box-sizing: content-box;
   height: 0;
 }
+.panel-fixed-top{
+  margin-top: 40px;
+}
 pre {
   overflow: auto;
 }
