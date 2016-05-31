@@ -15,7 +15,7 @@
         <div class="col-md-12">
             <div class="panel panel-primary panel-fixed-top">
                 <div class="panel-heading">
-                    <h3 class="panel-title">User Profile</h3>
+                    <h3 class="panel-title">Profil</h3>
                 </div>
                 <div class="panel-body">
                     <!--Notice .user-profile class-->
@@ -27,9 +27,12 @@
                                         <img src="{{ asset('asset/img/avatars/avatar.png') }}" alt="Avatar" class="img-thumbnail img-responsive">
                                     </div>
                                 </div>
-                                <div>
-                                    <a class="btn btn-block btn-success"><i class="fa fa-envelope-alt"></i>Send message</a>
-                                </div>
+
+                                @if(Auth::user() != $user)
+                                    <div>
+                                        <a class="btn btn-block btn-success"><i class="fa fa-envelope-alt"></i>Envoyer un message</a>
+                                    </div>
+                                @endif
                                 <br>
                                 <!-- BEGIN SOCIAL ICONS-->
                                 <div class="text-center social-icons">
@@ -52,13 +55,14 @@
                                 <div class="row">
                                     <!-- BEGIN USER STATUS-->
                                     <div id="user-status" class="text-left col-sm-10 col-md-10">
-                                        <h3>Julio Marquez</h3>
-                                        <h5>Geophysical Engineer, Company Inc., USA</h5>
+                                        <h3>{{ $user->firstname}} {{$user->lastname }}</h3>
                                     </div>
                                     <!-- END USER STATUS-->
+                                    @if(Auth::user() == $user)
                                     <div class="col-sm-2 col-md-2 hidden-xs">
-                                        <a id="edit-profile-button" href="#edit" class="btn btn-block btn-primary">Edit Profile</a>
+                                        <a id="edit-profile-button" href="#edit" class="btn btn-block btn-primary">Editer le profil</a>
                                     </div>
+                                    @endif
                                 </div>
                                 <!-- BEGIN USER PANORAMIC-->
                                 <p id="panoramic" class="hidden-xs">
@@ -73,17 +77,17 @@
                                 <!-- BEGIN TABS SELECTIONS-->
                                 <div class="row">
                                     <ul id="profileTab" class="nav nav-tabs">
-                                        <li>
-                                            <a href="#pots">Posts</a>
+                                        <li id="pots">
+                                            <a href="#">Posts</a>
                                         </li>
-                                        <li class="active">
-                                            <a href="#info" data-toggle="tab">Info</a>
+                                        <li class="active" id="infos">
+                                            <a href="#" data-toggle="tab">Info</a>
                                         </li>
-                                        <li>
-                                            <a href="#profile">Photos</a>
+                                        <li id="photos">
+                                            <a href="#">Photos</a>
                                         </li>
-                                        <li>
-                                            <a href="#profile">Videos</a>
+                                        <li id="videos">
+                                            <a href="#">Videos</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -91,27 +95,58 @@
                                 <div class="row">
                                     <!-- BEGIN TABS SECTIONS-->
                                     <div id="profileTabContent" class="tab-content col-sm-9 col-md-9">
-                                        <div id="info" class="tab-pane active">
+                                        <div class="tab-pane active pots" style="display: none;">
+                                            @foreach($user->publications as $publication)
+                                            <br>
+
+                                            <div class="timeline-panel">
+                                                <!-- //Notice .timeline-heading class-->
+                                                <div class="timeline-heading">
+                                                    <img src="http://lorempixel.com/800/250/sports/5/" alt="Image" class="img-responsive">
+                                                </div>
+                                                <!-- //Notice .timeline-body class-->
+                                                <div class="timeline-body">
+                                                    <p>{{ $publication->message }}</p>
+                                                </div>
+                                                <!-- //Notice .timeline-footer class-->
+                                                <div class="timeline-footer">
+                                                    <!---->
+                                                    <a href="#"><i class="fa fa-thu mbs-up"></i>
+                                                    </a>
+                                                    <!---->
+                                                    <a href="#"><i class="fa fa-comment"></i>
+                                                    </a>
+                                                    <!---->
+                                                    <a href="#"><i class="fa fa-share"></i>
+                                                    </a>
+                                                    <!---->
+                                                    <a class="late-reading">Continue Reading</a>
+                                                </div>
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                        <div class="tab-pane active infos">
                                             <br>
                                             <dl class="dl-horizontal">
-                                                <dt>Introduction</dt>
-                                                <dd>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex, magnam voluptates cum non doloremque tenetur minima voluptas est ipsam delectus.</dd>
+                                                <dt>Sexe</dt>
+                                                <dd>{{ $user->sexe }}</dd>
                                                 <dd class="divider"></dd>
-                                                <dt>Occupation</dt>
-                                                <dd>Geophysical Engineer</dd>
+                                                <dt>Poste actuel</dt>
+                                                <dd>A rajouté !</dd>
                                                 <dd class="divider"></dd>
-                                                <dt>Employment</dt>
-                                                <dd>Geophysical Engineer</dd>
-                                                <dd>Company Inc.</dd>
+                                                <dt>Entreprise</dt>
+                                                <dd>A rajouté</dd>
                                                 <dd class="divider"></dd>
-                                                <dt>Education</dt>
-                                                <dd>College Name</dd>
-                                                <dd>Geophisics</dd>
+                                                <dt>Scolarité</dt>
+                                                <dd>A ajouté</dd>
                                                 <dd class="divider"></dd>
-                                                <dd>School Name</dd>
-                                                <dd>High School</dd>
+                                                <dt>Sports pratiqué</dt>
+                                                @foreach($user->sports() as $sport)
+                                                    {{ $sport->name }}
+                                                @endforeach
+                                                <dd>A ajouté</dd>
                                                 <dd class="divider"></dd>
-                                                <dt>Places Lived</dt>
+                                                <dt>Adresse postal</dt>
                                                 <dd>
                                                     <img src="http://maps.googleapis.com/maps/api/staticmap?center=-12.043333,-77.028333&amp;size=450x150&amp;sensor=true&amp;zoom=15" alt="Map" class="img-responsive">
                                                 </dd>

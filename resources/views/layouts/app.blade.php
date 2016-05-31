@@ -19,9 +19,6 @@
     <link href="{{ asset('asset/css/jquery-ui/social/jquery.ui.css') }}" rel="stylesheet">
     @yield('css')
 
-    <style>
-
-    </style>
 </head>
 <body id="app-layout">
     <div class="wrapper">
