@@ -54,3 +54,37 @@ $(function() {
     });
   }
 });
+
+
+$('#pots').click(function() {
+  var valeur;
+  valeur = $('.active').attr('id');
+  $('#'+valeur).removeClass("active");
+  $('.'+valeur).hide();
+  $(this).addClass('active');
+  $('.pots').show();
+});
+
+$('#infos').click(function() {
+  var valeur;
+  valeur = $('.active').attr('id');
+  $('#'+valeur).removeClass("active");
+  $('.'+valeur).hide();
+  $(this).addClass('active');
+  $('.infos').show();
+});
+$('#videos').click(function() {
+  var valeur;
+  valeur = $('.active').attr('id');
+  $('#'+valeur).removeClass("active");
+  $('.'+valeur).hide();
+  $(this).addClass('active');
+  $('.videos').show();
+});
+$('#photos').click(function() {
+  var valeur;
+  valeur = $('.active').attr('id');
+  $('#'+valeur).removeClass("active");
+  $('.'+valeur).hide();
+  $(this).addClass('active');
+});

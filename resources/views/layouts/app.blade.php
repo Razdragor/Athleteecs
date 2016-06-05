@@ -21,9 +21,6 @@
     <link href="{{ asset('asset/js/plugins/google-code-prettify/styles/bootstrap-light.css') }}" rel="stylesheet">
     @yield('css')
 
-    <style>
-
-    </style>
 </head>
 <body id="app-layout">
     <div class="wrapper">
@@ -38,7 +35,7 @@
                             <span class="icon-bar"></span>
                         </button>
                         <a href="{{ url('/') }}" class="navbar-brand">
-                            <img class="logo-athleteec" src="asset/img/logo.svg" alt=""/>
+                            <img class="logo-athleteec" src="{{ asset('asset/img/logo.svg') }}" alt=""/>
                         </a>
                     </div>
                     <div class="navbar-collapse collapse">

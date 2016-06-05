@@ -53,10 +53,21 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->hasMany('App\Activity');
     }
 
+    public function publications()
+    {
+        return $this->hasMany('App\Publication');
+    }
+
     public function groups()
     {
         return $this->belongsToMany('App\Group', 'users_groups', 'user_id', 'group_id');
     }
+
+    public function equipments()
+    {
+        return $this->hasMany('App\Equipment', 'users_equips_sports', 'user_id', 'product_id');
+    }
+
 
     /**
      * Get the name of the unique identifier for the user.

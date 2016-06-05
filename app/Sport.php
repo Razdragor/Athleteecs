@@ -18,8 +18,7 @@ class Sport extends Model
      * @var array
      */
     protected $fillable = [
-        'name'
-    ];
+        'name',"icon","created_at","updated_at"];
 
     /**
      * The attributes that should be hidden for arrays.

@@ -18,12 +18,15 @@
                     <li>
                         <!-- //Notice .timeline-badge class-->
                         <div class="timeline-badge primary">
-                            <a href="#"><i rel="tooltip" title="11 hours ago via Twitter" class="glyphicon glyphicon-record"></i>
+                            <a href=""><i rel="tooltip" title="11 hours ago via Twitter" class="glyphicon glyphicon-record"></i>
                             </a>
                         </div>
                         <!-- //Notice .timeline-panel class-->
                         <div class="timeline-panel">
-
+                            <a href="{{  route('user.show',['user' => Auth::user()->id]) }}" class="pull-left">
+                                <!-- //Notice .timeline-panel-avatar class-->
+                                <img src="{{asset('asset/img/avatars/avatar-55.png')}}" alt="Julio Marquez" class="timeline-panel-avatar">
+                            </a>
                             <!-- //Notice .timeline-panel-body class-->
                             <!-- //Notice .timeline-panel-message class-->
                             <div class="timeline-panel-body timeline-panel-message">
