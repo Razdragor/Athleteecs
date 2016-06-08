@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSportsTable extends Migration
+class UpdateActivitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,9 @@ class CreateSportsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sports', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('icon')->nullable();
-            $table->timestamps();
+        Schema::table('activities', function (Blueprint $table) {
+            $table->bigInteger('time')->nullable();
+            $table->dropColumn('date_end');
         });
     }
 
@@ -27,6 +25,8 @@ class CreateSportsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('sports');
+        Schema::table('activities', function (Blueprint $table) {
+            //
+        });
     }
 }

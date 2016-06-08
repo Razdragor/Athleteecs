@@ -18,10 +18,10 @@ class CreateActivitiesTable extends Migration
             $table->bigInteger('sport_id');
             $table->dateTime('date_start')->nullable();
             $table->dateTime('date_end')->nullable();
-            $table->string('description')->nullable();
+            $table->longText('description')->nullable();
             $table->integer('score');
             $table->string('status');
-            $table->string('picture');
+            $table->string('picture')->nullable();
             $table->timestamps();
         });
     }

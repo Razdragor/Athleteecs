@@ -12,9 +12,12 @@
 */
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
-Route::model('association', 'App\Association');
-Route::model('groupe', 'App\Group');
+Route::model('user', 'App\User');
+Route::model('publication', 'App\Publication');
+Route::model('activity', 'App\Activity');
+Route::model('comment', 'App\Comment');
 
 
 
@@ -43,6 +46,19 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('conversation_user', 'SocketController');
         Route::resource('conversation_message', 'SocketController');
         //Chat
+        Route::resource('publication', 'Front\PublicationController');
+        Route::resource('activity', 'Front\ActivityController');
+        Route::resource('comment', 'Front\CommentController');
+
+    });
+
+    Route::get('uploads/{image}', function($image){
+
+        //do so other checks here if you wish
+
+        if(!File::exists( $image=storage_path("uploads/{$image}") )) abort(404);
+
+        return Image::make($image)->response('jpg'); //will ensure a jpg is always returned
     });
 });
 

@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>ATHLETEEC</title>
 
@@ -21,10 +22,7 @@
     <link href="{{ asset('asset/js/plugins/google-code-prettify/styles/bootstrap-light.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/themes/admin/facebook.css') }}" rel="stylesheet">
     @yield('css')
-
-    <style>
-
-    </style>
+    <link href="{{ asset('asset/css/front.css') }}" rel="stylesheet">
 </head>
 <body id="app-layout">
     <div class="wrapper">
@@ -387,6 +385,8 @@
         <footer>2014 © cesarlab.com | Social - Premium Responsive Admin Template</footer>
     </div>
 
+
+
     <!-- jQuery-->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script>
@@ -411,6 +411,7 @@
     </script>
     <script src="{{ asset('asset/js/sidebar.js') }}"></script>
     <script src="{{ asset('asset/js/panels.js') }}"></script>
+    <script src="{{ asset('asset/js/front.js') }}"></script>
     <!-- BEGIN GENERAL SCRIPTS-->
     <script>
         /*<![CDATA[*/

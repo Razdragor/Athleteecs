@@ -2,24 +2,23 @@
 
 namespace App;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
-class Publication extends Model
+class Comment extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'publications';
+    protected $table = 'comments';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'id','message', 'picture', 'user_id', 'activity_id', 'group_id', 'association_id', 'created_at', 'updated_at'
+        'id', 'user_id', 'publication_id', 'message','score','status','created_at','updated_at'
     ];
 
     /**
@@ -30,23 +29,12 @@ class Publication extends Model
     protected $hidden = [
     ];
 
-    public function user()
-    {
+    public function publication(){
+        return $this->belongsTo('App\Publication');
+    }
+
+    public function user(){
         return $this->belongsTo('App\User','user_id');
-    }
-
-    public function activity()
-    {
-        return $this->belongsTo('App\Activity');
-    }
-
-    public function group()
-    {
-        return $this->belongsTo('App\Group');
-    }
-
-    public function comments(){
-        return $this->hasMany('App\Comment');
     }
 
     public function timeAgo($timestamp, $ref = 0){
@@ -148,5 +136,4 @@ class Publication extends Model
 
         return 'Le '.strftime("%A %d %B", $time).$right;
     }
-
 }

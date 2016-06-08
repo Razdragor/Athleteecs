@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePublicationsTable extends Migration
+class CreateTableComments extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,13 @@ class CreatePublicationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('publications', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->increments('id');
-            $table->longText('message')->nullable();
-            $table->string('picture')->nullable();
             $table->bigInteger('user_id');
-            $table->bigInteger('activity_id')->nullable();
-            $table->bigInteger('group_id')->nullable();
-            $table->bigInteger('association_id')->nullable();
+            $table->bigInteger('publication_id');
+            $table->longText('message');
+            $table->integer('score')->default(0);
+            $table->string('status')->default('Success');
             $table->timestamps();
         });
     }
@@ -31,6 +30,8 @@ class CreatePublicationsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('publications');
+        Schema::table('comments', function (Blueprint $table) {
+            //
+        });
     }
 }

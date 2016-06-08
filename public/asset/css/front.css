@@ -1,0 +1,40 @@
+
+.timeline-2-cols .timeline-footer .comments .comment, .timeline-2-cols .timeline-footer .comments .comment-body {
+    overflow: hidden;
+}
+
+.timeline-2-cols .timeline-footer .comments .comment > .pull-left {
+    margin-right: 10px;
+}
+
+.timeline-2-cols .timeline-footer .comments .comment-body .time {
+    font-size: 75%;
+}
+
+.timeline-2-cols .timeline-footer .comments .comment-body .message {
+    display: block;
+}
+
+.timeline-2-cols .timeline-footer .comments .comment-body .message .strong{
+    margin-right: 10px;
+}
+
+.timeline-body img{
+    margin:auto;
+    padding: 10px;
+}
+
+.timeline-2-cols .timeline-footer .comments .none{
+    display: none;
+}
+
+.moreComment
+{
+    text-align: right;
+    font-size: 75%;
+}
+.moreComment:hover
+{
+    cursor: pointer;
+   text-decoration: underline;
+}
