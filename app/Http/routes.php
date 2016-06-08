@@ -36,9 +36,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('user', 'UserController');
         
         //Chat
-        Route::get('socket', 'chat\SocketController@index');
-        Route::post('sendmessage', 'chat\SocketController@sendMessage');
-        Route::get('writemessage', 'chat\SocketController@writemessage');
+        Route::get('socket', 'Chat\SocketController@index');
+        Route::post('sendmessage', 'Chat\SocketController@sendMessage');
+        Route::get('writemessage', 'Chat\SocketController@writemessage');
         Route::resource('conversation', 'SocketController');
         Route::resource('conversation_user', 'SocketController');
         Route::resource('conversation_message', 'SocketController');

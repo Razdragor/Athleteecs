@@ -8,7 +8,7 @@
  * Based on Bootstrap v3 (Copyright 2013 Twitter, Inc) by @mdo and @fat.
  */
 body {
-  background-color: #e5e5e5 !important;
+  background-color: #ecf0f1 !important;
 }
 .social-navbar {
   background-color: #647aab;
@@ -411,4 +411,8 @@ fieldset[disabled] .social-sidebar .chat .chat-options .btn.active {
   color: #999999;
   background-color: #ffffff;
   border-color: #dddddd;
+}
+
+.timeline-2-cols form{
+  background-color: #fff !important;
 }

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.front')
 
 @section('css')
     <link href="{{ asset('asset/css/layouts/timeline-facebook.css') }}" rel="stylesheet">
@@ -11,14 +11,6 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="row timeline-facebook">
-                <div class="col-md-8">
-                    <!-- //Notice .timeline-panel class-->
-
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="col-md-12">
                 <!-- //Notice .timeline-2-cols class-->
@@ -38,9 +30,13 @@
                             <!-- //Notice .timeline-panel-body class-->
                             <!-- //Notice .timeline-panel-message class-->
                             <div class="timeline-panel-body timeline-panel-message">
+                                <a href="#" style="position: absolute;">
+                                    <!-- //Notice .timeline-panel-avatar class-->
+                                    <img src="{{asset('asset/img/avatars/avatar-55.png')}}" alt="Julio Marquez" class="timeline-panel-avatar">
+                                </a>
                                 <form role="form">
                                     <!-- //Notice .new-message class-->
-                                    <textarea id="new-message" placeholder="What&quot;s happening, User?" rows="3" class="new-message form-control" style="resize: none;"></textarea>
+                                    <textarea id="new-message" placeholder="What&quot;s happening, User?" rows="3" class="new-message form-control" style="resize: none;marging-left:55px;"></textarea>
                                     <div class="form-actions">
                                         <div class="btn-group">
                                             <a data-original-title="" class="btn btn-default"><i class="fa fa-map-marker"></i>
