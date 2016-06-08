@@ -34,6 +34,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => ['role:user|admin']], function () {
         Route::get('/', 'Front\IndexController@index');
         Route::resource('user', 'UserController');
+        
+        //Chat
+        Route::get('socket', 'chat\SocketController@index');
+        Route::post('sendmessage', 'chat\SocketController@sendMessage');
+        Route::get('writemessage', 'chat\SocketController@writemessage');
+        Route::resource('conversation', 'SocketController');
+        Route::resource('conversation_user', 'SocketController');
+        Route::resource('conversation_message', 'SocketController');
+        //Chat
     });
 });
 
