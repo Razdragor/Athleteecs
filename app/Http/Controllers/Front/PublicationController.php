@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Front;
 
-use App\User;
+use App\Http\Controllers\Controller;
+use App\Publication;
+use Validator;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 
-class UserController extends Controller
+class PublicationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +18,21 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('front.user.index');
+        //
+    }
+
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'message_status' => 'required|max:255',
+            'picture_status' => 'mimes:jpeg,png,jpg'
+        ]);
     }
 
     /**
@@ -37,7 +53,31 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $user = Auth::user();
+        $validator = $this->validator($data);
+
+        if ($validator->fails()) {
+            return redirect('/')->withErrors($validator);
+        }
+
+        $imageName = null;
+        if ($request->hasFile('picture_status')) {
+            $imageName = $user->id . '_' . date('YmdHis'). '_post.' . $request->file('picture_status')->getClientOriginalExtension();;
+
+            $request->file('picture_status')->move(
+                storage_path() . '\uploads', $imageName
+            );
+            $imageName = '/uploads/'.$imageName;
+        }
+
+        Publication::create(array(
+            'message' => $data['message_status'],
+            'user_id' => $user->id,
+            'picture' => $imageName
+        ));
+
+        return redirect('/');
     }
 
     /**
@@ -48,7 +88,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('front.user.show',['user' => $user]);
+        //
     }
 
     /**

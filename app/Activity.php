@@ -18,7 +18,7 @@ class Activity extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'sport_id', 'date_start', 'date_end', 'description'
+        'id','user_id', 'sport_id', 'date_start', 'time', 'description','score','status','picture','created_at', 'updated_at'
     ];
 
     /**

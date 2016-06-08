@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Comment;
 use App\Http\Controllers\Controller;
-use App\Publication;
-use App\Sport;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
+use Validator;
 
-class IndexController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +18,7 @@ class IndexController extends Controller
      */
     public function index()
     {
-        $sports = Sport::all();
-        $publications = Publication::orderBy('updated_at', 'DESC')->get();
-        return view('front.index', ["sports" => $sports, "publications" => $publications]);
+        //
     }
 
     /**
@@ -33,6 +32,20 @@ class IndexController extends Controller
     }
 
     /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'publication' => 'required|numeric',
+            'value' => 'required'
+        ]);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -40,7 +53,32 @@ class IndexController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $data["publication"] = intval($data["publication"]);
+        $validator = $this->validator($data);
+
+        if ($validator->fails()) {
+            return \Response::json(array(
+                'success' => false,
+                'error' => $validator
+            ));
+        }
+        $user = $user = Auth::user();
+        $comment = Comment::create(array(
+            'user_id' => $user->id,
+            'publication_id' => $data["publication"],
+            'message' => $data["value"]
+        ));
+
+        return \Response::json(array(
+            'success' => true,
+            'user' => array(
+                'picture' => $user->picture,
+                'firstname' => $user->firstname,
+                'lastname' => $user->lastname,
+                'created_at' => $comment->timeAgo($comment->created_at)
+            )
+        ));
     }
 
     /**
