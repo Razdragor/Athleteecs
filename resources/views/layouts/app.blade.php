@@ -26,7 +26,7 @@
     <div class="wrapper">
         <header>
             <nav id="navbar" role="navigation" class="social-navbar navbar navbar-default navbar-fixed-top">
-                <div class="container">
+                <div class="container logocentrer">
                     <div class="navbar-header">
                         <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle">
                             <span class="sr-only">Toggle navigation</span>
