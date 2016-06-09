@@ -18,9 +18,13 @@ form {
     For the media queries use @screen-sm-min instead of 768px.
     For .span-or use @body-bg instead of white.
 */
+.backgroundsignin{
+    background: url(/images/fond.png) no-repeat 50% 44px;
+    height: 730px;
+}
 
 .signin {
-  margin : 40px;
+  margin: 140px 180px;
   background-color: #fff;
   border: 1px solid #c4c5c9;
 }
@@ -81,6 +85,5 @@ form {
   color: red;
 }
 .signin .forgot-password {
-  padding: 10px 0;
   float: right;
 }

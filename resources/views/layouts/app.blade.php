@@ -135,65 +135,6 @@
         </div>
         <footer class="section footer">
             <div class="container">
-                <div class="row website-info">
-                    <div class="col-sm-4 col-md-4">
-                        <h4>Latest Posts</h4>
-                        <ul class="posts-list">
-                            <li>
-                                <a href="#">Lorem ipsum dolor sit amet, consectetur.</a>
-                            </li>
-                            <li>
-                                <a href="#">Lorem ipsum.</a>
-                            </li>
-                            <li>
-                                <a href="#">Lorem ipsum dolor.</a>
-                            </li>
-                            <li>
-                                <a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing.</a>
-                            </li>
-                            <li>
-                                <a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing.</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-sm-4 col-md-4">
-                        <h4>Social Networks</h4>
-                        <div class="social-timeline">
-                            <dl class="dl-horizontal">
-                                <dt><i class="fa fa-twitter"></i>
-                                </dt>
-                                <dd>
-                                    <a href="#ignore">@juliomrqz</a>&nbsp;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum, modi.&nbsp;
-                                    <small>5 min ago</small>
-                                </dd>
-                            </dl>
-                            <dl class="dl-horizontal">
-                                <dt><i class="fa fa-facebook"></i>
-                                </dt>
-                                <dd>
-                                    <a href="#ignore">Julio Marquez</a>&nbsp;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum, modi.&nbsp;
-                                    <small>7 min ago</small>
-                                </dd>
-                            </dl>
-                        </div>
-                        <form action="#" class="form-inline">
-                            <div class="input-group">
-                                <input type="text" class="form-control">
-                  <span class="input-group-btn">
-                    <button type="button" class="btn btn-inverse">Subscribe</button>
-                  </span>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-sm-4 col-md-4 company-info">
-                        <h4>Who Are We?</h4>
-                        <p>Lorem ipsum dolor slo onsec tueraliquet Morbi nec In Curabitur lreaoreet nisl lorem in pellente pellente eget. Lorem ipsum dolor slo onsec Vivamus.</p>
-                        <address><strong>CESARLAB, Inc.</strong>
-                            <br>795 Street Ave, Suite 000
-                            <br>San Vegas, WT 9407
-                            <br><i class="fa fa-phone"></i>&nbsp;+1 (914) 820-6220</address><i class="fa fa-envelope"></i>&nbsp;support@cesarlab.com
-                    </div>
-                </div>
                 <div class="row social-network-footer">
                     <div class="col-sm-12 align-center">
                         <ul>
