@@ -390,9 +390,6 @@ a {
 /*--------------------
  *  Navbar
  */
- .logocentrer{
-     display: flex;
- }
 .social-navbar {
   display: flex !important;
   line-height: 100px;
