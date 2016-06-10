@@ -390,7 +390,11 @@ a {
 /*--------------------
  *  Navbar
  */
+ .logocentrer{
+     display: flex;
+ }
 .social-navbar {
+  display: flex !important;
   line-height: 100px;
   height: 60px;
   display: block;
@@ -399,7 +403,7 @@ a {
   background-color: #ffffff;
   -webkit-transition: all 0.2s ease;
   -o-transition: all 0.2s ease;
-          transition: all 0.2s ease;
+  transition: all 0.2s ease;
 }
 .social-navbar .navbar-toggle {
   margin-top: 12px;
@@ -448,6 +452,9 @@ a {
   padding-bottom: 0;
 }
 .social-navbar .navbar-brand {
+  margin: auto;
+  display: flex !important;
+  width: 0px;
   padding: 0;
   display: table-cell;
   vertical-align: middle;

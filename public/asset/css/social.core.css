@@ -499,7 +499,7 @@ h6,
   font-size: 12px;
 }
 p {
-  margin: 0 0 10px;
+  margin: 0 0 40px;
 }
 .lead {
   margin-bottom: 20px;
@@ -4474,6 +4474,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .container-fluid > .navbar-collapse {
   margin-right: -15px;
   margin-left: -15px;
+  display: flex;
 }
 @media (min-width: 768px) {
   .container > .navbar-header,
