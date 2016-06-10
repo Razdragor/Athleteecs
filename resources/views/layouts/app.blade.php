@@ -163,7 +163,7 @@
                 </div>
                 <div class="row copyright">
                     <div class="col-sm-12">
-                        <p>2016
+                        <p>2016 - 
                             <a href="http://localhost" target="_blank">Freeride</a>
                         </p>
                     </div>
