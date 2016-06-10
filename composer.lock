@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "daf92502121fefe2b7496b8d6f4890b8",
-    "content-hash": "a59853e84378239fa48203b5bbf963f0",
+    "hash": "ec8a6c045af05f1e29a43161c5382354",
+    "content-hash": "5f6cfc24786838403d9dd45ffc06af3f",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -3761,7 +3761,6 @@
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
             "time": "2016-05-26 21:46:24"
-<<<<<<< HEAD
         },
         {
             "name": "webmozart/assert",
@@ -3811,8 +3810,6 @@
                 "validate"
             ],
             "time": "2015-08-24 13:29:44"
-=======
->>>>>>> 1fdb45781f61683ccf51bab73aa80b78424fbc12
         }
     ],
     "aliases": [],
