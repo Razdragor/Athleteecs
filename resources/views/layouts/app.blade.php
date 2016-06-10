@@ -163,8 +163,8 @@
                 </div>
                 <div class="row copyright">
                     <div class="col-sm-12">
-                        <p>Copyright © 2014 Social - by&nbsp;
-                            <a href="http://cesarlab.com" target="_blank">cesarlab.com</a>
+                        <p>2016
+                            <a href="http://localhost" target="_blank">Freeride</a>
                         </p>
                     </div>
                 </div>
