@@ -39,6 +39,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/friends', 'Front\FriendsController@getAllFriends');
         Route::resource('user', 'UserController');
         Route::resource('publication', 'Front\PublicationController');
+        Route::post('/publication/{publication}/load', 'Front\PublicationController@load');
         Route::resource('activity', 'Front\ActivityController');
         Route::resource('comment', 'Front\CommentController');
 
@@ -52,8 +53,4 @@ Route::group(['middleware' => 'auth'], function () {
 
         return Image::make($image)->response('jpg'); //will ensure a jpg is always returned
     });
-});
-
-Route::get('/connect', function () {
-    return view('auth.connect');
 });

@@ -176,8 +176,8 @@
                                 <div class="timeline-footer">
                                     <div class="comments" id="comments-{{ $publication->id }}">
                                         <?php $y = 1;$class=""; ?>
-                                        @foreach($publication->comments as $comment)
-                                            <div class="comment {{ $class }}">
+                                        @foreach($publication->commentspost as $comment)
+                                            <div class="comment">
                                                 <a class="pull-left" href="#">
                                                     <img width="30" height="30" class="comment-avatar" alt="Julio Marquez" src="{{ asset($comment->user->picture) }}">
                                                 </a>
@@ -186,15 +186,9 @@
                                                     <span class="time">{{ $comment->timeago($comment->created_at) }}</span>
                                                 </div>
                                             </div>
-                                            <?php
-                                                if($y > 4){
-                                                    $class = "none";
-                                                }
-                                                $y++;
-                                            ?>
                                         @endforeach
-                                        @if($y > 4)
-                                             <p class='moreComment'>Plus de commentaires</p>
+                                        @if($publication->comments->count() > 3)
+                                             <p class='moreComment' data-url="1">Plus de commentaires</p>
                                         @endif
                                         <div class="comment">
                                             <a class="pull-left" href="#">

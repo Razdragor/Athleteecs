@@ -37,10 +37,6 @@ $(document).ready(function() {
                     $input.value = "";
 
                 }
-                else
-                {
-
-                }
             }
         });
     });
@@ -50,4 +46,48 @@ $(document).ready(function() {
             $(this).trigger("enterKey");
         }
     });
+
+    $(".moreComment").click(function(e){
+        $elem = $(this);
+        $page = $elem.attr("data-url");
+        $parent = $elem.parent();
+        $id = $parent.attr('id').split('-');
+        $publication = $id[1];
+        $.ajax({
+            url: '/publication/'+$publication+'/load',
+            data: {page: $page},
+            type: 'post',
+            success: function(data) {
+                if(data['success'] == true)
+                {
+                    if(data['page'] == false){
+                        $elem.hide();
+                    }else{
+                        $elem.attr("data-url",data['page']);
+                    }
+
+                    $comments = data['comments'];
+
+                    $comments.forEach(function(a){
+                        $user = a['user'];
+                        $comment = a['comment'];
+                        $elem.before(
+                            "<div class='comment'>" +
+                            "<a class='pull-left' href='#'>"+
+                            "<img width='30' height='30' class='comment-avatar' alt='"+ $user.firstname + " " + $user.lastname+ "' src='"+ $user.picture + "'>"+
+                            "</a>"+
+                            "<div class='comment-body'>"+
+                            "<span class='message'><strong>"+ $user.firstname + " " + $user.lastname + "</strong> " + $comment.message + "</span>"+
+                            "<span class='time'>" + $comment.created_at + "</span>"+
+                            "</div>"+
+                            "</div>");
+                    });
+
+
+
+                }
+            }
+        });
+
+    })
 });

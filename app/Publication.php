@@ -49,6 +49,11 @@ class Publication extends Model
         return $this->hasMany('App\Comment');
     }
 
+    public function commentspost()
+    {
+        return $this->comments()->orderBy('created_at', 'asc')->take(3);
+    }
+
     public function timeAgo($timestamp, $ref = 0){
         $time = $timestamp->timestamp;
         if ($ref < 1) $ref = time();

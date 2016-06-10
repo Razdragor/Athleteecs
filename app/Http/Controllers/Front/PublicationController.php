@@ -124,4 +124,41 @@ class PublicationController extends Controller
     {
         //
     }
+
+    public function load(Publication $publication,Request $request){
+
+        if(\Request::ajax()) {
+            $data = $request->all();
+            $page = intval($data['page']);
+            $skip =  $page * 3;
+            $result = $publication->comments()->orderBy('created_at', 'asc')->skip($skip)->take(3)->get();
+            if($publication->comments->count() > ($skip+3)){
+                $page++;
+            }
+            else{
+                $page = false;
+            }
+
+            foreach($result as $p){
+                $comments[] = array(
+                        'user' => array(
+                            'picture' => $p->user->picture,
+                            'firstname' => $p->user->firstname,
+                            'lastname' => $p->user->lastname
+                        ),
+                        'comment' => array(
+                            'created_at' => $p->timeAgo($p->created_at),
+                            'message' => $p->message
+                        )
+                    );
+            }
+
+            return \Response::json(array(
+                'success' => true,
+                'page' => $page,
+                'comments' => $comments
+            ));
+        }
+
+    }
 }
