@@ -83,8 +83,7 @@
             <nav role="navigation" class="navbar navbar-fixed-top navbar-super social-navbar">
                 <div class="navbar-header">
                     <a href="{{ url('/') }}" title="Social" class="navbar-brand">
-                        <img width="25" height="25" src="{{ asset('asset/img/logo.svg') }}" alt="Social" class="light">
-                        <img width="25" height="25" src="{{ asset('asset/img/logo.svg') }}" alt="Social" class="dark">
+                        <img class ="logo-front" width="25" height="25" src="{{ asset('asset/img/logo.svg') }}" alt="Social">
                     </a>
                 </div>
                 <div class="navbar-toggle"><i class="fa fa-align-justify"></i>

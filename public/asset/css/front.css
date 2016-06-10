@@ -38,3 +38,12 @@
     cursor: pointer;
    text-decoration: underline;
 }
+.logo-front{
+    width: 120px;
+    display: flex;
+    text-align: center;
+    margin: 0px 25px;
+}
+.social-sidebar .chat .users-list a img {
+    height: 30px;
+}
