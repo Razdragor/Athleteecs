@@ -47,3 +47,9 @@
 .social-sidebar .chat .users-list a img {
     height: 30px;
 }
+.social-sidebar .chat .users-list a .user-status.online {
+    margin: 10px 14px 10px 0px;
+}
+.social-sidebar .chat .users-list a .user-status.offline {
+    margin: 10px 14px 10px 0px;
+}

@@ -381,7 +381,7 @@
         <div class="main">
             @yield('content')
         </div>
-        <footer>2014 © cesarlab.com | Social - Premium Responsive Admin Template</footer>
+        <footer>2016 - <a href="http://localhost" target="_blank">Freeride</a></footer>
     </div>
 
 
