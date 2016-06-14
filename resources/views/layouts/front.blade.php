@@ -96,34 +96,27 @@
                             <ul class="dropdown-menu">
                                 <li>
                                     <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="alert alert-warning alert-dismissable">
-                                                <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button><strong>Warning!</strong>Better check yourself, you're not looking too good.
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
                                         <div class="btn-icon col-md-3">
-                                            <a href="#" role="button" class="btn btn-neutral"><i class="fa fa-dashboard fa-lg"></i>
-                                                <div class="title">Dashboard</div>
+                                            <a href="#" role="button" class="btn btn-neutral"><i class="fa fa-users fa-lg"></i>
+                                                <div class="title">Amis</div>
                                                 <span class="label label-warning">2</span>
                                             </a>
                                         </div>
                                         <div class="btn-icon col-md-3">
                                             <a href="#" role="button" class="btn btn-primary"><i class="fa fa-calendar fa-lg"></i>
-                                                <div class="title">Calendar</div>
+                                                <div class="title">Evénements</div>
                                                 <span class="label label-danger">4</span>
                                             </a>
                                         </div>
                                         <div class="btn-icon col-md-3">
-                                            <a href="#" role="button" class="btn btn-danger"><i class="fa fa-inbox fa-lg"></i>
-                                                <div class="title">Inbox</div>
+                                            <a href="#" role="button" class="btn btn-danger"><i class="fa fa-object-group fa-lg"></i>
+                                                <div class="title">Groupes</div>
                                                 <span class="label label-success">2</span>
                                             </a>
                                         </div>
                                         <div class="btn-icon col-md-3">
-                                            <a href="#" role="button" class="btn btn-success"><i class="fa fa-money fa-lg"></i>
-                                                <div class="title">Finances</div>
+                                            <a href="#" role="button" class="btn btn-success"><i class="fa fa-circle-thin fa-lg"></i>
+                                                <div class="title">Associations</div>
                                                 <span class="label label-primary">256$</span>
                                             </a>
                                         </div>
@@ -188,7 +181,7 @@
                                     <a href="#"><i class="fa fa-cogs"></i>&nbsp;Settings</a>
                                 </li>
                                 <li>
-                                    <a href="#"><i class="fa fa-sign-out"></i>&nbsp;Log Out</a>
+                                    <a href="/logout"><i class="fa fa-sign-out"></i>&nbsp;Log Out</a>
                                 </li>
                                 <li class="divider"></li>
                                 <li>

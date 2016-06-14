@@ -78,7 +78,7 @@
                 <div class="row row-sm-offset-3">
                     <div class="col-xs-12 col-md-6">
                         <p>
-                            <a href="{{ url("/register") }}"> Inscription</a><a class="forgot-password" href="#">Mot de passe oublié?</a>
+                            <a href="{{ url("/register") }}"> Inscription</a><a class="forgot-password" href="#">Oublie?</a>
                         </p>
                     </div>
                 </div>
