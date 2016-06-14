@@ -5,7 +5,7 @@
 
 <section class="section panel panel-default">
 <div class="container panel-body">
-    <div class="row">
+    <div class="row add-margin-top">
         <div class="col-md-7">
             <blockquote>
                 <div class="media">
