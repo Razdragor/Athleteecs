@@ -175,7 +175,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="#"><i class="fa fa-user"></i>&nbsp;My Profile</a>
+                                    <a href="{{ route('user.show',['user' => Auth::user()->id]) }}"><i class="fa fa-user"></i>&nbsp;My Profile</a>
                                 </li>
                                 <li>
                                     <a href="#"><i class="fa fa-cogs"></i>&nbsp;Settings</a>
