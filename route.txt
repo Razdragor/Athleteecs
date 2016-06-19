@@ -1,0 +1,47 @@
++--------+-----------+--------------------------------+---------------------+-----------------------------------------------------------------+--------------------------+
+| Domain | Method    | URI                            | Name                | Action                                                          | Middleware               |
++--------+-----------+--------------------------------+---------------------+-----------------------------------------------------------------+--------------------------+
+|        | GET|HEAD  | /                              |                     | App\Http\Controllers\Front\IndexController@index                | web,auth,role:user|admin |
+|        | GET|HEAD  | activity                       | activity.index      | App\Http\Controllers\Front\ActivityController@index             | web,auth,role:user|admin |
+|        | POST      | activity                       | activity.store      | App\Http\Controllers\Front\ActivityController@store             | web,auth,role:user|admin |
+|        | GET|HEAD  | activity/create                | activity.create     | App\Http\Controllers\Front\ActivityController@create            | web,auth,role:user|admin |
+|        | PUT|PATCH | activity/{activity}            | activity.update     | App\Http\Controllers\Front\ActivityController@update            | web,auth,role:user|admin |
+|        | DELETE    | activity/{activity}            | activity.destroy    | App\Http\Controllers\Front\ActivityController@destroy           | web,auth,role:user|admin |
+|        | GET|HEAD  | activity/{activity}            | activity.show       | App\Http\Controllers\Front\ActivityController@show              | web,auth,role:user|admin |
+|        | GET|HEAD  | activity/{activity}/edit       | activity.edit       | App\Http\Controllers\Front\ActivityController@edit              | web,auth,role:user|admin |
+|        | GET|HEAD  | admin                          |                     | App\Http\Controllers\Admin\AdminController@index                | web,auth,role:admin      |
+|        | POST      | comment                        | comment.store       | App\Http\Controllers\Front\CommentController@store              | web,auth,role:user|admin |
+|        | GET|HEAD  | comment                        | comment.index       | App\Http\Controllers\Front\CommentController@index              | web,auth,role:user|admin |
+|        | GET|HEAD  | comment/create                 | comment.create      | App\Http\Controllers\Front\CommentController@create             | web,auth,role:user|admin |
+|        | GET|HEAD  | comment/{comment}              | comment.show        | App\Http\Controllers\Front\CommentController@show               | web,auth,role:user|admin |
+|        | PUT|PATCH | comment/{comment}              | comment.update      | App\Http\Controllers\Front\CommentController@update             | web,auth,role:user|admin |
+|        | DELETE    | comment/{comment}              | comment.destroy     | App\Http\Controllers\Front\CommentController@destroy            | web,auth,role:user|admin |
+|        | GET|HEAD  | comment/{comment}/edit         | comment.edit        | App\Http\Controllers\Front\CommentController@edit               | web,auth,role:user|admin |
+|        | GET|HEAD  | connect                        |                     | Closure                                                         | web                      |
+|        | POST      | login                          |                     | App\Http\Controllers\Auth\AuthController@login                  | web,guest                |
+|        | GET|HEAD  | login                          |                     | App\Http\Controllers\Auth\AuthController@showLoginForm          | web,guest                |
+|        | GET|HEAD  | login/callback/{provider}      |                     | App\Http\Controllers\SocialAuthController@callback              | web                      |
+|        | GET|HEAD  | login/redirect/{provider}      |                     | App\Http\Controllers\SocialAuthController@redirect              | web                      |
+|        | GET|HEAD  | logout                         |                     | App\Http\Controllers\Auth\AuthController@logout                 | web                      |
+|        | POST      | password/email                 |                     | App\Http\Controllers\Auth\PasswordController@sendResetLinkEmail | web,guest                |
+|        | POST      | password/reset                 |                     | App\Http\Controllers\Auth\PasswordController@reset              | web,guest                |
+|        | GET|HEAD  | password/reset/{token?}        |                     | App\Http\Controllers\Auth\PasswordController@showResetForm      | web,guest                |
+|        | POST      | publication                    | publication.store   | App\Http\Controllers\Front\PublicationController@store          | web,auth,role:user|admin |
+|        | GET|HEAD  | publication                    | publication.index   | App\Http\Controllers\Front\PublicationController@index          | web,auth,role:user|admin |
+|        | GET|HEAD  | publication/create             | publication.create  | App\Http\Controllers\Front\PublicationController@create         | web,auth,role:user|admin |
+|        | DELETE    | publication/{publication}      | publication.destroy | App\Http\Controllers\Front\PublicationController@destroy        | web,auth,role:user|admin |
+|        | PUT|PATCH | publication/{publication}      | publication.update  | App\Http\Controllers\Front\PublicationController@update         | web,auth,role:user|admin |
+|        | GET|HEAD  | publication/{publication}      | publication.show    | App\Http\Controllers\Front\PublicationController@show           | web,auth,role:user|admin |
+|        | GET|HEAD  | publication/{publication}/edit | publication.edit    | App\Http\Controllers\Front\PublicationController@edit           | web,auth,role:user|admin |
+|        | POST      | register                       |                     | App\Http\Controllers\Auth\AuthController@register               | web,guest                |
+|        | GET|HEAD  | register                       |                     | App\Http\Controllers\Auth\AuthController@showRegistrationForm   | web,guest                |
+|        | GET|HEAD  | uploads/{image}                |                     | Closure                                                         | web,auth                 |
+|        | GET|HEAD  | user                           | user.index          | App\Http\Controllers\UserController@index                       | web,auth,role:user|admin |
+|        | POST      | user                           | user.store          | App\Http\Controllers\UserController@store                       | web,auth,role:user|admin |
+|        | GET|HEAD  | user/activation/{token}        | user.activate       | App\Http\Controllers\Auth\AuthController@activateUser           | web,guest                |
+|        | GET|HEAD  | user/create                    | user.create         | App\Http\Controllers\UserController@create                      | web,auth,role:user|admin |
+|        | GET|HEAD  | user/{user}                    | user.show           | App\Http\Controllers\UserController@show                        | web,auth,role:user|admin |
+|        | DELETE    | user/{user}                    | user.destroy        | App\Http\Controllers\UserController@destroy                     | web,auth,role:user|admin |
+|        | PUT|PATCH | user/{user}                    | user.update         | App\Http\Controllers\UserController@update                      | web,auth,role:user|admin |
+|        | GET|HEAD  | user/{user}/edit               | user.edit           | App\Http\Controllers\UserController@edit                        | web,auth,role:user|admin |
++--------+-----------+--------------------------------+---------------------+-----------------------------------------------------------------+--------------------------+
