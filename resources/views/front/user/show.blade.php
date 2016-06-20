@@ -62,7 +62,7 @@
                                     <!-- END USER STATUS-->
                                     @if(Auth::user() == $user)
                                     <div class="col-sm-2 col-md-2 hidden-xs">
-                                        <a id="edit-profile-button" href="#edit" class="btn btn-block btn-primary">Editer le profil</a>
+                                        <a id="edit-profile-button" href="{{ route('user.edit',['user' => $user]) }}" class="btn btn-block btn-primary">Editer le profil</a>
                                     </div>
                                     @endif
                                 </div>
