@@ -68,6 +68,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->hasMany('App\Equipment', 'users_equips_sports', 'user_id', 'product_id');
     }
 
+    public function friends(){
+        return $this->belongsToMany('App\User','users_links','user_id','userL_id');
+    }
+
 
     /**
      * Get the name of the unique identifier for the user.
@@ -139,4 +143,5 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         return $this->email;
     }
+
 }

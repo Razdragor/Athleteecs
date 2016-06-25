@@ -97,7 +97,7 @@
                                 <li>
                                     <div class="row">
                                         <div class="btn-icon col-md-3">
-                                            <a href="#" role="button" class="btn btn-neutral"><i class="fa fa-users fa-lg"></i>
+                                            <a href="/friends" role="button" class="btn btn-neutral"><i class="fa fa-users fa-lg"></i>
                                                 <div class="title">Amis</div>
                                                 <span class="label label-warning">2</span>
                                             </a>
@@ -175,17 +175,17 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="{{ route('user.show',['user' => Auth::user()->id]) }}"><i class="fa fa-user"></i>&nbsp;My Profile</a>
+                                    <a href="{{ route('user.show',['user' => Auth::user()->id]) }}"><i class="fa fa-user"></i>&nbsp;Mon Profil</a>
                                 </li>
                                 <li>
-                                    <a href="#"><i class="fa fa-cogs"></i>&nbsp;Settings</a>
+                                    <a href="#"><i class="fa fa-cogs"></i>&nbsp;Paramètres</a>
                                 </li>
                                 <li>
-                                    <a href="/logout"><i class="fa fa-sign-out"></i>&nbsp;Log Out</a>
+                                    <a href="/logout"><i class="fa fa-sign-out"></i>&nbsp;Déconnexion</a>
                                 </li>
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="#"><i class="fa fa-info"></i>&nbsp;Help</a>
+                                    <a href="#"><i class="fa fa-info"></i>&nbsp;Aide</a>
                                 </li>
                             </ul>
                         </li>
