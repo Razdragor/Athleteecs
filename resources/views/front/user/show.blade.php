@@ -62,7 +62,7 @@
                                     <!-- END USER STATUS-->
                                     @if(Auth::user() == $user)
                                     <div class="col-sm-2 col-md-2 hidden-xs">
-                                        <a id="edit-profile-button" href="#edit" class="btn btn-block btn-primary">Editer le profil</a>
+                                        <a id="edit-profile-button" href="{{ route('user.edit',['user' => $user]) }}" class="btn btn-block btn-primary">Editer le profil</a>
                                     </div>
                                     @endif
                                 </div>
@@ -79,16 +79,16 @@
                                 <!-- BEGIN TABS SELECTIONS-->
                                 <div class="row">
                                     <ul id="profileTab" class="nav nav-tabs">
-                                        <li id="pots">
+                                        <li id="pots" class="ok">
                                             <a href="#">Posts</a>
                                         </li>
-                                        <li class="active" id="infos">
+                                        <li class="active ok" id="infos">
                                             <a href="#" data-toggle="tab">Info</a>
                                         </li>
-                                        <li id="photos">
+                                        <li id="photos" class="ok">
                                             <a href="#">Photos</a>
                                         </li>
-                                        <li id="videos">
+                                        <li id="videos" class="ok">
                                             <a href="#">Videos</a>
                                         </li>
                                     </ul>
@@ -143,10 +143,9 @@
                                                 <dd>A ajouté</dd>
                                                 <dd class="divider"></dd>
                                                 <dt>Sports pratiqué</dt>
-                                                @foreach($user->sports() as $sport)
-                                                    {{ $sport->name }}
+                                                @foreach($user->sports as $sport)
+                                                    <dd>{{ $sport->name }}</dd>
                                                 @endforeach
-                                                <dd>A ajouté</dd>
                                                 <dd class="divider"></dd>
                                                 <dt>Adresse postal</dt>
                                                 <dd>

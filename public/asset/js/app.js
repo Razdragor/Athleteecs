@@ -58,7 +58,7 @@ $(function() {
 
 $('#pots').click(function() {
   var valeur;
-  valeur = $('.active').attr('id');
+  valeur = $(".active.ok").attr('id');
   $('#'+valeur).removeClass("active");
   $('.'+valeur).hide();
   $(this).addClass('active');
@@ -67,7 +67,8 @@ $('#pots').click(function() {
 
 $('#infos').click(function() {
   var valeur;
-  valeur = $('.active').attr('id');
+  valeur = $(".active.ok").attr('id');
+  //console.log(valeur);
   $('#'+valeur).removeClass("active");
   $('.'+valeur).hide();
   $(this).addClass('active');
@@ -75,7 +76,7 @@ $('#infos').click(function() {
 });
 $('#videos').click(function() {
   var valeur;
-  valeur = $('.active').attr('id');
+  valeur = $(".active.ok").attr('id');
   $('#'+valeur).removeClass("active");
   $('.'+valeur).hide();
   $(this).addClass('active');
@@ -83,7 +84,7 @@ $('#videos').click(function() {
 });
 $('#photos').click(function() {
   var valeur;
-  valeur = $('.active').attr('id');
+  valeur = $(".active.ok").attr('id');
   $('#'+valeur).removeClass("active");
   $('.'+valeur).hide();
   $(this).addClass('active');
