@@ -27,7 +27,24 @@
       </div>
 
 
-
+    <div class="row">
+        @forelse($user->friends as $friend)
+            <div class="col-md-2 onefriend">
+                <div class="team-member">
+                    <a href="/user/{{ $friend->id }}">
+                        <figure class="member-photo">
+                            <img class="imgonefriend" src="{{ $friend->picture }}" alt="{{ $friend->firstname }} {{ $friend->lastname }}" width="100px" height="100px">
+                        </figure>
+                        <div class="team-detail">
+                            <h4>{{ $friend->firstname }} {{ $friend->lastname }}</h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        @empty
+            <p class="onefriend">Vous n'avez pas encore ajoutés d'amis.</p>
+        @endforelse
+    </div>
 
 
 
