@@ -11,20 +11,6 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'firstname' => 'Admin',
-            'lastname' => 'Admin',
-            'email' => 'esgi.athleteec@gmail.com',
-            'password' => bcrypt('admin'),
-            'status' => 'success',
-            'activated' => 1,
-            'picture' => '/asset/img/avatars/avatar.png',
-            'sexe' => 'Homme',
-            'score' => 0,
-            'newsletter' => 0,
-            'created_at' => Carbon\Carbon::now(),
-            'updated_at' => Carbon\Carbon::now()
-        ]);
 
         DB::table('users')->insert([
             'firstname' => 'Bertrand',
@@ -39,6 +25,21 @@ class UsersTableSeeder extends Seeder
             'newsletter' => 0,
             'created_at' => '2016-06-26 10:31:37',
             'updated_at' =>'2016-06-26 10:31:37'
+        ]);
+
+        DB::table('users')->insert([
+            'firstname' => 'Admin',
+            'lastname' => 'Admin',
+            'email' => 'esgi.athleteec@gmail.com',
+            'password' => bcrypt('admin'),
+            'status' => 'success',
+            'activated' => 1,
+            'picture' => '/asset/img/avatars/avatar.png',
+            'sexe' => 'Homme',
+            'score' => 0,
+            'newsletter' => 0,
+            'created_at' => Carbon\Carbon::now(),
+            'updated_at' => Carbon\Carbon::now()
         ]);
 
         DB::table('users')->insert([
