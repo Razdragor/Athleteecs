@@ -21,6 +21,7 @@ class SearchController extends Controller
     		->where('firstname', 'LIKE', $terme.'%')
     		->orWhere('lastname', 'LIKE', $terme.'%')
 			->orWhere(DB::raw("CONCAT(`firstname`, ' ', `lastname`)"), 'LIKE', $terme.'%')
+			->orWhere(DB::raw("CONCAT(`lastname`, ' ', `firstname`)"), 'LIKE', $terme.'%')
             ->orWhere('email', $terme)
     		->get();
 
