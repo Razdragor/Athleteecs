@@ -18,6 +18,7 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('admin'),
             'status' => 'success',
             'activated' => 1,
+            'picture' => '/asset/img/avatars/avatar.png',
             'sexe' => 'Homme',
             'score' => 0,
             'newsletter' => 0,
