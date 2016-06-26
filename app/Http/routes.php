@@ -37,6 +37,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => ['role:user|admin']], function () {
         Route::get('/', 'Front\IndexController@index');
         Route::get('/friends', 'Front\FriendsController@getAllFriends');
+        Route::get('search/autocomplete', 'SearchController@searchUser');
         Route::resource('user', 'UserController');
         Route::resource('publication', 'Front\PublicationController');
         Route::resource('activity', 'Front\ActivityController');

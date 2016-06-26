@@ -16,6 +16,29 @@
       <div class="row">
         <div class="col-md-offset-3 col-md-6">
           <div class="section-header">
+            <h2 data-animation="bounceInUp" class="section-heading animated titleoffriends">Rechercher des amis</h2>
+          </div>
+          <form method="GET" action="{{ url('search/autocomplete') }}">
+              {{ csrf_field() }}
+              <input id="terme" placeholder="Rechercher un utilisateur" name="terme" type="text" value="">
+              <input class="btn btn-default" type="submit" value="Search">
+          </form>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+      <div class="row">
+        <div class="col-md-offset-3 col-md-6">
+          <div class="section-header">
             <h2 data-animation="bounceInUp" class="section-heading animated titleoffriends">Mes amis</h2>
           </div>
         </div>
@@ -35,10 +58,26 @@
           </div>
         </div>
         @empty
-        <p>Vous n'avez pas encore ajoutés d'amis</p>
+        <p>Vous n'avez pas encore ajoutés d'amis.</p>
         @endforelse
       </div>
     </div>
   </div>
 </section>
+@endsection
+
+@section('js')
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <script>
+        $(function(){
+             $( "#terme" ).autocomplete({
+                  source: "{{ url('search/autocomplete') }}",
+                  minLength: 3,
+                  select: function(event, ui) {
+                    $('#terme').val(ui.item.value);
+                    console.log('passe dans la fonction?');
+              }
+            });
+        });
+    </script>
 @endsection
