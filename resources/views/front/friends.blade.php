@@ -49,7 +49,7 @@
           <div class="team-member">
              <a href="/user/{{ $friend->id }}">
                  <figure class="member-photo">
-                     <img class="imgonefriend" src="{{ $friend->picture }}" alt="{{ $friend->firstname }} {{ $friend->lastname }}">
+                     <img class="imgonefriend" src="{{ $friend->picture }}" alt="{{ $friend->firstname }} {{ $friend->lastname }}" width="100px" height="100px">
                  </figure>
                  <div class="team-detail">
                      <h4>{{ $friend->firstname }} {{ $friend->lastname }}</h4>
