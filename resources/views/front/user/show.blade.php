@@ -4,7 +4,8 @@
 @section('css')
     <link href="{{ asset('asset/css/layouts/user-profile.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/layouts/user-cards.css') }}" rel="stylesheet">
-    <link href="{{ asset('asset/css/layouts/social.core.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/js/plugins/isotope/isotope.css') }}" rel="stylesheet">
+
     <link href="{{ asset('asset/css/plugins/selectizejs/selectize-default.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/glyphicons_free/glyphicons.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.css') }}" rel="stylesheet">
@@ -153,22 +154,35 @@
                                                 </dd>
                                             </dl>
                                         </div>
-                                        <div class="tab-pane photos">
+                                        <div class="tab-pane active photos">
                                             <div id="3" class="section-portfolio-items isotopeWrapper clearfix">
                                                 @foreach($user->pictures as $picture)
                                                 <article class="col-md-4 isotopeItem webdesign">
                                                     <div class="section-portfolio-item">
-                                                        <img src="../../assets/img/gallery/sunset.jpg" alt="">
+                                                        <img src="http://www.chloesplace.co.uk/kitten-01.jpg" alt="">
                                                         <div class="section-portfolio-desc align-center">
                                                             <div class="folio-info">
                                                                 <h5><a href="#">section-portfolio name</a></h5>
-                                                                <a href="../../assets/img/gallery/sunset.jpg" class="fancybox"><i class="fa fa-plus fa-2x"></i>
+                                                                <a href="http://www.chloesplace.co.uk/kitten-01.jpg" class="fancybox"><i class="fa fa-plus fa-2x"></i>
                                                                 </a>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </article>
                                                 @endforeach
+                                                <article class="col-md-4 isotopeItem webdesign">
+                                                    <div class="section-portfolio-item">
+                                                        {{--<img src="../../assets/img/gallery/sunset.jpg" alt="">--}}
+                                                        <div class="section-portfolio-desc align-center">
+                                                            <div class="folio-info">
+                                                                <h5><a href="#">section-portfolio name</a></h5>
+                                                                {{--<a href="../../assets/img/gallery/sunset.jpg" class="fancybox">--}}
+                                                                    <i class="fa fa-plus fa-2x"></i>
+                                                                {{--</a>--}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </article>
                                             </div>
                                         </div>
                                     <!-- END TABS SECTIONS-->
@@ -314,4 +328,8 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('js')
+        <script src="{{ asset('asset/js/plugins/isotope/jquery.isotope.min.js') }}"></script>
 @endsection
