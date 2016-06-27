@@ -36,7 +36,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['middleware' => ['role:user|admin']], function () {
         Route::get('/', 'Front\IndexController@index');
-        Route::get('/friends', 'Front\FriendsController@getAllFriends');
+        Route::get('friends', ['as' => 'front.friends.show', 'uses' => 'Front\FriendsController@getAllFriends']);
+        Route::get('friends/destroy/{user}', ['as' => 'front.friends.destroy', 'uses' => 'Front\FriendsController@destroy']);
+        Route::get('friends/add/{user}', ['as' => 'front.friends.add', 'uses' => 'Front\FriendsController@add']);
         Route::get('search/autocomplete', 'SearchController@searchUser');
         Route::resource('user', 'UserController');
         Route::resource('publication', 'Front\PublicationController');

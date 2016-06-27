@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
-use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use DB;
 
 class FriendsController extends Controller
 {
@@ -22,13 +22,47 @@ class FriendsController extends Controller
      }
 
     /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($friend)
+    {
+        $id = Auth::user()->id;
+        $idfriend = $friend->id;
+
+        DB::table('users_links')
+            ->where('user_id', $id)
+            ->where('userL_id', $idfriend)
+            ->delete();
+
+        DB::table('users_links')
+            ->where('user_id', $idfriend)
+            ->where('userL_id', $id)
+            ->delete();
+
+        $user = Auth::user();
+
+        return view('front.friends', ['user' => $user]);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function add($friend)
     {
-        //
+        $iduser = Auth::user()->id;
+        $idfriend = $friend->id;
+
+        if($iduser != $idfriend){
+            DB::table('users_links')->insert(
+                ['user_id' => $iduser, 'userL_id' => $idfriend, 'created_at' => date("Y-m-d H:i:s"), 'updated_at' => date("Y-m-d H:i:s") ]
+            );
+        }
+
+        $user = Auth::user();
+
+        return view('front.friends', ['user' => $user]);
     }
 
     /**
@@ -76,14 +110,4 @@ class FriendsController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

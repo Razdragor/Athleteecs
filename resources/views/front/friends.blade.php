@@ -27,30 +27,6 @@
       </div>
 
 
-    <div class="row">
-        @forelse($user->friends as $friend)
-            <div class="col-md-2 onefriend">
-                <div class="team-member">
-                    <a href="/user/{{ $friend->id }}">
-                        <figure class="member-photo">
-                            <img class="imgonefriend" src="{{ $friend->picture }}" alt="{{ $friend->firstname }} {{ $friend->lastname }}" width="100px" height="100px">
-                        </figure>
-                        <div class="team-detail">
-                            <h4>{{ $friend->firstname }} {{ $friend->lastname }}</h4>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        @empty
-            <p class="onefriend">Vous n'avez pas encore ajoutés d'amis.</p>
-        @endforelse
-    </div>
-
-
-
-
-
-
 
 
       <div class="row">
@@ -73,6 +49,7 @@
                  </div>
              </a>
           </div>
+            <a href="{{ route('front.friends.destroy', ['friend' => $friend]) }}">Retirer de la liste d'amis</a>
         </div>
         @empty
         <p>Vous n'avez pas encore ajoutés d'amis.</p>

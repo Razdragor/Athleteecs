@@ -97,7 +97,7 @@
                                 <li>
                                     <div class="row">
                                         <div class="btn-icon col-md-3">
-                                            <a href="/friends" role="button" class="btn btn-neutral"><i class="fa fa-users fa-lg"></i>
+                                            <a href="{{ route('front.friends.show') }}" role="button" class="btn btn-neutral"><i class="fa fa-users fa-lg"></i>
                                                 <div class="title">Amis</div>
                                                 <span class="label label-warning">2</span>
                                             </a>
