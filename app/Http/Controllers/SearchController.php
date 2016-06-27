@@ -28,8 +28,10 @@ class SearchController extends Controller
         foreach ($queries as $query){
     	    $results[] = [ 'id' => $query->id, 'firstname' => $query->firstname, 'lastname' => $query->lastname, 'picture' => $query->picture ];
     	}
-        dd($results);
-        return view('front.friends', [ 'results' => $results]);
+
+		$user = Auth::user();
+        //dd($results);
+        return view('front.friends', [ 'results' => $results, 'user' => $user]);
         //return $results;
     }
 }
