@@ -17,7 +17,8 @@ class SearchController extends Controller
         $terme = Input::get('terme');
     	$results = array();
     	// On va chercher sur les noms, prénom en like et un mail strict
-    	$queries = DB::table('users')
+
+		$queries = DB::table('users')
     		->where('firstname', 'LIKE', $terme.'%')
     		->orWhere('lastname', 'LIKE', $terme.'%')
 			->orWhere(DB::raw("CONCAT(`firstname`, ' ', `lastname`)"), 'LIKE', $terme.'%')
@@ -30,8 +31,8 @@ class SearchController extends Controller
     	}
 
 		$user = Auth::user();
-        //dd($results);
+
         return view('front.friends', [ 'results' => $results, 'user' => $user]);
-        //return $results;
+
     }
 }

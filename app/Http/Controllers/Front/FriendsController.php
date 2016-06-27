@@ -15,7 +15,14 @@ class FriendsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     public function getAllFriends()
+    public function index()
+    {
+        $user = Auth::user();
+        return view('front.friends', ['user' => $user]);
+    }
+
+
+    public function getAllFriends()
      {
          $user = Auth::user();
          return view('front.friends', ['user' => $user]);
@@ -54,11 +61,11 @@ class FriendsController extends Controller
         $iduser = Auth::user()->id;
         $idfriend = $friend->id;
 
-        if($iduser != $idfriend){
-            DB::table('users_links')->insert(
-                ['user_id' => $iduser, 'userL_id' => $idfriend, 'created_at' => date("Y-m-d H:i:s"), 'updated_at' => date("Y-m-d H:i:s") ]
-            );
-        }
+//        if($iduser != $idfriend){
+//            DB::table('users_links')->insert(
+//                ['user_id' => $iduser, 'userL_id' => $idfriend, 'created_at' => date("Y-m-d H:i:s"), 'updated_at' => date("Y-m-d H:i:s") ]
+//            );
+//        }
 
         $user = Auth::user();
 
