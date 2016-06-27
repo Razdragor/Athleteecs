@@ -18,14 +18,32 @@
           <div class="section-header">
             <h2 data-animation="bounceInUp" class="section-heading animated titleoffriends">Rechercher des amis</h2>
           </div>
-          <form method="GET" action="{{ url('search/autocomplete') }}">
+          <form method="GET" action="{{ route('front.friends.search')}}">
               {{ csrf_field() }}
               <input id="terme" placeholder="Rechercher un utilisateur" name="terme" type="text" value="">
               <input class="btn btn-default" type="submit" value="Search">
           </form>
         </div>
       </div>
-
+        @if(!empty($results))
+            @forelse($results as $friend)
+            <div class="col-md-2 onefriend">
+                <div class="team-member">
+                    <a href="/user/{{$friend['id']}}">
+                        <figure class="member-photo">
+                            <img class="imgonefriend" src="{{ $friend['picture'] }}" alt="{{ $friend['firstname'] }} {{ $friend['lastname'] }}" width="100px" height="100px">
+                        </figure>
+                        <div class="team-detail">
+                            <h4>{{ $friend['firstname'] }} {{ $friend['lastname'] }}</h4>
+                        </div>
+                    </a>
+                </div>
+                <a href="{{ route('front.friends.add', ['friend' => $friend['id']]) }}">Ajouter un ami</a>
+            </div>
+            @empty
+                <p>quelque chose</p>
+            @endforelse
+        @endif
 
 
 
@@ -65,11 +83,10 @@
     <script>
         $(function(){
              $( "#terme" ).autocomplete({
-                  source: "{{ url('search/autocomplete') }}",
+                  source: "{{ url('friends/search') }}",
                   minLength: 3,
                   select: function(event, ui) {
                     $('#terme').val(ui.item.value);
-                    console.log('passe dans la fonction?');
               }
             });
         });
