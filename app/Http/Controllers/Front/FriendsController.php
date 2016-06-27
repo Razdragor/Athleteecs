@@ -18,11 +18,11 @@ class FriendsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     public function getAllFriends()
-     {
-         $user = Auth::user();
-         return view('front.friends', ['user' => $user]);
-     }
+    public function index()
+    {
+        $user = Auth::user();
+        return view('front.friends', ['user' => $user]);
+    }
 
     public function searchfriends(){
         $terme = Input::get('terme');
