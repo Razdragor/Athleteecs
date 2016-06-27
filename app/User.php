@@ -72,6 +72,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->belongsToMany('App\User','users_links','user_id','userL_id');
     }
 
+    public function pictures()
+    {
+        return $this->hasMany('App\Picture');
+    }
 
     /**
      * Get the name of the unique identifier for the user.
