@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
-use DB;
+use App\UsersDemands;
 
 class FriendsController extends Controller
 {
@@ -53,16 +53,17 @@ class FriendsController extends Controller
     {
         $iduser = Auth::user()->id;
         $idfriend = $friend->id;
-
-        if($iduser != $idfriend){
-            DB::table('users_links')->insert(
-                ['user_id' => $iduser, 'userL_id' => $idfriend, 'created_at' => date("Y-m-d H:i:s"), 'updated_at' => date("Y-m-d H:i:s") ]
-            );
-        }
-
         $user = Auth::user();
-
-        return view('front.friends', ['user' => $user]);
+        if($iduser !== $idfriend){
+             $demand = UsersDemands::firstOrCreate([
+                    'user_id' => $iduser,
+                    'userL_id' => $idfriend,
+                    'demands' => false
+                ]);
+            return view('front.friends', ['user' => $user, 'demand' => $demand]);
+        } else {
+            return view('front.friends', ['user' => $user]);
+        }
     }
 
     /**
