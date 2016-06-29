@@ -72,8 +72,14 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->belongsToMany('App\User','users_links','user_id','userL_id');
     }
 
-    public function demands(){
-        return $this->belongsToMany('App\User','users_demands','user_id','userL_id');
+    public function demandsto(){
+        return $this->belongsToMany('App\User','users_demands','user_id','userL_id')
+            ->where('demands', false);
+    }
+
+    public function demandsfrom(){
+        return $this->belongsToMany('App\User','users_demands', 'userL_id', 'user_id')
+            ->where('demands', false);
     }
 
 

@@ -10,6 +10,7 @@ use App\UsersDemands;
 use App\UsersLinks;
 use Illuminate\Support\Facades\Input;
 use DB;
+use App\User;
 
 class FriendsController extends Controller
 {
@@ -28,29 +29,35 @@ class FriendsController extends Controller
         $terme = Input::get('terme');
         $results = array();
         // On va chercher sur les noms, prénom en like et un mail strict
-        $queries = DB::table('users')
-            ->where('firstname', 'LIKE', $terme.'%')
-            ->orWhere('lastname', 'LIKE', $terme.'%')
-            ->orWhere(DB::raw("CONCAT(`firstname`, ' ', `lastname`)"), 'LIKE', $terme.'%')
-            ->orWhere(DB::raw("CONCAT(`lastname`, ' ', `firstname`)"), 'LIKE', $terme.'%')
-            ->orWhere('email', $terme)
-            ->get();
-
-        /*
-         * searchfriend amélioré mais probleme avec 2 orWhere que j'ai commenté
-         *
-            $queries = User::where('firstname', 'LIKE', $terme.'%')
+        if(!empty($terme)){
+            $queries = DB::table('users')
+                ->where('firstname', 'LIKE', $terme.'%')
                 ->orWhere('lastname', 'LIKE', $terme.'%')
-                //->orWhere(User::where("CONCAT(`firstname`, ' ', `lastname`)"), 'LIKE', $terme.'%')
-                //->orWhere(User::where("CONCAT(`lastname`, ' ', `firstname`)"), 'LIKE', $terme.'%')
+                ->orWhere(DB::raw("CONCAT(`firstname`, ' ', `lastname`)"), 'LIKE', $terme.'%')
+                ->orWhere(DB::raw("CONCAT(`lastname`, ' ', `firstname`)"), 'LIKE', $terme.'%')
                 ->orWhere('email', $terme)
                 ->get();
-         */
 
-        foreach ($queries as $query) {
-            $results[] = ['id' => $query->id, 'firstname' => $query->firstname, 'lastname' => $query->lastname, 'picture' => $query->picture];
+            /*
+             * searchfriend amélioré mais probleme avec 2 orWhere que j'ai commenté
+             *
+                $queries = User::where('firstname', 'LIKE', $terme.'%')
+                    ->orWhere('lastname', 'LIKE', $terme.'%')
+                    //->orWhere(User::where("CONCAT(`firstname`, ' ', `lastname`)"), 'LIKE', $terme.'%')
+                    //->orWhere(User::where("CONCAT(`lastname`, ' ', `firstname`)"), 'LIKE', $terme.'%')
+                    ->orWhere('email', $terme)
+                    ->get();
+             */
+
+            foreach ($queries as $query) {
+                $results[] = ['id' => $query->id, 'firstname' => $query->firstname, 'lastname' => $query->lastname, 'picture' => $query->picture];
+            }
+        } else {
+            $results = [];
         }
+
         $user = Auth::user();
+
         return view('front.friends', [ 'results' => $results, 'user' => $user]);
         //return $results;
     }
@@ -72,6 +79,34 @@ class FriendsController extends Controller
             ->where('userL_id', $id)
             ->delete();
 
+        UsersDemands::where('user_id', $id)
+            ->where('userL_id', $idfriend)
+            ->delete();
+
+        UsersDemands::where('user_id', $idfriend)
+            ->where('userL_id', $id)
+            ->delete();
+
+        return view('front.friends', ['user' => $user]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function cancel($friend)
+    {
+        $user = Auth::user();
+        $id = Auth::user()->id;
+        $idfriend = $friend->id;
+
+        UsersDemands::where('user_id', $id)
+            ->where('userL_id', $idfriend)
+            ->delete();
+
+        UsersDemands::where('user_id', $idfriend)
+            ->where('userL_id', $id)
+            ->delete();
+
         return view('front.friends', ['user' => $user]);
     }
 
@@ -84,15 +119,43 @@ class FriendsController extends Controller
     {
         $iduser = Auth::user()->id;
         $idfriend = $friend->id;
-        $user = Auth::user();
 
         if($iduser !== $idfriend){
              UsersDemands::firstOrCreate([
-                    'user_id' => $iduser,
-                    'userL_id' => $idfriend,
+                    'user_id' => $idfriend,
+                    'userL_id' => $iduser,
                     'demands' => false
                 ]);
         }
+
+        $user = Auth::user();
+
+        return view('front.friends', ['user' => $user]);
+    }
+
+    public function accept($friend)
+    {
+        $iduser = Auth::user()->id;
+        $idfriend = $friend->id;
+
+        if($iduser !== $idfriend){
+            UsersDemands::where('user_id', $iduser)
+                ->where('userL_id', $idfriend)
+                ->update(['demands' => true]);
+
+                UsersLinks::firstOrCreate([
+                    'user_id' => $idfriend,
+                    'userL_id' => $iduser,
+                ]);
+
+                UsersLinks::firstOrCreate([
+                    'user_id' => $iduser,
+                    'userL_id' => $idfriend,
+                ]);
+
+        }
+
+        $user = Auth::user();
         return view('front.friends', ['user' => $user]);
     }
 

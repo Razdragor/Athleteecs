@@ -42,6 +42,8 @@ Route::group(['middleware' => 'web'], function() {
             Route::get('friends', ['as' => 'front.friends.show', 'uses' => 'Front\FriendsController@index']);
             Route::get('friends/destroy/{user}', ['as' => 'front.friends.destroy', 'uses' => 'Front\FriendsController@destroy']);
             Route::get('friends/add/{user}', ['as' => 'front.friends.add', 'uses' => 'Front\FriendsController@add']);
+            Route::get('friends/cancel/{user}', ['as' => 'front.friends.cancel', 'uses' => 'Front\FriendsController@cancel']);
+            Route::get('friends/accept/{user}', ['as' => 'front.friends.accept', 'uses' => 'Front\FriendsController@accept']);
             Route::get('friends/search', ['as' => 'front.friends.search', 'uses' => 'Front\FriendsController@searchfriends']);
             Route::resource('user', 'UserController');
             Route::resource('publication', 'Front\PublicationController');

@@ -18,30 +18,32 @@
           <div class="section-header">
             <h2 data-animation="bounceInUp" class="section-heading animated titleoffriends">Rechercher des amis</h2>
           </div>
-          <form method="GET" action="{{ route('front.friends.search')}}">
+          <form class="onefriend" method="GET" action="{{ route('front.friends.search')}}">
               {{ csrf_field() }}
               <input id="terme" placeholder="Rechercher un utilisateur" name="terme" type="text" value="">
-              <input class="btn btn-default" type="submit" value="Search">
+              <input class="btn btn-default" type="submit" value="Rechercher">
           </form>
         </div>
       </div>
         @if(!empty($results))
             @forelse($results as $friend)
-            <div class="col-md-2 onefriend">
-                <div class="team-member">
-                    <a href="/user/{{$friend['id']}}">
-                        <figure class="member-photo">
-                            <img class="imgonefriend" src="{{ $friend['picture'] }}" alt="{{ $friend['firstname'] }} {{ $friend['lastname'] }}" width="100px" height="100px">
-                        </figure>
-                        <div class="team-detail">
-                            <h4>{{ $friend['firstname'] }} {{ $friend['lastname'] }}</h4>
+                @if($friend['id'] !== Auth::user()->id)
+                    <div class="col-md-2 onefriend">
+                        <div class="team-member">
+                            <a href="/user/{{$friend['id']}}">
+                                <figure class="member-photo">
+                                    <img class="imgonefriend" src="{{ $friend['picture'] }}" alt="{{ $friend['firstname'] }} {{ $friend['lastname'] }}" width="100px" height="100px">
+                                </figure>
+                                <div class="team-detail">
+                                    <h4>{{ $friend['firstname'] }} {{ $friend['lastname'] }}</h4>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                </div>
-                <a href="{{ route('front.friends.add', ['friend' => $friend['id']]) }}">Ajouter un ami</a>
-            </div>
+                        <a href="{{ route('front.friends.add', ['friend' => $friend['id']]) }}">Ajouter un ami</a>
+                    </div>
+                @endif
             @empty
-                <p>quelque chose</p>
+                <p class="onefriend">quelque chose</p>
             @endforelse
         @endif
 
@@ -70,9 +72,64 @@
             <a href="{{ route('front.friends.destroy', ['friend' => $friend]) }}">Retirer de la liste d'amis</a>
         </div>
         @empty
-        <p>Vous n'avez pas encore ajoutés d'amis.</p>
+        <p class="onefriend">Vous n'avez pas encore ajoutés d'amis.</p>
         @endforelse
       </div>
+        @if($user->demandsto)
+        <div class="row">
+            <div class="col-md-offset-3 col-md-6">
+                <div class="section-header">
+                    <h2 data-animation="bounceInUp" class="section-heading animated titleoffriends">Mes demandes reçues</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @forelse($user->demandsto as $friend)
+                <div class="col-md-2 onefriend">
+                    <div class="team-member">
+                        <a href="/user/{{ $friend->id }}">
+                            <figure class="member-photo">
+                                <img class="imgonefriend" src="{{ $friend->picture }}" alt="{{ $friend->firstname }} {{ $friend->lastname }}" width="100px" height="100px">
+                            </figure>
+                            <div class="team-detail">
+                                <h4>{{ $friend->firstname }} {{ $friend->lastname }}</h4>
+                            </div>
+                        </a>
+                    </div>
+                    <a href="{{ route('front.friends.accept', ['friend' => $friend]) }}">Accepter la demande</a>
+                    <a href="{{ route('front.friends.cancel', ['friend' => $friend]) }}">Refuser la demande</a>
+                </div>
+            @empty
+                <p class="onefriend">Vous n'avez pas de demandes reçues en attente.</p>
+            @endforelse
+        </div>
+        @endif
+        <div class="row">
+            <div class="col-md-offset-3 col-md-6">
+                <div class="section-header">
+                    <h2 data-animation="bounceInUp" class="section-heading animated titleoffriends">Mes demandes envoyées</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @forelse($user->demandsfrom as $friend)
+                <div class="col-md-2 onefriend">
+                    <div class="team-member">
+                        <a href="/user/{{ $friend->id }}">
+                            <figure class="member-photo">
+                                <img class="imgonefriend" src="{{ $friend->picture }}" alt="{{ $friend->firstname }} {{ $friend->lastname }}" width="100px" height="100px">
+                            </figure>
+                            <div class="team-detail">
+                                <h4>{{ $friend->firstname }} {{ $friend->lastname }}</h4>
+                            </div>
+                        </a>
+                    </div>
+                    <a href="{{ route('front.friends.cancel', ['friend' => $friend]) }}">Annuler la demande</a>
+                </div>
+            @empty
+                <p class="onefriend">Vous n'avez pas de demandes envoyées en cours.</p>
+            @endforelse
+        </div>
     </div>
   </div>
 </section>
