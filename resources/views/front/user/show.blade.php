@@ -35,6 +35,27 @@
                                         <a class="btn btn-block btn-success"><i class="fa fa-envelope-alt"></i>Envoyer un message</a>
                                     </div>
                                 @endif
+                                @if(Auth::user() != $user)
+                                    <div>
+                                        <a href="{{ route('front.friends.add', ['friend' => $user]) }}" class="btn btn-block btn-success">Ajouter</a>
+                                    </div>
+                                @endif
+                                @if(Auth::user() != $user)
+                                    <div>
+                                        <a href="{{ route('front.friends.destroy', ['friend' => $user]) }}" class="btn btn-block btn-success">Supprimer</a>
+                                    </div>
+                                @endif
+                                @if(Auth::user() != $user)
+                                    <div>
+                                        <a href="{{ route('front.friends.cancel', ['friend' => $user]) }}" class="btn btn-block btn-success">Annuler</a>
+                                    </div>
+                                @endif
+                                @if(Auth::user() != $user)
+                                    <div>
+                                        <a href="{{ route('front.friends.accept', ['friend' => $user]) }}" class="btn btn-block btn-success">Accepter</a>
+                                    </div>
+                                @endif
+
                                 <br>
                                 <!-- BEGIN SOCIAL ICONS-->
                                 <div class="text-center social-icons">
@@ -85,12 +106,16 @@
                                         <li class="active ok" id="infos">
                                             <a href="#" data-toggle="tab">Info</a>
                                         </li>
+                                        <li id="amis" class="ok">
+                                            <a href="#">{{count($user->friends)}} amis</a>
+                                        </li>
                                         <li id="photos" class="ok">
                                             <a href="#">Photos</a>
                                         </li>
                                         <li id="videos" class="ok">
                                             <a href="#">Videos</a>
                                         </li>
+
                                     </ul>
                                 </div>
                                 <!-- END TABS SELECTIONS-->

@@ -19,8 +19,7 @@ class FriendsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(){
         $user = Auth::user();
         return view('front.friends', ['user' => $user]);
     }
@@ -28,35 +27,25 @@ class FriendsController extends Controller
     public function searchfriends(){
         $terme = Input::get('terme');
         $results = array();
+        $user = Auth::user();
         // On va chercher sur les noms, prénom en like et un mail strict
         if(!empty($terme)){
-            $queries = DB::table('users')
-                ->where('firstname', 'LIKE', $terme.'%')
-                ->orWhere('lastname', 'LIKE', $terme.'%')
-                ->orWhere(DB::raw("CONCAT(`firstname`, ' ', `lastname`)"), 'LIKE', $terme.'%')
-                ->orWhere(DB::raw("CONCAT(`lastname`, ' ', `firstname`)"), 'LIKE', $terme.'%')
-                ->orWhere('email', $terme)
-                ->get();
 
-            /*
-             * searchfriend amélioré mais probleme avec 2 orWhere que j'ai commenté
-             *
+             //searchfriend amélioré mais probleme avec 2 orWhere que j'ai commenté
                 $queries = User::where('firstname', 'LIKE', $terme.'%')
                     ->orWhere('lastname', 'LIKE', $terme.'%')
-                    //->orWhere(User::where("CONCAT(`firstname`, ' ', `lastname`)"), 'LIKE', $terme.'%')
-                    //->orWhere(User::where("CONCAT(`lastname`, ' ', `firstname`)"), 'LIKE', $terme.'%')
+                    ->orWhere(DB::raw("CONCAT(`firstname`, ' ', `lastname`)"), 'LIKE', $terme.'%')
+                    ->orWhere(DB::raw("CONCAT(`lastname`, ' ', `firstname`)"), 'LIKE', $terme.'%')
                     ->orWhere('email', $terme)
                     ->get();
-             */
 
             foreach ($queries as $query) {
-                $results[] = ['id' => $query->id, 'firstname' => $query->firstname, 'lastname' => $query->lastname, 'picture' => $query->picture];
+                    $results[] = ['id' => $query->id, 'firstname' => $query->firstname, 'lastname' => $query->lastname, 'picture' => $query->picture];
             }
         } else {
             $results = [];
         }
 
-        $user = Auth::user();
 
         return view('front.friends', [ 'results' => $results, 'user' => $user]);
         //return $results;
@@ -65,9 +54,7 @@ class FriendsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($friend)
-    {
-        $user = Auth::user();
+    public function destroy($friend){
         $id = Auth::user()->id;
         $idfriend = $friend->id;
 
@@ -87,15 +74,13 @@ class FriendsController extends Controller
             ->where('userL_id', $id)
             ->delete();
 
-        return view('front.friends', ['user' => $user]);
+        return redirect('/friends');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function cancel($friend)
-    {
-        $user = Auth::user();
+    public function cancel($friend){
         $id = Auth::user()->id;
         $idfriend = $friend->id;
 
@@ -107,7 +92,7 @@ class FriendsController extends Controller
             ->where('userL_id', $id)
             ->delete();
 
-        return view('front.friends', ['user' => $user]);
+        return redirect('/friends');
     }
 
     /**
@@ -115,8 +100,7 @@ class FriendsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function add($friend)
-    {
+    public function add($friend){
         $iduser = Auth::user()->id;
         $idfriend = $friend->id;
 
@@ -130,11 +114,10 @@ class FriendsController extends Controller
 
         $user = Auth::user();
 
-        return view('front.friends', ['user' => $user]);
+        return redirect('/friends');
     }
 
-    public function accept($friend)
-    {
+    public function accept($friend){
         $iduser = Auth::user()->id;
         $idfriend = $friend->id;
 
@@ -154,9 +137,7 @@ class FriendsController extends Controller
                 ]);
 
         }
-
-        $user = Auth::user();
-        return view('front.friends', ['user' => $user]);
+        return redirect('/friends');
     }
 
     /**
