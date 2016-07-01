@@ -55,6 +55,7 @@ class Publication extends Model
     }
 
     public function timeAgo($timestamp, $ref = 0){
+        setlocale (LC_TIME, 'fr_FR.utf8','fra');
         $time = $timestamp->timestamp;
         if ($ref < 1) $ref = time();
 

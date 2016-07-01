@@ -18,7 +18,7 @@ class IndexController extends Controller
     public function index()
     {
         $sports = Sport::all();
-        $publications = Publication::orderBy('updated_at', 'DESC')->get();
+        $publications = Publication::orderBy('updated_at', 'DESC')->take(10)->get();
         return view('front.index', ["sports" => $sports, "publications" => $publications]);
     }
 
