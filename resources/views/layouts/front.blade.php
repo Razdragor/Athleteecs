@@ -99,7 +99,7 @@
                                         <div class="btn-icon col-md-3">
                                             <a href="{{ route('front.friends.show') }}" role="button" class="btn btn-neutral"><i class="fa fa-users fa-lg"></i>
                                                 <div class="title">Amis</div>
-                                                <span class="label label-warning">2</span>
+                                                <span class="label label-warning">{{ count(Auth::user()->friends()) }}</span>
                                             </a>
                                         </div>
                                         <div class="btn-icon col-md-3">
@@ -197,18 +197,21 @@
                             <li class="dropdown nav-notifications">
                                 <!-- BEGIN DROPDOWN TOGGLE-->
                                 <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
-                                    <span class="badge">9</span><i class="fa fa-warning fa-lg"></i>
+                                    <span class="badge">{{ count(Auth::user()->getnotifications()) }}</span><i class="fa fa-warning fa-lg"></i>
                                 </a>
                                 <!-- END DROPDOWN TOGGLE-->
                                 <!-- BEGIN DROPDOWN MENU-->
                                 <ul class="dropdown-menu">
                                     <!-- BEGIN DROPDOWN HEADER-->
                                     <li class="nav-notifications-header">
-                                        <a tabindex="-1" href="#">You have <strong>9</strong> new notifications</a>
+                                        <a tabindex="-1" href="#">Vous avez <strong>{{Auth::user()->getnotifications()->pivot}}</strong> @if(9>1)nouvelles notifications @else nouvelle notification @endif</a>
                                     </li>
                                     <!-- END DROPDOWN HEADER-->
                                     <!-- BEGIN NOTIFICATION ITEMS-->
                                     <li class="nav-notifications-body">
+                                        @foreach (Auth::user()->getnotifications() as $notification)
+                                            {{$notification}}
+                                        @endforeach
                                         <a href="#" class="text-info"><i class="fa fa-user"></i>&nbsp;New User
                                             <small class="pull-right">Just Now</small>
                                         </a>

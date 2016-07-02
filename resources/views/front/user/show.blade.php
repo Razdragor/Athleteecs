@@ -34,28 +34,38 @@
                                     <div>
                                         <a class="btn btn-block btn-success"><i class="fa fa-envelope-alt"></i>Envoyer un message</a>
                                     </div>
+                                    @foreach($user->friends as $friend)
+                                        @if($friend->id == Auth::user()->id)
+                                            <div>
+                                                <a href="{{ route('front.friends.destroy', ['friend' => $user]) }}" class="btn btn-block btn-success">Retirer de la liste des amis</a>
+                                            </div>
+                                        @else
+                                            @foreach($user->demandsfrom as $friend)
+                                                    <?php echo $friend->id ?>
+                                                @if( $friend->id == Auth::user()->id)
+                                                    <div>
+                                                        <a href="{{ route('front.friends.cancel', ['friend' => $user]) }}" class="btn btn-block btn-success">Annuler la demande</a>
+                                                    </div>
+                                                @else
+                                                    @foreach($user->demandsto as $friend)
+                                                        @if( $friend->id == Auth::user()->id)
+                                                            <div>
+                                                                <a href="{{ route('front.friends.accept', ['friend' => $user]) }}" class="btn btn-block btn-success">Accepter</a>
+                                                            </div>
+                                                            <div>
+                                                                <a href="{{ route('front.friends.cancel', ['friend' => $user]) }}" class="btn btn-block btn-success">Annuler</a>
+                                                            </div>
+                                                        @else
+                                                            <div>
+                                                                <a href="{{ route('front.friends.add', ['friend' => $user]) }}" class="btn btn-block btn-success">Ajouter</a>
+                                                            </div>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                    @endforeach
                                 @endif
-                                @if(Auth::user() != $user)
-                                    <div>
-                                        <a href="{{ route('front.friends.add', ['friend' => $user]) }}" class="btn btn-block btn-success">Ajouter</a>
-                                    </div>
-                                @endif
-                                @if(Auth::user() != $user)
-                                    <div>
-                                        <a href="{{ route('front.friends.destroy', ['friend' => $user]) }}" class="btn btn-block btn-success">Supprimer</a>
-                                    </div>
-                                @endif
-                                @if(Auth::user() != $user)
-                                    <div>
-                                        <a href="{{ route('front.friends.cancel', ['friend' => $user]) }}" class="btn btn-block btn-success">Annuler</a>
-                                    </div>
-                                @endif
-                                @if(Auth::user() != $user)
-                                    <div>
-                                        <a href="{{ route('front.friends.accept', ['friend' => $user]) }}" class="btn btn-block btn-success">Accepter</a>
-                                    </div>
-                                @endif
-
                                 <br>
                                 <!-- BEGIN SOCIAL ICONS-->
                                 <div class="text-center social-icons">
@@ -107,7 +117,7 @@
                                             <a href="#" data-toggle="tab">Info</a>
                                         </li>
                                         <li id="amis" class="ok">
-                                            <a href="#">{{count($user->friends)}} amis</a>
+                                            <a href="#">{{count($user->friends)}} @if(count($user->friends)>1) amis @else ami @endif</a>
                                         </li>
                                         <li id="photos" class="ok">
                                             <a href="#">Photos</a>

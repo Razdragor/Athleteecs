@@ -11,6 +11,7 @@ use App\UsersLinks;
 use Illuminate\Support\Facades\Input;
 use DB;
 use App\User;
+use App\Notifications;
 
 class FriendsController extends Controller
 {
@@ -74,6 +75,14 @@ class FriendsController extends Controller
             ->where('userL_id', $id)
             ->delete();
 
+        Notifications::where('user_id', $idfriend)
+            ->where('userL_id', $id)
+            ->delete();
+
+        Notifications::where('user_id', $id)
+            ->where('userL_id', $idfriend)
+            ->delete();
+
         return redirect('/friends');
     }
 
@@ -92,6 +101,14 @@ class FriendsController extends Controller
             ->where('userL_id', $id)
             ->delete();
 
+        Notifications::where('user_id', $idfriend)
+            ->where('userL_id', $id)
+            ->delete();
+
+        Notifications::where('user_id', $id)
+            ->where('userL_id', $idfriend)
+            ->delete();
+
         return redirect('/friends');
     }
 
@@ -108,12 +125,14 @@ class FriendsController extends Controller
              UsersDemands::firstOrCreate([
                     'user_id' => $idfriend,
                     'userL_id' => $iduser,
-                    'demands' => false
-                ]);
+                    'demands' => false]);
+
+             Notifications::firstOrCreate([
+                'user_id' => $idfriend,
+                'userL_id' => $iduser,
+                'notification' => 'ami',
+                'afficher' => true]);
         }
-
-        $user = Auth::user();
-
         return redirect('/friends');
     }
 
@@ -126,15 +145,18 @@ class FriendsController extends Controller
                 ->where('userL_id', $idfriend)
                 ->update(['demands' => true]);
 
-                UsersLinks::firstOrCreate([
-                    'user_id' => $idfriend,
-                    'userL_id' => $iduser,
-                ]);
+            Notifications::where('user_id', $iduser)
+                ->where('userL_id', $idfriend)
+                ->where('notification', 'ami')
+                ->update(['afficher' => false]);
 
-                UsersLinks::firstOrCreate([
-                    'user_id' => $iduser,
-                    'userL_id' => $idfriend,
-                ]);
+            UsersLinks::firstOrCreate([
+                'user_id' => $idfriend,
+                'userL_id' => $iduser]);
+
+            UsersLinks::firstOrCreate([
+                'user_id' => $iduser,
+                'userL_id' => $idfriend]);
 
         }
         return redirect('/friends');

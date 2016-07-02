@@ -23,29 +23,29 @@
           </form>
         </div>
       </div>
-        @if(!empty($results))
-            @forelse($results as $friend)
-                @if($friend['id'] !== Auth::user()->id)
-                    <div class="col-md-2 onefriend">
-                        <div class="team-member">
-                            <a href="/user/{{$friend['id']}}">
-                                <figure class="member-photo">
-                                    <img class="imgonefriend" src="{{ $friend['picture'] }}" alt="{{ $friend['firstname'] }} {{ $friend['lastname'] }}" width="100px" height="100px">
-                                </figure>
-                                <div class="team-detail">
-                                    <h4>{{ $friend['firstname'] }} {{ $friend['lastname'] }}</h4>
-                                </div>
-                            </a>
+        <div class="row">
+            @if(!empty($results))
+                @forelse($results as $friend)
+                    @if($friend['id'] !== Auth::user()->id)
+                        <div class="col-md-2 onefriend">
+                            <div class="team-member">
+                                <a href="/user/{{$friend['id']}}">
+                                    <figure class="member-photo">
+                                        <img class="imgonefriend" src="{{ $friend['picture'] }}" alt="{{ $friend['firstname'] }} {{ $friend['lastname'] }}" width="100px" height="100px">
+                                    </figure>
+                                    <div class="team-detail">
+                                        <h4>{{ $friend['firstname'] }} {{ $friend['lastname'] }}</h4>
+                                    </div>
+                                </a>
+                            </div>
+                            <a href="{{ route('front.friends.add', ['friend' => $friend['id']]) }}">Ajouter un ami</a>
                         </div>
-                        <a href="{{ route('front.friends.add', ['friend' => $friend['id']]) }}">Ajouter un ami</a>
-                    </div>
-                @endif
-            @empty
-                <p class="onefriend">quelque chose</p>
-            @endforelse
-        @endif
-
-
+                    @endif
+                @empty
+                    <p class="onefriend">quelque chose</p>
+                @endforelse
+            @endif
+        </div>
 
       <div class="row">
         <div class="col-md-offset-3 col-md-6">
