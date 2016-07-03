@@ -167,21 +167,23 @@
                                             <button class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="font-size: 8px;"><i class="fa fa-chevron-down"></i>
                                             </button>
                                             <ul class="dropdown-menu pull-right">
-                                                <li>
-                                                    <a href="#" onclick="
-                                                        <?php
-                                                            if(is_null($publication->activity)){
-                                                                echo "editpost(".$publication->id.")";
-                                                            }else{
-                                                                echo "editact(".$publication->activity->id.")";
-                                                            }
-                                                        ?>">
-                                                        <span class="fa fa-pencil"></span> Modifier</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" id="deletepost">
-                                                        <span class="fa fa-trash-o"></span> Supprimer</a>
-                                                </li>
+                                                @if(Auth::user()->id == $publication->user_id)
+                                                    <li>
+                                                        <a href="#" onclick="
+                                                            <?php
+                                                                if(is_null($publication->activity)){
+                                                                    echo "editpost(".$publication->id.")";
+                                                                }else{
+                                                                    echo "editact(".$publication->activity->id.")";
+                                                                }
+                                                            ?>">
+                                                            <span class="fa fa-pencil"></span> Modifier</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#" id="deletepost">
+                                                            <span class="fa fa-trash-o"></span> Supprimer</a>
+                                                    </li>
+                                                @endif
                                                 <li>
                                                     <a href="#" id="signalepost">
                                                         <span class="fa fa-exclamation-triangle"></span> Signaler</a>
