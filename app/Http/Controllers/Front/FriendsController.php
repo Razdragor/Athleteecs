@@ -25,33 +25,6 @@ class FriendsController extends Controller
         return view('front.friends', ['user' => $user]);
     }
 
-    public function searchfriends(){
-        $terme = Input::get('terme');
-        $results = array();
-        $user = Auth::user();
-        // On va chercher sur les noms, prénom en like et un mail strict
-        if(!empty($terme)){
-
-             //searchfriend amélioré mais probleme avec 2 orWhere que j'ai commenté
-                $queries = User::where('firstname', 'LIKE', $terme.'%')
-                    ->orWhere('lastname', 'LIKE', $terme.'%')
-                    ->orWhere(DB::raw("CONCAT(`firstname`, ' ', `lastname`)"), 'LIKE', $terme.'%')
-                    ->orWhere(DB::raw("CONCAT(`lastname`, ' ', `firstname`)"), 'LIKE', $terme.'%')
-                    ->orWhere('email', $terme)
-                    ->get();
-
-            foreach ($queries as $query) {
-                    $results[] = ['id' => $query->id, 'firstname' => $query->firstname, 'lastname' => $query->lastname, 'picture' => $query->picture];
-            }
-        } else {
-            $results = [];
-        }
-
-
-        return view('front.friends', [ 'results' => $results, 'user' => $user]);
-        //return $results;
-    }
-
     /**
      * Remove the specified resource from storage.
      */
