@@ -183,7 +183,7 @@
                                                         <span class="fa fa-trash-o"></span> Supprimer</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#">
+                                                    <a href="#" id="signalepost">
                                                         <span class="fa fa-exclamation-triangle"></span> Signaler</a>
                                                 </li>
                                             </ul>
@@ -195,9 +195,22 @@
                                         <div class="post_activity_msg">
                                             {{$publication->message}}
                                         </div>
-                                        <img src="{{ asset($publication->picture) }}" alt="" class="img-responsive">
+                                        <div class="post_picture_video">
+                                            @if(!is_null($publication->video))
+                                                <div class="video-container"><iframe src="https://www.youtube.com/embed/{{$publication->video->url}}" frameborder="0" allowfullscreen></iframe></div>
+                                            @elseif(!is_null($publication->picture))
+                                                <img src="{{ asset($publication->picture) }}" alt="" class="img-responsive">
+                                            @endif
+                                        </div>
+
                                     @else
-                                        <img src="{{ asset($publication->activity->picture) }}" alt="" class="img-responsive">
+                                        <div class="post_picture_video">
+                                            @if(!is_null($publication->video))
+                                                <div class="video-container"><iframe src="https://www.youtube.com/embed/{{$publication->video->url}}" frameborder="0" allowfullscreen></iframe></div>
+                                            @elseif(!is_null($publication->picture))
+                                                <img src="{{ asset($publication->picture) }}" alt="" class="img-responsive">
+                                            @endif
+                                        </div>
                                         <div class="post_activity">
                                             <div class="post_activity_img">
                                                 <img src="{{ asset("../images/icons/".$publication->activity->sport->icon) }}" alt="{{ $publication->activity->sport->name }}" class="img-responsive">
@@ -218,7 +231,7 @@
                                         @foreach($publication->commentspost as $comment)
                                             <div class="comment">
                                                 <a class="pull-left" href="{{ route("user.show", $comment->user->id ) }}">
-                                                    <img width="30" height="30" class="comment-avatar" alt="Julio Marquez" src="{{ asset($comment->user->picture) }}">
+                                                    <img width="35" height="35" class="comment-avatar" alt="{{ $comment->user->firstname.' '.$comment->user->lastname }}" src="{{ asset($comment->user->picture) }}">
                                                 </a>
                                                 <div class="comment-body">
                                                     <span class="message"><strong>{{ $comment->user->firstname.' '.$comment->user->lastname }}</strong> {{ $comment->message }}</span>
@@ -231,7 +244,7 @@
                                         @endif
                                         <div class="comment">
                                             <a class="pull-left" href="{{ route("user.show", $publication->user->id ) }}">
-                                                <img width="30" height="30" class="comment-avatar" alt="Julio Marquez" src="{{ asset(Auth::user()->picture) }}">
+                                                <img width="35" height="35" class="comment-avatar" alt="{{Auth::user()->name}}" src="{{ asset(Auth::user()->picture) }}">
                                             </a>
                                             <div class="comment-body">
                                                 <input type="text" class="form-control" name="{{ $publication->id }}" id="post-comment" placeholder="Ecris un commentaire...">
@@ -346,7 +359,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4>Modifier votre publication</h4>
+                    <h4>Suppression de votre publication</h4>
                 </div>
                 <div class="modal-body">
                     Etes vous sur de vouloir supprimer cette publication ?

@@ -19,7 +19,7 @@ class Publication extends Model
      * @var array
      */
     protected $fillable = [
-        'id','message', 'picture', 'user_id', 'activity_id', 'group_id', 'association_id', 'created_at', 'updated_at'
+        'id','message', 'picture', 'user_id', 'activity_id', 'group_id', 'association_id', 'created_at', 'updated_at', 'video_id', 'score', 'status'
     ];
 
     /**
@@ -38,6 +38,11 @@ class Publication extends Model
     public function activity()
     {
         return $this->belongsTo('App\Activity');
+    }
+
+    public function video()
+    {
+        return $this->belongsTo('App\Video');
     }
 
     public function group()

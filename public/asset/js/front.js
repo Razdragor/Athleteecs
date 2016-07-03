@@ -15,14 +15,34 @@ $(document).ready(function() {
     $("body").on('click','#deletepost' ,function(e){
         parent = $(this).parents(".publicationJS");
         var splitID = parent.attr("id").split("-");
-        publicationDestroy = splitID[1];
+        console.log(splitID);
+        if(splitID[0] == 'activite'){
+            publicationDestroy = 'activity/'+splitID[1]+'/destroyAjax';
+        }
+        else{
+            publicationDestroy = 'publication/'+splitID[1]+'/destroyAjax';
+        }
+
+        $('#modal-delete').modal('show');
+    });
+
+    $("body").on('click','#signalepost' ,function(e){
+        parent = $(this).parents(".publicationJS");
+        var splitID = parent.attr("id").split("-");
+        if(splitID[0] == 'activite'){
+            publicationDestroy = 'activity/'+splitID[1]+'/signaleAjax';
+        }
+        else{
+            publicationDestroy = 'publication/'+splitID[1]+'/signaleAjax';
+        }
+
         $('#modal-delete').modal('show');
     });
 
     $('#delete-modal-post').submit(function(e){
         e.preventDefault();
         $.ajax({
-            url: 'publication/'+publicationDestroy+'/destroyAjax',
+            url: publicationDestroy,
             type: 'post',
             data: {},
             success: function(data) {
@@ -49,7 +69,25 @@ $(document).ready(function() {
                 if(data['success'] == true)
                 {
                     $publication1 = data['publication'];
-                    $("#publication-"+$publication1.id+" .timeline-body img").attr('src',$publication1.picture);
+                    $video1 = data['video'];
+                    if($video1){
+                        var video = $('#publication-' + $publication1.id + ' .timeline-body .post_picture_video .video-container iframe');
+                        if(isEmpty(video)) {
+                           video.attr('src', "https://www.youtube.com/embed/" + $video1);
+                        }
+                        else{
+                            $('#publication-' + $publication1.id + ' .timeline-body .post_picture_video').html('<div class="video-container"><iframe src="https://www.youtube.com/embed/'+$video1+'"  frameborder="0" allowfullscreen></iframe></div>');
+                        }
+                    }
+                    else if($publication1.picture){
+                        var img = $('#publication-' + $publication1.id + ' .timeline-body .post_picture_video img');
+                        if(isEmpty(img)) {
+                            $("#publication-" + $publication1.id + " .timeline-body img").attr('src', $publication1.picture);
+                        }
+                        else{
+                            $('#publication-' + $publication1.id + ' .timeline-body .post_picture_video').html('<img src="'+$publication1.picture+'" alt="" class="img-responsive">');
+                        }
+                    }
                     $("#publication-"+$publication1.id+" .timeline-body .post_activity_msg").text($publication1.message);
                     $('#modal-post').modal('hide');
                     $("#user-post-modal-post").text("");
@@ -73,9 +111,26 @@ $(document).ready(function() {
                 {
                     $activity1 = data['activity'];
                     $sport1 = data['sport'];
-
-                    console.log($sport1);
+                    $video1 = data['video'];
                     var act = $('#activite-' + $activity1.id);
+                    if($video1){
+                        var video = act.find('.timeline-body .post_picture_video .video-container iframe');
+                        if(isEmpty(video)) {
+                            video.attr('src', "https://www.youtube.com/embed/" + $video1);
+                        }
+                        else{
+                            act.find('.timeline-body .post_picture_video').html('<div class="video-container"><iframe src="https://www.youtube.com/embed/'+$video1+'"  frameborder="0" allowfullscreen></iframe></div>');
+                        }
+                    }
+                    else if($publication1.picture){
+                        var img = act.find('.timeline-body .post_picture_video img');
+                        if(isEmpty(img)) {
+                            act.find(".timeline-body img").attr('src', $activity1.picture);
+                        }
+                        else{
+                            act.find('.timeline-body .post_picture_video').html('<img src="'+$activity1.picture+'" alt="" class="img-responsive">');
+                        }
+                    }
                     act.find(".timeline-body img").attr('src',$activity1.picture);
                     act.find(".timeline-body .post_activity_msg").text($activity1.description);
                     act.find(".timeline-body .post_activity_img img").attr('src', '/images/icons/'+$sport1.icon);
@@ -222,29 +277,34 @@ $(document).ready(function() {
 
 function editpost(publication){
     var post = $('#publication-' + publication + ' .timeline-body .post_activity_msg');
-    var test = post.text().trim();
-    var textarea = $("#user-post-modal-post");
-    textarea.text(test);
+    var video = $('#publication-' + publication + ' .timeline-body .video-container iframe');
+    var src = video.attr('src');
+    var texte = post.text().trim();
+    if(src){
+        texte += " " + src;
+    }
+    $("#user-post-modal-post").text(texte);
     $('#submit-modal-post').attr('action', 'publication/'+publication+'/updateAjax');
     $('#modal-post').modal('show');
 }
 
 function editact(activity){
-    console.log(activity);
     var act = $('#activite-' + activity);
-    console.log(act);
     var post = act.find('.timeline-body .post_activity_msg');
-    var test = post.text().trim();
-    $("#user-post-modal-act").text(test);
+    var video = act.find('.timeline-body .video-container iframe');
+    var src = video.attr('src');
+    var texte = post.text().trim();
+    if(src){
+        texte += " " + src;
+    }
+    $("#user-post-modal-act").text(texte);
     var sport = act.find('.post_activity_img img').attr('alt');
-    console.log("sport",sport);
     $("#select-beast-act option").each(function(e){
         if($(this).text().trim() == sport){
             $(this).attr("selected", "selected");
         }
     });
     var time = act.find('.post_activity_stats span:last').data("text");
-    console.log("time",time);
     $time = [];
     $temp = time % 3600;
     $time[0] = ( time - $temp ) / 3600 ;
@@ -253,9 +313,7 @@ function editact(activity){
 
     var date = act.find('.post_activity_stats span:first').data("text");
     date = date.replace(" ", "T");
-    console.log("date",date);
     var date2 = new Date(date);
-    console.log(date2);
     var year = date2.getFullYear();
     var month = ("0" + (date2.getMonth() + 1)).slice(-2);
     var days = ("0" + date2.getDate()).slice(-2);
@@ -268,4 +326,13 @@ function editact(activity){
     $("#date_start_act_modal").val(days + "/" + month + "/" + year + " " + hours + ":" + minutes);
     $('#submit-modal-activity').attr('action', 'activity/'+activity+'/updateAjax');
     $('#modal-activity').modal('show');
+}
+
+function isEmpty(obj) {
+    for(var prop in obj) {
+        if(obj.hasOwnProperty(prop))
+            return false;
+    }
+
+    return true && JSON.stringify(obj) === JSON.stringify({});
 }

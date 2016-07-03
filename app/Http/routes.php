@@ -40,12 +40,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('user', 'UserController');
         Route::resource('publication', 'Front\PublicationController');
         Route::post('/publication/{publication}/load', 'Front\PublicationController@load');
-        Route::post('/publication/{publication}/updateAjax', 'Front\PublicationController@update');
-        Route::post('/publication/{publication}/destroyAjax', 'Front\PublicationController@destroy');
+        Route::post('/publication/{publication}/updateAjax', 'Front\PublicationController@updateAjax');
+        Route::post('/publication/{publication}/destroyAjax', 'Front\PublicationController@destroyAjax');
+        Route::post('/publication/{publication}/signaleAjax', 'Front\PublicationController@signaleAjax');
         Route::post('/publication/loadAll', 'Front\PublicationController@loadAll');
         Route::resource('activity', 'Front\ActivityController');
         Route::post('/activity/{activity}/updateAjax', 'Front\ActivityController@updateAjax');
         Route::post('/activity/{activity}/destroyAjax', 'Front\ActivityController@destroyAjax');
+        Route::post('/activity/{activity}/signaleAjax', 'Front\ActivityController@signaleAjax');
         Route::resource('comment', 'Front\CommentController');
 
     });

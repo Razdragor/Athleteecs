@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Publication;
+use App\Video;
 use Validator;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -30,7 +31,7 @@ class PublicationController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'message_status' => 'required|max:255',
+            'message_status' => 'required',
             'picture_status' => 'mimes:jpeg,png,jpg'
         ]);
     }
@@ -61,8 +62,29 @@ class PublicationController extends Controller
             return redirect('/')->withErrors($validator);
         }
 
+        $message = $data['message_status'];
+        $urls = $this->UrlsYoutube($message);
+        $videoID = false;
+        foreach($urls as $url){
+            if($videoID == false) {
+                $videoID = $this->KeyYoutube($url);
+                if(is_string($videoID)){
+                    $message = str_replace($url,"",$message);
+                }
+            }
+        }
+
+        $Nvideo = null;
+        if(is_string($videoID)){
+            $video = Video::create(array(
+                'url' => $videoID,
+                'youtube' => true
+            ));
+            $Nvideo = $video->id;
+        }
+
         $imageName = null;
-        if ($request->hasFile('picture_status')) {
+        if ($request->hasFile('picture_status') && !is_string($videoID)) {
             $imageName = $user->id . '_' . date('YmdHis'). '_post.' . $request->file('picture_status')->getClientOriginalExtension();;
 
             $request->file('picture_status')->move(
@@ -72,9 +94,11 @@ class PublicationController extends Controller
         }
 
         Publication::create(array(
-            'message' => $data['message_status'],
+            'message' => $message,
             'user_id' => $user->id,
-            'picture' => $imageName
+            'picture' => $imageName,
+            'video_id' => $Nvideo,
+            'status' => 'Success'
         ));
 
         return redirect('/');
@@ -111,12 +135,56 @@ class PublicationController extends Controller
      */
     public function update(Request $request, Publication $publication)
     {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateAjax(Request $request, Publication $publication)
+    {
         if(\Request::ajax() && $publication != null){
             $data = $request->all();
+            $videoID = false;
             if(array_key_exists('message_status_modal',$data)){
-                $publication->message = $data['message_status_modal'];
+
+                $message = $data['message_status_modal'];
+                $urls = $this->UrlsYoutube($message);
+
+                foreach($urls as $url){
+                    if($videoID == false) {
+                        $videoID = $this->KeyYoutube($url);
+                        if(is_string($videoID)){
+                            $message = str_replace($url,"",$message);
+                        }
+                    }
+                }
+
+                if(is_string($videoID)){
+                    if(is_null($publication->video)) {
+                        $video = Video::create(array(
+                            'url' => $videoID,
+                            'youtube' => true
+                        ));
+                        $publication->video_id = $video->id;
+                    }
+                    else{
+                        $video = $publication->video;
+                        $video->url = $videoID;
+                        $video->save();
+                    }
+                }
+                else{
+                    $publication->video_id = null;
+                }
+                $publication->message = $message;
             }
-            if ($request->hasFile('picture_status_modal')) {
+
+            if ($request->hasFile('picture_status_modal') && !is_null($publication->video)) {
                 $imageName = $publication->user->id . '_' . date('YmdHis'). '_post.' . $request->file('picture_status_modal')->getClientOriginalExtension();
 
                 $request->file('picture_status_modal')->move(
@@ -129,7 +197,8 @@ class PublicationController extends Controller
             $publication->save();
             return \Response::json(array(
                 'success' => true,
-                'publication' => $publication
+                'publication' => $publication,
+                'video' => $videoID
             ));
         }
     }
@@ -141,6 +210,17 @@ class PublicationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Publication $publication)
+    {
+       //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyAjax(Publication $publication)
     {
         if(\Request::ajax() && $publication != null) {
             if(!is_null($publication->activity)) {
@@ -265,14 +345,24 @@ class PublicationController extends Controller
 
         if(is_null($publication->activity)){
             $string .= "<div class='post_activity_msg'>". $publication->message ."</div>";
-            if(!is_null($publication->picture)){
+            $string .= "<div class='post_picture_video'>";
+            if(!is_null($publication->video)){
+                $string .= "<div class='video-container'><iframe src='https://www.youtube.com/embed/".$publication->video->url."' frameborder='0' allowfullscreen></iframe></div>";
+            }
+            elseif(!is_null($publication->picture)){
                 $string .= "<img src='".$publication->picture."' alt='Image' class='img-responsive'>";
             }
+            $string .= "</div>";
         }
         else{
-            if(!is_null($publication->activity->picture)) {
+            $string .= "<div class='post_picture_video'>";
+            if(!is_null($publication->video)){
+                $string .= "<div class='video-container'><iframe src='https://www.youtube.com/embed/".$publication->video->url."' frameborder='0' allowfullscreen></iframe></div>";
+            }
+            elseif(!is_null($publication->activity->picture)) {
                 $string .= "<img src='".$publication->activity->picture."' alt='Image' class='img-responsive'>";
             }
+            $string .= "</div>";
             $string .=  "<div class='post_activity'>".
                         "<div class='post_activity_img'>".
                         "<img src='../images/icons/".$publication->activity->sport->icon."' alt=".$publication->activity->sport->name." class='img-responsive'>".
@@ -314,6 +404,35 @@ class PublicationController extends Controller
                     "</div></div></div></div></div></li>";
 
         return $string;
+    }
+
+    public function signaleAjax(Publication $publication){
+        if(\Request::ajax() && !is_null($publication)) {
+            $publication->score += 1;
+            if($publication->score > 10){
+                $publication->status = "Signaled";
+            }
+            $publication->save();
+        }
+    }
+
+    private function UrlsYoutube($message){
+        $regex = '#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#';
+        preg_match_all($regex, $message, $matches);
+        $matches = array_unique($matches[0]);
+        usort($matches, function($a, $b) {
+            return strlen($b) - strlen($a);
+        });
+        return $matches;
+    }
+
+    private function KeyYoutube($url){
+            $pattern = '%^(?:https?://)?(?:www\.)?(?:youtu\.be/|youtube\.com(?:/embed/|/v/|/watch\?v=))([\w-]{10,12})$%x';
+            $result = preg_match($pattern, $url, $matches);
+            if ($result) {
+                return $matches[1];
+            }
+            return false;
     }
 
 }

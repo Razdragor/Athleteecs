@@ -34,6 +34,11 @@ class Activity extends Model
         return $this->belongsTo('App\User');
     }
 
+    public function publication()
+    {
+        return $this->hasOne('App\Publication');
+    }
+
     public function sport()
     {
         return $this->belongsTo('App\Sport');
