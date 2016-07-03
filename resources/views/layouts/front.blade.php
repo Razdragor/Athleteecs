@@ -97,9 +97,9 @@
                                 <li>
                                     <div class="row">
                                         <div class="btn-icon col-md-3">
-                                            <a href="/friends" role="button" class="btn btn-neutral"><i class="fa fa-users fa-lg"></i>
+                                            <a href="{{ route('front.friends.show') }}" role="button" class="btn btn-neutral"><i class="fa fa-users fa-lg"></i>
                                                 <div class="title">Amis</div>
-                                                <span class="label label-warning">2</span>
+                                                <span class="label label-warning">{{ count(Auth::user()->friends()) }}</span>
                                             </a>
                                         </div>
                                         <div class="btn-icon col-md-3">
@@ -197,18 +197,21 @@
                             <li class="dropdown nav-notifications">
                                 <!-- BEGIN DROPDOWN TOGGLE-->
                                 <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
-                                    <span class="badge">9</span><i class="fa fa-warning fa-lg"></i>
+                                    <span class="badge">{{Auth::user()->getnotifications()->count()}}</span><i class="fa fa-warning fa-lg"></i>
                                 </a>
                                 <!-- END DROPDOWN TOGGLE-->
                                 <!-- BEGIN DROPDOWN MENU-->
                                 <ul class="dropdown-menu">
                                     <!-- BEGIN DROPDOWN HEADER-->
                                     <li class="nav-notifications-header">
-                                        <a tabindex="-1" href="#">You have <strong>9</strong> new notifications</a>
+                                        <a tabindex="-1" href="#">Vous avez <strong>{{Auth::user()->getnotifications()->count()}}</strong> @if(Auth::user()->getnotifications()->count()>1)nouvelles notifications @else nouvelle notification @endif</a>
                                     </li>
                                     <!-- END DROPDOWN HEADER-->
                                     <!-- BEGIN NOTIFICATION ITEMS-->
                                     <li class="nav-notifications-body">
+                                        @foreach (Auth::user()->getnotifications as $notification)
+                                            {{$notification->firstname}}
+                                        @endforeach
                                         <a href="#" class="text-info"><i class="fa fa-user"></i>&nbsp;New User
                                             <small class="pull-right">Just Now</small>
                                         </a>
@@ -426,5 +429,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>-->
     @yield('js')
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+
 </body>
 </html>

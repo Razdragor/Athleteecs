@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersLinksTable extends Migration
+class CreateUsersDemands extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,11 @@ class CreateUsersLinksTable extends Migration
      */
     public function up()
     {
-        Schema::create('users_links', function (Blueprint $table) {
+        Schema::create('users_demands', function (Blueprint $table) {
             $table->increments('id');
             $table->bigInteger('user_id');
             $table->bigInteger('userL_id');
+            $table->boolean('demands');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ class CreateUsersLinksTable extends Migration
      */
     public function down()
     {
-        Schema::drop('users_links');
+        Schema::drop('users_demands');
     }
 }
