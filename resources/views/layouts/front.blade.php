@@ -115,7 +115,7 @@
                                             </a>
                                         </div>
                                         <div class="btn-icon col-md-3">
-                                            <a href="#" role="button" class="btn btn-success"><i class="fa fa-circle-thin fa-lg"></i>
+                                            <a href="{{ route('association.index') }}" role="button" class="btn btn-success"><i class="fa fa-circle-thin fa-lg"></i>
                                                 <div class="title">Associations</div>
                                                 <span class="label label-primary">256$</span>
                                             </a>

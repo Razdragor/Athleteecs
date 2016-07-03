@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Front;
 
+use App\Association;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 
 class AssociationController extends Controller
 {
@@ -16,7 +17,8 @@ class AssociationController extends Controller
      */
     public function index()
     {
-        //
+        $associations = Association::all();
+        return view('front.association.index', ["associations" => $associations]);
     }
 
     /**

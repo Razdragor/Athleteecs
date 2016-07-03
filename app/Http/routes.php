@@ -21,6 +21,7 @@ Route::group(['middleware' => 'web'], function() {
     Route::model('publication', 'App\Publication');
     Route::model('activity', 'App\Activity');
     Route::model('comment', 'App\Comment');
+    Route::model('association', 'App\Association');
 
 
 
@@ -52,6 +53,7 @@ Route::group(['middleware' => 'web'], function() {
         Route::post('/activity/{activity}/destroyAjax', 'Front\ActivityController@destroyAjax');
         Route::post('/activity/{activity}/signaleAjax', 'Front\ActivityController@signaleAjax');
         Route::resource('comment', 'Front\CommentController');
+        Route::resource('association', 'Front\AssociationController');
 
         Route::get('friends', ['as' => 'front.friends.show', 'uses' => 'Front\FriendsController@index']);
         Route::get('friends/destroy/{user}', ['as' => 'front.friends.destroy', 'uses' => 'Front\FriendsController@destroy']);
