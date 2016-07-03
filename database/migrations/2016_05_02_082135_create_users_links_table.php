@@ -13,6 +13,7 @@ class CreateUsersLinksTable extends Migration
     public function up()
     {
         Schema::create('users_links', function (Blueprint $table) {
+            $table->increments('id');
             $table->bigInteger('user_id');
             $table->bigInteger('userL_id');
             $table->timestamps();

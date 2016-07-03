@@ -13,7 +13,7 @@ class UsersDemands extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'userL_id', 'demands', 'created_at', 'updated_at'
+        'id', 'user_id', 'userL_id', 'demands', 'created_at', 'updated_at'
     ];
 
 }

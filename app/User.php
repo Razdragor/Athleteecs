@@ -84,8 +84,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     public function getnotifications(){
-        $this->belongsTo('App\Notifications', 'users_notifications', 'user_id', 'userL_id');
-        return $this;
+        return $this->hasMany('App\Notifications')
+                    ->where('afficher', true);
     }
 
 

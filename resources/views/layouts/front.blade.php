@@ -197,20 +197,20 @@
                             <li class="dropdown nav-notifications">
                                 <!-- BEGIN DROPDOWN TOGGLE-->
                                 <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
-                                    <span class="badge">{{ count(Auth::user()->getnotifications()) }}</span><i class="fa fa-warning fa-lg"></i>
+                                    <span class="badge">{{Auth::user()->getnotifications()->count()}}</span><i class="fa fa-warning fa-lg"></i>
                                 </a>
                                 <!-- END DROPDOWN TOGGLE-->
                                 <!-- BEGIN DROPDOWN MENU-->
                                 <ul class="dropdown-menu">
                                     <!-- BEGIN DROPDOWN HEADER-->
                                     <li class="nav-notifications-header">
-                                        <a tabindex="-1" href="#">Vous avez <strong>{{Auth::user()->getnotifications()->pivot}}</strong> @if(9>1)nouvelles notifications @else nouvelle notification @endif</a>
+                                        <a tabindex="-1" href="#">Vous avez <strong>{{Auth::user()->getnotifications()->count()}}</strong> @if(Auth::user()->getnotifications()->count()>1)nouvelles notifications @else nouvelle notification @endif</a>
                                     </li>
                                     <!-- END DROPDOWN HEADER-->
                                     <!-- BEGIN NOTIFICATION ITEMS-->
                                     <li class="nav-notifications-body">
-                                        @foreach (Auth::user()->getnotifications() as $notification)
-                                            {{$notification}}
+                                        @foreach (Auth::user()->getnotifications as $notification)
+                                            {{$notification->firstname}}
                                         @endforeach
                                         <a href="#" class="text-info"><i class="fa fa-user"></i>&nbsp;New User
                                             <small class="pull-right">Just Now</small>
