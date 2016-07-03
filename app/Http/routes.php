@@ -60,7 +60,8 @@ Route::group(['middleware' => 'web'], function() {
         Route::get('friends/add/{user}', ['as' => 'front.friends.add', 'uses' => 'Front\FriendsController@add']);
         Route::get('friends/cancel/{user}', ['as' => 'front.friends.cancel', 'uses' => 'Front\FriendsController@cancel']);
         Route::get('friends/accept/{user}', ['as' => 'front.friends.accept', 'uses' => 'Front\FriendsController@accept']);
-        Route::get('friends/search', ['as' => 'front.friends.search', 'uses' => 'Front\FriendsController@searchfriends']);
+
+        Route::get('search', ['as' => 'front.search.show', 'uses' => 'Front\SearchController@search']);
 
 
         });

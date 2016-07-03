@@ -22,6 +22,7 @@
     <link href="{{ asset('asset/js/plugins/google-code-prettify/styles/bootstrap-light.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/themes/admin/facebook.css') }}" rel="stylesheet">
     @yield('css')
+    <link href="{{ asset('asset/css/front.search.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/front.css') }}" rel="stylesheet">
 </head>
 <body id="app-layout">
@@ -86,8 +87,7 @@
                         <img class ="logo-front" width="25" height="25" src="{{ asset('asset/img/logo.svg') }}" alt="Social">
                     </a>
                 </div>
-                <div class="navbar-toggle"><i class="fa fa-align-justify"></i>
-                </div>
+                <div class="navbar-toggle"><i class="fa fa-align-justify"></i></div>
                 <div>
                     <ul class="nav navbar-nav">
                         <li class="dropdown navbar-super-fw hidden-xs">
@@ -119,47 +119,6 @@
                                                 <div class="title">Associations</div>
                                                 <span class="label label-primary">256$</span>
                                             </a>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="media well">
-                                                <a href="#" class="pull-left">
-                                                    <img src="../../assets/img/avatars/user1_55.jpg" style="width: 55px; height: 55px;" alt="User" class="media-object">
-                                                </a>
-                                                <div class="media-body">
-                                                    <h4 class="media-heading">Media heading</h4>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="panel panel-default">
-                                                <!-- Table-->
-                                                <table class="table">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>First Name</th>
-                                                        <th>Last Name</th>
-                                                        <th>Username</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>Mark</td>
-                                                        <td>Otto</td>
-                                                        <td>@mdo</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>Jacob</td>
-                                                        <td>Thornton</td>
-                                                        <td>@fat</td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
                                         </div>
                                     </div>
                                 </li>
@@ -369,6 +328,19 @@
                                 <!-- END DROPDOWN MENU-->
                             </li>
                         </ul>
+                        <form class="onefriend nav navbar-nav" method="GET" action="{{ route('front.search.show')}}">
+                            {{ csrf_field() }}
+                            <div id="custom-search-input">
+                                <div class="input-group col-md-12">
+                                    <input id="terme" class="form-control input-lg" placeholder="Chercher des utilisateurs, des associations ou d'autre choses" name="terme" type="text" value="">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-info btn-lg" type="submit">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </button>
+                                </span>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <!-- /.navbar-collapse-->
@@ -377,7 +349,7 @@
         <div class="main">
             @yield('content')
         </div>
-        <footer>2016 - <a href="http://localhost" target="_blank">Freeride</a></footer>
+        <footer>2016 - <a href="http://localhost" target="_blank">ATHLETEEC</a></footer>
     </div>
 
 
