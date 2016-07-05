@@ -19,6 +19,7 @@
     <link href="{{ asset('asset/css/jquery-ui/social/jquery.ui.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/js/plugins/google-code-prettify/prettify.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/js/plugins/google-code-prettify/styles/bootstrap-light.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/signin.css') }}" rel="stylesheet">
     @yield('css')
 
 </head>
@@ -28,12 +29,6 @@
             <nav id="navbar" role="navigation" class="social-navbar navbar navbar-default navbar-fixed-top">
                 <div class="container logocentrer">
                     <div class="navbar-header">
-                        <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
                         <a href="{{ url('/') }}" class="navbar-brand">
                             <img class="logo-athleteec" src="{{ asset('asset/img/logo.svg') }}" alt=""/>
                         </a>
@@ -163,9 +158,7 @@
                 </div>
                 <div class="row copyright">
                     <div class="col-sm-12">
-                        <p>2016 - 
-                            <a href="http://localhost" target="_blank">Freeride</a>
-                        </p>
+                        <p>2016 - <a href="http://localhost" target="_blank">ATHLETEEC</a></p>
                     </div>
                 </div>
             </div>

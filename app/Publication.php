@@ -19,7 +19,7 @@ class Publication extends Model
      * @var array
      */
     protected $fillable = [
-        'id','message', 'picture', 'user_id', 'activity_id', 'group_id', 'association_id', 'created_at', 'updated_at'
+        'id','message', 'picture', 'user_id', 'activity_id', 'group_id', 'association_id', 'created_at', 'updated_at', 'video_id', 'score', 'status'
     ];
 
     /**
@@ -40,6 +40,11 @@ class Publication extends Model
         return $this->belongsTo('App\Activity');
     }
 
+    public function video()
+    {
+        return $this->belongsTo('App\Video');
+    }
+
     public function group()
     {
         return $this->belongsTo('App\Group');
@@ -49,7 +54,13 @@ class Publication extends Model
         return $this->hasMany('App\Comment');
     }
 
+    public function commentspost()
+    {
+        return $this->comments()->orderBy('created_at', 'asc')->take(3);
+    }
+
     public function timeAgo($timestamp, $ref = 0){
+        setlocale (LC_TIME, 'fr_FR.utf8','fra');
         $time = $timestamp->timestamp;
         if ($ref < 1) $ref = time();
 

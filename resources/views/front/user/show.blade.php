@@ -1,9 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.front')
+
 
 @section('css')
     <link href="{{ asset('asset/css/layouts/user-profile.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/layouts/user-cards.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/layouts/social.core.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/plugins/selectizejs/selectize-default.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/glyphicons_free/glyphicons.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.halflings.css') }}" rel="stylesheet">
@@ -24,7 +26,7 @@
                             <div class="col-sm-2 col-md-2">
                                 <div class="row">
                                     <div class="col-md-12 text-center">
-                                        <img src="{{ asset('asset/img/avatars/avatar.png') }}" alt="Avatar" class="img-thumbnail img-responsive">
+                                        <img src="{{ $user->picture}}" alt="Avatar" class="img-thumbnail img-responsive">
                                     </div>
                                 </div>
 
@@ -32,6 +34,37 @@
                                     <div>
                                         <a class="btn btn-block btn-success"><i class="fa fa-envelope-alt"></i>Envoyer un message</a>
                                     </div>
+                                    @foreach($user->friends as $friend)
+                                        @if($friend->id == Auth::user()->id)
+                                            <div>
+                                                <a href="{{ route('front.friends.destroy', ['friend' => $user]) }}" class="btn btn-block btn-success">Retirer de la liste des amis</a>
+                                            </div>
+                                        @else
+                                            @foreach($user->demandsfrom as $friend)
+                                                    <?php echo $friend->id ?>
+                                                @if( $friend->id == Auth::user()->id)
+                                                    <div>
+                                                        <a href="{{ route('front.friends.cancel', ['friend' => $user]) }}" class="btn btn-block btn-success">Annuler la demande</a>
+                                                    </div>
+                                                @else
+                                                    @foreach($user->demandsto as $friend)
+                                                        @if( $friend->id == Auth::user()->id)
+                                                            <div>
+                                                                <a href="{{ route('front.friends.accept', ['friend' => $user]) }}" class="btn btn-block btn-success">Accepter</a>
+                                                            </div>
+                                                            <div>
+                                                                <a href="{{ route('front.friends.cancel', ['friend' => $user]) }}" class="btn btn-block btn-success">Annuler</a>
+                                                            </div>
+                                                        @else
+                                                            <div>
+                                                                <a href="{{ route('front.friends.add', ['friend' => $user]) }}" class="btn btn-block btn-success">Ajouter</a>
+                                                            </div>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                    @endforeach
                                 @endif
                                 <br>
                                 <!-- BEGIN SOCIAL ICONS-->
@@ -60,7 +93,7 @@
                                     <!-- END USER STATUS-->
                                     @if(Auth::user() == $user)
                                     <div class="col-sm-2 col-md-2 hidden-xs">
-                                        <a id="edit-profile-button" href="#edit" class="btn btn-block btn-primary">Editer le profil</a>
+                                        <a id="edit-profile-button" href="{{ route('user.edit',['user' => $user]) }}" class="btn btn-block btn-primary">Editer le profil</a>
                                     </div>
                                     @endif
                                 </div>
@@ -77,18 +110,22 @@
                                 <!-- BEGIN TABS SELECTIONS-->
                                 <div class="row">
                                     <ul id="profileTab" class="nav nav-tabs">
-                                        <li id="pots">
+                                        <li id="pots" class="ok">
                                             <a href="#">Posts</a>
                                         </li>
-                                        <li class="active" id="infos">
+                                        <li class="active ok" id="infos">
                                             <a href="#" data-toggle="tab">Info</a>
                                         </li>
-                                        <li id="photos">
+                                        <li id="amis" class="ok">
+                                            <a href="#">{{count($user->friends)}} @if(count($user->friends)>1) amis @else ami @endif</a>
+                                        </li>
+                                        <li id="photos" class="ok">
                                             <a href="#">Photos</a>
                                         </li>
-                                        <li id="videos">
+                                        <li id="videos" class="ok">
                                             <a href="#">Videos</a>
                                         </li>
+
                                     </ul>
                                 </div>
                                 <!-- END TABS SELECTIONS-->
@@ -141,10 +178,9 @@
                                                 <dd>A ajouté</dd>
                                                 <dd class="divider"></dd>
                                                 <dt>Sports pratiqué</dt>
-                                                @foreach($user->sports() as $sport)
-                                                    {{ $sport->name }}
+                                                @foreach($user->sports as $sport)
+                                                    <dd>{{ $sport->name }}</dd>
                                                 @endforeach
-                                                <dd>A ajouté</dd>
                                                 <dd class="divider"></dd>
                                                 <dt>Adresse postal</dt>
                                                 <dd>

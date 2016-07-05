@@ -1,0 +1,21 @@
+.btn-lg {
+    font-size: inherit !important;
+    padding: 10px 4px;
+    width: 70px;
+    margin: 0 auto;
+}
+.logocentrer{
+    padding-right: 160px;
+    display: flex;
+}
+.add-margin-top{
+    margin-top: 80px;
+}
+@media (min-width: 768px) {
+  .signin{
+    margin: 140px 130px;
+  }
+  .col-md-6 {
+    width: 50%;
+  }
+}

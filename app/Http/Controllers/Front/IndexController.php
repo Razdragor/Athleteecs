@@ -7,6 +7,8 @@ use App\Publication;
 use App\Sport;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
@@ -18,8 +20,19 @@ class IndexController extends Controller
     public function index()
     {
         $sports = Sport::all();
-        $publications = Publication::orderBy('updated_at', 'DESC')->get();
-        return view('front.index', ["sports" => $sports, "publications" => $publications]);
+        $user = Auth::user();
+        $arrayFriends = array();
+        $arrayFriends[] = $user->id;
+        foreach($user->friends as $friend){
+            $arrayFriends[] = $friend->id;
+        }
+        $posts = Publication::whereIn('user_id', $arrayFriends)
+            ->orderBy('updated_at', 'DESC')
+            ->take(10)
+            ->get();
+
+
+        return view('front.index', ["sports" => $sports, "publications" => $posts]);
     }
 
     /**

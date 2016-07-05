@@ -32,9 +32,73 @@
 {
     text-align: right;
     font-size: 75%;
+    margin:0 0 5px 0;
 }
 .moreComment:hover
 {
     cursor: pointer;
    text-decoration: underline;
+}
+
+.post_activity {
+    width: 100%;
+    height: auto;
+    text-align: left;
+    display: table-row;
+}
+
+.post_activity_img{
+    width: 70px;
+    display: table-cell;
+}
+
+.post_activity_stats{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.post_activity_stats span{
+    display: table-row;
+}
+
+.post_activity_msg{
+    width: 100%;
+    padding: 10px 10px 10px 20px;
+}
+
+.dropdown-post{
+    position: absolute;
+    right: 5px;
+    top: 5px
+}.logo-front{
+    width: 120px;
+    display: flex;
+    text-align: center;
+    margin: 0px 25px;
+}
+.social-sidebar .chat .users-list a img {
+    height: 30px;
+}
+.social-sidebar .chat .users-list a .user-status.online {
+    margin: 10px 14px 10px 0px;
+}
+.social-sidebar .chat .users-list a .user-status.offline {
+    margin: 10px 14px 10px 0px;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px;
+    height: 0;
+    overflow: hidden;
+}
+.video-container iframe,
+.video-container object,
+.video-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }

@@ -22,6 +22,7 @@
     <link href="{{ asset('asset/js/plugins/google-code-prettify/styles/bootstrap-light.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/themes/admin/facebook.css') }}" rel="stylesheet">
     @yield('css')
+    <link href="{{ asset('asset/css/front.search.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/front.css') }}" rel="stylesheet">
 </head>
 <body id="app-layout">
@@ -90,12 +91,10 @@
             <nav role="navigation" class="navbar navbar-fixed-top navbar-super social-navbar">
                 <div class="navbar-header">
                     <a href="{{ url('/') }}" title="Social" class="navbar-brand">
-                        <img width="25" height="25" src="{{ asset('asset/img/logo.svg') }}" alt="Social" class="light">
-                        <img width="25" height="25" src="{{ asset('asset/img/logo.svg') }}" alt="Social" class="dark">
+                        <img class ="logo-front" width="25" height="25" src="{{ asset('asset/img/logo.svg') }}" alt="Social">
                     </a>
                 </div>
-                <div class="navbar-toggle"><i class="fa fa-align-justify"></i>
-                </div>
+                <div class="navbar-toggle"><i class="fa fa-align-justify"></i></div>
                 <div>
                     <ul class="nav navbar-nav">
                         <li class="dropdown navbar-super-fw hidden-xs">
@@ -104,77 +103,29 @@
                             <ul class="dropdown-menu">
                                 <li>
                                     <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="alert alert-warning alert-dismissable">
-                                                <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button><strong>Warning!</strong>Better check yourself, you're not looking too good.
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
                                         <div class="btn-icon col-md-3">
-                                            <a href="#" role="button" class="btn btn-neutral"><i class="fa fa-dashboard fa-lg"></i>
-                                                <div class="title">Dashboard</div>
-                                                <span class="label label-warning">2</span>
+                                            <a href="{{ route('front.friends.show') }}" role="button" class="btn btn-neutral"><i class="fa fa-users fa-lg"></i>
+                                                <div class="title">Amis</div>
+                                                <span class="label label-warning">{{ count(Auth::user()->friends()) }}</span>
                                             </a>
                                         </div>
                                         <div class="btn-icon col-md-3">
                                             <a href="#" role="button" class="btn btn-primary"><i class="fa fa-calendar fa-lg"></i>
-                                                <div class="title">Calendar</div>
+                                                <div class="title">Evénements</div>
                                                 <span class="label label-danger">4</span>
                                             </a>
                                         </div>
                                         <div class="btn-icon col-md-3">
-                                            <a href="#" role="button" class="btn btn-danger"><i class="fa fa-inbox fa-lg"></i>
-                                                <div class="title">Inbox</div>
+                                            <a href="#" role="button" class="btn btn-danger"><i class="fa fa-object-group fa-lg"></i>
+                                                <div class="title">Groupes</div>
                                                 <span class="label label-success">2</span>
                                             </a>
                                         </div>
                                         <div class="btn-icon col-md-3">
-                                            <a href="#" role="button" class="btn btn-success"><i class="fa fa-money fa-lg"></i>
-                                                <div class="title">Finances</div>
+                                            <a href="{{ route('association.index') }}" role="button" class="btn btn-success"><i class="fa fa-circle-thin fa-lg"></i>
+                                                <div class="title">Associations</div>
                                                 <span class="label label-primary">256$</span>
                                             </a>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="media well">
-                                                <a href="#" class="pull-left">
-                                                    <img src="../../assets/img/avatars/user1_55.jpg" style="width: 55px; height: 55px;" alt="User" class="media-object">
-                                                </a>
-                                                <div class="media-body">
-                                                    <h4 class="media-heading">Media heading</h4>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="panel panel-default">
-                                                <!-- Table-->
-                                                <table class="table">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>First Name</th>
-                                                        <th>Last Name</th>
-                                                        <th>Username</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>Mark</td>
-                                                        <td>Otto</td>
-                                                        <td>@mdo</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>Jacob</td>
-                                                        <td>Thornton</td>
-                                                        <td>@fat</td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
                                         </div>
                                     </div>
                                 </li>
@@ -190,17 +141,17 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="#"><i class="fa fa-user"></i>&nbsp;My Profile</a>
+                                    <a href="{{ route('user.show',['user' => Auth::user()->id]) }}"><i class="fa fa-user"></i>&nbsp;Mon Profil</a>
                                 </li>
                                 <li>
-                                    <a href="#"><i class="fa fa-cogs"></i>&nbsp;Settings</a>
+                                    <a href="#"><i class="fa fa-cogs"></i>&nbsp;Paramètres</a>
                                 </li>
                                 <li>
-                                    <a href="#"><i class="fa fa-sign-out"></i>&nbsp;Log Out</a>
+                                    <a href="/logout"><i class="fa fa-sign-out"></i>&nbsp;Déconnexion</a>
                                 </li>
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="#"><i class="fa fa-info"></i>&nbsp;Help</a>
+                                    <a href="#"><i class="fa fa-info"></i>&nbsp;Aide</a>
                                 </li>
                             </ul>
                         </li>
@@ -212,18 +163,21 @@
                             <li class="dropdown nav-notifications">
                                 <!-- BEGIN DROPDOWN TOGGLE-->
                                 <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
-                                    <span class="badge">9</span><i class="fa fa-warning fa-lg"></i>
+                                    <span class="badge">{{Auth::user()->getnotifications()->count()}}</span><i class="fa fa-warning fa-lg"></i>
                                 </a>
                                 <!-- END DROPDOWN TOGGLE-->
                                 <!-- BEGIN DROPDOWN MENU-->
                                 <ul class="dropdown-menu">
                                     <!-- BEGIN DROPDOWN HEADER-->
                                     <li class="nav-notifications-header">
-                                        <a tabindex="-1" href="#">You have <strong>9</strong> new notifications</a>
+                                        <a tabindex="-1" href="#">Vous avez <strong>{{Auth::user()->getnotifications()->count()}}</strong> @if(Auth::user()->getnotifications()->count()>1)nouvelles notifications @else nouvelle notification @endif</a>
                                     </li>
                                     <!-- END DROPDOWN HEADER-->
                                     <!-- BEGIN NOTIFICATION ITEMS-->
                                     <li class="nav-notifications-body">
+                                        @foreach (Auth::user()->getnotifications as $notification)
+                                            {{$notification->firstname}}
+                                        @endforeach
                                         <a href="#" class="text-info"><i class="fa fa-user"></i>&nbsp;New User
                                             <small class="pull-right">Just Now</small>
                                         </a>
@@ -381,6 +335,19 @@
                                 <!-- END DROPDOWN MENU-->
                             </li>
                         </ul>
+                        <form class="onefriend nav navbar-nav" method="GET" action="{{ route('front.search.show')}}">
+                            {{ csrf_field() }}
+                            <div id="custom-search-input">
+                                <div class="input-group col-md-12">
+                                    <input id="terme" class="form-control input-lg" placeholder="Chercher des utilisateurs, des associations ou d'autre choses" name="terme" type="text" value="">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-info btn-lg" type="submit">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </button>
+                                </span>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <!-- /.navbar-collapse-->
@@ -389,7 +356,7 @@
         <div class="main">
             @yield('content')
         </div>
-        <footer>2014 © cesarlab.com | Social - Premium Responsive Admin Template</footer>
+        <footer>2016 - <a href="http://localhost" target="_blank">ATHLETEEC</a></footer>
     </div>
 
 
@@ -533,5 +500,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>-->
     @yield('js')
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+
 </body>
 </html>

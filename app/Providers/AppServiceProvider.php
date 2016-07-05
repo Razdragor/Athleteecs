@@ -13,7 +13,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
+        \Blade::directive('datetimeActivity', function($expression) {
+            setlocale (LC_ALL, 'fr_FR.utf8','fra');
+            $date = date_create($expression)->format('d/m/Y à h:i:s');
+            return "<?php echo 'Le $date' ?>";
+        });
     }
 
     /**
