@@ -134,8 +134,8 @@
                                 @endif
                                 <li class="nav-notifications-body">
                                     @foreach (Auth::user()->getfriendsnotifications as $notification)
-                                        <a href="/friends/accept/{{$notification->userL_id}}" class="text-info"><i class="fa fa-user"></i>&nbsp;Ajout par
-                                            <small class="pull-right">{{$notification->created_at}}</small>
+                                        <a href="/friends/accept/{{$notification->userL_id}}" class="text-info"><i class="fa fa-user"></i>&nbsp;@if($notification->afficher==true)Demande de @else Ajout de @endif{{$notification->libelle}}
+                                            <small class="pull-right">{{$notification->timeAgo($notification->created_at)}}</small>
                                         </a>
                                     @endforeach
                                 </li>
