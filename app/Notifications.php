@@ -47,7 +47,7 @@ class Notifications extends Model
         // Less than 3 hours
         if ($tm < 3 && $ts > 0) {
             return $left.$tm.' minute'.($tm > 1 ? 's' : '').' et '
-            .$ts.' seconde'.($ts > 1 ? 's' : '').$right;
+            .$right;
         }
 
         // Less than 1 hour
@@ -65,7 +65,7 @@ class Notifications extends Model
         if ($th < 3) {
             if ($tm > 0) {
                 return $left.$th.' heure'.($th > 1 ? 's' : '').' et '
-                .$tm.' minute'.($tm > 1 ? 's' : '').$right;
+                .$right;
             }
             else {
                 return $left.$th.' heure'.($th > 1 ? 's' : '').$right;

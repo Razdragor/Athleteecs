@@ -100,10 +100,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
             ->limit(8);
     }
 
-    public function geteventsnotifications(){
+    public function geteventsnotificationstrue(){
         return $this->hasMany('App\Notifications')
             ->where('afficher', true)
-            ->where('notification', 'users_links');
+            ->where('notification', 'events');
+    }
+
+    public function geteventsnotifications(){
+        return $this->hasMany('App\Notifications')
+            ->where('notification', 'events')
+            ->limit(8);
     }
 
     /**

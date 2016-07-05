@@ -122,6 +122,7 @@
                 <div class="nav-indicators">
                     <ul class="nav navbar-nav navbar-right nav-indicators-body">
                         <!-- DEBUT AMIS-->
+                        <a href="{{ route('user.show',['user' => Auth::user()->id]) }}"><img src="{{ Auth::user()->picture}}" alt="Avatar" class="dropdown nav-notifications img-navbarre"></a>
                         <li class="dropdown nav-notifications">
                             <a href="{{ route('front.friends.show') }}" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
                                 @if(Auth::user()->getfriendsnotificationstrue()->count()>0)<span class="badge">{{Auth::user()->getfriendsnotificationstrue()->count()}}</span>@endif<i class="fa fa-users fa-lg"></i>
@@ -135,7 +136,7 @@
                                 <li class="nav-notifications-body">
                                     @foreach (Auth::user()->getfriendsnotifications as $notification)
                                         <a href="/friends/accept/{{$notification->userL_id}}" class="text-info"><i class="fa fa-user"></i>&nbsp;@if($notification->afficher==true)Demande de @else Ajout de @endif{{$notification->libelle}}
-                                            <small class="pull-right">{{$notification->timeAgo($notification->created_at)}}</small>
+                                            <small class="pull-right">{{$notification->timeAgo($notification->updated_at)}}</small>
                                         </a>
                                     @endforeach
                                 </li>
@@ -151,7 +152,7 @@
                         <li class="dropdown nav-notifications">
                             <!-- BEGIN DROPDOWN TOGGLE-->
                             <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
-                                @if(Auth::user()->geteventsnotifications()->count()>0)<span class="badge">{{Auth::user()->geteventsnotifications()->count()}}</span>@endif<i class="fa fa-calendar fa-lg"></i>
+                                @if(Auth::user()->geteventsnotificationstrue()->count()>0)<span class="badge">{{Auth::user()->geteventsnotificationstrue()->count()}}</span>@endif<i class="fa fa-calendar fa-lg"></i>
                             </a>
                             <!-- END DROPDOWN TOGGLE-->
                             <!-- BEGIN DROPDOWN MENU-->
