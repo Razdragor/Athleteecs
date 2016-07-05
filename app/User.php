@@ -85,9 +85,26 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function getnotifications(){
         return $this->hasMany('App\Notifications')
-                    ->where('afficher', true);
+            ->where('afficher', true);
     }
 
+    public function getfriendsnotificationstrue(){
+        return $this->hasMany('App\Notifications')
+            ->where('afficher', true)
+            ->where('notification', 'users_links');
+    }
+
+    public function getfriendsnotifications(){
+        return $this->hasMany('App\Notifications')
+            ->where('notification', 'users_links')
+            ->limit(8);
+    }
+
+    public function geteventsnotifications(){
+        return $this->hasMany('App\Notifications')
+            ->where('afficher', true)
+            ->where('notification', 'users_links');
+    }
 
     /**
      * Get the name of the unique identifier for the user.

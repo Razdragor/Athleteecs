@@ -103,7 +103,7 @@ class FriendsController extends Controller
              Notifications::firstOrCreate([
                 'user_id' => $idfriend,
                 'userL_id' => $iduser,
-                'notification' => 'ami',
+                'notification' => 'users_links',
                 'afficher' => true]);
         }
         return redirect('/friends');
@@ -120,7 +120,7 @@ class FriendsController extends Controller
 
             Notifications::where('user_id', $iduser)
                 ->where('userL_id', $idfriend)
-                ->where('notification', 'ami')
+                ->where('notification', 'users_links')
                 ->update(['afficher' => false]);
 
             UsersLinks::firstOrCreate([
