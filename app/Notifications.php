@@ -13,7 +13,7 @@ class Notifications extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'user_id', 'userL_id', 'notification', 'afficher', 'created_at', 'updated_at'
+        'id', 'user_id', 'userL_id', 'notification', 'libelle', 'afficher', 'created_at', 'updated_at'
     ];
 
 }

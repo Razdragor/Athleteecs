@@ -103,6 +103,7 @@ class FriendsController extends Controller
              Notifications::firstOrCreate([
                 'user_id' => $idfriend,
                 'userL_id' => $iduser,
+                'libelle' => $friend->firstname.' '.$friend->lasttname,
                 'notification' => 'users_links',
                 'afficher' => true]);
         }
