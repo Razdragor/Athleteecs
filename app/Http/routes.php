@@ -39,13 +39,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('user', 'UserController');
         
         //Chat
-        Route::get('socket', 'Chat\SocketController@index');
-        Route::post('sendmessage', 'Chat\SocketController@sendMessage');
-        Route::get('writemessage', 'Chat\SocketController@writemessage');
-        Route::resource('conversation', 'SocketController');
-        Route::resource('conversation_user', 'SocketController');
-        Route::resource('conversation_message', 'SocketController');
-        //Chat
+        Route::post('sendmessage', 'ConversationController@sendMessage');
+        Route::post('create_conversation', 'ConversationController@create');
         Route::resource('publication', 'Front\PublicationController');
         Route::resource('activity', 'Front\ActivityController');
         Route::resource('comment', 'Front\CommentController');
@@ -60,8 +55,4 @@ Route::group(['middleware' => 'auth'], function () {
 
         return Image::make($image)->response('jpg'); //will ensure a jpg is always returned
     });
-});
-
-Route::get('/connect', function () {
-    return view('auth.connect');
 });

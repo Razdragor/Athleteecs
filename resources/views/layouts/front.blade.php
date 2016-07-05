@@ -30,31 +30,38 @@
     <!-- BEGIN CHAT SECTION-->
     <div class="chat visible-lg visible-md">
         <ul class="users-list">
-            <li>
-                <a data-firstname="Cesar" data-lastname="Mendoza" data-status="online" data-userid="1" href="#ignore">
-                    <img src="../../assets/img/avatars/user2_22.jpg" alt="User">
-                    <span>Cesar Mendoza</span><i class="fa fa-circle user-status online"></i>
-                </a>
-            </li>
-            <li>
-                <a data-firstname="Yadra" data-lastname="Abels" data-status="offline" data-userid="2" href="#ignore">
-                    <img src="../../assets/img/avatars/user1_22.jpg" alt="User">
-                    <span>Yadra Abels</span><i class="fa fa-circle user-status offline"></i>
-                </a>
-            </li>
-            <li>
-                <a data-firstname="Tobei" data-lastname="Tsumura" data-status="online" data-userid="3" href="#ignore">
-                    <img src="../../assets/img/avatars/user4_22.jpg" alt="User">
-                    <span>Tobei Tsumura</span><i class="fa fa-circle user-status online"></i>
-                </a>
-            </li>
-            <li>
-                <a data-firstname="John" data-lastname="Doe" data-status="offline" data-userid="4" href="#ignore">
-                    <img src="../../assets/img/avatars/user3_22.jpg" alt="User">
-                    <span>John Doe</span><i class="fa fa-circle user-status offline"></i>
-                </a>
-            </li>
+                
+                <?php
+                    $user = Auth::user();
+            //dd($user->conversations_interlocutor);
+                ?>
+                @foreach($user->friends as $friend)
+                    <li>
+                        
+                        <form class="create_conversation">
+                            <input type="hidden" name="id" value="{{ $friend->id }}"></input>
+                            <a data-firstname="{{ $friend->firstname }}" data-lastname="{{ $friend->lastname }}" data-status="online" data-userid="{{ $friend->id }}" href="#ignore">
+                                <img src="../../assets/img/avatars/{{ $friend->firstname }}" alt="User">
+                                <span>{{ $friend->firstname }} {{ $friend->lastname }}</span><i class="fa fa-circle user-status online"></i>
+                            </a>
+                        </form>
+                    </li>
+                @endforeach
         </ul>
+ <!--
+        <div class="container" style="position: absolute;bottom: 0px;left: 20%;width: 350px;height: 500px;z-index: 9999;background-color: white;">
+            <div class="row">
+                <h3 class="text-center">Interlocuteur</h3>
+                <hr>
+                <div class="col-lg-8 col-lg-offset-2 " >
+                  <div id="messages" >Messages</div>
+                </div>
+                <div class="col-lg-8 col-lg-offset-2 text-right" >
+                  <div id="messages" >Messages de l'interloc'</div>
+                </div>
+            </div>
+        </div>
+-->
         <form class="chat-options">
             <div class="input-group">
                 <div class="input-group-btn dropup">
@@ -386,9 +393,10 @@
     </div>
 
 
-
+    <div class="return"></div>
     <!-- jQuery-->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script>
         window.jQuery || document.write('<script src="{{asset('asset/js/jquery/jquery.min.js') }}"><\/script>')
     </script>
@@ -402,6 +410,7 @@
     <script src="{{ asset('asset/js/plugins/google-code-prettify/prettify.js') }}"></script>
     <script src="{{ asset('asset/js/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker.js') }}"></script>
     <script src="{{ asset('asset/js/app.js') }}"></script>
+    <script src="https://cdn.socket.io/socket.io-1.3.4.js"></script>
     <script>
         /*<![CDATA[*/
         $(function() {
@@ -413,6 +422,13 @@
     <script src="{{ asset('asset/js/panels.js') }}"></script>
     <script src="{{ asset('asset/js/front.js') }}"></script>
     <!-- BEGIN GENERAL SCRIPTS-->
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
     <script>
         /*<![CDATA[*/
         $(function() {
@@ -426,6 +442,89 @@
             e.stopPropagation()
         });
         /*]]>*/
+    </script>
+    
+    <script>
+        var socket = io.connect('http://localhost:8890');
+        socket.on('message', function (data) {
+            var chat_msg = $.parseJSON('[' + data + ']');
+            if(chat_msg[0]['user']['id'] == {{ $user->id }})
+            {
+                var chat_class = 'conv_messages_'+chat_msg[0]['conv_id'];
+                $('#'+chat_class).append('<div class="col-xs-8">Vous :<p>'+chat_msg[0]['message']+'</p></div>');
+            }
+            else
+            {
+                var chat_class = 'conv_messages_'+chat_msg[0]['conv_id'];
+                $('#'+chat_class).append('<div class="col-xs-8 col-xs-offset-4">'+chat_msg[0]['firstname']+' '+chat_msg[0]['lastname']+'<p>'+chat_msg[0]['message']+'</p></div>');
+            }
+          });
+        
+        $('users-list li').on('click',function(){
+            
+        });
+        $('.create_conversation').on("click",function(){
+            var fdata = $(this).serialize(); 
+        
+            $.ajax({
+                type:'POST',
+                url:'create_conversation', // url, from form
+                data:fdata,
+                processData: false,
+                success:function(data) {
+                    console.log(data);
+                    var to_append = '<div class="container" style="position: absolute;bottom: 0px;left: 20%;width: 350px;height: 500px;z-index: 9999;background-color: white;"><div class="row"><h3 class="text-center">'+data.conv['name']+'</h3><hr><div id="conv_messages_'+data.conv['id']+'" ></div>';
+                    data.messages.forEach(function(message){
+                        if(message['user_id'] == {{ $user->id }})
+                        {
+                            to_append = to_append + '<div class="col-xs-8">Vous :<p>'+message['message']+'</p></div>';
+                        }
+                        else
+                        {
+                            data.users.forEach(function(user){
+                                if(message['user_id'] == user['id'])
+                                {
+                                    to_append = to_append + '<div class="col-xs-8 col-xs-offset-4">'+user['firstname']+' '+user['lastname']+'<p>'+message['message']+'</p></div>';
+                                }
+                            });
+                        }
+                    });
+                    //foreach()
+                    //<div id="messages" >Messages</div></div><div class="col-lg-8 col-lg-offset-2 text-right" ><div id="messages" >Messages de l\'interloc</div></div></div></div>';
+                    to_append = to_append + '<form action="sendmessage" method="POST" class="test"><input type="hidden" name="_token" value="{{ csrf_token() }}"><input type="hidden" name="conversation_id" value="'+data.conv['id']+'"><input type="text" name="message" ><input type="submit" value="send"></form>';
+                    $('.users-list').after(to_append);
+                },
+                error:function(jqXHR)
+                {
+                    $('.return').html(jqXHR.responseText);
+                    
+                }
+            });
+            
+        });
+        
+        
+        //$('.test').on("submit",function(e){
+        $('body').on('submit','.test', function(e){
+             e.preventDefault();
+              var fdata = $(this).serialize(); 
+            $.ajax({
+                type:'POST',
+                url:'sendmessage', // url, from form
+                data:fdata,
+                processData: false,
+                success:function(data) {
+                    console.log('Success !');
+                },
+                error:function(jqXHR)
+                {
+                    $('.return').html(jqXHR.responseText);
+                    
+                }
+            });
+         });
+        
+        
     </script>
 
 

@@ -26,12 +26,12 @@ class Conversation_user extends Model
      *
      * @var array
      */
-    public function users()
+    public function user()
     {
         return $this->belongsTo('App\User');
     }
     
-    public function conversations()
+    public function conversation()
     {
         return $this->belongsTo('App\Conversation');
     }

@@ -27,7 +27,7 @@ class Conversation_message extends Model
      * @var array
      */
     
-    public function conversations()
+    public function conversation()
     {
         return $this->belongsTo('App\Conversation');
     }
