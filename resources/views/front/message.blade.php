@@ -1,3 +1,5 @@
+@extends('layouts.front')
+
 @section('content')
     <div class="panel panel-default panel-chat">
         <div class="panel-heading">
@@ -34,7 +36,7 @@
                 <li class="left clearfix">
                     <!-- //Notice .chat-avatar class-->
                           <span class="chat-avatar pull-left">
-                            <img src="../../assets/img/avatars/user1_55.jpg" alt="User Avatar">
+                            <img src="../../assets/img/avatars/user1_55.jpg" alt="User Avatar" width="55px" height="55px">
                           </span>
                     <!-- //Notice .chat-body class-->
                     <div class="chat-body clearfix">
@@ -52,7 +54,7 @@
                     <!-- //Notice .chat-avatar class-->
                     <!-- //Notice .pull-right class-->
                           <span class="chat-avatar pull-right">
-                            <img src="../../assets/img/avatars/user2_55.jpg" alt="User Avatar">
+                            <img src="../../assets/img/avatars/user2_55.jpg" alt="User Avatar" width="55px" height="55px">
                           </span>
                     <!-- //Notice .chat-body class-->
                     <div id="chat_sender1" class="chat-body clearfix">

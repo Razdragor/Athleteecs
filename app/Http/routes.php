@@ -64,6 +64,7 @@ Route::group(['middleware' => 'web'], function() {
 
         Route::get('search', ['as' => 'front.search.show', 'uses' => 'Front\SearchController@search']);
         Route::get('notifications', ['as' => 'front.notifications.show', 'uses' => 'Front\NotificationsController@index']);
+        Route::get('message', ['as' => 'front.message.show', 'uses' => 'Front\MessagesController@index']);
 
 
         });
