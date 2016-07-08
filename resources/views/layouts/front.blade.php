@@ -501,13 +501,60 @@
             else
             {
                 var chat_class = 'conv_messages_'+chat_msg[0]['conv_id'];
-                $('#'+chat_class).append('<div class="col-xs-8 col-xs-offset-4">'+chat_msg[0]['firstname']+' '+chat_msg[0]['lastname']+'<p>'+chat_msg[0]['message']+'</p></div>');
+                if($('#'+chat_class).length)
+                {
+                   $('#'+chat_class).append('<div class="col-xs-8 col-xs-offset-4">'+chat_msg[0]['firstname']+' '+chat_msg[0]['lastname']+'<p>'+chat_msg[0]['message']+'</p></div>');
+                }
+                else
+                {
+                    var form = $(document).find('input[name="id"][value="'+chat_msg[0]['user']['id']+'"]').parent();            
+                    
+                    var fdata = $(form).serialize(); 
+                    console.log(fdata);
+                    $.ajax({
+                        type:'POST',
+                        url:'create_conversation', // url, from form
+                        data:fdata,
+                        processData: false,
+                        success:function(data) {
+                            console.log(data);
+                            var to_append = '<div class="container" style="position: absolute;bottom: 0px;left: 20%;width: 350px;height: 500px;z-index: 9999;background-color: white;"><div class="row"><h3 class="text-center">'+data.conv['name']+'</h3><hr><div id="conv_messages_'+data.conv['id']+'" ></div>';
+                            data.messages.forEach(function(message){
+                                if(message['user_id'] == {{ $user->id }})
+                                {
+                                    to_append = to_append + '<div class="col-xs-8">Vous :<p>'+message['message']+'</p></div>';
+                                }
+                                else
+                                {
+                                    data.users.forEach(function(user){
+                                        if(message['user_id'] == user['id'])
+                                        {
+                                            to_append = to_append + '<div class="col-xs-8 col-xs-offset-4">'+user['firstname']+' '+user['lastname']+'<p>'+message['message']+'</p></div>';
+                                        }
+                                    });
+                                }
+                            });
+                            //foreach()
+                            //<div id="messages" >Messages</div></div><div class="col-lg-8 col-lg-offset-2 text-right" ><div id="messages" >Messages de l\'interloc</div></div></div></div>';
+                            to_append = to_append + '<form action="sendmessage" method="POST" class="chat_send_message"><input type="hidden" name="_token" value="{{ csrf_token() }}"><input type="hidden" name="conversation_id" value="'+data.conv['id']+'"><input type="text" name="message" ><input type="submit" value="send"></form>';
+                            $('.users-list').after(to_append);
+                        },
+                        error:function(jqXHR)
+                        {
+                            $('.return').html(jqXHR.responseText);
+
+                        }
+                    });
+                    $('#'+chat_class).append('<div class="col-xs-8 col-xs-offset-4">'+chat_msg[0]['firstname']+' '+chat_msg[0]['lastname']+'<p>'+chat_msg[0]['message']+'</p></div>');
+                }
             }
           });
         
         $('users-list li').on('click',function(){
             
         });
+        
+        
         $('.create_conversation').on("click",function(){
             var fdata = $(this).serialize(); 
         
