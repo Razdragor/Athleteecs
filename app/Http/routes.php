@@ -36,6 +36,7 @@ Route::group(['middleware' => 'web'], function() {
 
         Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () {
             Route::get('/', 'Admin\AdminController@index');
+            Route::get('users', ['as' => 'admin.users.index', 'uses' => 'Admin\UsersController@index']);
         });
 
     Route::group(['middleware' => ['role:user|admin']], function () {
@@ -66,6 +67,7 @@ Route::group(['middleware' => 'web'], function() {
         Route::get('friends/accept/{user}', ['as' => 'front.friends.accept', 'uses' => 'Front\FriendsController@accept']);
 
         Route::get('search', ['as' => 'front.search.show', 'uses' => 'Front\SearchController@search']);
+        Route::get('notifications', ['as' => 'front.notifications.show', 'uses' => 'Front\NotificationsController@index']);
 
 
         });

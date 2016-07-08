@@ -85,5 +85,18 @@ class AssociationController extends Controller
     public function destroy($id)
     {
         //
+    } /**
+     * Join the specified resource from storage.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function join()
+    {
+        Notifications::firstOrCreate([
+            'user_id' => $idfriend,
+            'userL_id' => $idassociation, //OSEF du nom de la colonne, on récupère les bonnes info grace à la colone notification.
+            'libelle' => 'nom de l\'association qui est rejoin',
+            'notification' => 'associations',
+            'afficher' => true]);
     }
 }

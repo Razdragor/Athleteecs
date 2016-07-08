@@ -17,6 +17,7 @@ class CreateTableUsersNotifications extends Migration
             $table->bigInteger('user_id');
             $table->bigInteger('userL_id');
             $table->string('notification');
+            $table->string('libelle');
             $table->boolean('afficher');
             $table->timestamps();
         });
