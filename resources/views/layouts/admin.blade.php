@@ -45,63 +45,49 @@
                 <!-- //Notice .avatar class-->
                 <img width="25" height="25" src="{{ $user->picture }}" alt="{{ $user->firstname.' '.$user->lastname }}" class="avatar">
                 <span>@if(isset($user)){{ $user->firstname.' '.$user->lastname }}@endif</span>
-                <!-- BEGIN USER SETTINGS SECTION--><i data-toggle="dropdown" class="trigger-user-settings fa fa-user"></i>
+                <i data-toggle="dropdown" class="trigger-user-settings fa fa-user"></i>
                 <div class="user-settings">
-                    <!-- BEGIN USER SETTINGS TITLE-->
                     <h3 class="user-settings-title">Settings shortcuts</h3>
-                    <!-- END USER SETTINGS TITLE-->
-                    <!-- BEGIN USER SETTINGS CONTENT-->
                     <div class="user-settings-content">
                         <a href="#my-profile">
-                            <!-- //Notice .icon class-->
                             <div class="icon"><i class="fa fa-user"></i>
                             </div>
-                            <!-- //Notice .title class-->
                             <div class="title">My Profile</div>
-                            <!-- //Notice .content class-->
                             <div class="content">View your profile</div>
                         </a>
                         <a href="#view-messages">
-                            <!-- //Notice .icon class-->
                             <div class="icon"><i class="fa fa-envelope-o"></i>
                             </div>
-                            <!-- //Notice .title class-->
                             <div class="title">View Messages</div>
-                            <!-- //Notice .content class-->
                             <div class="content">
                                 You have <strong>17</strong>
                                 new messages
                             </div>
                         </a>
                         <a href="#view-pending-tasks">
-                            <!-- //Notice .icon class-->
                             <div class="icon"><i class="fa fa-tasks"></i>
                             </div>
-                            <!-- //Notice .title class-->
                             <div class="title">View Tasks</div>
-                            <!-- //Notice .content class-->
                             <div class="content">You have <strong>8</strong> pending tasks</div>
                         </a>
                     </div>
-                    <!-- END USER SETTINGS CONTENT-->
-                    <!-- BEGIN USER SETTINGS FOOTER-->
                     <div class="user-settings-footer">
                         <a href="#more-settings">See more settings</a>
                     </div>
-                    <!-- END USER SETTINGS FOOTER-->
                 </div>
             </div>
-            <!-- END USER SETTINGS SECTION-->
-            <!-- EDN USER SECTION-->
-            <!-- BEGIN SEARCH SECTION-->
-            <div class="search-sidebar">
-                <form class="search-sidebar-form has-icon">
-                    <label for="sidebar-query" class="fa fa-search"></label>
-                    <input id="sidebar-query" type="text" placeholder="Search" class="search-query">
-                </form>
-            </div>
-            <div class="clearfix"></div>
-            <!-- END SEARCH SECTION-->
+            <div class="menu">
+                <div class="menu-content">
+                    <ul id="social-sidebar-menu">
+                        <!-- BEGIN ELEMENT MENU-->
+                        <li>
+                            <a href="{{ route('admin.users.index') }}">
+                                <!-- icon--><i class="fa fa-users"></i>
+                                <span>Utilisateurs</span>
+                                <!-- badge-->
+                                <span class="badge">{{$numberUser}}</span>
+                            </a>
+                        </li>
 
         <!-- BEGIN CHAT SECTION-->
         <div class="chat visible-lg visible-md">
@@ -534,7 +520,6 @@
 <script src="../../assets/js/panels.js"></script>
 <!-- BEGIN GENERAL SCRIPTS-->
 <script>
-    /*<![CDATA[*/
     $(function() {
         $(".social-sidebar").socialSidebar();
         $('.main').panels();
@@ -545,10 +530,8 @@
     $(document).on('click', '.navbar-super .navbar-super-fw', function(e) {
         e.stopPropagation()
     });
-    /*]]>*/
 </script>
-<!-- END GENERAL SCRIPTS-->
-<!-- BEGIN CURRENT PAGE SCRIPTS-->
+
 <script src="../../assets/js/plugins/flot/jquery.flot.js"></script>
 <script src="../../assets/js/plugins/flot/jquery.flot.selection.js"></script>
 <script src="../../assets/js/plugins/jqvmap/jquery.vmap.js"></script>
@@ -563,6 +546,8 @@
 <script src="../../assets/js/plugins/gmaps/gmaps.js"></script>
 <script src="../../assets/js/plugins/pnotify/pnotify.custom.min.js"></script>
 <script src="../../assets/js/demo/dashboard.js"></script>
-<!-- END CURRENT PAGE SCRIPTS-->
+
+@yield('js')
+
 </body>
 </html>

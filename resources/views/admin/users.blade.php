@@ -2,93 +2,45 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div>
-            <div class="panel panel-primary panel-tasks">
-                <div class="panel-heading">
-                    <div class="panel-title"><i class="fa fa-users"></i>Liste des utilisateurs</div>
-                    <div class="panel-tools pull-right">
-                        <div class="btn-group">
-                            <button data-toggle="dropdown" class="btn btn-neutral dropdown-toggle"><i class="fa fa-cog"></i>
-                            </button>
-                            <ul class="dropdown-menu pull-right">
-                                <li>
-                                    <a href="#">
-                                        <span class="fa fa-pencil"></span>Edit</a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <span class="fa fa-trash-o"></span>Delete</a>
-                                </li>
-                                <li class="divider"></li>
-                                <li>
-                                    <a href="#">
-                                        <span class="fa fa-flag"></span>Flag</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel-body"></div>
-                <div class="scroll">
-                    <ul class="list-group">
-                        @foreach($allusers as $oneuser)
-                            <li class="list-group-item">
-                                <div class="checkbox">
-                                    <label for="checkbox_0"><img width="25" height="25" src="{{$oneuser->picture}}" alt="{{ $oneuser->firstname.' '.$oneuser->lastname }}" class="avatar">{{$oneuser->firstname.' '.$oneuser->lastname}}</label>
-                                </div>
-                                <ul class="options-group list-inline pull-right">
-                                    <li>
-                                        <span class="fa fa-pencil"></span>
-                                    </li>
-                                    <li>
-                                        <span class="fa fa-trash-o text-danger"></span>
-                                    </li>
-                                    <li>
-                                        <span class="fa fa-flag text-warning"></span>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-                <div class="panel-footer">
-                    <div class="row">
-                        <div class="col-xs-6 col-md-6">
-                            <h6>Total Count
-                                <span class="label label-default">{{count($allusers)}}</span>
-                            </h6>
-                        </div>
-                        <div class="col-xs-6 col-md-6">
-                            <ul class="pagination pagination-sm pull-right">
-                                <li class="disabled">
-                                    <a href="#">«</a>
-                                </li>
-                                <li class="active">
-                                    <a href="#">1
-                                        <span class="sr-only">(current)</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">2</a>
-                                </li>
-                                <li>
-                                    <a href="#">3</a>
-                                </li>
-                                <li class="hidden-xs">
-                                    <a href="#">4</a>
-                                </li>
-                                <li class="hidden-xs">
-                                    <a href="#">5</a>
-                                </li>
-                                <li>
-                                    <a href="#">»</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Hover rows</h3>
+            </div>
+            <div class="panel-body">
+                <table id="example" class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Image</th>
+                        <th>Prénom</th>
+                        <th>Nom</th>
+                        <th>Email</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($allusers as $oneuser)
+                        <tr>
+                            <td>{{ $oneuser->id }}</td>
+                            <td><img src="{{ $oneuser->picture }}" alt="{{ $oneuser->firstname.' '.$oneuser->lastname }}" class="avatar" width="25" height="25"></td>
+                            <td>{{ $oneuser->firstname }}</td>
+                            <td>{{ $oneuser->lastname }}</td>
+                            <td>{{ $oneuser->email }}</td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
+@endsection
+
+@section('js')
+    <script src="{{ asset('asset/js/jquery/jquery.js') }}"></script>
+    <script src="{{ asset('asset/js/plugins/datatables/jquery.dataTables.js') }}"></script>
+    <script>
+        $(function(){
+            $('#example').DataTable();
+        });
+    </script>
 @endsection
