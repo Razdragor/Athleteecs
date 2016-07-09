@@ -1,5 +1,4 @@
 vendor/
-node_modules/
 
 # Laravel 4 specific
 bootstrap/compiled.php
@@ -15,3 +14,12 @@ storage/
 .idea
 .idea/workspace.xml
 .idea/misc.xml
+
+#npm
+node_modules/
+npm-debug.log
+
+#node_modules obligatoires pour le chat
+!node_modules/server.js
+!node_modules/redis-2.4.5-win32-win64
+!node_modules/socket.io
