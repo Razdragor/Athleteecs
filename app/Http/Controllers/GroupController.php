@@ -25,7 +25,17 @@ class GroupController extends Controller
      */
     public function create()
     {
-        //
+        $user = Auth::user();
+        
+        if(Input::file('picture')->isValid)
+        {
+            $group = new Group();
+            $group->name = Input::get('name');
+            $group->picture = Input::file('picture');
+            $group->save();
+            
+            return view('group.index');
+        }
     }
 
     /**

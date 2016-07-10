@@ -26,16 +26,31 @@
     <link href="{{ asset('asset/css/front.css') }}" rel="stylesheet">
 </head>
 <body id="app-layout">
+                    
+<?php
+$user = Auth::user();
+?>
+    
     <div class="wrapper">
         <aside class="social-sidebar">
+    <div class="visible-lg visible-md">
+        <h4>Groupes :</h4>
+        
+        <ul>
+            @foreach($user->groups as $group)
+                <li>
+                    {{$group->name}}
+                </li>
+            @endforeach
+        </ul>
+        <a href="#">Créer un groupe</a>
+
+    </div>        
+    
     <!-- BEGIN CHAT SECTION-->
     <div class="chat visible-lg visible-md">
         <ul class="users-list">
-                
-                <?php
-                    $user = Auth::user();
-            //dd($user->conversations_interlocutor);
-                ?>
+
                 @foreach($user->friends as $friend)
                     <li>
                         
