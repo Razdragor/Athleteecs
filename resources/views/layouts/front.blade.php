@@ -562,7 +562,7 @@
             processData: false,
             success:function(data) {
                 console.log(data);
-                var to_append = '<div class="tchat-box"><div class="panel panel-default panel-chat"><h3 class="text-center">'+data.conv['name']+'</h3><i id="close" class="fa fa-times" aria-hidden="true"></i><div id="conv_messages_'+data.conv['id']+'" ></div><div class="panel-body scroll-chat-box"><ul class="scroll">';
+                var to_append = '<div class="tchat-box"><div class="panel panel-default panel-chat"><div class="head-tchat"><div class="head-tchat-left">'+data.conv['name']+'</div><div class="head-tchat-right"><i id="close" class="fa fa-times" aria-hidden="true"></i></div></div><div id="conv_messages_'+data.conv['id']+'" ></div><div class="panel-body scroll-chat-box"><ul class="scroll">';
                 data.messages.forEach(function(message){
                     if(message['user_id'] == {{ $user->id }})
                     {
@@ -599,8 +599,9 @@
 
     });
     // probleme à ce niveau là   le click sur le #close ne se fait pas
-    $('#close').on("click",function(){
+    $('body').on('click','#close', function(){
         console.log('fermer tchat box');
+        $('div.tchat-box').remove();
     });
 
 

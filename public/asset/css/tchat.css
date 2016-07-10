@@ -1,3 +1,19 @@
+#close{
+    cursor: pointer;
+}
+
+.head-tchat{
+    height: 58px;
+    padding: 18px;
+}
+.head-tchat-left{
+    width:75%;
+    float: left;
+}
+.head-tchat-right{
+    float: right;
+}
+
 .tchat-box{
     position: absolute;
     bottom: 0px;
