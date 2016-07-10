@@ -579,7 +579,7 @@
             processData: false,
             success:function(data) {
                 console.log(data);
-                var to_append = '<div class="tchat-box"><div class="panel panel-default panel-chat"><div class="head-tchat"><div class="head-tchat-left">'+data.conv['name']+'</div><div class="head-tchat-right"><i id="close" class="fa fa-times" aria-hidden="true"></i></div></div><div></div><div class="panel-body scroll-chat-box"><ul id="conv_messages_'+data.conv['id']+'" class="scroll">';
+                var to_append = '<div class="tchat-box"><div class="panel panel-default panel-chat"><div class="head-tchat"><div class="head-tchat-left">'+data.conv['name']+'</div><div class="head-tchat-right"><i id="close" class="fa fa-times" aria-hidden="true"></i></div></div><div></div><div id="tchat-box-scroll" class="panel-body scroll-chat-box"><ul id="conv_messages_'+data.conv['id']+'" class="scroll">';
                 data.messages.forEach(function(message){
                     if(message['user_id'] == {{ $user->id }})
                     {
@@ -604,10 +604,11 @@
                 });
                 to_append = to_append + '</ul></div><div class="panel-footer"><form action="sendmessage" method="POST" class="chat_send_message"><div class="input-group">'+
                         '<input type="hidden" name="_token" value="{{ csrf_token() }}"><input type="hidden" name="conversation_id" value="'+data.conv['id']+'">'+
-                        '<input id="btn-input" name="message" type="text" placeholder="Ecrivez un message..." class="form-control input-sm">'+
+                        '<input id="btn-input" autocomplete="off" name="message" type="text" placeholder="Ecrivez un message..." class="form-control input-sm">'+
                         '<span class="input-group-btn"><input type="submit" value="Envoyer" class="btn btn-success btn-sm"></span></div></form></div>';
 
                 $('.users-list').after(to_append);
+                window.document.getElementById('#tchat-box-scroll').scrollTop = window.document.getElementById('chat').scrollHeight;
             },
             error:function(jqXHR)
             {
@@ -617,6 +618,7 @@
         });
 
     });
+
     // probleme à ce niveau là   le click sur le #close ne se fait pas
     $('body').on('click','#close', function(){
         console.log('fermer tchat box');
@@ -635,6 +637,7 @@
             processData: false,
             success:function(data) {
                 console.log('Success !');
+                $('#btn-input').val('');
             },
             error:function(jqXHR)
             {
