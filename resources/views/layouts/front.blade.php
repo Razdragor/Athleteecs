@@ -29,7 +29,6 @@
 <body id="app-layout">
 <div class="wrapper">
     <aside class="social-sidebar">
-        <!-- BEGIN CHAT SECTION-->
         <div class="chat visible-lg visible-md">
             <ul class="users-list">
 
@@ -43,8 +42,8 @@
                         <form class="create_conversation">
                             <input type="hidden" name="id" value="{{ $friend->id }}"></input>
                             <a data-firstname="{{ $friend->firstname }}" data-lastname="{{ $friend->lastname }}" data-status="online" data-userid="{{ $friend->id }}" href="#ignore">
-                                <img src="../../assets/img/avatars/{{ $friend->firstname }}" alt="User">
-                                <span>{{ $friend->firstname }} {{ $friend->lastname }}</span><i class="fa fa-circle user-status online"></i>
+                                <img src="{{ $friend->picture }}" alt="{{ $friend->firstname.' '.$friend->lastname }}">
+                                <span>{{ $friend->firstname.' '.$friend->lastname }}</span><i class="fa fa-circle user-status online"></i>
                             </a>
                         </form>
                     </li>
@@ -86,7 +85,6 @@
                 </div>
             </form>
         </div>
-        <!-- END CHAT SECTION-->
     </aside>
     <header>
         <nav role="navigation" class="navbar navbar-fixed-top navbar-super social-navbar">
@@ -97,9 +95,7 @@
             </div>
             <div>
                 <ul class="nav navbar-nav navbar-right">
-                    <!-- END DROPDOWN MESSAGES-->
                     <li class="divider-vertical"></li>
-                    <!-- BEGIN EXTRA DROPDOWN-->
                     <li class="dropdown">
                         <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle"><i class="fa fa-caret-down fa-lg"></i>
                         </a>
@@ -125,7 +121,6 @@
                             </li>
                         </ul>
                     </li>
-                    <!-- END EXTRA DROPDOWN-->
                 </ul>
                 <div class="nav-indicators">
                     <ul class="nav navbar-nav navbar-right nav-indicators-body">
