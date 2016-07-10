@@ -24,7 +24,6 @@ body {
 }
 body {
   background-color: #ecf0f1 !important;
-    
     overflow-x: hidden;
 }
 .main {
@@ -48,6 +47,11 @@ body {
   .reduced-sidebar .main {
     margin-left: 54px;
   }
+}
+
+.wrapper {
+    position:relative;
+    min-height: 100%;
 }
 .social-navbar {
   right: 0;
@@ -1266,7 +1270,7 @@ fieldset[disabled] .social-sidebar .chat .chat-options .btn.active {
 }
 footer,
 .footer {
-    position: absolute;
+    position: fixed;
     bottom: 0px;
     width: 100%;
     margin-left: 200px;

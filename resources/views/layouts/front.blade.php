@@ -131,7 +131,8 @@
                         <!-- DEBUT AMIS-->
                         <a href="{{ route('user.show',['user' => Auth::user()->id]) }}"><img src="{{ Auth::user()->picture}}" alt="Avatar" class="dropdown nav-notifications img-navbarre"></a>
                         <li class="dropdown nav-notifications">
-                            <a href="{{ route('front.friends.show') }}" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
+                            <!-- <a href="{{ route('front.friends.show') }}" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle"> -->
+                            <a href="{{ url('/friends') }}" >
                                 @if(Auth::user()->getfriendsnotificationstrue()->count()>0)<span class="badge">{{Auth::user()->getfriendsnotificationstrue()->count()}}</span>@endif<i class="fa fa-users fa-lg"></i>
                             </a>
                             <ul class="dropdown-menu">
