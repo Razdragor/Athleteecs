@@ -72,9 +72,9 @@
         </div>
         <div class="panel-footer">
             <div class="input-group">
-                <input id="btn-input" type="text" placeholder="Type your message here..." class="form-control input-sm">
+                <input id="btn-input" type="text" placeholder="Ecrivez un message..." class="form-control input-sm">
                         <span class="input-group-btn">
-                          <button id="btn-chat" class="btn btn-success btn-sm">Send</button>
+                          <button id="btn-chat" class="btn btn-success btn-sm">Envoyer</button>
                         </span>
             </div>
         </div>

@@ -24,21 +24,22 @@
     @yield('css')
     <link href="{{ asset('asset/css/front.search.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/front.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/tchat.css') }}" rel="stylesheet">
 </head>
 <body id="app-layout">
-    <div class="wrapper">
-        <aside class="social-sidebar">
-    <!-- BEGIN CHAT SECTION-->
-    <div class="chat visible-lg visible-md">
-        <ul class="users-list">
-                
+<div class="wrapper">
+    <aside class="social-sidebar">
+        <!-- BEGIN CHAT SECTION-->
+        <div class="chat visible-lg visible-md">
+            <ul class="users-list">
+
                 <?php
-                    $user = Auth::user();
-            //dd($user->conversations_interlocutor);
+                $user = Auth::user();
+                //dd($user->conversations_interlocutor);
                 ?>
                 @foreach($user->friends as $friend)
                     <li>
-                        
+
                         <form class="create_conversation">
                             <input type="hidden" name="id" value="{{ $friend->id }}"></input>
                             <a data-firstname="{{ $friend->firstname }}" data-lastname="{{ $friend->lastname }}" data-status="online" data-userid="{{ $friend->id }}" href="#ignore">
@@ -48,29 +49,29 @@
                         </form>
                     </li>
                 @endforeach
-        </ul>
- <!--
-        <div class="container" style="position: absolute;bottom: 0px;left: 20%;width: 350px;height: 500px;z-index: 9999;background-color: white;">
-            <div class="row">
-                <h3 class="text-center">Interlocuteur</h3>
-                <hr>
-                <div class="col-lg-8 col-lg-offset-2 " >
-                  <div id="messages" >Messages</div>
-                </div>
-                <div class="col-lg-8 col-lg-offset-2 text-right" >
-                  <div id="messages" >Messages de l'interloc'</div>
-                </div>
-            </div>
-        </div>
--->
-        <form class="chat-options">
-            <div class="input-group">
-                <div class="input-group-btn dropup">
-                    <button type="button" tabindex="-1" data-toggle="dropdown" class="btn dropdown-toggle btn-xs"><i class="fa fa-cog"></i>
-                    </button>
-                    <ul role="menu" class="dropdown-menu pull-left">
-                        <li>
-                            <a href="#">Chat Sounds</a>
+            </ul>
+            <!--
+                   <div class="container" style="position: absolute;bottom: 0px;left: 20%;width: 350px;height: 500px;z-index: 9999;background-color: white;">
+                       <div class="row">
+                           <h3 class="text-center">Interlocuteur</h3>
+                           <hr>
+                           <div class="col-lg-8 col-lg-offset-2 " >
+                             <div id="messages" >Messages</div>
+                           </div>
+                           <div class="col-lg-8 col-lg-offset-2 text-right" >
+                             <div id="messages" >Messages de l'interloc'</div>
+                           </div>
+                       </div>
+                   </div>
+           -->
+            <form class="chat-options">
+                <div class="input-group">
+                    <div class="input-group-btn dropup">
+                        <button type="button" tabindex="-1" data-toggle="dropdown" class="btn dropdown-toggle btn-xs"><i class="fa fa-cog"></i>
+                        </button>
+                        <ul role="menu" class="dropdown-menu pull-left">
+                            <li>
+                                <a href="#">Chat Sounds</a>
                             </li>
                             <li>
                                 <a href="#">Advanced Settings...</a>
@@ -147,11 +148,11 @@
                                         </a>
                                     @endforeach
                                 </li>
-                                    @if(Auth::user()->getfriendsnotificationstrue()->count()>0)
-                                        <li class="nav-notifications-footer">
-                                            <a tabindex="-1" href="{{ route('front.friends.show') }}">Vous avez <strong>{{Auth::user()->getfriendsnotificationstrue()->count()}}</strong> @if(Auth::user()->getfriendsnotificationstrue()->count()>1)nouveaux amis @else nouvel ami @endif</a>
-                                        </li>
-                                    @endif
+                                @if(Auth::user()->getfriendsnotificationstrue()->count()>0)
+                                    <li class="nav-notifications-footer">
+                                        <a tabindex="-1" href="{{ route('front.friends.show') }}">Vous avez <strong>{{Auth::user()->getfriendsnotificationstrue()->count()}}</strong> @if(Auth::user()->getfriendsnotificationstrue()->count()>1)nouveaux amis @else nouvel ami @endif</a>
+                                    </li>
+                                @endif
                             </ul>
                         </li>
                         <!-- FIN AMIS-->
@@ -411,34 +412,34 @@
 </div>
 
 
-    <div class="return"></div>
-    <!-- jQuery-->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    <script>
-        window.jQuery || document.write('<script src="{{asset('asset/js/jquery/jquery.min.js') }}"><\/script>')
-    </script>
-    <!-- Bootstrap JS-->
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    <script>
-        $.fn.modal || document.write('<script src="{{ asset('asset/js/plugins/bootstrap/bootstrap.min.js') }}"><\/script>')
-    </script>
-    <!-- Bootstrap Hover Dropdown-->
-    <script src="{{ asset('asset/js/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js') }}"></script>
-    <script src="{{ asset('asset/js/plugins/google-code-prettify/prettify.js') }}"></script>
-    <script src="{{ asset('asset/js/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker.js') }}"></script>
-    <script src="{{ asset('asset/js/app.js') }}"></script>
-    <script src="https://cdn.socket.io/socket.io-1.3.4.js"></script>
-    <script>
-        /*<![CDATA[*/
-        $(function() {
-            prettyPrint();
-        });
-        /*]]>*/
-    </script>
-    <script src="{{ asset('asset/js/sidebar.js') }}"></script>
-    <script src="{{ asset('asset/js/panels.js') }}"></script>
-    <script src="{{ asset('asset/js/front.js') }}"></script>
+<div class="return"></div>
+<!-- jQuery-->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="{{asset('asset/js/jquery/jquery.min.js') }}"><\/script>')
+</script>
+<!-- Bootstrap JS-->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script>
+    $.fn.modal || document.write('<script src="{{ asset('asset/js/plugins/bootstrap/bootstrap.min.js') }}"><\/script>')
+</script>
+<!-- Bootstrap Hover Dropdown-->
+<script src="{{ asset('asset/js/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js') }}"></script>
+<script src="{{ asset('asset/js/plugins/google-code-prettify/prettify.js') }}"></script>
+<script src="{{ asset('asset/js/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker.js') }}"></script>
+<script src="{{ asset('asset/js/app.js') }}"></script>
+<script src="https://cdn.socket.io/socket.io-1.3.4.js"></script>
+<script>
+    /*<![CDATA[*/
+    $(function() {
+        prettyPrint();
+    });
+    /*]]>*/
+</script>
+<script src="{{ asset('asset/js/sidebar.js') }}"></script>
+<script src="{{ asset('asset/js/panels.js') }}"></script>
+<script src="{{ asset('asset/js/front.js') }}"></script>
 
 <!-- jQuery-->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -466,166 +467,162 @@
 <script src="{{ asset('asset/js/panels.js') }}"></script>
 <script src="{{ asset('asset/js/front.js') }}"></script>
 
-    <!-- BEGIN GENERAL SCRIPTS-->
+<!-- BEGIN GENERAL SCRIPTS-->
 <script>
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
-    }); 
+    });
 </script>
-    <script>
-        /*<![CDATA[*/
-        $(function() {
-            $(".social-sidebar").socialSidebar();
-            $('.main').panels();
-            $(".main a[href='#ignore']").click(function(e) {
-                e.stopPropagation()
-            });
-        });
-        $(document).on('click', '.navbar-super .navbar-super-fw', function(e) {
+<script>
+    /*<![CDATA[*/
+    $(function() {
+        $(".social-sidebar").socialSidebar();
+        $('.main').panels();
+        $(".main a[href='#ignore']").click(function(e) {
             e.stopPropagation()
         });
-        /*]]>*/
-    </script>
-    
-    <script>
-        var socket = io.connect('http://localhost:8890');
-        socket.on('message', function (data) {
-            var chat_msg = $.parseJSON('[' + data + ']');
-            if(chat_msg[0]['user']['id'] == {{ $user->id }})
+    });
+    $(document).on('click', '.navbar-super .navbar-super-fw', function(e) {
+        e.stopPropagation()
+    });
+    /*]]>*/
+</script>
+
+<script>
+    var socket = io.connect('http://localhost:8890');
+    socket.on('message', function (data) {
+        var chat_msg = $.parseJSON('[' + data + ']');
+        if(chat_msg[0]['user']['id'] == {{ $user->id }})
+        {
+            var chat_class = 'conv_messages_'+chat_msg[0]['conv_id'];
+            $('#'+chat_class).append('<div class="col-xs-8">Vous :<p>'+chat_msg[0]['message']+'</p></div>');
+        }
+        else
+        {
+            var chat_class = 'conv_messages_'+chat_msg[0]['conv_id'];
+            if($('#'+chat_class).length)
             {
-                var chat_class = 'conv_messages_'+chat_msg[0]['conv_id'];
-                $('#'+chat_class).append('<li class="right clearfix"><span class="chat-avatar pull-right"><img src="{{ $user->picture }}" alt="{{ $user->firstName.' '. $user->lastName }}" width="55px" height="55px"></span>'+
-                        '<div id="chat_sender1" class="chat-body clearfix"><div class="header">'+
-                        '<small class="text-muted"><span class="fa fa-clock-o">&nbsp;8 mins ago</span>'+
-                        '</small><strong class="pull-right primary-font">{{ $user->firstName }} {{$user->lastName }}</strong>'+
-                        '</div>'+
-                        '<p>'+chat_msg[0]['message']+'</p></div></li>');
+                $('#'+chat_class).append('<div class="col-xs-8 col-xs-offset-4">'+chat_msg[0]['firstname']+' '+chat_msg[0]['lastname']+'<p>'+chat_msg[0]['message']+'</p></div>');
             }
             else
             {
-                var chat_class = 'conv_messages_'+chat_msg[0]['conv_id'];
-                if($('#'+chat_class).length)
-                {
-                   $('#'+chat_class).append('<div class="col-xs-8 col-xs-offset-4">'+chat_msg[0]['firstname']+' '+chat_msg[0]['lastname']+'<p>'+chat_msg[0]['message']+'</p></div>';
-                }
-                else
-                {
-                    var form = $(document).find('input[name="id"][value="'+chat_msg[0]['user']['id']+'"]').parent();            
-                    
-                    var fdata = $(form).serialize(); 
-                    console.log(fdata);
-                    $.ajax({
-                        type:'POST',
-                        url:'create_conversation', // url, from form
-                        data:fdata,
-                        processData: false,
-                        success:function(data) {
-                            console.log(data);
-                            var to_append = '<div class="container" style="position: absolute;bottom: 0px;left: 20%;width: 350px;height: 500px;z-index: 9999;background-color: white;"><div class="row"><h3 class="text-center">'+data.conv['name']+'</h3><hr><div id="conv_messages_'+data.conv['id']+'" ></div>';
-                            data.messages.forEach(function(message){
-                                if(message['user_id'] == {{ $user->id }})
-                                {
-                                    to_append = to_append + '<li class="right clearfix"><span class="chat-avatar pull-right"><img src="{{ $user->picture }}" alt="{{ $user->firstName.' '. $user->lastName }}" width="55px" height="55px"></span>'+
-                                            '<div id="chat_sender1" class="chat-body clearfix"><div class="header">'+
-                                            '<small class="text-muted"><span class="fa fa-clock-o">&nbsp;8 mins ago</span>'+
-                                            '</small><strong class="pull-right primary-font">{{ $user->firstName }} {{$user->lastName }}</strong>'+
-                                            '</div>'+
-                                            '<p>'+message['message']+'</p></div></li>';
-                                }
-                                else
-                                {
-                                    data.users.forEach(function(user){
-                                        if(message['user_id'] == user['id'])
-                                        {
-                                            to_append = to_append + '<div class="col-xs-8 col-xs-offset-4">'+user['firstname']+' '+user['lastname']+'<p>'+message['message']+'</p></div>';
-                                        }
-                                    });
-                                }
-                            });
-                            //foreach()
-                            //<div id="messages" >Messages</div></div><div class="col-lg-8 col-lg-offset-2 text-right" ><div id="messages" >Messages de l\'interloc</div></div></div></div>';
-                            to_append = to_append + '<form action="sendmessage" method="POST" class="chat_send_message"><input type="hidden" name="_token" value="{{ csrf_token() }}"><input type="hidden" name="conversation_id" value="'+data.conv['id']+'"><input type="text" name="message" ><input type="submit" value="send"></form>';
-                            $('.users-list').after(to_append);
-                        },
-                        error:function(jqXHR)
-                        {
-                            $('.return').html(jqXHR.responseText);
+                var form = $(document).find('input[name="id"][value="'+chat_msg[0]['user']['id']+'"]').parent();
 
-                        }
-                    });
-                    $('#'+chat_class).append('<div class="col-xs-8 col-xs-offset-4">'+chat_msg[0]['firstname']+' '+chat_msg[0]['lastname']+'<p>'+chat_msg[0]['message']+'</p></div>');
-                }
+                var fdata = $(form).serialize();
+                console.log(fdata);
+                $.ajax({
+                    type:'POST',
+                    url:'create_conversation', // url, from form
+                    data:fdata,
+                    processData: false,
+                    success:function(data) {
+                        console.log(data);
+                        var to_append = '<div class="container" style="position: absolute;bottom: 0px;left: 20%;width: 350px;height: 500px;z-index: 9999;background-color: white;"><div class="row"><h3 class="text-center">'+data.conv['name']+'</h3><hr><div id="conv_messages_'+data.conv['id']+'" ></div>';
+                        data.messages.forEach(function(message){
+                            if(message['user_id'] == {{ $user->id }})
+                            {
+                                to_append = to_append + '<div class="col-xs-8">Vous :<p>'+message['message']+'</p></div>';
+                            }
+                            else
+                            {
+                                data.users.forEach(function(user){
+                                    if(message['user_id'] == user['id'])
+                                    {
+                                        to_append = to_append + '<div class="col-xs-8 col-xs-offset-4">'+user['firstname']+' '+user['lastname']+'<p>'+message['message']+'</p></div>';
+                                    }
+                                });
+                            }
+                        });
+                        //foreach()
+                        //<div id="messages" >Messages</div></div><div class="col-lg-8 col-lg-offset-2 text-right" ><div id="messages" >Messages de l\'interloc</div></div></div></div>';
+                        to_append = to_append + '<form action="sendmessage" method="POST" class="chat_send_message"><input type="hidden" name="_token" value="{{ csrf_token() }}"><input type="hidden" name="conversation_id" value="'+data.conv['id']+'"><input type="text" name="message" ><input type="submit" value="send"></form>';
+                        $('.users-list').after(to_append);
+                    },
+                    error:function(jqXHR)
+                    {
+                        $('.return').html(jqXHR.responseText);
+
+                    }
+                });
+                $('#'+chat_class).append('<div class="col-xs-8 col-xs-offset-4">'+chat_msg[0]['firstname']+' '+chat_msg[0]['lastname']+'<p>'+chat_msg[0]['message']+'</p></div>');
             }
-          });
-        
-        $('users-list li').on('click',function(){
-            
+        }
+    });
+
+    $('.create_conversation').on("click",function(){
+        var fdata = $(this).serialize();
+
+        $.ajax({
+            type:'POST',
+            url:'create_conversation', // url, from form
+            data:fdata,
+            processData: false,
+            success:function(data) {
+                console.log(data);
+                var to_append = '<div class="tchat-box"><div class="panel panel-default panel-chat"><h3 class="text-center">'+data.conv['name']+'</h3><i id="close" class="fa fa-times" aria-hidden="true"></i><div id="conv_messages_'+data.conv['id']+'" ></div><div class="panel-body scroll-chat-box"><ul class="scroll">';
+                data.messages.forEach(function(message){
+                    if(message['user_id'] == {{ $user->id }})
+                    {
+                        to_append = to_append + '<li class="right clearfix"><span class="chat-avatar pull-right"><img src="{{ $user->picture }}" alt="{{ $user->firstname.' '. $user->lastname }}" width="55px" height="55px"></span>'+
+                                '<div id="chat_sender1" class="chat-body clearfix"><div class="header">'+
+                                '<small class="text-muted"><span class="fa fa-clock-o">&nbsp;8 mins ago</span>'+
+                                '</small><strong class="pull-right primary-font">{{ $user->firstname }} {{$user->lastname }}</strong>'+
+                                '</div>'+
+                                '<p>'+message['message']+'</p></div></li>';
+                    }
+                    else
+                    {
+                        data.users.forEach(function(user){
+                            if(message['user_id'] == user['id'])
+                            {
+                                to_append = to_append + '<li class="left clearfix"><span class="chat-avatar pull-left"><img src="'+user['picture']+'" alt="'+user['firstname']+' '+user['lastname']+'" width="55px" height="55px"></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font">'+user['firstname']+' '+user['lastname']+'</strong><small class="pull-right text-muted"><span class="fa fa-clock-o">&nbsp;9 mins ago</span></small></div><p>'+message['message']+'</p></div></li>';
+                            }
+                        });
+                    }
+                });
+                to_append = to_append + '</ul></div><div class="panel-footer"><form action="sendmessage" method="POST" class="chat_send_message"><div class="input-group">'+
+                        '<input type="hidden" name="_token" value="{{ csrf_token() }}"><input type="hidden" name="conversation_id" value="'+data.conv['id']+'">'+
+                        '<input id="btn-input" name="message" type="text" placeholder="Ecrivez un message..." class="form-control input-sm">'+
+                        '<span class="input-group-btn"><input type="submit" value="Envoyer" class="btn btn-success btn-sm"></span></div></form></div>';
+
+                $('.users-list').after(to_append);
+            },
+            error:function(jqXHR)
+            {
+                $('.return').html(jqXHR.responseText);
+
+            }
         });
-        
-        
-        $('.create_conversation').on("click",function(){
-            var fdata = $(this).serialize(); 
-        
-            $.ajax({
-                type:'POST',
-                url:'create_conversation', // url, from form
-                data:fdata,
-                processData: false,
-                success:function(data) {
-                    console.log(data);
-                    var to_append = '<div class="container" style="position: absolute;bottom: 0px;left: 20%;width: 350px;height: 500px;z-index: 9999;background-color: white;"><div class="row"><h3 class="text-center">'+data.conv['name']+'</h3><hr><div id="conv_messages_'+data.conv['id']+'" ></div>';
-                    data.messages.forEach(function(message){
-                        if(message['user_id'] == {{ $user->id }})
-                        {
-                            to_append = to_append + '<div class="col-xs-8">Vous :<p>'+message['message']+'</p></div>';
-                        }
-                        else
-                        {
-                            data.users.forEach(function(user){
-                                if(message['user_id'] == user['id'])
-                                {
-                                    to_append = to_append + '<div class="col-xs-8 col-xs-offset-4">'+user['firstname']+' '+user['lastname']+'<p>'+message['message']+'</p></div>';
-                                }
-                            });
-                        }
-                    });
-                    //foreach()
-                    //<div id="messages" >Messages</div></div><div class="col-lg-8 col-lg-offset-2 text-right" ><div id="messages" >Messages de l\'interloc</div></div></div></div>';
-                    to_append = to_append + '<form action="sendmessage" method="POST" class="chat_send_message"><input type="hidden" name="_token" value="{{ csrf_token() }}"><input type="hidden" name="conversation_id" value="'+data.conv['id']+'"><input type="text" name="message" ><input type="submit" value="send"></form>';
-                    $('.users-list').after(to_append);
-                },
-                error:function(jqXHR)
-                {
-                    $('.return').html(jqXHR.responseText);
-                    
-                }
-            });
-            
+
+    });
+    // probleme à ce niveau là   le click sur le #close ne se fait pas
+    $('#close').on("click",function(){
+        console.log('fermer tchat box');
+    });
+
+
+
+    $('body').on('submit','.chat_send_message', function(e){
+        e.preventDefault();
+        var fdata = $(this).serialize();
+        $.ajax({
+            type:'POST',
+            url:'sendmessage', // url, from form
+            data:fdata,
+            processData: false,
+            success:function(data) {
+                console.log('Success !');
+            },
+            error:function(jqXHR)
+            {
+                $('.return').html(jqXHR.responseText);
+
+            }
         });
-        
-        $('body').on('submit','.chat_send_message', function(e){
-             e.preventDefault();
-              var fdata = $(this).serialize(); 
-            $.ajax({
-                type:'POST',
-                url:'sendmessage', // url, from form
-                data:fdata,
-                processData: false,
-                success:function(data) {
-                    console.log('Success !');
-                },
-                error:function(jqXHR)
-                {
-                    $('.return').html(jqXHR.responseText);
-                    
-                }
-            });
-         });
-        
-        
-    </script>
+    });
+</script>
 
 
 <!-- JavaScripts
