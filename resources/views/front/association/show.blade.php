@@ -55,6 +55,11 @@
                         <a class="btn btn-block btn-primary" href="{{ route('association.edit', ['association' => $association]) }}"><i class="fa fa-edit"></i>Editer</a>
                     </div>
                 @endif
+                @if(!$user->isMemberAssociation($association->id))
+                    <div class="col-sm-6 col-md-4 col-lg-2">
+                        <a class="btn btn-block btn-primary" href="{{ route('association.join', ['association' => $association]) }}">Rejoindre</a>
+                    </div>
+                @endif
             </div>
         </div>
         <div class="row">
@@ -89,6 +94,11 @@
                     <h4>Localisation</h4>
                     <div id="map"></div>
                 </div>
+                @if($user->isMemberAssociation($association->id))
+                    <div class="col-sm-6 col-md-4 col-lg-2">
+                        <a class="btn btn-block btn-primary" href="{{ route('association.quit', ['association' => $association]) }}">Quitter</a>
+                    </div>
+                @endif
             </div>
             <div class="col-sm-8 col-md-9">
                 <div class="row" style="margin:0;">
@@ -151,7 +161,7 @@
                                                 </form>
                                             </div>
                                             <div class="tab-pane fade" id="tab_profile">
-                                                <form role="form" style="position: relative" action="{{ route("activity.store")}}" method="post" enctype="multipart/form-data">
+                                                <form role="form" style="position: relative" action="{{ route("association.act.store", ['assocation' => $association->id])}}" method="post" enctype="multipart/form-data">
                                                     {{csrf_field()}}
                                                     <div style="padding: 10px;">
                                                         <div class="form-group">

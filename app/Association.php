@@ -19,7 +19,7 @@ class Association extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'name', 'picture', 'address', 'city', 'created_at', 'updated_at', 'city_code','lattitude','longitude','number_street','region','country','user_id', 'sport_id'
+        'id', 'name', 'picture', 'address', 'city', 'created_at', 'updated_at', 'city_code','lattitude','longitude','number_street','region','country','user_id', 'sport_id', 'facebook','google','twitter'
     ];
 
     /**

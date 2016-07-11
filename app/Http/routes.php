@@ -59,6 +59,10 @@ use Illuminate\Support\Facades\File;
         Route::resource('comment', 'Front\CommentController');
         Route::resource('association', 'Front\AssociationController');
         Route::post('/association/{association}/post', ['as' => 'association.post.store', 'uses' => 'Front\AssociationController@storepost']);
+        Route::post('/association/{association}/act', ['as' => 'association.act.store', 'uses' => 'Front\AssociationController@storeact']);
+        Route::post('/association/{association}/join', ['as' => 'association.join', 'uses' => 'Front\AssociationController@join']);
+        Route::post('/association/{association}/quit', ['as' => 'association.quit', 'uses' => 'Front\AssociationController@quit']);
+        Route::post('/association/search', ['as' => 'association.search', 'uses' => 'Front\AssociationController@search']);
 
         Route::get('friends', ['as' => 'front.friends.show', 'uses' => 'Front\FriendsController@index']);
         Route::get('friends/destroy/{user}', ['as' => 'front.friends.destroy', 'uses' => 'Front\FriendsController@destroy']);

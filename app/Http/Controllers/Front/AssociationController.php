@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Association;
 use App\HelperPublication;
+use App\Notifications;
 use App\Sport;
 use App\UsersAssociations;
 use App\Publication;
@@ -27,7 +28,18 @@ class AssociationController extends Controller
     {
         $user = Auth::user();
         $associations = $user->associations;
-        return view('front.association.index', ["associations" => $associations]);
+        $userSports = $user->sports;
+        $arraySport = [];
+
+        foreach($userSports as $us){
+            $arraySport[] = $us->id;
+        }
+
+        $sports = DB::table('sports')
+            ->whereNotIn('id', $arraySport)
+            ->get();
+
+        return view('front.association.index', ["associations" => $associations, "sports" => $sports, "userSports" => $userSports]);
     }
 
     /**
@@ -156,7 +168,7 @@ class AssociationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $association)
     {
         //
     }
@@ -175,14 +187,30 @@ class AssociationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function join()
+    public function join(Association $association)
     {
-        Notifications::firstOrCreate([
-            'user_id' => $idfriend,
-            'userL_id' => $idassociation, //OSEF du nom de la colonne, on récupère les bonnes info grace à la colone notification.
-            'libelle' => 'nom de l\'association qui est rejoin',
-            'notification' => 'associations',
-            'afficher' => true]);
+        $userC = Auth::user();
+        $members = $association->members;
+        foreach($members as $member){
+            $user = $member->user;
+            if(!is_null($user)){
+                Notifications::firstOrCreate([
+                    'user_id' => $user->id,
+                    'userL_id' => $association->id, //OSEF du nom de la colonne, on récupère les bonnes info grace à la colone notification.
+                    'libelle' => $userC->firstname." ".$userC->lastname." a rejoint l'association ".$association->name,
+                    'notification' => 'associations',
+                    'afficher' => true]);
+            }
+        }
+    }
+
+    public function quit(Association $association){
+        $userC = Auth::user();
+        $userAssocation = DB::table('users_associations')
+            ->where('user_id', '=', $userC->id)
+            ->where('association_id', '=', $association->id)
+            ->get();
+        dd($userAssocation);
     }
 
     //Publication
@@ -198,5 +226,38 @@ class AssociationController extends Controller
 
         return Redirect::back();
 
+    }
+
+    public function storeact(Request $request, Association $association){
+        $publicationArray = HelperPublication::store($request);
+        if(is_array($publicationArray) && array_key_exists('errors',$publicationArray)){
+            return Redirect::back()->withErrors($publicationArray['errors']);
+        }
+        $activityArray = HelperActivity::store($request,$publicationArray);
+
+        $activity = Activity::create($activityArray);
+
+        $publicationArray['activity_id'] = $activity->id;
+        $publication['association_id'] = $association->id;
+        Publication::create($publicationArray);
+
+        return Redirect::back();
+
+    }
+
+    public function search(Request $request){
+        $data = $request->all();
+        if(array_key_exists('sports', $data)){
+            $associations = Association::whereIn('sport_id', $data['sports'])->get();
+
+            return \Response::json(array(
+                'success' => true,
+                'associations' => $associations
+            ));
+        }
+
+        return \Response::json(array(
+            'success' => false
+        ));
     }
 }
