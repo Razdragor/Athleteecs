@@ -107,7 +107,7 @@
                                 <a href="#"><i class="fa fa-object-group"></i>&nbsp;Groupes</a>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-circle-thin"></i>&nbsp;Associations</a>
+                                <a href="{{ route('association.index') }}"><i class="fa fa-circle-thin"></i>&nbsp;Associations</a>
                             </li>
                             <li>
                                 <a href="#"><i class="fa fa-cogs"></i>&nbsp;Paramètres</a>

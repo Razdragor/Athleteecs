@@ -25,7 +25,8 @@ class AssociationController extends Controller
      */
     public function index()
     {
-        $associations = Association::all();
+        $user = Auth::user();
+        $associations = $user->associations;
         return view('front.association.index', ["associations" => $associations]);
     }
 
@@ -36,7 +37,8 @@ class AssociationController extends Controller
      */
     public function create()
     {
-        return view('front.association.create');
+        $sports = Sport::all();
+        return view('front.association.create', ['sports' => $sports]);
     }
 
     /**
@@ -53,14 +55,16 @@ class AssociationController extends Controller
             'name' => 'required',
             'description' => 'required',
             'picture' => 'required|mimes:jpeg,png,jpg',
-            'lattitude' => 'required'
+            'lattitude' => 'required',
+            'sport' => 'required'
         ];
         $messages = [
             'name.required'    => 'Le nom de l\'association est requis',
             'description.required'    => 'Description requise',
             'picture.required' => 'Image requise',
             'picture.mimes'      => 'Le format de l\'image n\'est pas pris en charge (jpeg,png,jpg)',
-            'lattitude.required'      => 'Indiquer une adresse'
+            'lattitude.required'      => 'Indiquer une adresse',
+            'sport.required' => 'Choisir un sport'
         ];
         $validator = Validator::make($data,$rules,$messages);
 
@@ -93,6 +97,7 @@ class AssociationController extends Controller
             'region' => $data['region'],
             'country' => $data['country'],
             'user_id' => $user->id,
+            'sport_id' => $data['sport']
         ));
 
         $association->description = $data['description'];
@@ -123,7 +128,7 @@ class AssociationController extends Controller
                     ->where('user_id' ,'=', $user->id)
                     ->get();
 
-        return view('front.association.show', ["association" => $id, "sports" =>$sports, "isMember" => $ismember]);
+        return view('front.association.show', ["association" => $id, "sports" =>$sports, "isMember" => $ismember, "user" => $user]);
     }
 
     /**
@@ -132,9 +137,16 @@ class AssociationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Association $association)
     {
-        //
+        $user = Auth::user();
+        if($user->isAdminAssociation($association->id)){
+            $sports = Sport::all();
+            return view('front.association.edit', ['association' => $association, 'sports' => $sports]);
+        }
+
+        return Redirect::back();
+
     }
 
     /**

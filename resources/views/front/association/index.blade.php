@@ -19,14 +19,14 @@
             <div class="row media" style="padding: 30px;">
                 <div class="col-lg-2 col-sm-12">
                     <div class="media-left media-middle">
-                        <a href="{{ route("association.show", ["association" => $association]) }}">
-                            <img class="media-object" src="{{ $association->picture }}" alt="..." width="100%">
+                        <a href="{{ route("association.show", ["association" => $association->association_id]) }}">
+                            <img class="media-object" src="{{ $association->association->picture }}" alt="..." width="100%">
                         </a>
                     </div>
                 </div>
                 <div class="col-lg-10 col-sm-12">
-                    <h4 class="media-heading">{{$association->name}}</h4>
-                    <span>{{$association->description}}</span>
+                    <h4 class="media-heading">{{$association->association->name}}</h4>
+                    <span>{{$association->association->description}}</span>
                 </div>
             </div>
             @endforeach

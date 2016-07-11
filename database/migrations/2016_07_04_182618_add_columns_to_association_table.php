@@ -21,6 +21,10 @@ class AddColumnsToAssociationTable extends Migration
             $table->string('lattitude')->nullable();
             $table->string('longitude')->nullable();
             $table->bigInteger('user_id');
+            $table->bigInteger('sport_id');
+            $table->text('facebook')->nullable();
+            $table->text('twitter')->nullable();
+            $table->text('google')->nullable();
         });
     }
 

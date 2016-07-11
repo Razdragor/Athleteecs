@@ -42,6 +42,18 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="sport" class="col-sm-2 control-label">Sport :</label>
+                            <div class="col-sm-10">
+                                <select id="select-beast" class="form-control" name="sport">
+                                    @foreach($sports as $sport)
+                                        <option value="{{ $sport->id }}">
+                                            {{ $sport->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-sm-2 control-label" for="name">Image</label>
                             <div class="col-sm-10">
                                 <input type="file" name="picture" id="picture">

@@ -63,6 +63,18 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->hasMany('App\Publication');
     }
 
+    public function associations(){
+        return $this->hasMany('App\UsersAssociations');
+    }
+
+    public function isAdminAssociation($id){
+        foreach($this->associations as $association){
+            if($association->association_id == $id)
+                return true;
+        }
+        return false;
+    }
+
     public function groups()
     {
         return $this->belongsToMany('App\Group', 'users_groups', 'user_id', 'group_id');

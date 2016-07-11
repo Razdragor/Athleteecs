@@ -32,47 +32,33 @@
 
 @section('content')
     <div class="container user-profile">
-        <div class="row">
-            <div class="col-sm-3 col-md-3">
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <img src="{{ $association->picture}}" alt="Avatar" class="img-thumbnail img-responsive">
-                    </div>
+        <div class="row row-eq-height">
+            <div class="col-sm-4 col-md-3">
+                <div class="col-md-12 text-center" style="position: relative;">
+                    <img src="{{ $association->picture}}" alt="Avatar" class="img-thumbnail img-responsive">
+                    <img src="{{ asset("../images/icons/".$association->sport->icon) }}" alt="{{ $association->sport->name }}" class="img-association">
                 </div>
-                <div>
-                    <a class="btn btn-block btn-success"><i class="fa fa-envelope-alt"></i>Envoyer un message</a>
-                </div>
-                <!-- END SOCIAL ICONS-->
             </div>
-            <div class="col-sm-9 col-md-9">
-                <div class="row">
-                    <!-- BEGIN USER STATUS-->
-                    <div id="user-status" class="text-left col-sm-10 col-md-10">
-                        <h1>{{ $association->name }}</h1>
-                    </div>
+            <div class="col-sm-8 col-md-9" style="position: relative">
+                <div id="user-status" class="text-left col-sm-10 col-md-10" style="position: absolute;bottom: 10px;">
+                    <h1>{{ $association->name }}</h1>
                 </div>
-                <p class="hidden-xs">
-                    {{ $association->description }}
-                </p>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-3 col-md-3">
-                <div class="association-body-left">
-                    <h4>Evènement à venir</h4>
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="#"><i class="fa fa-calendar"></i>Event 1 </a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-calendar"></i>Event 2</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="association-body-left">
-                    <h4>Localisation</h4>
-                    <div id="map"></div>
-                </div>
+            <div class="col-sm-4 col-md-3">
+                <a class="btn btn-block btn-success"><i class="fa fa-envelope-alt"></i>Envoyer un message</a>
+            </div>
+            <div class="col-sm-8 col-md-9">
+                @if($user->isAdminAssociation($association->id))
+                    <div class="col-sm-6 col-md-4 col-lg-2">
+                        <a class="btn btn-block btn-primary" href="{{ route('association.edit', ['association' => $association]) }}"><i class="fa fa-edit"></i>Editer</a>
+                    </div>
+                @endif
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-md-3">
                 <!-- BEGIN SOCIAL ICONS-->
                 <div class="text-center social-icons">
                     <a href="#">
@@ -88,13 +74,30 @@
                         </span>
                     </a>
                 </div>
+                <div class="association-body-left">
+                    <h4>Evènement à venir</h4>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#"><i class="fa fa-calendar"></i>Event 1 </a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-calendar"></i>Event 2</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="association-body-left">
+                    <h4>Localisation</h4>
+                    <div id="map"></div>
+                </div>
             </div>
-            <div class="col-sm-8 col-md-8">
-                <!-- BEGIN TABS SELECTIONS-->
+            <div class="col-sm-8 col-md-9">
                 <div class="row" style="margin:0;">
                     <ul id="profileTab" class="nav nav-tabs">
                         <li class="active">
                             <a href="#anchorpost" data-toggle="tab" aria-expanded="true">Actualités</a>
+                        </li>
+                        <li>
+                            <a href="#info" data-toggle="tab" aria-expanded="true">Description</a>
                         </li>
                         <li>
                             <a href="#member" data-toggle="tab" aria-expanded="false">Membres</a>
@@ -117,7 +120,6 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <div class="panel-title">Quoi de neuf ?</div>
-
                                         <div class="panel-tools pull-right">
                                             <ul class="nav nav-tabs">
                                                 <li class="active">
@@ -166,9 +168,9 @@
                                                             <label for="datetimepicker1" class="">Date de début :</label>
                                                             <div class="input-group date" id="datetimepicker1">
                                                                 <input type="text" class="form-control" placeholder="__/__/____ __:__" name="date_start_act">
-                                                            <span class="input-group-addon">
-                                                            <span class="fa-calendar fa"></span>
-                                                            </span>
+                                                        <span class="input-group-addon">
+                                                        <span class="fa-calendar fa"></span>
+                                                        </span>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
@@ -211,7 +213,7 @@
                                 </div>
                             @endif
                             <ul class="timeline-2-cols">
-                            @foreach($association->publications as $publication)
+                                @foreach($association->publications as $publication)
                                     <li id="<?php
                                     if(is_null($publication->activity)){
                                         echo "publication-".$publication->id;
@@ -241,7 +243,7 @@
                                                             @if(Auth::user()->id == $publication->user_id)
                                                                 <li>
                                                                     <a href="#" onclick="
-                                                            <?php
+                                                        <?php
                                                                     if(is_null($publication->activity)){
                                                                         echo "editpost(".$publication->id.")";
                                                                     }else{
@@ -327,9 +329,14 @@
                                             </div>
                                         </div>
                                     </li>
-                            @endforeach
+                                @endforeach
                             </ul>
 
+                        </div>
+                        <div class="tab-pane fade" id="info">
+                            <p>
+                                {{ $association->description }}
+                            </p>
                         </div>
                         <div class="tab-pane fade" id="member">
                             @foreach($association->members as $member)

@@ -32,4 +32,8 @@ class UsersAssociations extends Model
     public function user(){
         return $this->belongsTo('App\User','user_id', 'id');
     }
+
+    public function association(){
+        return $this->belongsTo('App\Association','association_id', 'id');
+    }
 }

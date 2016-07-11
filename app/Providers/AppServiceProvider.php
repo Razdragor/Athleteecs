@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Database\QueryException;
 use Illuminate\Support\ServiceProvider;
 use App\User;
 

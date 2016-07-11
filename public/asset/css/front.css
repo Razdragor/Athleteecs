@@ -148,3 +148,22 @@
     margin:5px;
     border-bottom: 1px solid #dddddd;
 }
+
+.img-association{
+    position: absolute;
+    left: -5px;
+    top: -5px;
+    width: 50px;
+    height: auto;
+}
+
+.row-eq-height {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display:         flex;
+}
+
+.social-icons{
+    margin-bottom: 5px;
+}
