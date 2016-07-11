@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "17f283038b85686d67fe8cb2186d9cfa",
-    "content-hash": "6dbfe5d4cdcf8767539be3d0bd83c037",
+    "hash": "9389572bf77c8c2870b01551f3e8510b",
+    "content-hash": "c5739129e80e9d08aeb61d2dc4ef09f9",
     "packages": [
         {
             "name": "alexpechkarev/geometry-library",

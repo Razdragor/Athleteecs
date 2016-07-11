@@ -63,6 +63,12 @@ use Illuminate\Support\Facades\File;
         Route::post('/association/{association}/join', ['as' => 'association.join', 'uses' => 'Front\AssociationController@join']);
         Route::post('/association/{association}/quit', ['as' => 'association.quit', 'uses' => 'Front\AssociationController@quit']);
         Route::post('/association/search', ['as' => 'association.search', 'uses' => 'Front\AssociationController@search']);
+        
+        
+        Route::resource('groups', 'GroupController');
+        Route::get('groups/{group}', ['as' => 'group.index', 'uses' => 'GroupController@index']);
+        Route::get('groups/create', 'GroupController@createForm');
+        Route::get('groups/create/{group}',['as' => 'group.create', 'uses' => 'GroupController@create']);
 
         Route::get('friends', ['as' => 'front.friends.show', 'uses' => 'Front\FriendsController@index']);
         Route::get('friends/destroy/{user}', ['as' => 'front.friends.destroy', 'uses' => 'Front\FriendsController@destroy']);

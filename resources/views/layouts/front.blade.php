@@ -27,15 +27,27 @@
     <link href="{{ asset('asset/css/tchat.css') }}" rel="stylesheet">
 </head>
 <body id="app-layout">
-<div class="wrapper">
-    <aside class="social-sidebar">
-        <div class="chat visible-lg visible-md">
-            <ul class="users-list">
-
-                <?php
-                $user = Auth::user();
-                //dd($user->conversations_interlocutor);
-                ?>
+<?php
+$user = Auth::user();
+?>
+    
+    <div class="wrapper">
+        <aside class="social-sidebar">
+    <div class="visible-lg visible-md">
+        <h4>Groupes :</h4>
+        
+        <ul>
+            @foreach($user->groups as $group)
+                <li>
+                    {{$group->name}}
+                </li>
+            @endforeach
+        </ul>
+        <a href="#">Créer un groupe</a>
+    
+    <!-- BEGIN CHAT SECTION-->
+    <div class="chat visible-lg visible-md">
+        <ul class="users-list">
                 @foreach($user->friends as $friend)
                     <li>
 
@@ -529,7 +541,7 @@
                 $('.users-list').after(to_append);
                 $('#btn-input').focus();
                 // pour scroller au départ mais ne fonctionne pas (le scrollHeight est récupéré mais ne passe pas dans le scrollTop)
-                $(".scroll").scrollTop($(".scroll")[0].scrollHeight);
+                 $(".scroll-chat-box").scrollTop($(".scroll-chat-box")[0].scrollHeight);
             },
             error:function(jqXHR)
             {
@@ -611,6 +623,7 @@
                                 '<span class="input-group-btn"><input type="submit" value="Envoyer" class="btn btn-success btn-sm"></span></div></form></div>';
 
                         $('.users-list').after(to_append);
+                        $(".scroll-chat-box").scrollTop($(".scroll-chat-box")[0].scrollHeight);
                     },
                     error:function(jqXHR)
                     {
@@ -623,6 +636,7 @@
         }
     });
 
+    
     // fermer la tchatbox
     $('body').on('click','#close', function(){
         $('div.tchat-box').remove();
@@ -641,6 +655,7 @@
             success:function(data) {
                 console.log('Success !');
                 $('#btn-input').val('');
+                $(".scroll-chat-box").scrollTop($(".scroll-chat-box")[0].scrollHeight);
             },
             error:function(jqXHR)
             {
