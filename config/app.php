@@ -161,7 +161,8 @@ return [
          */
         Laravel\Socialite\SocialiteServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
-        Intervention\Image\ImageServiceProvider::class
+        Intervention\Image\ImageServiceProvider::class,
+        GoogleMaps\ServiceProvider\GoogleMapsServiceProvider::class
 
     ],
 
@@ -210,7 +211,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Entrust'  => Zizaco\Entrust\EntrustServiceProvider::class,
-        'Image' => Intervention\Image\Facades\Image::class
+        'Image' => Intervention\Image\Facades\Image::class,
+        'GoogleMaps' => GoogleMaps\Facade\GoogleMapsFacade::class
     ],
 
 ];

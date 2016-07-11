@@ -1,3 +1,6 @@
+.row{
+    margin-bottom: 20px;
+}
 
 .timeline-2-cols .timeline-footer .comments .comment, .timeline-2-cols .timeline-footer .comments .comment-body {
     overflow: hidden;
@@ -103,10 +106,45 @@
     height: 100%;
 }
 
-.img-navbarre{
+.img-navbarre {
     float: left;
     height: 38px;
     border-radius: 100%;
     border: 2px solid antiquewhite;
     margin: 1px;
+}
+
+.image-upload > input
+{
+    display: none;
+}
+.btn-group > div{
+    float: left;
+    margin-left: 10px;
+}
+
+.time{
+    width: 33%;
+    float: left !important;
+    padding: 0 10px 10px 10px !important;
+}
+.panel-foo{
+    background-color: #f5f5f5;
+    border-color: #dddddd;
+    color: #333333;
+    padding:6px;
+}
+
+.association-body-left{
+     min-height: 250px;
+     padding : 4px;
+     border: 1px solid #dddddd;
+    margin-bottom: 15px;
+ }
+
+.association-body-left h4{
+    padding: 5px;
+    padding-bottom: 10px;
+    margin:5px;
+    border-bottom: 1px solid #dddddd;
 }

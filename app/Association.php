@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Association extends Model
 {
@@ -18,7 +19,7 @@ class Association extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'name', 'picture', 'address', 'city', 'created_at', 'updated_at'
+        'id', 'name', 'picture', 'address', 'city', 'created_at', 'updated_at', 'city_code','lattitude','longitude','number_street','region','country','user_id'
     ];
 
     /**
@@ -28,4 +29,28 @@ class Association extends Model
      */
     protected $hidden = [
     ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\User','user_id');
+    }
+
+    public function members()
+    {
+        return $this->hasMany('App\UsersAssociations', 'association_id');
+    }
+
+    public function publications(){
+        return $this->hasMany('App\Publication');
+    }
+
+    public function videos(){
+        $video = DB::table('publications')
+            ->join('videos', 'publications.video_id', '=', 'videos.id')
+            ->where('publications.association_id', '=', $this->id)
+            ->select('videos.*')
+            ->get();
+
+        return $video;
+    }
 }
