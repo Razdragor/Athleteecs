@@ -44,8 +44,6 @@ $user = Auth::user();
             @endforeach
         </ul>
         <a href="#">Créer un groupe</a>
-<div class="wrapper">
-    <aside class="social-sidebar">    
     
     <!-- BEGIN CHAT SECTION-->
     <div class="chat visible-lg visible-md">
