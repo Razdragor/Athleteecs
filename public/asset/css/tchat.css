@@ -29,3 +29,15 @@
     height: 350px;
     overflow: auto;
 }
+
+.create_conversation{
+    cursor: pointer;
+}
+
+.social-sidebar .chat {
+    height: 100%;
+}
+
+.social-sidebar .chat .users-list {
+    height: 100%;
+}
