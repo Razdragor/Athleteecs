@@ -44,8 +44,8 @@ $user = Auth::user();
             @endforeach
         </ul>
         <a href="#">Créer un groupe</a>
-
-    </div>        
+<div class="wrapper">
+    <aside class="social-sidebar">    
     
     <!-- BEGIN CHAT SECTION-->
     <div class="chat visible-lg visible-md">
@@ -55,9 +55,9 @@ $user = Auth::user();
 
                         <form class="create_conversation">
                             <input type="hidden" name="id" value="{{ $friend->id }}"></input>
-                            <a data-firstname="{{ $friend->firstname }}" data-lastname="{{ $friend->lastname }}" data-status="online" data-userid="{{ $friend->id }}" href="#ignore">
-                                <img src="../../assets/img/avatars/{{ $friend->firstname }}" alt="User">
-                                <span>{{ $friend->firstname }} {{ $friend->lastname }}</span><i class="fa fa-circle user-status online"></i>
+                            <a data-firstname="{{ $friend->firstname }}" data-lastname="{{ $friend->lastname }}" data-status="online" data-userid="{{ $friend->id }}">
+                                <img src="{{ $friend->picture }}" alt="{{ $friend->firstname.' '.$friend->lastname }}">
+                                <span>{{ $friend->firstname.' '.$friend->lastname }}</span><i class="fa fa-circle user-status online"></i>
                             </a>
                         </form>
                     </li>
@@ -99,7 +99,6 @@ $user = Auth::user();
                 </div>
             </form>
         </div>
-        <!-- END CHAT SECTION-->
     </aside>
     <header>
         <nav role="navigation" class="navbar navbar-fixed-top navbar-super social-navbar">
@@ -110,9 +109,7 @@ $user = Auth::user();
             </div>
             <div>
                 <ul class="nav navbar-nav navbar-right">
-                    <!-- END DROPDOWN MESSAGES-->
                     <li class="divider-vertical"></li>
-                    <!-- BEGIN EXTRA DROPDOWN-->
                     <li class="dropdown">
                         <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle"><i class="fa fa-caret-down fa-lg"></i>
                         </a>
@@ -138,7 +135,6 @@ $user = Auth::user();
                             </li>
                         </ul>
                     </li>
-                    <!-- END EXTRA DROPDOWN-->
                 </ul>
                 <div class="nav-indicators">
                     <ul class="nav navbar-nav navbar-right nav-indicators-body">
@@ -428,7 +424,7 @@ $user = Auth::user();
 
 <div class="return"></div>
 <!-- jQuery-->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script>
     window.jQuery || document.write('<script src="{{asset('asset/js/jquery/jquery.min.js') }}"><\/script>')
@@ -456,7 +452,6 @@ $user = Auth::user();
 <script src="{{ asset('asset/js/front.js') }}"></script>
 
 <!-- jQuery-->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script>
     window.jQuery || document.write('<script src="{{asset('asset/js/jquery/jquery.min.js') }}"><\/script>')
 </script>
@@ -505,20 +500,84 @@ $user = Auth::user();
 </script>
 
 <script>
+
+    // créer la tchatbox
+    $('.create_conversation').on("click",function(){
+        $('div.tchat-box').remove();
+        var fdata = $(this).serialize();
+        $.ajax({
+            type:'POST',
+            url:'create_conversation',
+            data:fdata,
+            processData: false,
+            success:function(data) {
+                console.log(data);
+                var to_append = '<div class="tchat-box"><div class="panel panel-default panel-chat"><div class="head-tchat"><div class="head-tchat-left">'+data.conv['name']+'</div><div class="head-tchat-right"><i id="close" class="fa fa-times" aria-hidden="true"></i></div></div><div></div><div id="tchat-box-scroll" class="panel-body scroll-chat-box"><ul id="conv_messages_'+data.conv['id']+'" class="scroll">';
+                data.messages.forEach(function(message){
+                    if(message['user_id'] == {{ $user->id }})
+                    {
+                        to_append = to_append + '<li class="right clearfix"><span class="chat-avatar pull-right"><img src="{{ $user->picture }}" alt="{{ $user->firstname.' '. $user->lastname }}" width="55px" height="55px"></span>'+
+                                '<div id="chat_sender1" class="chat-body clearfix"><div class="header">'+
+                                '<small class="text-muted"><span class="fa fa-clock-o">&nbsp;'+message['created_at']+'</span>'+
+                                '</small><strong class="pull-right primary-font">{{ $user->firstname }} {{$user->lastname }}</strong>'+
+                                '</div>'+
+                                '<p>'+message['message']+'</p></div></li>';
+                    }
+                    else
+                    {
+                        data.users.forEach(function(user){
+                            if(message['user_id'] == user['id'])
+                            {
+                                to_append = to_append + '<li class="left clearfix"><span class="chat-avatar pull-left"><img src="'+user['picture']+'" alt="'+user['firstname']+' '+user['lastname']+
+                                        '" width="55px" height="55px"></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font">'+user['firstname']+' '+user['lastname']+
+                                        '</strong><small class="pull-right text-muted"><span class="fa fa-clock-o">&nbsp;'+message['created_at']+'</span></small></div><p>'+message['message']+'</p></div></li>';
+                            }
+                        });
+                    }
+                });
+                to_append = to_append + '</ul></div><div class="panel-footer"><form action="sendmessage" method="POST" class="chat_send_message"><div class="input-group">'+
+                        '<input type="hidden" name="_token" value="{{ csrf_token() }}"><input type="hidden" name="conversation_id" value="'+data.conv['id']+'">'+
+                        '<input id="btn-input" autocomplete="off" name="message" type="text" placeholder="Ecrivez un message..." class="form-control input-sm">'+
+                        '<span class="input-group-btn"><input type="submit" value="Envoyer" class="btn btn-success btn-sm"></span></div></form></div>';
+
+                $('.users-list').after(to_append);
+                $('#btn-input').focus();
+                // pour scroller au départ mais ne fonctionne pas (le scrollHeight est récupéré mais ne passe pas dans le scrollTop)
+                $(".scroll").scrollTop($(".scroll")[0].scrollHeight);
+            },
+            error:function(jqXHR)
+            {
+                $('.return').html(jqXHR.responseText);
+
+            }
+        });
+    });
+
+    // envoyer des éléments dans tchatbox
     var socket = io.connect('http://localhost:8890');
     socket.on('message', function (data) {
-        var chat_msg = $.parseJSON('[' + data + ']');
+        var chat_msg = $.parseJSON('[' + data + ']'),
+            now = new Date().getDay();
         if(chat_msg[0]['user']['id'] == {{ $user->id }})
         {
             var chat_class = 'conv_messages_'+chat_msg[0]['conv_id'];
-            $('#'+chat_class).append('<div class="col-xs-8">Vous :<p>'+chat_msg[0]['message']+'</p></div>');
+            console.log(chat_msg[0]);
+            $('#'+chat_class).append('<li class="right clearfix"><span class="chat-avatar pull-right"><img src="{{ $user->picture }}" alt="{{ $user->firstname.' '. $user->lastname }}" width="55px" height="55px"></span>'+
+                    '<div id="chat_sender1" class="chat-body clearfix"><div class="header">'+
+                    '<small class="text-muted"><span class="fa fa-clock-o">&nbsp;'+now+'</span>'+
+                    '</small><strong class="pull-right primary-font">{{ $user->firstname }} {{$user->lastname }}</strong>'+
+                    '</div>'+
+                    '<p>'+chat_msg[0]['message']+'</p></div></li>');
         }
         else
         {
             var chat_class = 'conv_messages_'+chat_msg[0]['conv_id'];
             if($('#'+chat_class).length)
             {
-                $('#'+chat_class).append('<div class="col-xs-8 col-xs-offset-4">'+chat_msg[0]['firstname']+' '+chat_msg[0]['lastname']+'<p>'+chat_msg[0]['message']+'</p></div>');
+                console.log(chat_msg[0]['user']['firstname']);
+                $('#'+chat_class).append('<li class="left clearfix"><span class="chat-avatar pull-left"><img src="'+chat_msg[0]['user']['picture']+'" alt="'+chat_msg[0]['user']['firstname']+' '+chat_msg[0]['user']['lastname']+
+                        '" width="55px" height="55px"></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font">'+chat_msg[0]['user']['firstname']+' '+chat_msg[0]['user']['lastname']+
+                        '</strong><small class="pull-right text-muted"><span class="fa fa-clock-o">&nbsp;'+now+'</span></small></div><p>'+chat_msg[0]['message']+'</p></div></li>');
             }
             else
             {
@@ -533,25 +592,38 @@ $user = Auth::user();
                     processData: false,
                     success:function(data) {
                         console.log(data);
-                        var to_append = '<div class="container" style="position: absolute;bottom: 0px;left: 20%;width: 350px;height: 500px;z-index: 9999;background-color: white;"><div class="row"><h3 class="text-center">'+data.conv['name']+'</h3><hr><div id="conv_messages_'+data.conv['id']+'" ></div>';
+                        var to_append = '<div class="tchat-box"><div class="panel panel-default panel-chat"><div class="head-tchat"><div class="head-tchat-left">'+data.conv['name']+'</div><div class="head-tchat-right"><i id="close" class="fa fa-times" aria-hidden="true"></i></div></div><div></div><div class="panel-body scroll-chat-box"><ul id="conv_messages_'+data.conv['id']+'" class="scroll">';
                         data.messages.forEach(function(message){
                             if(message['user_id'] == {{ $user->id }})
                             {
-                                to_append = to_append + '<div class="col-xs-8">Vous :<p>'+message['message']+'</p></div>';
+                                var heureMessage = message['created_at'];
+                                console.log(heureMessage);
+                                to_append = to_append + '<li class="right clearfix"><span class="chat-avatar pull-right"><img src="{{ $user->picture }}" alt="{{ $user->firstname.' '. $user->lastname }}" width="55px" height="55px"></span>'+
+                                        '<div id="chat_sender1" class="chat-body clearfix"><div class="header">'+
+                                        '<small class="text-muted"><span class="fa fa-clock-o">&nbsp;'+now+'</span>'+
+                                        '</small><strong class="pull-right primary-font">{{ $user->firstname }} {{$user->lastname }}</strong>'+
+                                        '</div>'+
+                                        '<p>'+message['message']+'</p></div></li>';
                             }
                             else
                             {
                                 data.users.forEach(function(user){
                                     if(message['user_id'] == user['id'])
                                     {
-                                        to_append = to_append + '<div class="col-xs-8 col-xs-offset-4">'+user['firstname']+' '+user['lastname']+'<p>'+message['message']+'</p></div>';
+                                        var heureMessage = message['created_at'];
+                                        console.log(heureMessage);
+                                        to_append = to_append + '<li class="left clearfix"><span class="chat-avatar pull-left"><img src="'+user['picture']+'" alt="'+user['firstname']+' '+user['lastname']+
+                                                '" width="55px" height="55px"></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font">'+user['firstname']+' '+user['lastname']+
+                                                '</strong><small class="pull-right text-muted"><span class="fa fa-clock-o">&nbsp;'+now+'</span></small></div><p>'+message['message']+'</p></div></li>';
                                     }
                                 });
                             }
                         });
-                        //foreach()
-                        //<div id="messages" >Messages</div></div><div class="col-lg-8 col-lg-offset-2 text-right" ><div id="messages" >Messages de l\'interloc</div></div></div></div>';
-                        to_append = to_append + '<form action="sendmessage" method="POST" class="chat_send_message"><input type="hidden" name="_token" value="{{ csrf_token() }}"><input type="hidden" name="conversation_id" value="'+data.conv['id']+'"><input type="text" name="message" ><input type="submit" value="send"></form>';
+                        to_append = to_append + '</ul></div><div class="panel-footer"><form action="sendmessage" method="POST" class="chat_send_message"><div class="input-group">'+
+                                '<input type="hidden" name="_token" value="{{ csrf_token() }}"><input type="hidden" name="conversation_id" value="'+data.conv['id']+'">'+
+                                '<input id="btn-input" name="message" type="text" placeholder="Ecrivez un message..." class="form-control input-sm">'+
+                                '<span class="input-group-btn"><input type="submit" value="Envoyer" class="btn btn-success btn-sm"></span></div></form></div>';
+
                         $('.users-list').after(to_append);
                     },
                     error:function(jqXHR)
@@ -612,8 +684,9 @@ $user = Auth::user();
 
     });
     
+    // fermer la tchatbox
     $('body').on('click','#close', function(){
-        console.log('fermer tchat box');
+        $('div.tchat-box').remove();
     });
 
 
@@ -623,11 +696,12 @@ $user = Auth::user();
         var fdata = $(this).serialize();
         $.ajax({
             type:'POST',
-            url:'sendmessage', // url, from form
+            url:'sendmessage',
             data:fdata,
             processData: false,
             success:function(data) {
                 console.log('Success !');
+                $('#btn-input').val('');
             },
             error:function(jqXHR)
             {

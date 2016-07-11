@@ -1,7 +1,23 @@
+#close{
+    cursor: pointer;
+}
+
+.head-tchat{
+    height: 58px;
+    padding: 18px;
+}
+.head-tchat-left{
+    width:75%;
+    float: left;
+}
+.head-tchat-right{
+    float: right;
+}
+
 .tchat-box{
     position: absolute;
     bottom: 0px;
-    left: 20%;
+    left: 200px;
     width: 350px;
     height: 500px;
     z-index: 9999;
@@ -12,4 +28,16 @@
 .scroll-chat-box{
     height: 350px;
     overflow: auto;
+}
+
+.create_conversation{
+    cursor: pointer;
+}
+
+.social-sidebar .chat {
+    height: 100%;
+}
+
+.social-sidebar .chat .users-list {
+    height: 100%;
 }
