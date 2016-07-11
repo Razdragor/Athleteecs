@@ -157,6 +157,14 @@
     height: auto;
 }
 
+.filter-association{
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.filter-association .link{
+    float:right;
+}
+
 .row-eq-height {
     display: -webkit-box;
     display: -webkit-flex;
@@ -166,4 +174,43 @@
 
 .social-icons{
     margin-bottom: 5px;
+}
+
+.slimScrollDiv{
+    position: relative;
+    overflow: hidden;
+    width: auto;
+    max-height: 125px;
+}
+
+.slimScrollDiv .scroll{
+    overflow: hidden;
+    width: auto;
+    max-height: 125px;
+}
+
+.slimScrollDiv .slimScrollBar{
+    background: rgb(0, 0, 0) none repeat scroll 0% 0%;
+    width: 7px;
+    position: absolute;
+    top: 0px;
+    opacity: 0.4;
+    display: none;
+    border-radius: 7px;
+    z-index: 99;
+    right: 1px;
+    height: 300px;
+}
+
+.slimScrollDiv .slimScrollRail{
+    width: 7px;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    display: none;
+    border-radius: 7px;
+    background: rgb(51, 51, 51) none repeat scroll 0% 0%;
+    opacity: 0.2;
+    z-index: 90;
+    right: 1px;
 }

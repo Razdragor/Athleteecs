@@ -170,7 +170,54 @@ class AssociationController extends Controller
      */
     public function update(Request $request, $association)
     {
-        //
+        /*$data = $request->all();
+        $user = Auth::user();
+        $rules = [
+            'name' => 'required',
+            'description' => 'required',
+            'picture' => 'mimes:jpeg,png,jpg',
+            'lattitude' => 'required',
+            'sport' => 'required'
+        ];
+        $messages = [
+            'name.required'    => 'Le nom de l\'association est requis',
+            'description.required'    => 'Description requise',
+            'picture.mimes'      => 'Le format de l\'image n\'est pas pris en charge (jpeg,png,jpg)',
+            'lattitude.required'      => 'Indiquer une adresse',
+            'sport.required' => 'Choisir un sport'
+        ];
+        $validator = Validator::make($data,$rules,$messages);
+
+        if($validator->fails())
+        {
+            $request->flash();
+            return Redirect::back()->withErrors($validator);
+        }
+
+        if ($request->hasFile('picture')) {
+            $guid = com_create_guid();
+            $imageName = $guid.'_assos.' . $request->file('picture')->getClientOriginalExtension();;
+
+            $request->file('picture')->move(
+                storage_path() . '\uploads', $imageName
+            );
+            $association->picture = '/uploads/'.$imageName;
+        }
+
+        $association->name =
+            'name' => $data['name'],
+            'picture' => $imageName,
+            'address' => $data['route'],
+            'city' => $data['locality'],
+            'city_code' => $data['postal_code'],
+            'lattitude' => $data['lattitude'],
+            'longitude' => $data['longitude'],
+            'number_street' => $data['street_number'],
+            'region' => $data['region'],
+            'country' => $data['country'],
+            'user_id' => $user->id,
+            'sport_id' => $data['sport']
+        ));*/
     }
 
     /**

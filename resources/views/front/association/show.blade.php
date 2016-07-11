@@ -31,7 +31,7 @@
 @endsection
 
 @section('content')
-    <div class="container user-profile">
+    <div class="container user-profile" style="margin-bottom: 50px;">
         <div class="row row-eq-height">
             <div class="col-sm-4 col-md-3">
                 <div class="col-md-12 text-center" style="position: relative;">
@@ -55,7 +55,7 @@
                         <a class="btn btn-block btn-primary" href="{{ route('association.edit', ['association' => $association]) }}"><i class="fa fa-edit"></i>Editer</a>
                     </div>
                 @endif
-                @if(!$user->isMemberAssociation($association->id))
+                @if(!$user->isMemberAssociation($association->id) && !$user->isAdminAssociation($association->id))
                     <div class="col-sm-6 col-md-4 col-lg-2">
                         <a class="btn btn-block btn-primary" href="{{ route('association.join', ['association' => $association]) }}">Rejoindre</a>
                     </div>

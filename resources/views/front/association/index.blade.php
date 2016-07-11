@@ -4,10 +4,10 @@
 @endsection
 
 @section('content')
-    <div class="container">
+    <div class="container" style="margin-bottom: 25px;">
         <div class="row">
             <div style="width: 90%;margin:auto;position: relative">
-                <div><h1>Associations <small>({{ $associations->count()}})</small></h1></div>
+                <div><h1>Associations</h1></div>
                 <div style="position: absolute;right: 0px;top:20px">
                     <a href="{{ route('association.create') }}" class="btn btn-default btn-xs">Créer une association</a>
                 </div>
@@ -15,10 +15,10 @@
             <div style="border-bottom: solid black 1px;width: 90%;margin:auto"></div>
         </div>
         <div class="row">
-            <div class="col-md-8 col-sm-12">
-                <div id="map" style="height: 500px;"></div>
+            <div class="col-md-9 col-sm-8">
+                <div id="map" style="height: 300px;"></div>
             </div>
-            <div class="col-md-4 col-sm-12">
+            <div class="col-md-3 col-sm-3">
                 <div id="filters">
                     @if(count($userSports) > 0)
                         <h4>Mes Sports</h4>
@@ -44,25 +44,20 @@
             </div>
         </div>
         <div class="row">
-            <div id="associationsFilters">
+            <div class="col-md-9 col-sm-9" id="associationsFilters">
 
             </div>
-        </div>
-            @foreach($associations as $association)
-            <div class="row media" style="padding: 30px;">
-                <div class="col-lg-2 col-sm-12">
-                    <div class="media-left media-middle">
-                        <a href="{{ route("association.show", ["association" => $association->association_id]) }}">
-                            <img class="media-object" src="{{ $association->association->picture }}" alt="..." width="100%">
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-10 col-sm-12">
-                    <h4 class="media-heading">{{$association->association->name}}</h4>
-                    <span>{{$association->association->description}}</span>
-                </div>
+            <div class="col-md-3 col-sm-3" >
+                <h3>Mes associations <small>({{ $associations->count()}})</small></h3>
+                <ul class="nav nav-tabs nav-tabs-primary nav-tabs-advanced nav-stacked">
+                    @foreach($associations as $ass)
+                        <li>
+                            <a href="{{ route('association.show', ['association' => $ass->association->id]) }}">{{ $ass->association->name }}</a>
+                        </li>
+                    @endforeach
+                </ul>
             </div>
-            @endforeach
+        </div>
     </div>
 @endsection
 
@@ -70,17 +65,20 @@
     <script>
         function init(){
             initMap();
+            loadcheckbox();
         }
         var myLatLng = {lat: 48.866667, lng: 2.333333};
         var map;
         var markers = [];
         var sportsChecked = [];
-        var bounds = new google.maps.LatLngBounds();
+        var bounds;
+        var checkboxs = $("#filters input:checkbox:checked");
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
                 center: myLatLng,
-                zoom: 5
+                zoom: 6
             });
+            bounds = new google.maps.LatLngBounds();
         }
         // Adds a marker to the map and push to the array.
         function addMarker(location) {
@@ -88,15 +86,16 @@
                 position: location,
                 map: map
             });
-            bounds.extend(marker.position);
             markers.push(marker);
         }
 
         // Sets the map on all markers in the array.
         function setMapOnAll(map) {
             for (var i = 0; i < markers.length; i++) {
+                bounds.extend(markers[i].getPosition());
                 markers[i].setMap(map);
             }
+
         }
 
         // Removes the markers from the map, but keeps them in the array.
@@ -116,7 +115,7 @@
             markers = [];
         }
 
-        Array.prototype.unpush(id)
+        Array.prototype.unpush = function(id)
         {
             for(var i =0;i < this.length;i++){
                 if(this[i] == id){
@@ -124,48 +123,67 @@
                 }
             }
             return this;
+        };
+
+        function loadcheckbox(){
+            console.log(checkboxs);
+            if(checkboxs.length > 0){
+                for(var i = 0;i < checkboxs.length;i++){
+                   sportsChecked.push(checkboxs[i].name);
+                }
+                bindassociation();
+            }
         }
 
         $('body').on('change','#filters input:checkbox', function(e){
-            e.preventDefault();
-            if(this.checked) {
+            if (this.checked) {
                 sportsChecked.push($(this).attr("name"));
             }
-            else{
+            else {
                 sportsChecked.unpush($(this).attr("name"));
             }
-
             bindassociation();
         });
 
         function bindassociation(){
-            e.preventDefault();
             $.ajax({
                 url: "/association/search",
                 type: "post",
                 dataType: 'json', // selon le retour attendu
                 data: {'sports': sportsChecked},
                 success: function(data) {
+                    var div = $('#associationsFilters');
                     if(data['success'] == true){
                         var associations = data['associations'];
-                        var div = $('#associationsFilters');
+                        div.empty();
+                        deleteMarkers();
                         associations.forEach(function(a){
                             var location = {lat: parseFloat(a.lattitude), lng: parseFloat(a.longitude) };
                             addMarker(location);
                             if(div){
-                                div.append("<div class='col-md-8 col-sm-12'>" +
-                                            "<img src='"+ a.picture +"' alt='"+ a.name +"'>"+
-                                            "<div>" +
-                                                "<h5>"+ a.name +"</h5>"+
-                                                "<div>" + a.description + "</div>"+
-                                                "<div>"+
-                                                    "<a href='/association/"+ a.id +"'>Accèder</a>"+
+                                div.append("<div class='col-sm-12 filter-association'>" +
+                                                "<div class='col-sm-12 col-md-4 img'>" +
+                                                    "<img src='"+ a.picture +"' alt='"+ a.name +"' class='img-responsive img-filter-association'>"+
+                                                "</div>" +
+                                                "<div class='col-sm-12 col-md-8'>" +
+                                                    "<h3>"+ a.name +"</h3>"+
+                                                    "<div class='slimScrollDiv'>"+
+                                                    "<div class='scroll'>" + a.description + "</div>"+
+                                                    "<div class='slimScrollBar'></div>"+
+                                                    "<div class='slimScrollRail'></div>"+
+                                                    "</div>"+
+                                                    "<div class='link'>"+
+                                                        "<a href='/association/"+ a.id +"'>Accèder</a>"+
+                                                    "</div>"+
                                                 "</div>"+
-                                            "</div>"+
-                                        "</div>");
+                                            "</div>");
                             }
                         });
-                        setMapOnAll(map);
+                        showMarkers();
+                    }
+                    else{
+                        div.empty();
+                        deleteMarkers();
                     }
                 }
             });
