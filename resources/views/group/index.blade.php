@@ -16,6 +16,26 @@
                 <h2 data-animation="bounceInUp" class="section-heading animated titleoffriends">Groupe</h2>
             </div>
             
+            <h3>Membres</h3>
+            @foreach($group->users as $group_user)
+            <div class="col-md-2 onefriend">
+              <div class="team-member">
+                 <a href="/user/{{ $group_user->id }}">
+                     <figure class="member-photo">
+                         <img class="imgonefriend" src="{{ $group_user->picture }}" alt="{{ $group_user->firstname }} {{ $group_user->lastname }}" width="100px" height="100px">
+                     </figure>
+                     <div class="team-detail">
+                         <h4>{{ $group_user->firstname }} {{ $group_user->lastname }}</h4>
+                     </div>
+                 </a>
+              </div>
+                <a href="">Retirer du groupe</a>
+            </div>
+            @endforeach
+            
+            
+            <h3>Actualité du groupe :</h3>
+            
         </div>
     </div>
   </div>

@@ -34,8 +34,12 @@ class GroupController extends Controller
             $group->picture = Input::file('picture');
             $group->save();
             
-            return view('group.index');
+            return view('group.index',['group'=>$group]);
         }
+    }
+    public function createForm()
+    {
+        return view('group.createForm');
     }
 
     /**

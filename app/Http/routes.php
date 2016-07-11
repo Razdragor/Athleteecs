@@ -59,6 +59,12 @@ Route::group(['middleware' => 'web'], function() {
         Route::post('/activity/{activity}/signaleAjax', 'Front\ActivityController@signaleAjax');
         Route::resource('comment', 'Front\CommentController');
         Route::resource('association', 'Front\AssociationController');
+        
+        
+        Route::resource('groups', 'GroupController');
+        Route::get('groups/{group}', ['as' => 'group.index', 'uses' => 'GroupController@index']);
+        Route::get('groups/create', 'GroupController@createForm');
+        Route::get('groups/create/{group}',['as' => 'group.create', 'uses' => 'GroupController@create']);
 
         Route::get('friends', ['as' => 'front.friends.show', 'uses' => 'Front\FriendsController@index']);
         Route::get('friends/destroy/{user}', ['as' => 'front.friends.destroy', 'uses' => 'Front\FriendsController@destroy']);

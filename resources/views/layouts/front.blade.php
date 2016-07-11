@@ -611,8 +611,8 @@ $user = Auth::user();
         });
 
     });
-    // probleme à ce niveau là   le click sur le #close ne se fait pas
-    $('#close').on("click",function(){
+    
+    $('body').on('click','#close', function(){
         console.log('fermer tchat box');
     });
 
