@@ -36,28 +36,6 @@
                                     </ul>
                                 </div>
                             </div>
-                            <style>
-                                .image-upload > input
-                                {
-                                    display: none;
-                                }
-                                .btn-group > div{
-                                    float: left;
-                                    margin-left: 10px;
-                                }
-
-                                 .time{
-                                     width: 33%;
-                                     float: left !important;
-                                     padding: 0 10px 10px 10px !important;
-                                 }
-                                .panel-foo{
-                                    background-color: #f5f5f5;
-                                    border-color: #dddddd;
-                                    color: #333333;
-                                    padding:6px;
-                                }
-                            </style>
                             <div class="panel-body" style="padding: 0px">
                                 <div class="tab-content">
                                     <div class="tab-pane fade active in" id="tab_home">
@@ -119,7 +97,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="user-post">Donne ton ressenti</label>
-                                                    <textarea id="user-post" name="message_act" placeholder="Message..." rows="3" class="form-control" style="resize: none;border: none;" ></textarea>
+                                                    <textarea id="user-post" name="message_status" placeholder="Message..." rows="3" class="form-control" style="resize: none;border: none;" ></textarea>
                                                 </div>
                                             </div>
                                             <div class="form-actions panel-foo">
@@ -128,7 +106,7 @@
                                                         <label for="file-input2">
                                                             <div class="btn btn-default"><i class="fa fa-camera"></i></div>
                                                         </label>
-                                                        <input id="file-input2" name="picture_act" type="file"/>
+                                                        <input id="file-input2" name="picture_status" type="file"/>
                                                     </div>
                                                 </div>
                                                 <button type="submit" class="btn btn-primary pull-right">Post</button>

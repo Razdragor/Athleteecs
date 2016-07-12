@@ -14,7 +14,6 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
-Route::group(['middleware' => 'web'], function() {
     // Place all your web routes here...
 
     Route::model('user', 'App\User');
@@ -52,7 +51,7 @@ Route::group(['middleware' => 'web'], function() {
         Route::post('chat_add_user', 'ConversationController@addUser');
         Route::post('chat_show_user', 'ConversationController@showUser');
         Route::resource('publication', 'Front\PublicationController');
-        Route::post('/publication/{publication}/load', 'Front\PublicationController@load');
+        Route::post('/publication/{publication}/loadComment', 'Front\PublicationController@loadComment');
         Route::post('/publication/{publication}/updateAjax', 'Front\PublicationController@updateAjax');
         Route::post('/publication/{publication}/destroyAjax', 'Front\PublicationController@destroyAjax');
         Route::post('/publication/{publication}/signaleAjax', 'Front\PublicationController@signaleAjax');
@@ -63,6 +62,11 @@ Route::group(['middleware' => 'web'], function() {
         Route::post('/activity/{activity}/signaleAjax', 'Front\ActivityController@signaleAjax');
         Route::resource('comment', 'Front\CommentController');
         Route::resource('association', 'Front\AssociationController');
+        Route::post('/association/{association}/post', ['as' => 'association.post.store', 'uses' => 'Front\AssociationController@storepost']);
+        Route::post('/association/{association}/act', ['as' => 'association.act.store', 'uses' => 'Front\AssociationController@storeact']);
+        Route::post('/association/{association}/join', ['as' => 'association.join', 'uses' => 'Front\AssociationController@join']);
+        Route::post('/association/{association}/quit', ['as' => 'association.quit', 'uses' => 'Front\AssociationController@quit']);
+        Route::post('/association/search', ['as' => 'association.search', 'uses' => 'Front\AssociationController@search']);
         
         
         Route::resource('groups', 'GroupController');
@@ -92,4 +96,3 @@ Route::group(['middleware' => 'web'], function() {
             return Image::make($image)->response('jpg'); //will ensure a jpg is always returned
         });
     });
-});

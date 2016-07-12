@@ -29,7 +29,6 @@
                                         <img src="{{ $user->picture}}" alt="Avatar" class="img-thumbnail img-responsive">
                                     </div>
                                 </div>
-
                                 @if(Auth::user() != $user)
                                     <div>
                                         <a class="btn btn-block btn-success"><i class="fa fa-envelope-alt"></i>Envoyer un message</a>
