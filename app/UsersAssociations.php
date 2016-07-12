@@ -18,7 +18,7 @@ class UsersAssociations extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'association_id', 'is_admin', 'created_at', 'updated_at'
+        'id','user_id', 'association_id', 'is_admin', 'created_at', 'updated_at'
     ];
 
     /**

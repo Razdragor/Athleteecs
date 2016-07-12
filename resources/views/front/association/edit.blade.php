@@ -21,12 +21,12 @@
         <div class="row" style="margin-top: 40px;">
             <form action="{{ route('association.update', ['association' => $association->id])}}" method="post" enctype="multipart/form-data" class="form-horizontal" data-toggle="validator">
                 {{ csrf_field() }}
-                <input id="street_number" name="street_number" disabled="disabled" type="hidden"  value="{{ old('street_number',isset($association->number_street) ? $association->number_street : null) }}">
-                <input id="route" name="route" disabled="disabled" type="hidden" value="{{ old('route',isset($association->address) ? $association->address : null) }}">
-                <input id="locality" name="locality" disabled="disabled" type="hidden" value="{{ old('locality',isset($association->city) ? $association->city : null)}}">
-                <input id="region" name="region" disabled="disabled" type="hidden" value="{{ old('region',isset($association->region) ? $association->region : null) }}">
-                <input id="postal_code" name="postal_code" disabled="disabled" type="hidden" value="{{ old('postal_code',isset($association->city_code) ? $association->city_code : null) }}">
-                <input id="country" name="country" disabled="disabled" type="hidden" value="{{ old('country',isset($association->country) ? $association->country : null) }}">
+                <input id="street_number" name="street_number" type="hidden"  value="{{ old('street_number',isset($association->number_street) ? $association->number_street : null) }}">
+                <input id="route" name="route" type="hidden" value="{{ old('route',isset($association->address) ? $association->address : null) }}">
+                <input id="locality" name="locality" type="hidden" value="{{ old('locality',isset($association->city) ? $association->city : null)}}">
+                <input id="region" name="region" type="hidden" value="{{ old('region',isset($association->region) ? $association->region : null) }}">
+                <input id="postal_code" name="postal_code"  type="hidden" value="{{ old('postal_code',isset($association->city_code) ? $association->city_code : null) }}">
+                <input id="country" name="country"  type="hidden" value="{{ old('country',isset($association->country) ? $association->country : null) }}">
                 <input id="lattitude" name="lattitude" type="hidden" value="{{ old('lattitude',isset($association->lattitude) ? $association->lattitude : null) }}">
                 <input id="longitude" name="longitude" type="hidden" value="{{ old('longitude',isset($association->longitude) ? $association->longitude : null) }}">
                     <div class="col-md-6">
@@ -46,7 +46,13 @@
                             <div class="col-sm-10">
                                 <select id="select-beast" class="form-control" name="sport" required>
                                     @foreach($sports as $sport)
-                                        <option value="{{ $sport->id }}">
+                                        <?php
+                                            $select = "";
+                                            if($sport->id == $association->sport_id){
+                                                $select = "selected";
+                                            }
+                                        ?>
+                                        <option value="{{ $sport->id }}" {{ $select }}>
                                             {{ $sport->name }}
                                         </option>
                                     @endforeach
@@ -130,6 +136,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
+                                <a href="{{ route('association.show', ['association' => $association->id]) }}" class="btn btn-default">Retour</a>
                                 <button type="submit" class="btn btn-default">Editer l'association</button>
                             </div>
                         </div>

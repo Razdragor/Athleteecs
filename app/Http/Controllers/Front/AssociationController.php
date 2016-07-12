@@ -109,7 +109,10 @@ class AssociationController extends Controller
             'region' => $data['region'],
             'country' => $data['country'],
             'user_id' => $user->id,
-            'sport_id' => $data['sport']
+            'sport_id' => $data['sport'],
+            'facebook' => $data['facebook'],
+            'twitter' => $data['twitter'],
+            'google' => $data['google']
         ));
 
         $association->description = $data['description'];
@@ -121,7 +124,7 @@ class AssociationController extends Controller
             'is_admin' => true
         ));
 
-        return redirect(route("association.show", ["association" => $association->id]));
+        return Redirect::route("association.show", ["association" => $association->id]);
 
     }
 
@@ -168,56 +171,64 @@ class AssociationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $association)
+    public function update(Request $request, Association $association)
     {
-        /*$data = $request->all();
+        $data = $request->all();
         $user = Auth::user();
-        $rules = [
-            'name' => 'required',
-            'description' => 'required',
-            'picture' => 'mimes:jpeg,png,jpg',
-            'lattitude' => 'required',
-            'sport' => 'required'
-        ];
-        $messages = [
-            'name.required'    => 'Le nom de l\'association est requis',
-            'description.required'    => 'Description requise',
-            'picture.mimes'      => 'Le format de l\'image n\'est pas pris en charge (jpeg,png,jpg)',
-            'lattitude.required'      => 'Indiquer une adresse',
-            'sport.required' => 'Choisir un sport'
-        ];
-        $validator = Validator::make($data,$rules,$messages);
+        if($user->isAdminAssociation($association->id)){
+            $rules = [
+                'name' => 'required',
+                'description' => 'required',
+                'picture' => 'mimes:jpeg,png,jpg',
+                'lattitude' => 'required',
+                'sport' => 'required'
+            ];
+            $messages = [
+                'name.required'    => 'Le nom de l\'association est requis',
+                'description.required'    => 'Description requise',
+                'picture.mimes'      => 'Le format de l\'image n\'est pas pris en charge (jpeg,png,jpg)',
+                'lattitude.required'      => 'Indiquer une adresse',
+                'sport.required' => 'Choisir un sport'
+            ];
+            $validator = Validator::make($data,$rules,$messages);
 
-        if($validator->fails())
-        {
-            $request->flash();
-            return Redirect::back()->withErrors($validator);
+            if($validator->fails())
+            {
+                $request->flash();
+                return Redirect::back()->withErrors($validator);
+            }
+
+            if ($request->hasFile('picture')) {
+                $guid = com_create_guid();
+                $imageName = $guid.'_assos.' . $request->file('picture')->getClientOriginalExtension();;
+
+                $request->file('picture')->move(
+                    storage_path() . '\uploads', $imageName
+                );
+                $association->picture = '/uploads/'.$imageName;
+            }
+
+            $association->name = $data['name'];
+            $association->address = $data['route'];
+            $association->city = $data['locality'];
+            $association->city_code = $data['postal_code'];
+            $association->lattitude = $data['lattitude'];
+            $association->longitude = $data['longitude'];
+            $association->number_street = $data['street_number'];
+            $association->region = $data['region'];
+            $association->country = $data['country'];
+            $association->sport_id = $data['sport'];
+            $association->facebook = $data['facebook'];
+            $association->twitter = $data['twitter'];
+            $association->google = $data['google'];
+
+            $association->save();
+
+            return Redirect::route('association.show', ['association' => $association->id])->with('message', 'Modification effectué avec succès');
         }
 
-        if ($request->hasFile('picture')) {
-            $guid = com_create_guid();
-            $imageName = $guid.'_assos.' . $request->file('picture')->getClientOriginalExtension();;
+        return Redirect::back()->withErrors("Vous n'êtes pas autorisé");
 
-            $request->file('picture')->move(
-                storage_path() . '\uploads', $imageName
-            );
-            $association->picture = '/uploads/'.$imageName;
-        }
-
-        $association->name =
-            'name' => $data['name'],
-            'picture' => $imageName,
-            'address' => $data['route'],
-            'city' => $data['locality'],
-            'city_code' => $data['postal_code'],
-            'lattitude' => $data['lattitude'],
-            'longitude' => $data['longitude'],
-            'number_street' => $data['street_number'],
-            'region' => $data['region'],
-            'country' => $data['country'],
-            'user_id' => $user->id,
-            'sport_id' => $data['sport']
-        ));*/
     }
 
     /**
@@ -226,10 +237,30 @@ class AssociationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete(Association $association)
     {
-        //
-    } /**
+        $user = Auth::user();
+        if($user->isAdminAssociation($association->id)) {
+            foreach($association->publications as $post){
+                foreach($post->comments as $comment){
+                    $comment->delete();
+                }
+                $post->delete();
+            }
+
+            foreach($association->members as $relation){
+                $relation->delete();
+            }
+
+            $association->delete();
+
+            return Redirect::to("/");
+        }
+
+        return Redirect::back();
+    }
+
+    /**
      * Join the specified resource from storage.
      *
      * @return \Illuminate\Http\Response

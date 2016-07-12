@@ -53,6 +53,12 @@
                 @if($user->isAdminAssociation($association->id))
                     <div class="col-sm-6 col-md-4 col-lg-2">
                         <a class="btn btn-block btn-primary" href="{{ route('association.edit', ['association' => $association]) }}"><i class="fa fa-edit"></i>Editer</a>
+                        @if(isset($message))
+                            <small>{{ var_dump($message) }}</small>
+                        @endif
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-2">
+                        <a class="btn btn-block btn-primary" href="{{ route('association.delete', ['association' => $association]) }}">Supprimer</a>
                     </div>
                 @endif
                 @if(!$user->isMemberAssociation($association->id) && !$user->isAdminAssociation($association->id))
@@ -66,18 +72,24 @@
             <div class="col-sm-4 col-md-3">
                 <!-- BEGIN SOCIAL ICONS-->
                 <div class="text-center social-icons">
-                    <a href="#">
-                        <span class="fa-stack fa-lg"><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-facebook"></i>
-                        </span>
-                    </a>
-                    <a href="#">
-                        <span class="fa-stack fa-lg"><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-twitter"></i>
-                        </span>
-                    </a>
-                    <a href="#">
-                        <span class="fa-stack fa-lg"><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-google-plus"></i>
-                        </span>
-                    </a>
+                    @if(!is_null($association->facebook))
+                        <a href="{{ $association->facebook }}">
+                            <span class="fa-stack fa-lg"><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                    @endif
+                    @if(!is_null($association->twitter))
+                        <a href="{{ $association->twitter }}">
+                                <span class="fa-stack fa-lg"><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-twitter"></i>
+                                </span>
+                        </a>
+                    @endif
+                    @if(!is_null($association->google))
+                        <a href="{{ $association->google }}">
+                                <span class="fa-stack fa-lg"><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-google-plus"></i>
+                                </span>
+                        </a>
+                    @endif
                 </div>
                 <div class="association-body-left">
                     <h4>Evènement à venir</h4>
@@ -95,7 +107,7 @@
                     <div id="map"></div>
                 </div>
                 @if($user->isMemberAssociation($association->id))
-                    <div class="col-sm-6 col-md-4 col-lg-2">
+                    <div class="col-sm-12 col-md-12 col-lg-6">
                         <a class="btn btn-block btn-primary" href="{{ route('association.quit', ['association' => $association]) }}">Quitter</a>
                     </div>
                 @endif

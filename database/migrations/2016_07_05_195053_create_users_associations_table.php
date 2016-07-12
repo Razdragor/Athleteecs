@@ -13,6 +13,7 @@ class CreateUsersAssociationsTable extends Migration
     public function up()
     {
         Schema::create('users_associations', function (Blueprint $table) {
+            $table->increments('id');
             $table->bigInteger('user_id');
             $table->bigInteger('association_id');
             $table->boolean('is_admin');
