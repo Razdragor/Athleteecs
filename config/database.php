@@ -46,15 +46,15 @@ return [
 
     'connections' => [
 
-        /*'sqlite' => [
+        'sqlite' => [
             'driver' => 'sqlite',
             'database' => env('DB_DATABASE', database_path('database.sqlite')),
             'prefix' => '',
-        ],*/
+        ],
 
         'mysql' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '164.132.45.32'),
+            'host' => env('DB_HOST', 'vps262839.ovh.net'),
             'port' => env('DB_PORT', '80'),
             'database' => env('DB_DATABASE', 'athleteec'),
             'username' => env('DB_USERNAME', 'root'),
