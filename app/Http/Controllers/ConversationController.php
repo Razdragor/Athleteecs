@@ -23,24 +23,27 @@ class ConversationController extends Controller
         if(Request::ajax()) 
         {
             $friend_id = Input::get('id');
+            $friend = User::where('id',Input::get('id'))->first();
             $user = Auth::user();
             $exist = false;
 
             foreach($user->conversations as $my_conversation_users)
             {
                 if($my_conversation_users->conversation)
-                {               
-                    foreach($my_conversation_users->conversation->conversation_users as $my_conversation_friend)
-                    {
-                        if($my_conversation_friend->user_id == $friend_id)
+                {             
+                        if(count($my_conversation_users->conversation->conversation_users)==2)
                         {
-                            $my_conversation_friends = $my_conversation_friend;
-                            $exist = true;
-                            $conv =  $my_conversation_friend->conversation;
-                            break;
+                            foreach($my_conversation_users->conversation->conversation_users as $my_conversation_friend)
+                            {
+                                if($my_conversation_friend->user_id == $friend_id)
+                                {
+                                    $my_conversation_friends = $my_conversation_friend;
+                                    $exist = true;
+                                    $conv =  $my_conversation_friend->conversation;
+                                    break;
+                                }
+                            }
                         }
-
-                    }
                 }
             }
 
@@ -57,7 +60,7 @@ class ConversationController extends Controller
             else
             {
                 $conv = new Conversation;
-                $conv->name = 'Nouvelle conversation';
+                $conv->name = $user->firstname.' & '.$friend->firstname;
                 $conv->save();
                 
                 $conversation_user_me = new Conversation_user;
@@ -125,7 +128,11 @@ class ConversationController extends Controller
                     $conv_message->save();
                     
                     $redis = LRedis::connection();
-                    $redis->publish('message', json_encode(['message'=>$conv_message->message,'conv_id'=>Input::get('conversation_id'),'user'=>$user]));
+                    $redis->publish('message', json_encode(['message'=>$conv_message->message,
+                                                            'conv_id'=>Input::get('conversation_id'),
+                                                            'user'=>$user,
+                                                            'users'=>$conv->first()->conversation_users
+                                                           ]));
 
                     return \Response::json(array(
                             'success' => true,
@@ -151,8 +158,14 @@ class ConversationController extends Controller
                 {
                     $conv->update(['name' => Input::get('conv_name')]);
                     
+                    $conv = Conversation::where('id',Input::get('conversation_id'))->first();
+                    
                     $redis = LRedis::connection();
-                    $redis->publish('message', json_encode(['conv_name'=>Input::get('conv_name'),'conv_id'=>Input::get('conversation_id'),'user'=>Auth::user()]));
+                    $redis->publish('change_name', json_encode(['conv_name'=>Input::get('conv_name'),
+                                                                'conv_id'=>Input::get('conversation_id'),
+                                                                'user'=>Auth::user(),
+                                                                'users'=>$conv->conversation_users
+                                                                ]));
                 }
                 
             }
@@ -208,7 +221,7 @@ class ConversationController extends Controller
     {
         if(Request::ajax()) 
         {
-                $test =false;
+            $friend = User::where('id',Input::get('friend_id'))->first();
             if(!empty(Input::get('add_user')) && !empty(Input::get('friend_id')))
             {
                 $conv = new Conversation();
@@ -219,10 +232,9 @@ class ConversationController extends Controller
                     if($conv->group == false)
                     {
                         $new_conv = new Conversation;
-                        $new_conv->name = 'Nouvelle conversation';
+                        $new_conv->name = $conv->name.' & '.$friend->firstname;
                         $new_conv->group = true;
                         $new_conv->save();
-                        $test= true;
 
                         foreach($conv->conversation_users as $conversation_user)
                         {
@@ -236,7 +248,8 @@ class ConversationController extends Controller
                         $new_conversation_user->conversation_id = $new_conv->id;
                         $new_conversation_user->user_id = Input::get('friend_id');
                         $new_conversation_user->save();
-                        $conv_id = $new_conv->id;
+                        
+                        $real_conv = $new_conv;
                     }
                     else
                     {
@@ -244,12 +257,26 @@ class ConversationController extends Controller
                         $new_conversation_user->conversation_id = $conv->id;
                         $new_conversation_user->user_id = Input::get('friend_id');
                         $new_conversation_user->save();
-                        $conv_id = $conv->id;
+                        
+                        $real_conv = $conv;
                     }
+                    
+                    $conv_id = $real_conv->id;
+                    $conv_users = $real_conv->conversation_users;
+                    $messages = $real_conv->conversation_messages;
                    
-                    $friend = User::where('id',Input::get('friend_id'))->first();
                     $redis = LRedis::connection();
-                    $redis->publish('message', json_encode(['friend'=>$friend,'conv_id'=>$conv_id,'user'=>Auth::user()]));
+                    $redis->publish('add_user', json_encode(['friend'=>$friend,
+                                                             'conv_id'=>$conv_id,
+                                                             'user'=>Auth::user(),
+                                                             'users'=>$conv_users
+                                                            ]));
+                    /*return \Response::json(array(
+                        'success' => true,
+                        'conv' => $real_conv,
+                        'users'=>$conv_users,
+                        'messages'=>$messages,
+                    ));*/
                 }
                 
             }
