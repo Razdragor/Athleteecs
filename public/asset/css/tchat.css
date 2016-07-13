@@ -2,6 +2,11 @@
     cursor: pointer;
 }
 
+#chat_user_add{
+    cursor: pointer;
+    margin-right: 5px;
+}
+
 .head-tchat{
     height: 58px;
     padding: 18px;
@@ -9,17 +14,18 @@
 .head-tchat-left{
     width:75%;
     float: left;
+    cursor: pointer;
 }
 .head-tchat-right{
     float: right;
 }
 
 .tchat-box{
-    position: absolute;
-    bottom: 0px;
+    position: fixed;
+    bottom: 41px;
     left: 200px;
     width: 350px;
-    height: 500px;
+    height: 460px;
     z-index: 9999;
     background-color: white;
 }
@@ -35,9 +41,41 @@
 }
 
 .social-sidebar .chat {
-    height: 100%;
+    position: relative;
 }
 
 .social-sidebar .chat .users-list {
     height: 100%;
+}
+
+.chat_conv_name{
+    width:75%;
+    float: left;
+    
+}
+.chat_show{
+    cursor: pointer;
+    
+}
+
+.chat_show_user_span{
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 1px;
+    cursor: pointer;
+}
+.chat_show_user_span:hover{
+    
+}
+.chat_user_add{
+    position: fixed;
+    width: 347px;
+}
+
+.social-sidebar .chat .chat-options {
+    position: fixed;
+    bottom: 0px;
+    margin: 0px;
+    padding: 0px;
+    width: 195px;
 }

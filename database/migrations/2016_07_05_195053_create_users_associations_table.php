@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateConversationsTable extends Migration
+class CreateUsersAssociationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,10 @@ class CreateConversationsTable extends Migration
      */
     public function up()
     {
-        //
-        Schema::create('conversations', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->boolean('group')->nullable();
+        Schema::create('users_associations', function (Blueprint $table) {
+            $table->bigInteger('user_id');
+            $table->bigInteger('association_id');
+            $table->boolean('is_admin');
             $table->timestamps();
         });
     }
@@ -28,7 +27,6 @@ class CreateConversationsTable extends Migration
      */
     public function down()
     {
-        //
-        Schema::drop('conversations');
+        Schema::drop('users_associations');
     }
 }

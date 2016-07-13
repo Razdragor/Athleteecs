@@ -14,26 +14,26 @@
     <div class="container">
         <div class="row">
             <div style="width: 90%;margin:auto;">
-                <div><h1>Créer votre association </h1></div>
+                <div><h1>Modifier votre association </h1></div>
             </div>
             <div style="border-bottom: solid black 1px;width: 90%;margin:auto"></div>
         </div>
         <div class="row" style="margin-top: 40px;">
-            <form action="{{ route('association.store')}}" method="post" enctype="multipart/form-data" class="form-horizontal" data-toggle="validator">
+            <form action="{{ route('association.update', ['association' => $association->id])}}" method="post" enctype="multipart/form-data" class="form-horizontal" data-toggle="validator">
                 {{ csrf_field() }}
-                <input id="street_number" name="street_number" disabled="disabled" type="hidden"  value="{{ old('street_number') }}">
-                <input id="route" name="route" disabled="disabled" type="hidden" value="{{ old('route') }}">
-                <input id="locality" name="locality" disabled="disabled" type="hidden" value="{{ old('locality') }}">
-                <input id="region" name="region" disabled="disabled" type="hidden" value="{{ old('region') }}">
-                <input id="postal_code" name="postal_code" disabled="disabled" type="hidden" value="{{ old('postal_code') }}">
-                <input id="country" name="country" disabled="disabled" type="hidden" value="{{ old('country') }}">
-                <input id="lattitude" name="lattitude" type="hidden" value="{{ old('lat') }}">
-                <input id="longitude" name="longitude" type="hidden" value="{{ old('lng') }}">
+                <input id="street_number" name="street_number" disabled="disabled" type="hidden"  value="{{ old('street_number',isset($association->number_street) ? $association->number_street : null) }}">
+                <input id="route" name="route" disabled="disabled" type="hidden" value="{{ old('route',isset($association->address) ? $association->address : null) }}">
+                <input id="locality" name="locality" disabled="disabled" type="hidden" value="{{ old('locality',isset($association->city) ? $association->city : null)}}">
+                <input id="region" name="region" disabled="disabled" type="hidden" value="{{ old('region',isset($association->region) ? $association->region : null) }}">
+                <input id="postal_code" name="postal_code" disabled="disabled" type="hidden" value="{{ old('postal_code',isset($association->city_code) ? $association->city_code : null) }}">
+                <input id="country" name="country" disabled="disabled" type="hidden" value="{{ old('country',isset($association->country) ? $association->country : null) }}">
+                <input id="lattitude" name="lattitude" type="hidden" value="{{ old('lattitude',isset($association->lattitude) ? $association->lattitude : null) }}">
+                <input id="longitude" name="longitude" type="hidden" value="{{ old('longitude',isset($association->longitude) ? $association->longitude : null) }}">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="name">Nom</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}" required>
+                                <input type="text" class="form-control" name="name" id="name" value="{{ old('name', isset($association->name) ? $association->name : null) }}" required>
                                 @if ($errors->has('name'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('name') }}</strong>
@@ -56,7 +56,8 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="name">Image</label>
                             <div class="col-sm-10">
-                                <input type="file" name="picture" id="picture" required>
+                                <input type="file" name="picture" id="picture">
+                                <span id="helpBlock" class="help-block">A remplir seulement si vous voulez modifier l'image</span>
                                 @if ($errors->has('picture'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('picture') }}</strong>
@@ -67,7 +68,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="description">Description</label>
                             <div class="col-sm-10">
-                                <textarea style="resize: none" rows="4" class="form-control" name="description" id="description" required>{{ old('description') }}</textarea>
+                                <textarea style="resize: none" rows="4" class="form-control" name="description" id="description" required>{{ old('description', isset($association->description) ? $association->description : null) }}</textarea>
                                 @if ($errors->has('description'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('description') }}</strong>
@@ -76,9 +77,17 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="description">Adresse</label>
+                            <label class="col-sm-2 control-label" for="address" required >Adresse</label>
                             <div class="col-sm-10">
-                                <input id="autocomplete" placeholder="Indiquez une adresse" onFocus="geolocate()" type="text" class="form-control" required>
+                                <?php
+                                    $address = "";
+                                    isset($association->number_street) ? $address .= $association->number_street. " " : "";
+                                    isset($association->address) ? $address .= $association->address. " " : "";
+                                    isset($association->city) ? $address .= $association->city. " " : "";
+                                    isset($association->region) ? $address .= $association->region. " " : "";
+                                    isset($association->country) ? $address .= $association->country. " " : "";
+                                ?>
+                                <input id="autocomplete" placeholder="Indiquez une adresse" onFocus="geolocate()" type="text" class="form-control" value="{{ $address }}">
                                 @if ($errors->has('lattitude'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('lattitude') }}</strong>
@@ -119,7 +128,12 @@
                                 @endif
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-default" style="float:right">Créer l'association</button>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default">Editer l'association</button>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="col-md-6">
                         <div id="map"></div>

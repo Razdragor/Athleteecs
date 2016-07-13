@@ -42,7 +42,7 @@ $(document).ready(function() {
     $('#delete-modal-post').submit(function(e){
         e.preventDefault();
         $.ajax({
-            url: publicationDestroy,
+            url: "/"+publicationDestroy,
             type: 'post',
             data: {},
             success: function(data) {
@@ -59,7 +59,7 @@ $(document).ready(function() {
         e.preventDefault();
         var $form = $(this);
         $.ajax({
-            url: $form.attr('action'),
+            url: "/" +$form.attr('action'),
             type: $form.attr('method'),
             contentType: false, // obligatoire pour de l'upload
             processData: false, // obligatoire pour de l'upload
@@ -100,7 +100,7 @@ $(document).ready(function() {
         e.preventDefault();
         var $form = $(this);
         $.ajax({
-            url: $form.attr('action'),
+            url: "/" + $form.attr('action'),
             type: $form.attr('method'),
             contentType: false, // obligatoire pour de l'upload
             processData: false, // obligatoire pour de l'upload
@@ -122,7 +122,7 @@ $(document).ready(function() {
                             act.find('.timeline-body .post_picture_video').html('<div class="video-container"><iframe src="https://www.youtube.com/embed/'+$video1+'"  frameborder="0" allowfullscreen></iframe></div>');
                         }
                     }
-                    else if($publication1.picture){
+                    else if($activity1.picture){
                         var img = act.find('.timeline-body .post_picture_video img');
                         if(isEmpty(img)) {
                             act.find(".timeline-body img").attr('src', $activity1.picture);
@@ -237,7 +237,7 @@ $(document).ready(function() {
         $id = $parent.attr('id').split('-');
         $publication = $id[1];
         $.ajax({
-            url: '/publication/'+$publication+'/load',
+            url: '/publication/'+$publication+'/loadComment',
             data: {page: $page},
             type: 'post',
             success: function(data) {

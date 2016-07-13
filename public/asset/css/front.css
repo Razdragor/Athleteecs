@@ -1,3 +1,6 @@
+.row{
+    margin-bottom: 20px;
+}
 
 .timeline-2-cols .timeline-footer .comments .comment, .timeline-2-cols .timeline-footer .comments .comment-body {
     overflow: hidden;
@@ -103,10 +106,111 @@
     height: 100%;
 }
 
-.img-navbarre{
+.img-navbarre {
     float: left;
     height: 38px;
     border-radius: 100%;
     border: 2px solid antiquewhite;
     margin: 1px;
+}
+
+.image-upload > input
+{
+    display: none;
+}
+.btn-group > div{
+    float: left;
+    margin-left: 10px;
+}
+
+.time{
+    width: 33%;
+    float: left !important;
+    padding: 0 10px 10px 10px !important;
+}
+.panel-foo{
+    background-color: #f5f5f5;
+    border-color: #dddddd;
+    color: #333333;
+    padding:6px;
+}
+
+.association-body-left{
+     min-height: 250px;
+     padding : 4px;
+     border: 1px solid #dddddd;
+    margin-bottom: 15px;
+ }
+
+.association-body-left h4{
+    padding: 5px;
+    padding-bottom: 10px;
+    margin:5px;
+    border-bottom: 1px solid #dddddd;
+}
+
+.img-association{
+    position: absolute;
+    left: -5px;
+    top: -5px;
+    width: 50px;
+    height: auto;
+}
+
+.filter-association{
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.filter-association .link{
+    float:right;
+}
+
+.row-eq-height {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display:         flex;
+}
+
+.social-icons{
+    margin-bottom: 5px;
+}
+
+.slimScrollDiv{
+    position: relative;
+    overflow: hidden;
+    width: auto;
+    max-height: 125px;
+}
+
+.slimScrollDiv .scroll{
+    overflow: hidden;
+    width: auto;
+    max-height: 125px;
+}
+
+.slimScrollDiv .slimScrollBar{
+    background: rgb(0, 0, 0) none repeat scroll 0% 0%;
+    width: 7px;
+    position: absolute;
+    top: 0px;
+    opacity: 0.4;
+    display: none;
+    border-radius: 7px;
+    z-index: 99;
+    right: 1px;
+    height: 300px;
+}
+
+.slimScrollDiv .slimScrollRail{
+    width: 7px;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    display: none;
+    border-radius: 7px;
+    background: rgb(51, 51, 51) none repeat scroll 0% 0%;
+    opacity: 0.2;
+    z-index: 90;
+    right: 1px;
 }

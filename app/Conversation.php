@@ -18,7 +18,7 @@ class Conversation extends Model
      * @var array
      */
     protected $fillable = [
-        'name','created_at', 'updated_at'
+        'name','group','created_at', 'updated_at'
     ];
 
     /**

@@ -34,5 +34,5 @@ class Conversation_user extends Model
     public function conversation()
     {
         return $this->belongsTo('App\Conversation');
-    }
+    }    
 }

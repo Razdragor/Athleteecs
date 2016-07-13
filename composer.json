@@ -11,7 +11,8 @@
         "laravel/socialite": "~2.0",
         "zizaco/entrust":"dev-master",
         "intervention/image": "2.*",
-        "intervention/imagecache": "2.*"
+        "intervention/imagecache": "2.*",
+        "alexpechkarev/google-maps":"1.0.5"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
