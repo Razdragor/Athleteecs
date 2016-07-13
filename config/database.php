@@ -54,7 +54,7 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '164.132.45.32 razdragor.fr'),
+            'host' => env('DB_HOST', '164.132.45.32'),
             'port' => env('DB_PORT', '80'),
             'database' => env('DB_DATABASE', 'athleteec'),
             'username' => env('DB_USERNAME', 'root'),
