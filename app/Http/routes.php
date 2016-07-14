@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\File;
     Route::model('activity', 'App\Activity');
     Route::model('comment', 'App\Comment');
     Route::model('association', 'App\Association');
+    Route::model('userassociation', 'App\UsersAssociations');
+    Route::model('notification', 'App\Notifications');
 
 
 
@@ -62,8 +64,10 @@ use Illuminate\Support\Facades\File;
         Route::get('/association/{association}/delete', ['as' => 'association.delete', 'uses' => 'Front\AssociationController@delete']);
         Route::post('/association/{association}/post', ['as' => 'association.post.store', 'uses' => 'Front\AssociationController@storepost']);
         Route::post('/association/{association}/act', ['as' => 'association.act.store', 'uses' => 'Front\AssociationController@storeact']);
-        Route::post('/association/{association}/join', ['as' => 'association.join', 'uses' => 'Front\AssociationController@join']);
-        Route::post('/association/{association}/quit', ['as' => 'association.quit', 'uses' => 'Front\AssociationController@quit']);
+        Route::get('/association/{association}/join', ['as' => 'association.join', 'uses' => 'Front\AssociationController@join']);
+        Route::get('/association/{association}/quit', ['as' => 'association.quit', 'uses' => 'Front\AssociationController@quit']);
+        Route::post('/association/{userassociation}/promouvoir', ['as' => 'association.promot', 'uses' => 'Front\AssociationController@promouvoir']);
+        Route::post('/association/{userassociation}/destituer', ['as' => 'association.dest', 'uses' => 'Front\AssociationController@destituer']);
         Route::post('/association/search', ['as' => 'association.search', 'uses' => 'Front\AssociationController@search']);
         
         
@@ -80,6 +84,7 @@ use Illuminate\Support\Facades\File;
 
         Route::get('search', ['as' => 'front.search.show', 'uses' => 'Front\SearchController@search']);
         Route::get('notifications', ['as' => 'front.notifications.show', 'uses' => 'Front\NotificationsController@index']);
+        Route::post('notifications/{notification}/see', ['as' => 'notification.see', 'uses' => 'Front\NotificationsController@see']);
         Route::get('message', ['as' => 'front.message.show', 'uses' => 'Front\MessagesController@index']);
 
 

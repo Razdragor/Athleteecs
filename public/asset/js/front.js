@@ -11,7 +11,6 @@ $.ajaxSetup({
 
 $(document).ready(function() {
     var publicationDestroy = 0;
-
     $("body").on('click','#deletepost' ,function(e){
         parent = $(this).parents(".publicationJS");
         var splitID = parent.attr("id").split("-");
@@ -272,7 +271,57 @@ $(document).ready(function() {
             }
         });
 
-    })
+    });
+
+
+    $('.dropdown.nav-notifications .dropdown-menu .nav-notifications-body a').one('mouseover', function(e){
+        var id = $(this).attr('name');
+        if(id){
+            $.ajax({
+             url: '/notifications/'+id+'/see',
+             type: 'post',
+             success: function(data) {}
+             });
+        }
+
+    });
+
+    $('#promouvoir').click(function(e){
+        var id = $(this).data("text");
+        var event = $(this);
+        if(id){
+            $.ajax({
+                url: '/association/'+ id +'/promouvoir',
+                type: 'post',
+                success: function(data) {
+                    if(data['success'] == true)
+                    {
+                        var destituer = event.prev();
+                        event.css('display', 'none');
+                        destituer.css('display', 'inline-block');
+                    }
+                }
+            });
+        }
+    });
+
+    $('#destituer').click(function(e){
+        var id = $(this).data("text");
+        var event = $(this);
+        if(id){
+            $.ajax({
+                url: '/association/'+ id +'/destituer',
+                type: 'post',
+                success: function(data) {
+                    if(data['success'] == true) {
+                        var promouvoir = event.next();
+                        event.css('display', 'none');
+                        promouvoir.css('display', 'inline-block');
+                    }
+                }
+            });
+        }
+    });
 });
 
 function editpost(publication){

@@ -7,6 +7,7 @@ use App\Association;
 use App\HelperPublication;
 use App\Notifications;
 use App\Sport;
+use App\User;
 use App\UsersAssociations;
 use App\Publication;
 use Illuminate\Http\Request;
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
+use phpDocumentor\Reflection\DocBlock\Tags\Return_;
 use Validator;
 use App\Http\Controllers\Controller;
 
@@ -279,16 +281,28 @@ class AssociationController extends Controller
                     'notification' => 'associations',
                     'afficher' => true]);
             }
+
+            UsersAssociations::create(array(
+               'user_id' => $userC->id,
+                'association_id' => $association->id,
+                'is_admin' => false
+            ));
         }
+
+        return Redirect::back();
     }
 
     public function quit(Association $association){
         $userC = Auth::user();
-        $userAssocation = DB::table('users_associations')
-            ->where('user_id', '=', $userC->id)
+        $userAssocation = UsersAssociations::where('user_id', '=', $userC->id)
             ->where('association_id', '=', $association->id)
             ->get();
-        dd($userAssocation);
+
+        if($userAssocation != null && $userAssocation->count() ==1){
+            $userAssocation[0]->delete();
+        }
+
+        return Redirect::route('association.index');
     }
 
     //Publication
@@ -336,6 +350,24 @@ class AssociationController extends Controller
 
         return \Response::json(array(
             'success' => false
+        ));
+    }
+
+    public function promouvoir(UsersAssociations $usersAssociations){
+        $usersAssociations->is_admin = true;
+        $usersAssociations->save();
+
+        return \Response::json(array(
+            'success' => true
+        ));
+    }
+
+    public function destituer(UsersAssociations $usersAssociations){
+        $usersAssociations->is_admin = false;
+        $usersAssociations->save();
+
+        return \Response::json(array(
+            'success' => true
         ));
     }
 }

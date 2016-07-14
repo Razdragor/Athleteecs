@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use App\Notifications;
+use Illuminate\Support\Facades\Request;
 
 
 class NotificationsController extends Controller
@@ -15,6 +17,13 @@ class NotificationsController extends Controller
      */
     public function index(){
         return view('front.notifications');
+    }
+
+    public function see(Notifications $notification){
+        if(Request::ajax()){
+            $notification->afficher = false;
+            $notification->save();
+        }
     }
 
 }

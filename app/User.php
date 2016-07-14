@@ -113,6 +113,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
                     ->where('demands', false);
     }
 
+    public function notifications(){
+        return $this->hasMany('App\Notifications')
+            ->where('afficher', true)
+            ->whereIn('notification', ['events', 'associations', 'groups']);
+    }
+
     public function getnotifications(){
         return $this->hasMany('App\Notifications')
             ->where('afficher', true);

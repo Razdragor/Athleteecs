@@ -164,60 +164,6 @@ $user = Auth::user();
                             </ul>
                         </li>
                         <!-- FIN AMIS-->
-                        <!-- BEGIN DROPDOWN EVENTS-->
-                        <li class="dropdown nav-notifications">
-                            <!-- BEGIN DROPDOWN TOGGLE-->
-                            <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
-                                @if(Auth::user()->geteventsnotificationstrue()->count()>0)<span class="badge">{{Auth::user()->geteventsnotificationstrue()->count()}}</span>@endif<i class="fa fa-calendar fa-lg"></i>
-                            </a>
-                            <!-- END DROPDOWN TOGGLE-->
-                            <!-- BEGIN DROPDOWN MENU-->
-                            <ul class="dropdown-menu">
-                                <!-- BEGIN DROPDOWN HEADER-->
-                                <li class="nav-notifications-header">
-                                    <a tabindex="-1" href="#">Vous avez <strong>{{Auth::user()->geteventsnotifications()->count()}}</strong> @if(Auth::user()->geteventsnotifications()->count()>1)évènements @else évènement @endif</a>
-                                </li>
-                                <!-- END DROPDOWN HEADER-->
-                                <!-- BEGIN NOTIFICATION ITEMS-->
-                                <li class="nav-notifications-body">
-                                    @foreach (Auth::user()->geteventsnotifications as $notification)
-                                        {{$notification->firstname}}
-                                    @endforeach
-                                    <a href="#" class="text-info"><i class="fa fa-user"></i>&nbsp;New User
-                                        <small class="pull-right">Just Now</small>
-                                    </a>
-                                    <a href="#" class="text-danger"><i class="fa fa-user"></i>&nbsp;User Deleted
-                                        <small class="pull-right">Just Now</small>
-                                    </a>
-                                    <a href="#" class="text-warning"><i class="fa fa-cogs"></i>&nbsp;Sever is overloaded
-                                        <small class="pull-right">2 minutes ago</small>
-                                    </a>
-                                    <a href="#"><i class="fa fa-briefcase"></i>&nbsp;Backup is completed
-                                        <small class="pull-right">4 minutes ago</small>
-                                    </a>
-                                    <a href="#" class="text-info"><i class="fa fa-user"></i>&nbsp;New User
-                                        <small class="pull-right">Just Now</small>
-                                    </a>
-                                    <a href="#" class="text-danger"><i class="fa fa-user"></i>&nbsp;User Deleted
-                                        <small class="pull-right">Just Now</small>
-                                    </a>
-                                    <a href="#" class="text-warning"><i class="fa fa-cogs"></i>&nbsp;Sever is overloaded
-                                        <small class="pull-right">3 minutes ago</small>
-                                    </a>
-                                    <a href="#"><i class="fa fa-briefcase"></i>&nbsp;Backup is completed
-                                        <small class="pull-right">6 minutes ago</small>
-                                    </a>
-                                </li>
-                                <!-- END NOTIFICATION ITEMS-->
-                                <!-- BEGIN DROPDOWN FOOTER-->
-                                <li class="nav-notifications-footer">
-                                    <a href="#">View all messages</a>
-                                </li>
-                                <!-- END DROPDOWN FOOTER-->
-                            </ul>
-                            <!-- END DROPDOWN MENU-->
-                        </li>
-                        <!-- END DROPDOWN EVENTS-->
                         <!-- BEGIN DROPDOWN NOTIFICATIONS-->
                         <li class="dropdown nav-notifications">
                             <!-- BEGIN DROPDOWN TOGGLE-->
@@ -234,36 +180,27 @@ $user = Auth::user();
                                 <!-- END DROPDOWN HEADER-->
                                 <!-- BEGIN NOTIFICATION ITEMS-->
                                 <li class="nav-notifications-body">
-                                    @foreach (Auth::user()->getnotifications as $notification)
-                                        {{$notification->firstname}}
+                                    @foreach(Auth::user()->notifications as $notification)
+                                        @if($notification->notification == 'events')
+                                            <a href="#" style="white-space: normal" name="{{$notification->id}}">
+                                                <span>{{$notification->libelle}}</span>
+                                                <small class="pull-right">{{$notification->timeAgo($notification->created_at)}}</small>
+                                            </a>
+                                        @endif
+                                        @if($notification->notification == 'associations')
+                                            <a href="{{ route('association.show', ['association' => $notification->userL_id]) }}" style="white-space: normal" name="{{$notification->id}}">
+                                                <span>{{$notification->libelle}}</span>
+                                                <small class="pull-right">{{$notification->timeAgo($notification->created_at)}}</small>
+                                            </a>
+                                        @endif
+                                        @if($notification->notification == 'groups')
+                                            <a href="#" style="white-space: normal" name="{{$notification->id}}">
+                                                <span>{{$notification->libelle}}</span>
+                                                <small class="pull-right">{{$notification->timeAgo($notification->created_at)}}</small>
+                                            </a>
+                                        @endif
                                     @endforeach
-                                    <a href="#" class="text-info"><i class="fa fa-user"></i>&nbsp;New User
-                                        <small class="pull-right">Just Now</small>
-                                    </a>
-                                    <a href="#" class="text-danger"><i class="fa fa-user"></i>&nbsp;User Deleted
-                                        <small class="pull-right">Just Now</small>
-                                    </a>
-                                    <a href="#" class="text-warning"><i class="fa fa-cogs"></i>&nbsp;Sever is overloaded
-                                        <small class="pull-right">2 minutes ago</small>
-                                    </a>
-                                    <a href="#"><i class="fa fa-briefcase"></i>&nbsp;Backup is completed
-                                        <small class="pull-right">4 minutes ago</small>
-                                    </a>
-                                    <a href="#" class="text-info"><i class="fa fa-user"></i>&nbsp;New User
-                                        <small class="pull-right">Just Now</small>
-                                    </a>
-                                    <a href="#" class="text-danger"><i class="fa fa-user"></i>&nbsp;User Deleted
-                                        <small class="pull-right">Just Now</small>
-                                    </a>
-                                    <a href="#" class="text-warning"><i class="fa fa-cogs"></i>&nbsp;Sever is overloaded
-                                        <small class="pull-right">3 minutes ago</small>
-                                    </a>
-                                    <a href="#"><i class="fa fa-briefcase"></i>&nbsp;Backup is completed
-                                        <small class="pull-right">6 minutes ago</small>
-                                    </a>
                                 </li>
-                                <!-- END NOTIFICATION ITEMS-->
-                                <!-- BEGIN DROPDOWN FOOTER-->
                                 <li class="nav-notifications-footer">
                                     <a href="#">View all messages</a>
                                 </li>
@@ -424,31 +361,6 @@ $user = Auth::user();
 <!-- jQuery-->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-<script>
-    window.jQuery || document.write('<script src="{{asset('asset/js/jquery/jquery.min.js') }}"><\/script>')
-</script>
-<!-- Bootstrap JS-->
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<script>
-    $.fn.modal || document.write('<script src="{{ asset('asset/js/plugins/bootstrap/bootstrap.min.js') }}"><\/script>')
-</script>
-<!-- Bootstrap Hover Dropdown-->
-<script src="{{ asset('asset/js/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js') }}"></script>
-<script src="{{ asset('asset/js/plugins/google-code-prettify/prettify.js') }}"></script>
-<script src="{{ asset('asset/js/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker.js') }}"></script>
-<script src="{{ asset('asset/js/app.js') }}"></script>
-<script src="https://cdn.socket.io/socket.io-1.3.4.js"></script>
-<script>
-    /*<![CDATA[*/
-    $(function() {
-        prettyPrint();
-    });
-    /*]]>*/
-</script>
-<script src="{{ asset('asset/js/sidebar.js') }}"></script>
-<script src="{{ asset('asset/js/panels.js') }}"></script>
-<script src="{{ asset('asset/js/front.js') }}"></script>
-
 <!-- jQuery-->
 <script>
     window.jQuery || document.write('<script src="{{asset('asset/js/jquery/jquery.min.js') }}"><\/script>')

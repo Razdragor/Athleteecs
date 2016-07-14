@@ -362,9 +362,24 @@
                         </div>
                         <div class="tab-pane fade" id="member">
                             @foreach($association->members as $member)
-                                <div class="col-sm-3 col-md-3" style="text-align: center">
+                                <div class="col-xs-3 col-sm-5 col-md-3 col-lg-2" style="text-align: center">
                                     <img src="{{ $member->user->picture }}" alt="{{$member->user->firstname}}" style="height: 100px;width: auto"><br>
                                     {{ $member->user->firstname }} {{ $member->user->lastname }}
+                                    @if($user->id == $association->user_id && $user->id != $member->user->id)
+                                        <?php
+                                            $dest = "";
+                                            $promot = "";
+                                            if($member->user->isAdminAssociation($association->id)){
+                                                $promot = "display:none;";
+                                            }
+                                            else{
+                                                $dest = "display:none;";
+                                            }
+                                        ?>
+                                        <br>
+                                        <button class="btn btn-default" style="padding:4px;{{$dest}}" id="destituer" data-text="{{$member->id}}">Destituer</button>
+                                        <button class="btn btn-default" style="padding:4px;{{$promot}}" id="promouvoir" data-text="{{$member->id}}">Promouvoir</button>
+                                    @endif
                                 </div>
                             @endforeach
                         </div>
