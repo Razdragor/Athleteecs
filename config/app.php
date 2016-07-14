@@ -141,7 +141,6 @@ return [
         Illuminate\Pagination\PaginationServiceProvider::class,
         Illuminate\Pipeline\PipelineServiceProvider::class,
         Illuminate\Queue\QueueServiceProvider::class,
-        Illuminate\Redis\RedisServiceProvider::class,
         Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
         Illuminate\Session\SessionServiceProvider::class,
         Illuminate\Translation\TranslationServiceProvider::class,
@@ -162,7 +161,13 @@ return [
         Laravel\Socialite\SocialiteServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        GoogleMaps\ServiceProvider\GoogleMapsServiceProvider::class
+        GoogleMaps\ServiceProvider\GoogleMapsServiceProvider::class,
+
+        /*
+         * redis pour tchat
+         */
+        // Illuminate\Redis\RedisServiceProvider:class,
+        Vetruvet\PhpRedis\PhpRedisServiceProvider::class
 
     ],
 

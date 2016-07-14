@@ -7,7 +7,7 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
-	        "predis/predis": "~1.1@dev",
+	    "vetruvet/laravel-phpredis": "1.*",
         "laravel/socialite": "~2.0",
         "zizaco/entrust":"dev-master",
         "intervention/image": "2.*",
