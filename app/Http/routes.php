@@ -48,6 +48,10 @@ use Illuminate\Support\Facades\File;
         //Chat
         Route::post('sendmessage', 'ConversationController@sendMessage');
         Route::post('create_conversation', 'ConversationController@create');
+        Route::post('show_conversation', 'ConversationController@show');
+        Route::post('change_conversation_name', 'ConversationController@changeName');
+        Route::post('chat_add_user', 'ConversationController@addUser');
+        Route::post('chat_show_user', 'ConversationController@showUser');
         Route::resource('publication', 'Front\PublicationController');
         Route::post('/publication/{publication}/loadComment', 'Front\PublicationController@loadComment');
         Route::post('/publication/{publication}/updateAjax', 'Front\PublicationController@updateAjax');
