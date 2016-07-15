@@ -2,9 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 
-use App\Http\Requests;
+use App\Group;
+use App\HelperPublication;
+use App\Notifications;
+use App\Sport;
+use App\User;
+use App\Publication;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use phpDocumentor\Reflection\DocBlock\Tags\Return_;
+use Validator;
+use App\Http\Controllers\Controller;
 
 class GroupController extends Controller
 {
@@ -15,7 +27,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -25,21 +37,7 @@ class GroupController extends Controller
      */
     public function create()
     {
-        $user = Auth::user();
-        
-        if(Input::file('picture')->isValid)
-        {
-            $group = new Group();
-            $group->name = Input::get('name');
-            $group->picture = Input::file('picture');
-            $group->save();
-            
-            return view('group.index',['group'=>$group]);
-        }
-    }
-    public function createForm()
-    {
-        return view('group.createForm');
+
     }
 
     /**
@@ -50,7 +48,8 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+
     }
 
     /**
@@ -61,7 +60,7 @@ class GroupController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -70,9 +69,9 @@ class GroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Event $event)
     {
-        //
+
     }
 
     /**
@@ -82,9 +81,10 @@ class GroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Event $event)
     {
-        //
+
+
     }
 
     /**
@@ -93,8 +93,8 @@ class GroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete(Event $event)
     {
-        //
+
     }
 }
