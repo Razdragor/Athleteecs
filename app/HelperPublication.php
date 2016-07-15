@@ -60,7 +60,7 @@ class HelperPublication
             $imageName = $user->id . '_' . date('YmdHis'). '_post.' . $request->file('picture_status')->getClientOriginalExtension();;
 
             $request->file('picture_status')->move(
-                storage_path() . '\uploads', $imageName
+                storage_path() . '/uploads', $imageName
             );
             $imageName = '/uploads/'.$imageName;
         }
