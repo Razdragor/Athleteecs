@@ -158,7 +158,7 @@
                 </div>
                 <div class="row copyright">
                     <div class="col-sm-12">
-                        <p>2016 - <a href="http://localhost" target="_blank">Freeride</a></p>
+                        <p>2016 - <a href="/" target="_blank">ATHLETEEC</a></p>
                     </div>
                 </div>
             </div>

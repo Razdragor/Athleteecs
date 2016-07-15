@@ -52,10 +52,35 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         return $this->hasMany('App\Activity');
     }
+    
+    public function conversations_interlocutor()
+    {
+         return $this->belongsToMany('App\User','conversation_users', 'user_id');
+    }
 
     public function publications()
     {
         return $this->hasMany('App\Publication');
+    }
+
+    public function associations(){
+        return $this->hasMany('App\UsersAssociations');
+    }
+
+    public function isMemberAssociation($id){
+        foreach($this->associations as $association){
+            if($association->association_id == $id && !$association->is_admin)
+                return true;
+        }
+        return false;
+    }
+
+    public function isAdminAssociation($id){
+        foreach($this->associations as $association){
+            if($association->association_id == $id && $association->is_admin)
+                return true;
+        }
+        return false;
     }
 
     public function groups()
@@ -63,11 +88,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->belongsToMany('App\Group', 'users_groups', 'user_id', 'group_id');
     }
 
+    public function conversations()
+    {
+        return $this->hasMany('App\Conversation_user');
+    }
+
     public function equipments()
     {
         return $this->hasMany('App\Equipment', 'users_equips_sports', 'user_id', 'product_id');
     }
-
+    
     public function friends(){
         return $this->belongsToMany('App\User','users_links','user_id','userL_id');
     }
@@ -75,6 +105,52 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function pictures()
     {
         return $this->hasMany('App\Picture');
+    }
+
+    // les demandes d'amis reçues
+    public function demandsto(){
+        return $this->belongsToMany('App\User','users_demands','user_id','userL_id')
+                    ->where('demands', false);
+    }
+    // les demandes d'amis envoyées
+    public function demandsfrom(){
+        return $this->belongsToMany('App\User','users_demands', 'userL_id', 'user_id')
+                    ->where('demands', false);
+    }
+
+    public function notifications(){
+        return $this->hasMany('App\Notifications')
+            ->where('afficher', true)
+            ->whereIn('notification', ['events', 'associations', 'groups']);
+    }
+
+    public function getnotifications(){
+        return $this->hasMany('App\Notifications')
+            ->where('afficher', true);
+    }
+
+    public function getfriendsnotificationstrue(){
+        return $this->hasMany('App\Notifications')
+            ->where('afficher', true)
+            ->where('notification', 'users_links');
+    }
+
+    public function getfriendsnotifications(){
+        return $this->hasMany('App\Notifications')
+            ->where('notification', 'users_links')
+            ->limit(8);
+    }
+
+    public function geteventsnotificationstrue(){
+        return $this->hasMany('App\Notifications')
+            ->where('afficher', true)
+            ->where('notification', 'events');
+    }
+
+    public function geteventsnotifications(){
+        return $this->hasMany('App\Notifications')
+            ->where('notification', 'events')
+            ->limit(8);
     }
 
     /**
@@ -146,6 +222,107 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function getEmailForPasswordReset()
     {
         return $this->email;
+    }
+
+    public function timeAgo($timestamp, $ref = 0){
+        setlocale (LC_TIME, 'fr_FR.utf8','fra');
+        $time = $timestamp->timestamp;
+        if ($ref < 1) $ref = time();
+
+        $ts = $ref - $time;
+        $past = $ts > 0;
+        $ts = abs($ts);
+
+        if ($past) {
+            $left = 'Il y a ';
+            $right = '';
+        }
+        else {
+            $left = 'Il y a ';
+            $right = '';
+        }
+
+        if ($ts === 0) return 'A l\'instant';
+
+        if ($ts === 1) return $left.'1 seconde'.$right;
+
+        // Less than 1 minute
+        if ($ts < 60) return $left.$ts.' secondes'.$right;
+
+        $tm = floor($ts / 60);
+        $ts = $ts - $tm * 60;
+
+        // Less than 3 hours
+        if ($tm < 3 && $ts > 0) {
+            return $left.$tm.' minute'.($tm > 1 ? 's' : '').' et '
+            .$ts.' seconde'.($ts > 1 ? 's' : '').$right;
+        }
+
+        // Less than 1 hour
+        if ($tm < 60) {
+            if ($ts > 0) {
+                $left = 'Il y a ';
+            }
+            return $left.$tm.' minute'.($tm > 1 ? 's' : '').$right;
+        }
+
+        $th = floor($tm / 60);
+        $tm = $tm - $th * 60;
+
+        // Less than 3 hours
+        if ($th < 3) {
+            if ($tm > 0) {
+                return $left.$th.' heure'.($th > 1 ? 's' : '').' et '
+                .$tm.' minute'.($tm > 1 ? 's' : '').$right;
+            }
+            else {
+                return $left.$th.' heure'.($th > 1 ? 's' : '').$right;
+            }
+        }
+
+        $refday = strtotime(date('d-m-Y', $ref));
+        $refyday = strtotime(date('d-m-Y', $ref - 86400));
+
+        // Same day, or yesterday
+        if ($time >= $refyday) {
+            if ($time < $refday) {
+                $left = 'Hier ';
+                $right = '';
+            }
+            else {
+                $left = 'Aujourd\'hui ';
+                $right = '';
+            }
+            return $left.' à '.date('H:i', $time).' '.$right;
+        }
+
+        $td = floor($th / 24);
+        $th = $th - $td * 24;
+
+        // Less than 3 days
+        if ($td < 3) {
+            $left = '';
+            $right = '';
+            return $left.ucfirst(strftime("%A", $time)).' à '
+            .date('H:i', $time).$right;
+        }
+
+        // Less than 5 days
+        if ($td < 5) {
+            return $left.$td.' jours'.$right;
+        }
+
+        $refday = strtotime(date('Y-m-01', $ref));
+
+        $right = '';
+
+        // Same month
+        if ($time >= $refyday) {
+            $left = 'Le ';
+            return $left.strftime("%A %d", $time).$right;
+        }
+
+        return 'Le '.strftime("%A %d %B", $time).$right;
     }
 
 }

@@ -1,7 +1,7 @@
 .btn-lg {
     font-size: inherit !important;
     padding: 10px 4px;
-    width: 70px;
+    width: 85px;
     margin: 0 auto;
 }
 .logocentrer{
@@ -10,6 +10,9 @@
 }
 .add-margin-top{
     margin-top: 80px;
+}
+img.logo-athleteec{
+    width: 144px;
 }
 @media (min-width: 768px) {
   .signin{

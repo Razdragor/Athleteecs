@@ -2,421 +2,552 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Admin Athleteec | Dashboard</title>
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <!-- Bootstrap 3.3.6 -->
-    <link rel="stylesheet" href="{{ asset('asset/admin/bootstrap/css/bootstrap.min.css') }}">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('asset/admin/dist/css/AdminLTE.min.css')}}">
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-         folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="{{ asset('asset/admin/dist/css/skins/_all-skins.min.css')}}">
-    <!-- iCheck -->
-    <link rel="stylesheet" href="{{ asset('asset/admin/plugins/iCheck/flat/blue.css')}}">
-    <!-- Morris chart -->
-    <link rel="stylesheet" href="{{ asset('asset/admin/plugins/morris/morris.css')}}">
-    <!-- jvectormap -->
-    <link rel="stylesheet" href="{{ asset('asset/admin/plugins/jvectormap/jquery-jvectormap-1.2.2.css')}}">
-    <!-- Date Picker -->
-    <link rel="stylesheet" href="{{ asset('asset/admin/plugins/datepicker/datepicker3.css')}}">
-    <!-- Daterange picker -->
-    <link rel="stylesheet" href="{{ asset('asset/admin/plugins/daterangepicker/daterangepicker-bs3.css')}}">
-    <!-- bootstrap wysihtml5 - text editor -->
-    <link rel="stylesheet" href="{{ asset('asset/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="{{ asset('asset/css/social.core.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/social.admin.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/font-awesome/font-awesome.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/glyphicons_free/glyphicons.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.halflings.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/jquery-ui/social/jquery.ui.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/themes/admin/facebook.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/js/plugins/jqvmap/jqvmap.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/plugins/fullcalendar/fullcalendar.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/js/plugins/pnotify/pnotify.custom.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/demo.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/js/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/themes/admin/facebook.css') }}" rel="stylesheet">
+    @yield('css')
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <style>
+        .wrapper .main {
+            margin-top: 40px;
+        }
+        @media screen and (max-width: 480px) {
+            .wrapper .main {
+                margin-top: 80px;
+            }
+        }
+    </style>
+
     <![endif]-->
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body>
 <div class="wrapper">
+    <!-- BEGIN SIDEBAR-->
+    <aside class="social-sidebar">
+        <div class="social-sidebar-content">
+            <!-- BEGIN USER SECTION-->
+            <div class="user">
+                <!-- //Notice .avatar class-->
+                <img width="25" height="25" src="{{ $user->picture }}" alt="{{ $user->firstname.' '.$user->lastname }}" class="avatar">
+                <span>@if(isset($user)){{ $user->firstname.' '.$user->lastname }}@endif</span>
+                <i data-toggle="dropdown" class="trigger-user-settings fa fa-user"></i>
+                <div class="user-settings">
+                    <h3 class="user-settings-title">Settings shortcuts</h3>
+                    <div class="user-settings-content">
+                        <a href="#my-profile">
+                            <div class="icon"><i class="fa fa-user"></i>
+                            </div>
+                            <div class="title">My Profile</div>
+                            <div class="content">View your profile</div>
+                        </a>
+                        <a href="#view-messages">
+                            <div class="icon"><i class="fa fa-envelope-o"></i>
+                            </div>
+                            <div class="title">View Messages</div>
+                            <div class="content">
+                                You have <strong>17</strong>
+                                new messages
+                            </div>
+                        </a>
+                        <a href="#view-pending-tasks">
+                            <div class="icon"><i class="fa fa-tasks"></i>
+                            </div>
+                            <div class="title">View Tasks</div>
+                            <div class="content">You have <strong>8</strong> pending tasks</div>
+                        </a>
+                    </div>
+                    <div class="user-settings-footer">
+                        <a href="#more-settings">See more settings</a>
+                    </div>
+                </div>
+            </div>
+            <div class="menu">
+                <div class="menu-content">
+                    <ul id="social-sidebar-menu">
+                        <!-- BEGIN ELEMENT MENU-->
+                        <li>
+                            <a href="{{ route('admin.users.index') }}">
+                                <!-- icon--><i class="fa fa-users"></i>
+                                <span>Utilisateurs</span>
+                                <!-- badge-->
+                                <span class="badge">{{$numberUser}}</span>
+                            </a>
+                        </li>
 
-    <header class="main-header">
-        <!-- Logo -->
-        <a href="/admin" class="logo">
-            <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>Ath</b></span>
-            <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>Admin</b>Athleteec</span>
-        </a>
-        <!-- Header Navbar: style can be found in header.less -->
-        <nav class="navbar navbar-static-top">
-            <!-- Sidebar toggle button-->
-            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                <span class="sr-only">Toggle navigation</span>
-            </a>
-
-            <div class="navbar-custom-menu">
+        <!-- BEGIN CHAT SECTION-->
+        <div class="chat visible-lg visible-md">
+            <ul class="users-list">
+                <li>
+                    <a data-firstname="Cesar" data-lastname="Mendoza" data-status="online" data-userid="1" href="#ignore">
+                        <img src="../../assets/img/avatars/user2_22.jpg" alt="User">
+                        <span>Cesar Mendoza</span><i class="fa fa-circle user-status online"></i>
+                    </a>
+                </li>
+                <li>
+                    <a data-firstname="Yadra" data-lastname="Abels" data-status="offline" data-userid="2" href="#ignore">
+                        <img src="../../assets/img/avatars/user1_22.jpg" alt="User">
+                        <span>Yadra Abels</span><i class="fa fa-circle user-status offline"></i>
+                    </a>
+                </li>
+                <li>
+                    <a data-firstname="Tobei" data-lastname="Tsumura" data-status="online" data-userid="3" href="#ignore">
+                        <img src="../../assets/img/avatars/user4_22.jpg" alt="User">
+                        <span>Tobei Tsumura</span><i class="fa fa-circle user-status online"></i>
+                    </a>
+                </li>
+                <li>
+                    <a data-firstname="John" data-lastname="Doe" data-status="offline" data-userid="4" href="#ignore">
+                        <img src="../../assets/img/avatars/user3_22.jpg" alt="User">
+                        <span>John Doe</span><i class="fa fa-circle user-status offline"></i>
+                    </a>
+                </li>
+            </ul>
+            <form class="chat-options">
+                <div class="input-group">
+                    <div class="input-group-btn dropup">
+                        <button type="button" tabindex="-1" data-toggle="dropdown" class="btn dropdown-toggle btn-xs"><i class="fa fa-cog"></i>
+                        </button>
+                        <ul role="menu" class="dropdown-menu pull-left">
+                            <li>
+                                <a href="#">Chat Sounds</a>
+                            </li>
+                            <li>
+                                <a href="#">Advanced Settings...</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#">Turn Off Chat</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <input type="text" placeholder="Search user..." class="form-control">
+                </div>
+            </form>
+        </div>
+        <!-- END CHAT SECTION-->
+    </aside>
+    <!-- END SIDEBAR-->
+    <header>
+        <!-- BEGIN NAVBAR-->
+        <nav role="navigation" class="navbar navbar-fixed-top navbar-super social-navbar">
+            <div class="navbar-header">
+                <a href="#home" title="Social" class="navbar-brand">
+                    <img width="25" height="25" src="../../assets/img/logo-white-181.png" alt="Social" class="light">
+                    <img width="25" height="25" src="../../assets/img/logo-gray-181.png" alt="Social" class="dark">
+                    <span>&nbsp;Social</span>
+                </a>
+            </div>
+            <div class="navbar-toggle"><i class="fa fa-align-justify"></i>
+            </div>
+            <div>
                 <ul class="nav navbar-nav">
-                    <!-- User Account: style can be found in dropdown.less -->
-                    <li class="dropdown user user-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="{{ asset('asset/admin/admin.png') }}" class="user-image" alt="User Image">
-                            <span class="hidden-xs">
-                                @if(isset($user))
-                                {{ $user->firstname.' '.$user->lastname }}
-                                @endif
-                            </span>
+                    <li class="dropdown navbar-super-fw hidden-xs">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Mega Menu<b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <!-- User image -->
-                            <li class="user-header">
-                                <img src="{{ asset('asset/admin/admin.png') }}" class="img-circle" alt="User Image">
-                                <p>
-                                    @if(isset($user))
-                                        {{ $user->firstname.' '.$user->lastname }}
-                                    @endif
-                                </p>
-                            </li>
-                            <!-- Menu Body -->
-                            <li class="user-body">
+                            <li>
                                 <div class="row">
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Followers</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Sales</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Friends</a>
+                                    <div class="col-sm-12">
+                                        <div class="alert alert-warning alert-dismissable">
+                                            <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button><strong>Warning!</strong>Better check yourself, you're not looking too good.
+                                        </div>
                                     </div>
                                 </div>
-                                <!-- /.row -->
-                            </li>
-                            <!-- Menu Footer-->
-                            <li class="user-footer">
-                                <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                <div class="row">
+                                    <div class="btn-icon col-md-3">
+                                        <a href="#" role="button" class="btn btn-neutral"><i class="fa fa-dashboard fa-lg"></i>
+                                            <div class="title">Dashboard</div>
+                                            <span class="label label-warning">2</span>
+                                        </a>
+                                    </div>
+                                    <div class="btn-icon col-md-3">
+                                        <a href="#" role="button" class="btn btn-primary"><i class="fa fa-calendar fa-lg"></i>
+                                            <div class="title">Calendar</div>
+                                            <span class="label label-danger">4</span>
+                                        </a>
+                                    </div>
+                                    <div class="btn-icon col-md-3">
+                                        <a href="#" role="button" class="btn btn-danger"><i class="fa fa-inbox fa-lg"></i>
+                                            <div class="title">Inbox</div>
+                                            <span class="label label-success">2</span>
+                                        </a>
+                                    </div>
+                                    <div class="btn-icon col-md-3">
+                                        <a href="#" role="button" class="btn btn-success"><i class="fa fa-money fa-lg"></i>
+                                            <div class="title">Finances</div>
+                                            <span class="label label-primary">256$</span>
+                                        </a>
+                                    </div>
                                 </div>
-                                <div class="pull-right">
-                                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="media well">
+                                            <a href="#" class="pull-left">
+                                                <img src="../../assets/img/avatars/user1_55.jpg" style="width: 55px; height: 55px;" alt="User" class="media-object">
+                                            </a>
+                                            <div class="media-body">
+                                                <h4 class="media-heading">Media heading</h4>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="panel panel-default">
+                                            <!-- Table-->
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>First Name</th>
+                                                    <th>Last Name</th>
+                                                    <th>Username</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Mark</td>
+                                                    <td>Otto</td>
+                                                    <td>@mdo</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>Jacob</td>
+                                                    <td>Thornton</td>
+                                                    <td>@fat</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </li>
                         </ul>
                     </li>
                 </ul>
-            </div>
-        </nav>
-    </header>
-    <!-- Left side column. contains the logo and sidebar -->
-    <aside class="main-sidebar">
-        <!-- sidebar: style can be found in sidebar.less -->
-        <section class="sidebar">
-            <!-- Sidebar user panel -->
-            <div class="user-panel">
-                <div class="pull-left image">
-                    <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                </div>
-                <div class="pull-left info">
-                    <p>
-                        @if(isset($user))
-                            {{ $user->firstname.' '.$user->lastname }}
-                        @endif
-                    </p>
-                </div>
-            </div>
-            <!-- search form -->
-            <form action="#" method="get" class="sidebar-form">
-                <div class="input-group">
-                    <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-                </div>
-            </form>
-            <!-- /.search form -->
-            <!-- sidebar menu: : style can be found in sidebar.less -->
-            <ul class="sidebar-menu">
-                <li class="header">MAIN NAVIGATION</li>
-                <li class=""><a href="/admin"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-                <li class=""><a href="/admin"><i class="fa fa-dashboard"></i> <span>Users</span></a></li>
-                <li class=""><a href="/admin"><i class="fa fa-dashboard"></i> <span>Groups</span></a></li>
-                <li class=""><a href="/admin"><i class="fa fa-dashboard"></i> <span>Association</span></a></li>
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-files-o"></i>
-                        <span>Users</span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Index</a></li>
-                        <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
-                        <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-                        <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- END DROPDOWN MESSAGES-->
+                    <li class="divider-vertical"></li>
+                    <!-- BEGIN EXTRA DROPDOWN-->
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle"><i class="fa fa-caret-down fa-lg"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="#"><i class="fa fa-user"></i>&nbsp;My Profile</a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-cogs"></i>&nbsp;Settings</a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-sign-out"></i>&nbsp;Log Out</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#"><i class="fa fa-info"></i>&nbsp;Help</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- END EXTRA DROPDOWN-->
+                </ul>
+                <div class="nav-indicators">
+                    <ul class="nav navbar-nav navbar-right nav-indicators-body">
+                        <!-- BEGIN DROPDOWN NOTIFICATIONS-->
+                        <li class="dropdown nav-notifications">
+                            <!-- BEGIN DROPDOWN TOGGLE-->
+                            <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
+                                <span class="badge">9</span><i class="fa fa-warning fa-lg"></i>
+                            </a>
+                            <!-- END DROPDOWN TOGGLE-->
+                            <!-- BEGIN DROPDOWN MENU-->
+                            <ul class="dropdown-menu">
+                                <!-- BEGIN DROPDOWN HEADER-->
+                                <li class="nav-notifications-header">
+                                    <a tabindex="-1" href="#">You have <strong>9</strong> new notifications</a>
+                                </li>
+                                <!-- END DROPDOWN HEADER-->
+                                <!-- BEGIN NOTIFICATION ITEMS-->
+                                <li class="nav-notifications-body">
+                                    <a href="#" class="text-info"><i class="fa fa-user"></i>&nbsp;New User
+                                        <small class="pull-right">Just Now</small>
+                                    </a>
+                                    <a href="#" class="text-danger"><i class="fa fa-user"></i>&nbsp;User Deleted
+                                        <small class="pull-right">Just Now</small>
+                                    </a>
+                                    <a href="#" class="text-warning"><i class="fa fa-cogs"></i>&nbsp;Sever is overloaded
+                                        <small class="pull-right">2 minutes ago</small>
+                                    </a>
+                                    <a href="#"><i class="fa fa-briefcase"></i>&nbsp;Backup is completed
+                                        <small class="pull-right">4 minutes ago</small>
+                                    </a>
+                                    <a href="#" class="text-info"><i class="fa fa-user"></i>&nbsp;New User
+                                        <small class="pull-right">Just Now</small>
+                                    </a>
+                                    <a href="#" class="text-danger"><i class="fa fa-user"></i>&nbsp;User Deleted
+                                        <small class="pull-right">Just Now</small>
+                                    </a>
+                                    <a href="#" class="text-warning"><i class="fa fa-cogs"></i>&nbsp;Sever is overloaded
+                                        <small class="pull-right">3 minutes ago</small>
+                                    </a>
+                                    <a href="#"><i class="fa fa-briefcase"></i>&nbsp;Backup is completed
+                                        <small class="pull-right">6 minutes ago</small>
+                                    </a>
+                                </li>
+                                <!-- END NOTIFICATION ITEMS-->
+                                <!-- BEGIN DROPDOWN FOOTER-->
+                                <li class="nav-notifications-footer">
+                                    <a href="#">View all messages</a>
+                                </li>
+                                <!-- END DROPDOWN FOOTER-->
+                            </ul>
+                            <!-- END DROPDOWN MENU-->
+                        </li>
+                        <!-- END DROPDOWN NOTIFICATIONS-->
+                        <!-- BEGIN DROPDOWN TASKS-->
+                        <li class="dropdown nav-tasks">
+                            <!-- BEGIN DROPDOWN TOGGLE-->
+                            <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
+                                <span class="badge">13</span><i class="fa fa-tasks fa-lg"></i>
+                            </a>
+                            <!-- END DROPDOWN TOGGLE-->
+                            <!-- BEGIN DROPDOWN MENU-->
+                            <ul class="dropdown-menu">
+                                <!-- BEGIN DROPDOWN HEADER-->
+                                <li class="nav-tasks-header">
+                                    <a href="#">You have <strong>13</strong> tasks in progress</a>
+                                </li>
+                                <!-- END DROPDOWN HEADER-->
+                                <!-- BEGIN DROPDOWN ITEMS-->
+                                <li class="nav-tasks-body">
+                                    <a>Prepare Report
+                                        <span class="pull-right">30%</span>
+                                        <div class="progress">
+                                            <div role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%" class="progress-bar progress-bar-danger">
+                                                <span class="sr-only">30% Complete</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a>Make new update
+                                        <span class="pull-right">40%</span>
+                                        <div class="progress">
+                                            <div role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%" class="progress-bar progress-bar-info">
+                                                <span class="sr-only">40% Complete</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a>Fix critical bugs
+                                        <span class="pull-right">80%</span>
+                                        <div class="progress progress-striped active">
+                                            <div role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%" class="progress-bar">
+                                                <span class="sr-only">80% Complete</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a>Complete project
+                                        <span class="pull-right">5%</span>
+                                        <div class="progress">
+                                            <div role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100" style="width: 5%" class="progress-bar progress-bar-success">
+                                                <span class="sr-only">5% Complete (success)</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a>Others
+                                        <span class="pull-right">15%</span>
+                                        <div class="progress">
+                                            <div role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100" style="width: 15%" class="progress-bar progress-bar-warning">
+                                                <span class="sr-only">15% Complete (warning)</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <!-- END DROPDOWN ITEMS-->
+                                <!-- BEGIN DROPDOWN FOOTER-->
+                                <li class="nav-tasks-footer">
+                                    <a href="#">View all tasks</a>
+                                </li>
+                                <!-- END DROPDOWN FOOTER-->
+                            </ul>
+                            <!-- END DROPDOWN MENU-->
+                        </li>
+                        <!-- END DROPDOWN TASKS-->
+                        <!-- BEGIN DROPDOWN MESSAGES-->
+                        <li class="dropdown nav-messages">
+                            <!-- BEGIN DROPDOWN TOGGLE-->
+                            <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
+                                <span class="badge">8</span><i class="fa fa-envelope fa-lg"></i>
+                            </a>
+                            <!-- END DROPDOWN TOGGLE-->
+                            <!-- BEGIN DROPDOWN MENU-->
+                            <ul class="dropdown-menu">
+                                <!-- BEGIN DROPDOWN HEADER-->
+                                <li class="nav-messages-header">
+                                    <a tabindex="-1" href="#">You have <strong>8</strong> new messages</a>
+                                </li>
+                                <!-- END DROPDOWN HEADER-->
+                                <!-- BEGIN DROPDOWN ITEMS-->
+                                <li class="nav-messages-body">
+                                    <a>
+                                        <img src="../../assets/img/avatars/user1_55.jpg" alt="User" class="avatar">
+                                        <div class="title">
+                                            <small class="pull-right">Just Now</small><strong>Yadra Abels</strong>
+                                        </div>
+                                        <div class="message">Lorem ipsum dolor sit amet, consectetur...</div>
+                                    </a>
+                                    <a>
+                                        <img src="../../assets/img/avatars/user2_55.jpg" alt="User" class="avatar">
+                                        <div class="title">
+                                            <small class="pull-right">Just Now</small><strong>Cesar Mendoza</strong>
+                                        </div>
+                                        <div class="message">Lorem ipsum dolor sit amet, consectetur...</div>
+                                    </a>
+                                    <a>
+                                        <img src="../../assets/img/avatars/user3_55.jpg" alt="User" class="avatar">
+                                        <div class="title">
+                                            <small class="pull-right">Just Now</small><strong>John Doe</strong>
+                                        </div>
+                                        <div class="message">Lorem ipsum dolor sit amet, consectetur...</div>
+                                    </a>
+                                    <a>
+                                        <img src="../../assets/img/avatars/user4_55.jpg" alt="User" class="avatar">
+                                        <div class="title">
+                                            <small class="pull-right">Just Now</small><strong>Tobei Tsumura</strong>
+                                        </div>
+                                        <div class="message">Lorem ipsum dolor sit amet, consectetur...</div>
+                                    </a>
+                                </li>
+                                <!-- END DROPDOWN ITEMS-->
+                                <!-- BEGIN DROPDOWN FOOTER-->
+                                <li class="nav-messages-footer">
+                                    <a tabindex="-1" href="#">View all messages</a>
+                                </li>
+                                <!-- END DROPDOWN FOOTER-->
+                            </ul>
+                            <!-- END DROPDOWN MENU-->
+                        </li>
                     </ul>
-                </li>
-            </ul>
-        </section>
-        <!-- /.sidebar -->
-    </aside>
-
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>
-                Dashboard
-                <small>Control panel</small>
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Dashboard</li>
-            </ol>
-        </section>
-
-        <!-- Main content -->
-
-        <!-- /.content -->
+                </div>
+            </div>
+            <!-- /.navbar-collapse-->
+        </nav>
+        <!-- END NAVBAR-->
+    </header>
+    <div class="main">
+        @yield('content')
     </div>
-    <!-- /.content-wrapper -->
-    <footer class="main-footer">
-        <div class="pull-right hidden-xs">
-            <b>Version</b> 2.3.3
-        </div>
-        <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
-        reserved.
-    </footer>
-
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Create the tabs -->
-        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-            <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-        </ul>
-        <!-- Tab panes -->
-        <div class="tab-content">
-            <!-- Home tab content -->
-            <div class="tab-pane" id="control-sidebar-home-tab">
-                <h3 class="control-sidebar-heading">Recent Activity</h3>
-                <ul class="control-sidebar-menu">
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="menu-icon fa fa-birthday-cake bg-red"></i>
-
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-
-                                <p>Will be 23 on April 24th</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="menu-icon fa fa-user bg-yellow"></i>
-
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
-
-                                <p>New phone +1(800)555-1234</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
-
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
-
-                                <p>nora@example.com</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="menu-icon fa fa-file-code-o bg-green"></i>
-
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
-
-                                <p>Execution time 5 seconds</p>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-                <!-- /.control-sidebar-menu -->
-
-                <h3 class="control-sidebar-heading">Tasks Progress</h3>
-                <ul class="control-sidebar-menu">
-                    <li>
-                        <a href="javascript:void(0)">
-                            <h4 class="control-sidebar-subheading">
-                                Custom Template Design
-                                <span class="label label-danger pull-right">70%</span>
-                            </h4>
-
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <h4 class="control-sidebar-subheading">
-                                Update Resume
-                                <span class="label label-success pull-right">95%</span>
-                            </h4>
-
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <h4 class="control-sidebar-subheading">
-                                Laravel Integration
-                                <span class="label label-warning pull-right">50%</span>
-                            </h4>
-
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <h4 class="control-sidebar-subheading">
-                                Back End Framework
-                                <span class="label label-primary pull-right">68%</span>
-                            </h4>
-
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-                <!-- /.control-sidebar-menu -->
-
-            </div>
-            <!-- /.tab-pane -->
-            <!-- Stats tab content -->
-            <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
-            <!-- /.tab-pane -->
-            <!-- Settings tab content -->
-            <div class="tab-pane" id="control-sidebar-settings-tab">
-                <form method="post">
-                    <h3 class="control-sidebar-heading">General Settings</h3>
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Report panel usage
-                            <input type="checkbox" class="pull-right" checked>
-                        </label>
-
-                        <p>
-                            Some information about this general settings option
-                        </p>
-                    </div>
-                    <!-- /.form-group -->
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Allow mail redirect
-                            <input type="checkbox" class="pull-right" checked>
-                        </label>
-
-                        <p>
-                            Other sets of options are available
-                        </p>
-                    </div>
-                    <!-- /.form-group -->
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Expose author name in posts
-                            <input type="checkbox" class="pull-right" checked>
-                        </label>
-
-                        <p>
-                            Allow the user to show his name in blog posts
-                        </p>
-                    </div>
-                    <!-- /.form-group -->
-
-                    <h3 class="control-sidebar-heading">Chat Settings</h3>
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Show me as online
-                            <input type="checkbox" class="pull-right" checked>
-                        </label>
-                    </div>
-                    <!-- /.form-group -->
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Turn off notifications
-                            <input type="checkbox" class="pull-right">
-                        </label>
-                    </div>
-                    <!-- /.form-group -->
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Delete chat history
-                            <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
-                        </label>
-                    </div>
-                    <!-- /.form-group -->
-                </form>
-            </div>
-            <!-- /.tab-pane -->
-        </div>
-    </aside>
-    <!-- /.control-sidebar -->
-    <!-- Add the sidebar's background. This div must be placed
-         immediately after the control sidebar -->
-    <div class="control-sidebar-bg"></div>
+    <footer>2014 © cesarlab.com | Social - Premium Responsive Admin Template</footer>
 </div>
-<!-- ./wrapper -->
-
-<!-- jQuery 2.2.0 -->
-<script src="{{ asset('asset/admin/plugins/jQuery/jQuery-2.2.0.min.js') }}"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js') }}"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<!-- Modal-->
+<div id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" data-dismiss="modal" aria-hidden="true" class="close">×</button>
+                <h4 id="myModalLabel" class="modal-title">Modal Settings</h4>
+            </div>
+            <div class="modal-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et, deserunt!</div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- BEGIN THEME SWITCHER-->
+<div class="theme-switcher">
+    <a href="#"><i class="fa fa-cogs"></i>
+    </a>
+    <div class="content"><strong>Color Style</strong>
+        <select name="colorpicker" class="styles">
+            <option value="#fff" data-theme="../../assets/css/themes/admin/default.css">Default</option>
+            <option value="#647AAB" data-theme="../../assets/css/themes/admin/facebook.css">Facebook</option>
+            <option value="#242424" data-theme="../../assets/css/themes/admin/inverse.css">Inverse</option>
+            <option value="#62c462" data-theme="../../assets/css/themes/admin/green.css">Green</option>
+            <option value="#394263" data-theme="../../assets/css/themes/admin/blue-sidebar.css">Blue Sidebar</option>
+        </select>
+        <hr>
+        <a href="../admin-rtl/index.html"><strong>RTL Version</strong>
+        </a>
+    </div>
+</div>
+<!-- END THEME SWITCHER-->
+<!-- jQuery-->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script>
-    $.widget.bridge('uibutton', $.ui.button);
+    window.jQuery || document.write('<script src="../../assets/js/jquery/jquery.min.js"><\/script>')
 </script>
-<!-- Bootstrap 3.3.6 -->
-<script src="{{ asset('asset/admin/bootstrap/js/bootstrap.min.js') }}"></script>
-<!-- Morris.js charts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-<script src="{{ asset('asset/admin/plugins/morris/morris.min.js') }}"></script>
-<!-- Sparkline -->
-<script src="{{ asset('asset/admin/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
-<!-- jvectormap -->
-<script src="{{ asset('asset/admin/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
-<script src="{{ asset('asset/admin/plugins/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
-<!-- jQuery Knob Chart -->
-<script src="{{ asset('asset/admin/plugins/knob/jquery.knob.js') }}"></script>
-<!-- daterangepicker -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
-<script src="{{ asset('asset/admin/plugins/daterangepicker/daterangepicker.js') }}"></script>
-<!-- datepicker -->
-<script src="{{ asset('asset/admin/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
-<!-- Bootstrap WYSIHTML5 -->
-<script src="{{ asset('asset/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }}"></script>
-<!-- Slimscroll -->
-<script src="{{ asset('asset/admin/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
-<script src="{{ asset('asset/admin/plugins/fastclick/fastclick.js') }}"></script>
-<!-- AdminLTE App -->
-<script src="{{ asset('asset/admin/dist/js/app.min.js') }}"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ asset('asset/admin/dist/js/pages/dashboard.js') }}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{{ asset('asset/admin/dist/js/demo.js') }}"></script>
+<!-- Bootstrap JS-->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script>
+    $.fn.modal || document.write('<script src="../../assets/js/plugins/bootstrap/bootstrap.min.js"><\/script>')
+    // Prevent jQueryUI Conflicts
+    var bootstrapTooltip = $.fn.tooltip.noConflict()
+    $.fn.bootstrapTooltip = bootstrapTooltip
+</script>
+<!-- jQueryUI-->
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<script>
+    window.jQuery.ui || document.write('<script src="../../assets/js/jquery-ui/jquery-ui.min.js"><\/script>')
+</script>
+<!-- Bootstrap Hover Dropdown-->
+<script src="../../assets/js/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js"></script>
+<!-- jQuery slimScroll-->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.1/jquery.slimscroll.min.js"></script>
+<script>
+    window.jQuery.ui || document.write('<script src="../../assets/js/plugins/jquery.slimscroll/jquery.slimscroll.min.js"><\/script>')
+</script>
+<!-- BEGIN THEME SWITCHER SCRIPTS-->
+<script>
+    var assets_dir = '../../assets/'
+</script>
+<script src="../../assets/js/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker.js"></script>
+<script src="../../assets/js/demo/theme-switcher-admin.js"></script>
+<!-- END THEME SWITCHER SCRIPTS-->
+<script src="../../assets/js/sidebar.js"></script>
+<script src="../../assets/js/panels.js"></script>
+<!-- BEGIN GENERAL SCRIPTS-->
+<script>
+    $(function() {
+        $(".social-sidebar").socialSidebar();
+        $('.main').panels();
+        $(".main a[href='#ignore']").click(function(e) {
+            e.stopPropagation()
+        });
+    });
+    $(document).on('click', '.navbar-super .navbar-super-fw', function(e) {
+        e.stopPropagation()
+    });
+</script>
+
+<script src="../../assets/js/plugins/flot/jquery.flot.js"></script>
+<script src="../../assets/js/plugins/flot/jquery.flot.selection.js"></script>
+<script src="../../assets/js/plugins/jqvmap/jquery.vmap.js"></script>
+<script src="../../assets/js/plugins/jqvmap/maps/jquery.vmap.world.js"></script>
+<script src="../../assets/js/plugins/jqvmap/data/jquery.vmap.sampledata.js"></script>
+<script src="../../assets/js/plugins/easy-pie-chart/jquery.easypiechart.min.js"></script>
+<script src="../../assets/js/plugins/jquery.sparkline/jquery.sparkline.min.js"></script>
+<script src="../../assets/js/plugins/fullcalendar/fullcalendar.min.js"></script>
+<script src="../../assets/js/plugins/justgage/lib/raphael.2.1.0.min.js"></script>
+<script src="../../assets/js/plugins/justgage/justgage.js"></script>
+<script src="//maps.google.com/maps/api/js?sensor=true"></script>
+<script src="../../assets/js/plugins/gmaps/gmaps.js"></script>
+<script src="../../assets/js/plugins/pnotify/pnotify.custom.min.js"></script>
+<script src="../../assets/js/demo/dashboard.js"></script>
+
+@yield('js')
+
 </body>
 </html>

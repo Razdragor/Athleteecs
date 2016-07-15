@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Front;
 
 use App\Activity;
+use App\HelperActivity;
+use App\HelperPublication;
 use App\Publication;
+use App\Video;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Validator;
 
 class ActivityController extends Controller
@@ -31,7 +35,7 @@ class ActivityController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'message_act' => 'required|max:255',
+            'message_act' => 'required',
             'picture_act' => 'mimes:jpeg,png,jpg',
             'date_start_act' => 'required',
             'sport_act' => 'required',
@@ -59,49 +63,18 @@ class ActivityController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-        $data['time_h_act'] = intval($data['time_h_act']);
-        $data['time_m_act'] = intval($data['time_m_act']);
-        $data['time_s_act'] = intval($data['time_s_act']);
-        $user = Auth::user();
-        $validator = $this->validator($data);
-
-        if ($validator->fails()) {
-            dd($data);
-            return redirect('/')->withErrors($validator);
+        $publicationArray = HelperPublication::store($request);
+        if(is_array($publicationArray) && array_key_exists('errors',$publicationArray)){
+            return Redirect::back()->withErrors($publicationArray['errors']);
         }
+        $activityArray = HelperActivity::store($request,$publicationArray);
 
-        $imageName = null;
-        if ($request->hasFile('picture_act')) {
-            $imageName = $user->id . '_' . date('YmdHis'). '_post.' . $request->file('picture_act')->getClientOriginalExtension();;
+        $activity = Activity::create($activityArray);
 
-            $request->file('picture_act')->move(
-                storage_path() . '\uploads', $imageName
-            );
-            $imageName = '/uploads/'.$imageName;
-        }
+        $publicationArray['activity_id'] = $activity->id;
+        Publication::create($publicationArray);
 
-        $time = ($data['time_h_act']*3600) + ($data['time_m_act'] * 60) + $data['time_s_act'];
-        $dateStart = strtotime($data['date_start_act']);
-        $dateStart = date("Y-m-d H:i:s", $dateStart);
-        $activity = Activity::create(array(
-            'sport_id' => $data['sport_act'],
-            'user_id' => $user->id,
-            'date_start' => $dateStart,
-            'picture' => '/uploads/'.$imageName,
-            'time' => $time,
-            'description' => $data['message_act'],
-            'status' => 'Success'
-        ));
-
-        Publication::create(array(
-            'user_id' => $user->id,
-            'activity_id' => $activity->id,
-            'message' => $data['message_act'],
-            'picture' => $imageName
-        ));
-
-        return redirect('/');
+        return Redirect::back();
     }
 
     /**
@@ -147,5 +120,56 @@ class ActivityController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyAjax(Activity $activity)
+    {
+        if(\Request::ajax() && $activity != null) {
+
+            if(HelperActivity::destroy($activity)){
+                return \Response::json(array(
+                    'success' => true
+                ));
+            }
+        }
+        return \Response::json(array(
+            'success' => false
+        ));
+    }
+
+    public function updateAjax(Request $request,$activity)
+    {
+        if(\Request::ajax()){
+                $activityUpdate = HelperActivity::update($request,$activity);
+                if(is_array($activityUpdate) && array_key_exists('errors',$activityUpdate)){
+                    return \Response::json(array(
+                        'success' => false,
+                        'errors' => $activityUpdate['errors']
+                    ));
+                }
+                $act = $activityUpdate['activity'];
+                $act->save();
+
+                return \Response::json($activityUpdate);
+        }
+        return \Response::json(array(
+            'success' => false
+        ));
+    }
+
+    public function signaleAjax(Activity $activity){
+        if(\Request::ajax() && !is_null($activity)) {
+            $activity->publication->score += 1;
+            if($activity->publication->score > 10){
+                $activity->publication->status = "Signaled";
+            }
+            $activity->publication->save();
+        }
     }
 }

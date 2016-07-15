@@ -16,7 +16,6 @@
                 <!-- //Notice .timeline-2-cols class-->
                 <ul class="timeline-2-cols">
                     <li>
-
                         <!-- //Notice .timeline-badge class-->
                         <div class="timeline-badge primary">
                             <a href=""><i rel="tooltip" title="11 hours ago via Twitter" class="glyphicon glyphicon-record"></i>
@@ -37,28 +36,6 @@
                                     </ul>
                                 </div>
                             </div>
-                            <style>
-                                .image-upload > input
-                                {
-                                    display: none;
-                                }
-                                .btn-group > div{
-                                    float: left;
-                                    margin-left: 10px;
-                                }
-
-                                 .time{
-                                     width: 33%;
-                                     float: left !important;
-                                     padding: 0 10px 10px 10px !important;
-                                 }
-                                .panel-foo{
-                                    background-color: #f5f5f5;
-                                    border-color: #dddddd;
-                                    color: #333333;
-                                    padding:6px;
-                                }
-                            </style>
                             <div class="panel-body" style="padding: 0px">
                                 <div class="tab-content">
                                     <div class="tab-pane fade active in" id="tab_home">
@@ -120,16 +97,16 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="user-post">Donne ton ressenti</label>
-                                                    <textarea id="user-post" name="message_act" placeholder="Message..." rows="3" class="form-control" style="resize: none;border: none;" ></textarea>
+                                                    <textarea id="user-post" name="message_status" placeholder="Message..." rows="3" class="form-control" style="resize: none;border: none;" ></textarea>
                                                 </div>
                                             </div>
                                             <div class="form-actions panel-foo">
                                                 <div class="btn-group">
                                                     <div class="image-upload">
-                                                        <label for="file-input">
+                                                        <label for="file-input2">
                                                             <div class="btn btn-default"><i class="fa fa-camera"></i></div>
                                                         </label>
-                                                        <input id="file-input" name="picture_act" type="file"/>
+                                                        <input id="file-input2" name="picture_status" type="file"/>
                                                     </div>
                                                 </div>
                                                 <button type="submit" class="btn btn-primary pull-right">Post</button>
@@ -142,63 +119,112 @@
                     </li>
                     <?php $i = 1; ?>
                     @foreach($publications as $publication)
-                        <li class="<?php if($i%2){echo 'timeline-inverted';} $i++; ?>">
-                            <!-- //Notice .timeline-badge class-->
+                        <li id="<?php
+                                if(is_null($publication->activity)){
+                                    echo "publication-".$publication->id;
+                                }else{
+                                    echo "activite-".$publication->activity->id;
+                                }
+                            ?>" class="<?php if($i%2){echo 'timeline-inverted';} ?> publicationJS">
                             <div class="timeline-badge primary">
-                                <a href="#"><i rel="tooltip" title="{{ $publication->date_start }}" class="glyphicon glyphicon-record invert"></i>
+                                <a href="#"><i rel="tooltip" title="{{ $publication->date_start }}" class="glyphicon glyphicon-record <?php if($i%2){echo 'timeline-inverted';} $i++; ?>"></i>
                                 </a>
                             </div>
-                            <!-- //Notice .timeline-panel class-->
                             <div class="timeline-panel">
-                                <!-- //Notice .timeline-heading class-->
                                 <div class="timeline-heading row" style="margin: 0;">
                                     <div style="margin:0 10px 0 0;float:left;">
-                                        <img src="{{ asset($publication->user->picture) }}" alt="Image" class="img-responsive" style="width: 50px; margin: 5px;display: inline-block;">
-
+                                        <a href="{{ route("user.show", $publication->user->id ) }}">
+                                            <img src="{{ asset($publication->user->picture) }}" alt="Image" class="img-responsive" style="width: 50px; margin: 5px;display: inline-block;">
+                                        </a>
                                     </div>
-                                    <div style="margin: 10px;">
+                                    <div style="margin: 10px;float:left;">
                                         <span>{{ $publication->user->firstname.' '.$publication->user->lastname}}</span><br>
                                         <small><i aria-hidden="true" class="fa fa-clock-o"></i> {{ $publication->timeAgo($publication->created_at) }}</small>
+
+                                        <div class="btn-group dropdown-post">
+                                            <button class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="font-size: 8px;"><i class="fa fa-chevron-down"></i>
+                                            </button>
+                                            <ul class="dropdown-menu pull-right">
+                                                @if(Auth::user()->id == $publication->user_id)
+                                                    <li>
+                                                        <a href="#" onclick="
+                                                            <?php
+                                                                if(is_null($publication->activity)){
+                                                                    echo "editpost(".$publication->id.")";
+                                                                }else{
+                                                                    echo "editact(".$publication->activity->id.")";
+                                                                }
+                                                            ?>">
+                                                            <span class="fa fa-pencil"></span> Modifier</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#" id="deletepost">
+                                                            <span class="fa fa-trash-o"></span> Supprimer</a>
+                                                    </li>
+                                                @endif
+                                                <li>
+                                                    <a href="#" id="signalepost">
+                                                        <span class="fa fa-exclamation-triangle"></span> Signaler</a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-
-                                <!-- //Notice .timeline-body class-->
                                 <div class="timeline-body">
-                                    <p>
-                                        {{$publication->message}}
-                                    </p>
-                                    @if(!is_null($publication->picture))
-                                        <img src="{{ asset($publication->picture) }}" alt="Image" class="img-responsive">
-                                    @endif
+                                    @if(is_null($publication->activity))
+                                        <div class="post_activity_msg">
+                                            {{$publication->message}}
+                                        </div>
+                                        <div class="post_picture_video">
+                                            @if(!is_null($publication->video))
+                                                <div class="video-container"><iframe src="https://www.youtube.com/embed/{{$publication->video->url}}" frameborder="0" allowfullscreen></iframe></div>
+                                            @elseif(!is_null($publication->picture))
+                                                <img src="{{ asset($publication->picture) }}" alt="" class="img-responsive">
+                                            @endif
+                                        </div>
 
+                                    @else
+                                        <div class="post_picture_video">
+                                            @if(!is_null($publication->video))
+                                                <div class="video-container"><iframe src="https://www.youtube.com/embed/{{$publication->video->url}}" frameborder="0" allowfullscreen></iframe></div>
+                                            @elseif(!is_null($publication->picture))
+                                                <img src="{{ asset($publication->picture) }}" alt="" class="img-responsive">
+                                            @endif
+                                        </div>
+                                        <div class="post_activity">
+                                            <div class="post_activity_img">
+                                                <img src="{{ asset("../images/icons/".$publication->activity->sport->icon) }}" alt="{{ $publication->activity->sport->name }}" class="img-responsive">
+                                            </div>
+                                            <div class="post_activity_stats">
+                                                <span data-text="{{$publication->activity->date_start}}"><i aria-hidden="true" class="fa fa-calendar"></i>{{$publication->activity->getDateStartString() }}</span>
+                                                <span data-text="{{$publication->activity->getTimeSecondes() }}">Durée : {{$publication->activity->time }}</span>
+                                            </div>
+
+                                        </div>
+                                        <div class="post_activity_msg">
+                                                {{$publication->message}}
+                                        </div>
+                                    @endif
                                 </div>
-                                <!-- //Notice .timeline-footer class-->
                                 <div class="timeline-footer">
                                     <div class="comments" id="comments-{{ $publication->id }}">
-                                        <?php $y = 1;$class=""; ?>
-                                        @foreach($publication->comments as $comment)
-                                            <div class="comment {{ $class }}">
-                                                <a class="pull-left" href="#">
-                                                    <img width="30" height="30" class="comment-avatar" alt="Julio Marquez" src="{{ asset($comment->user->picture) }}">
+                                        @foreach($publication->commentspost as $comment)
+                                            <div class="comment">
+                                                <a class="pull-left" href="{{ route("user.show", $comment->user->id ) }}">
+                                                    <img width="35" height="35" class="comment-avatar" alt="{{ $comment->user->firstname.' '.$comment->user->lastname }}" src="{{ asset($comment->user->picture) }}">
                                                 </a>
                                                 <div class="comment-body">
                                                     <span class="message"><strong>{{ $comment->user->firstname.' '.$comment->user->lastname }}</strong> {{ $comment->message }}</span>
                                                     <span class="time">{{ $comment->timeago($comment->created_at) }}</span>
                                                 </div>
                                             </div>
-                                            <?php
-                                                if($y > 4){
-                                                    $class = "none";
-                                                }
-                                                $y++;
-                                            ?>
                                         @endforeach
-                                        @if($y > 4)
-                                             <p class='moreComment'>Plus de commentaires</p>
+                                        @if($publication->comments->count() > 3)
+                                             <p class='moreComment' data-url="1">Plus de commentaires</p>
                                         @endif
                                         <div class="comment">
-                                            <a class="pull-left" href="#">
-                                                <img width="30" height="30" class="comment-avatar" alt="Julio Marquez" src="{{ asset(Auth::user()->picture) }}">
+                                            <a class="pull-left" href="{{ route("user.show", $publication->user->id ) }}">
+                                                <img width="35" height="35" class="comment-avatar" alt="{{Auth::user()->name}}" src="{{ asset(Auth::user()->picture) }}">
                                             </a>
                                             <div class="comment-body">
                                                 <input type="text" class="form-control" name="{{ $publication->id }}" id="post-comment" placeholder="Ecris un commentaire...">
@@ -211,6 +237,120 @@
                     @endforeach
                     <li style="float: none;" class="clearfix"></li>
                 </ul>
+                <input id="loadAllPublication" value="1" type="hidden" />
+            </div>
+        </div>
+    </div>
+    <div class="modal fade modal-post" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="modal-post">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4>Modifier votre publication</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="submit-modal-post" method="post" enctype="multipart/form-data">
+                    <textarea id="user-post-modal-post" name="message_status_modal" placeholder="Partage ton statut" rows="3" class="form-control" style="resize: none;border: none;box-shadow: none" ></textarea>
+                    <div class="form-actions panel-foo">
+                        <div class="btn-group">
+                            <div class="image-upload">
+                                <label for="file-input-modal">
+                                    <div class="btn btn-default"><i class="fa fa-camera"></i></div>
+                                </label>
+                                <input id="file-input-modal" name="picture_status_modal" type="file" accept="image/*"/>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary pull-right" >Post</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade modal-activity" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="modal-activity">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4>Modifier votre activité</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="submit-modal-activity" method="post" enctype="multipart/form-data">
+                    <div style="padding: 10px;">
+                        <div class="form-group">
+                            <label for="select-beast-act" class="">Sport :</label>
+                            <select id="select-beast-act" class="demo-default" name="sport_act_modal">
+                                @foreach($sports as $sport)
+                                    <option value="{{ $sport->id }}">
+                                        {{ $sport->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="datetimepicker1-modal" class="">Date de début :</label>
+                            <div class="input-group date" id="datetimepicker1-modal">
+                                <input type="text" class="form-control" placeholder="__/__/____ __:__" name="date_start_act_modal" id="date_start_act_modal">
+                                <span class="input-group-addon">
+                                    <span class="fa-calendar fa"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="datetimepicker2-modal" class="">Durée</label>
+                            <div id="datetimepicker2-modal">
+                                <div class="input-group time">
+                                    <input type="text" class="form-control" placeholder="00" aria-describedby="basic-addon1" name="time_h_act_modal" id="time_h_act_modal">
+                                    <span class="input-group-addon" id="basic-addon1">H</span>
+                                </div>
+                                <div class="input-group time">
+                                    <input type="text" class="form-control" placeholder="00" aria-describedby="basic-addon2" name="time_m_act_modal" id="time_m_act_modal">
+                                    <span class="input-group-addon" id="basic-addon2">MIN</span>
+                                </div>
+                                <div class="input-group time">
+                                    <input type="text" class="form-control" placeholder="00" aria-describedby="basic-addon3" name="time_s_act_modal" id="time_s_act_modal">
+                                    <span class="input-group-addon" id="basic-addon3">SEC</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="user-post-modal">Donne ton ressenti</label>
+                            <textarea id="user-post-modal-act" name="message_act_modal" placeholder="Message..." rows="3" class="form-control" style="resize: none;border: none;" ></textarea>
+                        </div>
+                    </div>
+                    <div class="form-actions panel-foo">
+                        <div class="btn-group">
+                            <div class="image-upload">
+                                <label for="file-input2-modal">
+                                    <div class="btn btn-default"><i class="fa fa-camera"></i></div>
+                                </label>
+                                <input id="file-input2-modal" name="picture_act_modal" type="file"/>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary pull-right">Post</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade modal-delete" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="modal-delete">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4>Suppression de votre publication</h4>
+                </div>
+                <div class="modal-body">
+                    Etes vous sur de vouloir supprimer cette publication ?
+                </div>
+                <form id="delete-modal-post" method="post">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+
+                        <button type="submit" class="btn btn-primary" id="confirm">Oui</button>
+                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -221,26 +361,5 @@
     <script src="{{ asset('asset/js/plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.fr.js') }}"></script>
     <script src="{{ asset('asset/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js') }}"></script>
     <script src="{{ asset('asset/js/plugins/selectize.js/standalone/selectize.min.js') }}"></script>
-
-    <script>
-        $("#datetimepicker1").datetimepicker({language: "fr",icons:{time:"fa fa-clock-o",date:"fa fa-calendar",up:"fa fa-arrow-up",down:"fa fa-arrow-down"}});
-        $("#datetimepicker22").datetimepicker({
-            icons: {
-                time: "fa fa-clock-o",
-                date: "fa fa-calendar",
-                up: "fa fa-arrow-up",
-                down: "fa fa-arrow-down"
-            },
-            useSeconds: true,
-            pickDate: false
-        });
-        $('#select-beast').selectize({
-            create: true,
-            sortField: {
-                field: 'text',
-                direction: 'asc'
-            },
-            dropdownParent: 'body'
-        });
-    </script>
+    <script src="{{ asset('asset/js/scroll.js') }}"></script>
 @endsection

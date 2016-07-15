@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\HelperPublication;
 use App\Http\Controllers\Controller;
 use App\Publication;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Redirect;
 use Validator;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -21,19 +24,6 @@ class PublicationController extends Controller
         //
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'message_status' => 'required|max:255',
-            'picture_status' => 'mimes:jpeg,png,jpg'
-        ]);
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -53,31 +43,14 @@ class PublicationController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-        $user = Auth::user();
-        $validator = $this->validator($data);
-
-        if ($validator->fails()) {
-            return redirect('/')->withErrors($validator);
+        $publication = HelperPublication::store($request);
+        if(is_array($publication) && array_key_exists('errors',$publication)){
+            return Redirect::back()->withErrors($publication['errors']);
         }
 
-        $imageName = null;
-        if ($request->hasFile('picture_status')) {
-            $imageName = $user->id . '_' . date('YmdHis'). '_post.' . $request->file('picture_status')->getClientOriginalExtension();;
+        Publication::create($publication);
 
-            $request->file('picture_status')->move(
-                storage_path() . '\uploads', $imageName
-            );
-            $imageName = '/uploads/'.$imageName;
-        }
-
-        Publication::create(array(
-            'message' => $data['message_status'],
-            'user_id' => $user->id,
-            'picture' => $imageName
-        ));
-
-        return redirect('/');
+        return Redirect::back();
     }
 
     /**
@@ -109,9 +82,40 @@ class PublicationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Publication $publication)
     {
         //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateAjax(Request $request, Publication $publication)
+    {
+        if(\Request::ajax() && $publication != null){
+
+            $publicationUpdate = HelperPublication::update($request,$publication);
+            if(is_array($publicationUpdate) && array_key_exists('errors',$publicationUpdate)){
+                return \Response::json(array(
+                    'success' => false,
+                    'errors' => $publicationUpdate['errors']
+                ));
+            }
+
+            $publication = $publicationUpdate['publication'];
+            $publication->save();
+            $video = $publicationUpdate['video'];
+
+            return \Response::json(array(
+                'success' => true,
+                'publication' => $publication,
+                'video' => $video
+            ));
+        }
     }
 
     /**
@@ -120,8 +124,64 @@ class PublicationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Publication $publication)
     {
-        //
+       //
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyAjax(Publication $publication)
+    {
+        if(\Request::ajax() && $publication != null) {
+
+            if(HelperPublication::destroy($publication)){
+                return \Response::json(array(
+                    'success' => true
+                ));
+            }
+        }
+        return \Response::json(array(
+            'success' => false
+        ));
+    }
+
+    public function loadComment(Publication $publication,Request $request){
+
+        if(\Request::ajax()) {
+            return HelperPublication::loadComments($publication,$request);
+        }
+        return Response::json(array(
+            'success' => false
+        ));
+    }
+
+    public function loadAll(Request $request){
+        if(\Request::ajax()) {
+            $helper = new HelperPublication();
+            $data = $helper->loadAll($request);
+
+            return \Response::json($data);
+        }
+        return \Response::json(array(
+            'success' => false
+        ));
+    }
+
+
+
+    public function signaleAjax(Publication $publication){
+        if(\Request::ajax() && !is_null($publication)) {
+            HelperPublication::signale($publication);
+        }
+        return true;
+    }
+
+
+
+
 }

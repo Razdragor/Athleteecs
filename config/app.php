@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', false),
+    'debug' => env('APP_DEBUG', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -141,7 +141,6 @@ return [
         Illuminate\Pagination\PaginationServiceProvider::class,
         Illuminate\Pipeline\PipelineServiceProvider::class,
         Illuminate\Queue\QueueServiceProvider::class,
-        Illuminate\Redis\RedisServiceProvider::class,
         Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
         Illuminate\Session\SessionServiceProvider::class,
         Illuminate\Translation\TranslationServiceProvider::class,
@@ -161,7 +160,14 @@ return [
          */
         Laravel\Socialite\SocialiteServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
-        Intervention\Image\ImageServiceProvider::class
+        Intervention\Image\ImageServiceProvider::class,
+        GoogleMaps\ServiceProvider\GoogleMapsServiceProvider::class,
+
+        /*
+         * redis pour tchat
+         */
+        // Illuminate\Redis\RedisServiceProvider:class,
+        Vetruvet\PhpRedis\PhpRedisServiceProvider::class
 
     ],
 
@@ -198,7 +204,7 @@ return [
         'Password' => Illuminate\Support\Facades\Password::class,
         'Queue' => Illuminate\Support\Facades\Queue::class,
         'Redirect' => Illuminate\Support\Facades\Redirect::class,
-        'Redis' => Illuminate\Support\Facades\Redis::class,
+        'LRedis' => Illuminate\Support\Facades\Redis::class,
         'Request' => Illuminate\Support\Facades\Request::class,
         'Response' => Illuminate\Support\Facades\Response::class,
         'Route' => Illuminate\Support\Facades\Route::class,
@@ -210,7 +216,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Entrust'  => Zizaco\Entrust\EntrustServiceProvider::class,
-        'Image' => Intervention\Image\Facades\Image::class
+        'Image' => Intervention\Image\Facades\Image::class,
+        'GoogleMaps' => GoogleMaps\Facade\GoogleMapsFacade::class
     ],
 
 ];

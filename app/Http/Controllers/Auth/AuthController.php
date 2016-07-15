@@ -85,14 +85,6 @@ class AuthController extends Controller
         ));
     }
 
-    protected function authenticated($request, $user)
-    {
-        if($user->hasRole('admin')) {
-            return redirect()->intended('/admin');
-        }
-        return redirect()->intended('/');
-    }
-
     public function register(Request $request){
 
         $validator = $this->validator($request->all());
@@ -109,11 +101,10 @@ class AuthController extends Controller
             if(!$user->hasRole($roleUser->name)){
                 $user->attachRole($roleUser);
             }
-            auth()->login($user);
         }
 
         $this->activationService->sendActivationMail($user);
-        return redirect('/login')->with('status', 'We sent you an activation code. Check your email.');
+        return redirect('/login')->with('status', 'Nous vous avons envoyé un mail d\'activation sur votre boite mail');
     }
 
     public function activateUser($token)
@@ -124,5 +115,6 @@ class AuthController extends Controller
         }
         abort(404);
     }
+
 
 }
