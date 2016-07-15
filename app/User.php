@@ -9,6 +9,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
+use Illuminate\Support\Facades\DB;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
@@ -65,6 +66,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function associations(){
         return $this->hasMany('App\UsersAssociations');
+    }
+
+    public function videos(){
+        $video = DB::table('publications')
+            ->join('videos', 'publications.video_id', '=', 'videos.id')
+            ->where('publications.user_id', '=', $this->id)
+            ->select('videos.*')
+            ->get();
+
+        return $video;
     }
 
     public function isMemberAssociation($id){

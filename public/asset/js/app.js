@@ -82,10 +82,21 @@ $('#videos').click(function() {
   $(this).addClass('active');
   $('.videos').show();
 });
+
+$('#amis').click(function() {
+  var valeur;
+  valeur = $(".active.ok").attr('id');
+  $('#'+valeur).removeClass("active");
+  $('.'+valeur).hide();
+  $(this).addClass('active');
+  $('.amis').show();
+});
+
 $('#photos').click(function() {
   var valeur;
   valeur = $(".active.ok").attr('id');
   $('#'+valeur).removeClass("active");
   $('.'+valeur).hide();
-  $('.photos').addClass('active');
+  $(this).addClass('active');
+  $('.photos').show();
 });

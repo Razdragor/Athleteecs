@@ -39,7 +39,10 @@ use Illuminate\Support\Facades\File;
 
         Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () {
             Route::get('/', 'Admin\AdminController@index');
-            Route::get('users', ['as' => 'admin.users.index', 'uses' => 'Admin\UsersController@index']);
+            Route::get('/datauser', 'Admin\AdminController@datauser');
+            Route::resource('user', 'Admin\UserController');
+            Route::resource('publication', 'Admin\PublicationController');
+            Route::get('/comment/{comment}/destroy',  ['as' => 'comment.destroy', 'uses' => 'Admin\CommentController@destroy']);
         });
 
     Route::group(['middleware' => ['role:user|admin']], function () {

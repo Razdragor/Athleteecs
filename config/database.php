@@ -109,7 +109,6 @@ return [
         'default' => [
             'host'       => env('REDIS_HOST', 'localhost'), // default: '127.0.0.1'
             'port'       => env('REDIS_PORT', 6379),        // default: 6379
-            'database'   => 0,           // default: 0
         ],
     ],
 
