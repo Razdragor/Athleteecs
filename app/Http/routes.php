@@ -106,7 +106,7 @@ use Illuminate\Support\Facades\File;
 
         });
 
-        Route::get('uploads/{image}', function($image){
+        Route::get('/uploads/{image}', function($image){
 
             //do so other checks here if you wish
 

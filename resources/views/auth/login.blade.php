@@ -54,7 +54,7 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-envelope"></i>
                                 </span>
-                                <input type="text" name="email" placeholder="Email Address" class="form-control" value="{{ old('email') }}">
+                                <input type="text" name="email" placeholder="Adresse email" class="form-control" value="{{ old('email') }}">
                             </div>
                             <span class="help-block">
                                 @if ($errors->has('email'))
@@ -64,14 +64,14 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-lock"></i>
                                 </span>
-                                <input type="password" name="password" placeholder="Password" class="form-control">
+                                <input type="password" name="password" placeholder="Mot de passe" class="form-control">
                             </div>
                             <span class="help-block">
                                 @if ($errors->has('password'))
                                     <strong>{{ $errors->first('password') }}</strong>
                                 @endif
                             </span>
-                            <button type="submit" class="btn btn-lg btn-primary btn-block">Login</button>
+                            <button type="submit" class="btn btn-lg btn-primary btn-block">Connexion</button>
                         </form>
                     </div>
                 </div>
