@@ -4,7 +4,8 @@
 @section('css')
     <link href="{{ asset('asset/css/layouts/user-profile.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/layouts/user-cards.css') }}" rel="stylesheet">
-    <link href="{{ asset('asset/css/layouts/social.core.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/js/plugins/isotope/isotope.css') }}" rel="stylesheet">
+
     <link href="{{ asset('asset/css/plugins/selectizejs/selectize-default.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/glyphicons_free/glyphicons.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.css') }}" rel="stylesheet">
@@ -132,34 +133,34 @@
                                     <!-- BEGIN TABS SECTIONS-->
                                     <div id="profileTabContent" class="tab-content col-sm-9 col-md-9">
                                         <div class="tab-pane active pots" style="display: none;">
-                                            @foreach($user->publications as $publication)
-                                            <br>
+                                        @foreach($user->publications as $publication)
+                                        <br>
 
-                                            <div class="timeline-panel">
-                                                <!-- //Notice .timeline-heading class-->
-                                                <div class="timeline-heading">
-                                                    <img src="http://lorempixel.com/800/250/sports/5/" alt="Image" class="img-responsive">
-                                                </div>
-                                                <!-- //Notice .timeline-body class-->
-                                                <div class="timeline-body">
-                                                    <p>{{ $publication->message }}</p>
-                                                </div>
-                                                <!-- //Notice .timeline-footer class-->
-                                                <div class="timeline-footer">
-                                                    <!---->
-                                                    <a href="#"><i class="fa fa-thu mbs-up"></i>
-                                                    </a>
-                                                    <!---->
-                                                    <a href="#"><i class="fa fa-comment"></i>
-                                                    </a>
-                                                    <!---->
-                                                    <a href="#"><i class="fa fa-share"></i>
-                                                    </a>
-                                                    <!---->
-                                                    <a class="late-reading">Continue Reading</a>
-                                                </div>
+                                        <div class="timeline-panel">
+                                            <!-- //Notice .timeline-heading class-->
+                                            <div class="timeline-heading">
+                                                <img src="http://lorempixel.com/800/250/sports/5/" alt="Image" class="img-responsive">
                                             </div>
-                                            @endforeach
+                                            <!-- //Notice .timeline-body class-->
+                                            <div class="timeline-body">
+                                                <p>{{ $publication->message }}</p>
+                                            </div>
+                                            <!-- //Notice .timeline-footer class-->
+                                            <div class="timeline-footer">
+                                                <!---->
+                                                <a href="#"><i class="fa fa-thu mbs-up"></i>
+                                                </a>
+                                                <!---->
+                                                <a href="#"><i class="fa fa-comment"></i>
+                                                </a>
+                                                <!---->
+                                                <a href="#"><i class="fa fa-share"></i>
+                                                </a>
+                                                <!---->
+                                                <a class="late-reading">Continue Reading</a>
+                                            </div>
+                                        </div>
+                                        @endforeach
                                         </div>
                                         <div class="tab-pane active infos">
                                             <br>
@@ -187,7 +188,37 @@
                                                 </dd>
                                             </dl>
                                         </div>
-                                    </div>
+                                        <div class="tab-pane active photos">
+                                            <div id="3" class="section-portfolio-items isotopeWrapper clearfix">
+                                                @foreach($user->pictures as $picture)
+                                                <article class="col-md-4 isotopeItem webdesign">
+                                                    <div class="section-portfolio-item">
+                                                        <img src="http://www.chloesplace.co.uk/kitten-01.jpg" alt="">
+                                                        <div class="section-portfolio-desc align-center">
+                                                            <div class="folio-info">
+                                                                <h5><a href="#">section-portfolio name</a></h5>
+                                                                <a href="http://www.chloesplace.co.uk/kitten-01.jpg" class="fancybox"><i class="fa fa-plus fa-2x"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </article>
+                                                @endforeach
+                                                <article class="col-md-4 isotopeItem webdesign">
+                                                    <div class="section-portfolio-item">
+                                                        {{--<img src="../../assets/img/gallery/sunset.jpg" alt="">--}}
+                                                        <div class="section-portfolio-desc align-center">
+                                                            <div class="folio-info">
+                                                                <h5><a href="#">section-portfolio name</a></h5>
+                                                                {{--<a href="../../assets/img/gallery/sunset.jpg" class="fancybox">--}}
+                                                                    <i class="fa fa-plus fa-2x"></i>
+                                                                {{--</a>--}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </article>
+                                            </div>
+                                        </div>
                                     <!-- END TABS SECTIONS-->
                                     <div id="user-links" class="col-sm-3 col-md-3">
                                         <h4>Other Profiles</h4>
@@ -331,4 +362,8 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('js')
+        <script src="{{ asset('asset/js/plugins/isotope/jquery.isotope.min.js') }}"></script>
 @endsection

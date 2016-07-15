@@ -87,5 +87,5 @@ $('#photos').click(function() {
   valeur = $(".active.ok").attr('id');
   $('#'+valeur).removeClass("active");
   $('.'+valeur).hide();
-  $(this).addClass('active');
+  $('.photos').addClass('active');
 });
