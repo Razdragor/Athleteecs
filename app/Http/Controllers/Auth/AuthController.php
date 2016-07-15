@@ -104,7 +104,7 @@ class AuthController extends Controller
         }
 
         $this->activationService->sendActivationMail($user);
-        return redirect('/login')->with('status', 'We sent you an activation code. Check your email.');
+        return redirect('/login')->with('status', 'Nous vous avons envoyé un mail d\'activation sur votre boite mail');
     }
 
     public function activateUser($token)
