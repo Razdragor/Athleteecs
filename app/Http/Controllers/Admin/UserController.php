@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 
 
-class UsersController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,11 @@ class UsersController extends Controller
      */
     public function index(){
         $user = Auth::user();
-        return view('admin.users', ['user' => $user, 'allusers' => $allusers = User::all()]);
+        return view('admin.user.index', ['user' => $user, 'allusers' => $allusers = User::all()]);
+    }
+
+    public function show(User $user){
+        return view('admin.user.show', ['user' => $user]);
     }
 
 

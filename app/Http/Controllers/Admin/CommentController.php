@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Comment;
+use App\HelperPublication;
+use App\Http\Controllers\Controller;
+use App\Publication;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Redirect;
+use Validator;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
-use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
-class AdminController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,27 +22,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        //SELECT DATE(created_at) as d,count(id) from users GROUP by d
-
-        return view('admin.index', ['user' => $user]);
-    }
-
-    public function datauser(){
-        $result = DB::table('users')
-            ->select(DB::raw('count(*) as user_count, created_at as d'))
-            ->groupBy('d')
-            ->get();
-
-        $data = array();
-        foreach($result as $d){
-            $date = explode(" ",$d->d);
-            $data[] = array($date[0], $d->user_count);
-        }
-
-        return \Response::json(array(
-            'data' => $data
-        ));
+       //
     }
 
     /**
@@ -68,7 +52,7 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Publication $publication)
     {
         //
     }
@@ -91,10 +75,11 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Comment $comment)
     {
-        //
+       //
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -102,8 +87,13 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Comment $comment)
     {
-        //
+        $post = $comment->publication;
+        $comment->delete();
+        return Redirect::route('admin.publication.show', ['publication' => $post->id]);
     }
+
+
+
 }

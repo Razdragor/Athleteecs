@@ -34,8 +34,7 @@ $(document).ready(function() {
         else{
             publicationDestroy = 'publication/'+splitID[1]+'/signaleAjax';
         }
-
-        $('#modal-delete').modal('show');
+        $('#modal-signal').modal('show');
     });
 
     $('#delete-modal-post').submit(function(e){
@@ -49,6 +48,21 @@ $(document).ready(function() {
                 {
                     $('#modal-delete').modal('hide');
                     location.reload();
+                }
+            }
+        });
+    });
+
+    $('#signal-modal-post').submit(function(e){
+        e.preventDefault();
+        $.ajax({
+            url: "/"+publicationDestroy,
+            type: 'post',
+            data: {},
+            success: function(data) {
+                if(data['success'] == true)
+                {
+                    $('#modal-signal').modal('hide');
                 }
             }
         });
