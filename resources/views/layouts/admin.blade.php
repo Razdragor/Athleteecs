@@ -20,7 +20,10 @@
     <link href="{{ asset('assets/css/demo.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/js/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/themes/admin/facebook.css') }}" rel="stylesheet">
+
     @yield('css')
+    <link href="{{ asset('asset/css/front.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/admin.css') }}" rel="stylesheet">
 
     <style>
         .wrapper .main {
@@ -43,8 +46,8 @@
             <!-- BEGIN USER SECTION-->
             <div class="user">
                 <!-- //Notice .avatar class-->
-                <img width="25" height="25" src="{{ $user->picture }}" alt="{{ $user->firstname.' '.$user->lastname }}" class="avatar">
-                <span>@if(isset($user)){{ $user->firstname.' '.$user->lastname }}@endif</span>
+                <img width="25" height="25" src="{{ Auth::user()->picture }}" alt="{{ Auth::user()->firstname.' '.Auth::user()->lastname }}" class="avatar">
+                <span>{{ Auth::user()->firstname.' '.Auth::user()->lastname }}</span>
                 <i data-toggle="dropdown" class="trigger-user-settings fa fa-user"></i>
                 <div class="user-settings">
                     <h3 class="user-settings-title">Settings shortcuts</h3>
@@ -81,11 +84,15 @@
                     <ul id="social-sidebar-menu">
                         <!-- BEGIN ELEMENT MENU-->
                         <li>
-                            <a href="{{ route('admin.users.index') }}">
+                            <a href="{{ route('admin.user.index') }}">
                                 <!-- icon--><i class="fa fa-users"></i>
                                 <span>Utilisateurs</span>
-                                <!-- badge-->
-                                <span class="badge">{{$numberUser}}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.publication.index') }}">
+                                <!-- icon--><i class="fa fa-list-alt"></i>
+                                <span>Publications</span>
                             </a>
                         </li>
 
@@ -154,91 +161,6 @@
             </div>
             <div class="navbar-toggle"><i class="fa fa-align-justify"></i>
             </div>
-            <div>
-                <ul class="nav navbar-nav">
-                    <li class="dropdown navbar-super-fw hidden-xs">
-                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Mega Menu<b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="alert alert-warning alert-dismissable">
-                                            <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button><strong>Warning!</strong>Better check yourself, you're not looking too good.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="btn-icon col-md-3">
-                                        <a href="#" role="button" class="btn btn-neutral"><i class="fa fa-dashboard fa-lg"></i>
-                                            <div class="title">Dashboard</div>
-                                            <span class="label label-warning">2</span>
-                                        </a>
-                                    </div>
-                                    <div class="btn-icon col-md-3">
-                                        <a href="#" role="button" class="btn btn-primary"><i class="fa fa-calendar fa-lg"></i>
-                                            <div class="title">Calendar</div>
-                                            <span class="label label-danger">4</span>
-                                        </a>
-                                    </div>
-                                    <div class="btn-icon col-md-3">
-                                        <a href="#" role="button" class="btn btn-danger"><i class="fa fa-inbox fa-lg"></i>
-                                            <div class="title">Inbox</div>
-                                            <span class="label label-success">2</span>
-                                        </a>
-                                    </div>
-                                    <div class="btn-icon col-md-3">
-                                        <a href="#" role="button" class="btn btn-success"><i class="fa fa-money fa-lg"></i>
-                                            <div class="title">Finances</div>
-                                            <span class="label label-primary">256$</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="media well">
-                                            <a href="#" class="pull-left">
-                                                <img src="../../assets/img/avatars/user1_55.jpg" style="width: 55px; height: 55px;" alt="User" class="media-object">
-                                            </a>
-                                            <div class="media-body">
-                                                <h4 class="media-heading">Media heading</h4>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo.
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="panel panel-default">
-                                            <!-- Table-->
-                                            <table class="table">
-                                                <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>First Name</th>
-                                                    <th>Last Name</th>
-                                                    <th>Username</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Mark</td>
-                                                    <td>Otto</td>
-                                                    <td>@mdo</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td>Jacob</td>
-                                                    <td>Thornton</td>
-                                                    <td>@fat</td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <!-- END DROPDOWN MESSAGES-->
                     <li class="divider-vertical"></li>
@@ -466,23 +388,6 @@
         </div>
     </div>
 </div>
-<!-- BEGIN THEME SWITCHER-->
-<div class="theme-switcher">
-    <a href="#"><i class="fa fa-cogs"></i>
-    </a>
-    <div class="content"><strong>Color Style</strong>
-        <select name="colorpicker" class="styles">
-            <option value="#fff" data-theme="../../assets/css/themes/admin/default.css">Default</option>
-            <option value="#647AAB" data-theme="../../assets/css/themes/admin/facebook.css">Facebook</option>
-            <option value="#242424" data-theme="../../assets/css/themes/admin/inverse.css">Inverse</option>
-            <option value="#62c462" data-theme="../../assets/css/themes/admin/green.css">Green</option>
-            <option value="#394263" data-theme="../../assets/css/themes/admin/blue-sidebar.css">Blue Sidebar</option>
-        </select>
-        <hr>
-        <a href="../admin-rtl/index.html"><strong>RTL Version</strong>
-        </a>
-    </div>
-</div>
 <!-- END THEME SWITCHER-->
 <!-- jQuery-->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -502,50 +407,6 @@
 <script>
     window.jQuery.ui || document.write('<script src="../../assets/js/jquery-ui/jquery-ui.min.js"><\/script>')
 </script>
-<!-- Bootstrap Hover Dropdown-->
-<script src="../../assets/js/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js"></script>
-<!-- jQuery slimScroll-->
-<script src="//cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.1/jquery.slimscroll.min.js"></script>
-<script>
-    window.jQuery.ui || document.write('<script src="../../assets/js/plugins/jquery.slimscroll/jquery.slimscroll.min.js"><\/script>')
-</script>
-<!-- BEGIN THEME SWITCHER SCRIPTS-->
-<script>
-    var assets_dir = '../../assets/'
-</script>
-<script src="../../assets/js/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker.js"></script>
-<script src="../../assets/js/demo/theme-switcher-admin.js"></script>
-<!-- END THEME SWITCHER SCRIPTS-->
-<script src="../../assets/js/sidebar.js"></script>
-<script src="../../assets/js/panels.js"></script>
-<!-- BEGIN GENERAL SCRIPTS-->
-<script>
-    $(function() {
-        $(".social-sidebar").socialSidebar();
-        $('.main').panels();
-        $(".main a[href='#ignore']").click(function(e) {
-            e.stopPropagation()
-        });
-    });
-    $(document).on('click', '.navbar-super .navbar-super-fw', function(e) {
-        e.stopPropagation()
-    });
-</script>
-
-<script src="../../assets/js/plugins/flot/jquery.flot.js"></script>
-<script src="../../assets/js/plugins/flot/jquery.flot.selection.js"></script>
-<script src="../../assets/js/plugins/jqvmap/jquery.vmap.js"></script>
-<script src="../../assets/js/plugins/jqvmap/maps/jquery.vmap.world.js"></script>
-<script src="../../assets/js/plugins/jqvmap/data/jquery.vmap.sampledata.js"></script>
-<script src="../../assets/js/plugins/easy-pie-chart/jquery.easypiechart.min.js"></script>
-<script src="../../assets/js/plugins/jquery.sparkline/jquery.sparkline.min.js"></script>
-<script src="../../assets/js/plugins/fullcalendar/fullcalendar.min.js"></script>
-<script src="../../assets/js/plugins/justgage/lib/raphael.2.1.0.min.js"></script>
-<script src="../../assets/js/plugins/justgage/justgage.js"></script>
-<script src="//maps.google.com/maps/api/js?sensor=true"></script>
-<script src="../../assets/js/plugins/gmaps/gmaps.js"></script>
-<script src="../../assets/js/plugins/pnotify/pnotify.custom.min.js"></script>
-<script src="../../assets/js/demo/dashboard.js"></script>
 
 @yield('js')
 

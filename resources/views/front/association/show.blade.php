@@ -53,9 +53,6 @@
                 @if($user->isAdminAssociation($association->id))
                     <div class="col-sm-6 col-md-4 col-lg-2">
                         <a class="btn btn-block btn-primary" href="{{ route('association.edit', ['association' => $association]) }}"><i class="fa fa-edit"></i>Editer</a>
-                        @if(isset($message))
-                            <small>{{ var_dump($message) }}</small>
-                        @endif
                     </div>
                     <div class="col-sm-6 col-md-4 col-lg-2">
                         <a class="btn btn-block btn-primary" href="{{ route('association.delete', ['association' => $association]) }}">Supprimer</a>

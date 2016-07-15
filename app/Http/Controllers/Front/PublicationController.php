@@ -177,8 +177,16 @@ class PublicationController extends Controller
     public function signaleAjax(Publication $publication){
         if(\Request::ajax() && !is_null($publication)) {
             HelperPublication::signale($publication);
+
+            return \Response::json(array(
+                'success' => true
+            ));
         }
-        return true;
+
+        return \Response::json(array(
+            'success' => false
+        ));
+
     }
 
 

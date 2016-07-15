@@ -166,8 +166,8 @@ return [
         /*
          * redis pour tchat
          */
-        // Illuminate\Redis\RedisServiceProvider:class,
-        Vetruvet\PhpRedis\PhpRedisServiceProvider::class
+    // 'Illuminate\Redis\RedisServiceProvider',
+    'Vetruvet\PhpRedis\PhpRedisServiceProvider',
 
     ],
 

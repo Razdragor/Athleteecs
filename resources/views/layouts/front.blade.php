@@ -34,16 +34,37 @@ $user = Auth::user();
     <div class="wrapper">
         <aside class="social-sidebar">
     <div class="visible-lg visible-md">
-        <h4>Groupes :</h4>
+        <h4>Events :</h4>
         
         <ul>
-            @foreach($user->groups as $group)
-                <li>
-                    {{$group->name}}
-                </li>
+            @foreach($user->events as $user_event)
+                @if($user->isMemberEvent($user_event->event->id))
+                    <li>
+                        <a href="{{ route('event.index', ['events' => $user_event->event->id]) }}">
+                        {{$user_event->event->name}}
+
+                        </a>
+                    </li>
+                @endif
             @endforeach
         </ul>
-        <a href="#">Créer un groupe</a>
+        <a href="{{ route('event.create') }}">Créer un event</a>
+        
+        
+        <h4>Associations :</h4>
+        
+        <ul>
+            @foreach($user->associations as $association)
+                @if($user->isMemberAssociation($association->association->id))
+                    <li>
+                        <a href="{{ route('association.index', ['association' => $association->association->id]) }}">
+                        {{$association->association->name}}
+                        </a>
+                    </li>
+                @endif
+            @endforeach
+        </ul>
+        <a href="{{ route('association.create') }}">Créer une association</a>
         
         <h4>Conversations :</h4>
         
@@ -209,7 +230,7 @@ $user = Auth::user();
                                                 <small class="pull-right">{{$notification->timeAgo($notification->created_at)}}</small>
                                             </a>
                                         @endif
-                                        @if($notification->notification == 'groups')
+                                        @if($notification->notification == 'events')
                                             <a href="#" style="white-space: normal" name="{{$notification->id}}">
                                                 <span>{{$notification->libelle}}</span>
                                                 <small class="pull-right">{{$notification->timeAgo($notification->created_at)}}</small>
@@ -390,7 +411,10 @@ $user = Auth::user();
 <script src="{{ asset('asset/js/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js') }}"></script>
 <script src="{{ asset('asset/js/plugins/google-code-prettify/prettify.js') }}"></script>
 <script src="{{ asset('asset/js/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker.js') }}"></script>
+    
+<script src="https://cdn.socket.io/socket.io-1.3.4.js"></script>
 <script src="{{ asset('asset/js/app.js') }}"></script>
+<script src="https://cdn.socket.io/socket.io-1.3.4.js"></script>
 <script>
     /*<![CDATA[*/
     $(function() {
@@ -430,7 +454,7 @@ $user = Auth::user();
     var chatbox_pos = 200;
     // créer la tchatbox
     $('.create_conversation').on("click",function(){
-        create_or_show_chat($(this),'create_conversation');
+        create_or_show_chat($(this),"{{ route('create_conversation') }}");
     });
 
     // envoyer des éléments dans tchatbox
@@ -462,7 +486,7 @@ $user = Auth::user();
             {
                 $('.users-list').append('<form class="create_conversation"><input type="hidden" name="conv_id" value="'+chat_msg[0]['conv_id']+'"></input></form>');
                 var form = $(document).find('input[name="conv_id"][value="'+chat_msg[0]['conv_id']+'"]').parent();
-                create_or_show_chat(form,'show_conversation');
+                create_or_show_chat(form,"{{ route('show_conversation') }}");
                 $('#'+chat_class).append('<li class="right clearfix"><p>'+chat_msg[0]['friend']['firstname']+' '+chat_msg[0]['friend']['lastname']+' à été ajouté à la conversation</p></li>');
             }
         }
@@ -494,7 +518,7 @@ $user = Auth::user();
             else
             {
                     var form = $(document).find('input[name="id"][value="'+chat_msg[0]['user']['id']+'"]').parent();
-                    create_or_show_chat(form,'create_conversation');
+                    create_or_show_chat(form,"{{ route('create_conversation') }}");
 
                 $(".chat_conv_name").after('<div class="head-tchat-left">'+chat_msg[0]['conv_name']+'</div>');
                 $(".chat_conv_name").remove();
@@ -541,7 +565,7 @@ $user = Auth::user();
                 else
                 {
                     var form = $(document).find('input[name="id"][value="'+chat_msg[0]['user']['id']+'"]').parent();
-                    create_or_show_chat(form,'create_conversation');
+                    create_or_show_chat(form,"{{ route('create_conversation') }}");
                     $('#'+chat_class).append('<div class="col-xs-8 col-xs-offset-4">'+chat_msg[0]['firstname']+' '+chat_msg[0]['lastname']+'<p>'+chat_msg[0]['message']+'</p></div>');
                 }
             }
@@ -561,7 +585,7 @@ $user = Auth::user();
         var fdata = $(this).serialize();
         $.ajax({
             type:'POST',
-            url:'sendmessage',
+            url:"{{ route('sendmessage') }}",
             data:fdata,
             processData: false,
             success:function(data) {
@@ -593,7 +617,7 @@ $user = Auth::user();
         var fdata = $(this).serialize();
         $.ajax({
             type:'POST',
-            url:'change_conversation_name',
+            url:"{{route('change_conversation_name')}}",
             data:fdata,
             processData: false,
             success:function(data) {
@@ -622,7 +646,7 @@ $user = Auth::user();
         var fdata = $(this).parent().serialize();
         $.ajax({
             type:'POST',
-            url:'chat_show_user',
+            url:"{{ route('chat_show_user') }}",
             data:fdata,
             processData: false,
             success:function(data) {
@@ -652,7 +676,7 @@ $user = Auth::user();
                     console.log(fdata);
             $.ajax({
             type:'POST',
-            url:'chat_add_user',
+            url:"{{route('chat_add_user')}}",
             data:fdata,
             processData: false,
             success:function(data) {
@@ -672,7 +696,7 @@ $user = Auth::user();
     //Ajout d'utilisateur à la conversation
     $('body').on('click','.chat_show', function(){
         var form = $(this);
-        create_or_show_chat($(this),'show_conversation');
+        create_or_show_chat($(this),"{{route('show_conversation') }}");
     }); 
     
     
@@ -680,7 +704,6 @@ $user = Auth::user();
         console.log(form[0]);
         var now = new Date().getDay();
         var fdata = $(form).serialize();
-        console.log(fdata);
         $.ajax({
             type:'POST',
             url:url, // url, from form

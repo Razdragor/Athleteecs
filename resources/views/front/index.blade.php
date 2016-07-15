@@ -347,9 +347,27 @@
                 <form id="delete-modal-post" method="post">
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-
-                        <button type="submit" class="btn btn-primary" id="confirm">Oui</button>
+                    <button type="submit" class="btn btn-primary" id="confirm">Oui</button>
                 </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade modal-signal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="modal-signal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4>Signaler la publication</h4>
+                </div>
+                <div class="modal-body">
+                    Etes vous sur de vouloir signaler cette publication ?
+                </div>
+                <form id="signal-modal-post" method="post">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                        <button type="submit" class="btn btn-primary" id="confirm">Oui</button>
+                    </div>
                 </form>
             </div>
         </div>
