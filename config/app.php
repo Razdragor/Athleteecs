@@ -163,12 +163,6 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         GoogleMaps\ServiceProvider\GoogleMapsServiceProvider::class,
 
-        /*
-         * redis pour tchat
-         */
-    // 'Illuminate\Redis\RedisServiceProvider',
-    'Vetruvet\PhpRedis\PhpRedisServiceProvider',
-
     ],
 
     /*
