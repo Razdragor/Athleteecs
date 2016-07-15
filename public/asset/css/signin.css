@@ -11,6 +11,9 @@
 .add-margin-top{
     margin-top: 80px;
 }
+img.logo-athleteec{
+    width: 144px;
+}
 @media (min-width: 768px) {
   .signin{
     margin: 140px 130px;
