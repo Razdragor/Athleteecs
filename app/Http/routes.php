@@ -94,11 +94,11 @@ use Illuminate\Support\Facades\File;
 
         });
 
-        Route::get('uploads/{image}', function($image){
+        Route::get('/uploads/{image}', function($image){
 
             //do so other checks here if you wish
 
-            if(!File::exists( $image=storage_path("/uploads/{$image}") )) abort(404);
+            if(!File::exists( $image=storage_path("uploads/{$image}") )) abort(404);
 
             return Image::make($image)->response('jpg'); //will ensure a jpg is always returned
         });
