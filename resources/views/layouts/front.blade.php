@@ -412,7 +412,7 @@ $user = Auth::user();
 <script src="{{ asset('asset/js/plugins/google-code-prettify/prettify.js') }}"></script>
 <script src="{{ asset('asset/js/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker.js') }}"></script>
     
-<script src="https://cdn.socket.io/socket.io-1.3.4.js"></script>
+<script src="{{ asset('asset/js/chat/socketio.js') }}"></script>
 <script src="{{ asset('asset/js/app.js') }}"></script>
 <script>
     /*<![CDATA[*/
