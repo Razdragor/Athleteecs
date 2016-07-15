@@ -1,5 +1,5 @@
-var app = require('express')();
-var server = require('http').Server(app);
+//var app = require('express')();
+var server = 'http://athleteec.razdragor.fr';
 var io = require('socket.io')(server);
 var redis = require('redis');
  
