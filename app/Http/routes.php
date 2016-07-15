@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\File;
     Route::model('comment', 'App\Comment');
     Route::model('association', 'App\Association');
     Route::model('userassociation', 'App\UsersAssociations');
+    Route::model('event', 'App\Event');
+    Route::model('userevent', 'App\UsersEvents');
     Route::model('notification', 'App\Notifications');
 
 
@@ -46,12 +48,12 @@ use Illuminate\Support\Facades\File;
         Route::resource('user', 'UserController');
         
         //Chat
-        Route::post('sendmessage', 'ConversationController@sendMessage');
-        Route::post('create_conversation', 'ConversationController@create');
-        Route::post('show_conversation', 'ConversationController@show');
-        Route::post('change_conversation_name', 'ConversationController@changeName');
-        Route::post('chat_add_user', 'ConversationController@addUser');
-        Route::post('chat_show_user', 'ConversationController@showUser');
+        Route::post('sendmessage', ['as' => 'sendmessage', 'uses' => 'ConversationController@sendMessage']);
+        Route::post('create_conversation', ['as' => 'create_conversation', 'uses' => 'ConversationController@create']);
+        Route::post('show_conversation', ['as' => 'show_conversation', 'uses' => 'ConversationController@show']);
+        Route::post('change_conversation_name', ['as' => 'change_conversation_name', 'uses' => 'ConversationController@changeName']);
+        Route::post('chat_add_user', ['as' => 'chat_add_user', 'uses' => 'ConversationController@addUser']);
+        Route::post('chat_show_user', ['as' => 'chat_show_user', 'uses' => 'ConversationController@showUser']);
         Route::resource('publication', 'Front\PublicationController');
         Route::post('/publication/{publication}/loadComment', 'Front\PublicationController@loadComment');
         Route::post('/publication/{publication}/updateAjax', 'Front\PublicationController@updateAjax');
@@ -73,6 +75,16 @@ use Illuminate\Support\Facades\File;
         Route::post('/association/{userassociation}/promouvoir', ['as' => 'association.promot', 'uses' => 'Front\AssociationController@promouvoir']);
         Route::post('/association/{userassociation}/destituer', ['as' => 'association.dest', 'uses' => 'Front\AssociationController@destituer']);
         Route::post('/association/search', ['as' => 'association.search', 'uses' => 'Front\AssociationController@search']);
+        Route::resource('event', 'Front\EventController',['except' => ['update']]);
+        Route::post('/event/{event}/update', ['as' => 'event.update', 'uses' => 'Front\EventController@update']);
+        Route::get('/event/{event}/delete', ['as' => 'event.delete', 'uses' => 'Front\EventController@delete']);
+        Route::post('/event/{event}/post', ['as' => 'event.post.store', 'uses' => 'Front\EventController@storepost']);
+        Route::post('/event/{event}/act', ['as' => 'event.act.store', 'uses' => 'Front\EventController@storeact']);
+        Route::get('/event/{event}/join', ['as' => 'event.join', 'uses' => 'Front\EventController@join']);
+        Route::get('/event/{event}/quit', ['as' => 'event.quit', 'uses' => 'Front\EventController@quit']);
+        Route::post('/event/{userevent}/promouvoir', ['as' => 'event.promot', 'uses' => 'Front\EventController@promouvoir']);
+        Route::post('/event/{userevent}/destituer', ['as' => 'event.dest', 'uses' => 'Front\EventController@destituer']);
+        Route::post('/event/search', ['as' => 'event.search', 'uses' => 'Front\EventController@search']);
         
         
         Route::resource('groups', 'GroupController');

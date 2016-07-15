@@ -69,7 +69,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function isMemberAssociation($id){
         foreach($this->associations as $association){
-            if($association->association_id == $id && !$association->is_admin)
+            if($association->association_id == $id)
                 return true;
         }
         return false;
@@ -78,6 +78,26 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function isAdminAssociation($id){
         foreach($this->associations as $association){
             if($association->association_id == $id && $association->is_admin)
+                return true;
+        }
+        return false;
+    }
+
+    public function events(){
+        return $this->hasMany('App\UsersEvents');
+    }
+
+    public function isMemberEvent($id){
+        foreach($this->events as $event){
+            if($event->event_id == $id)
+                return true;
+        }
+        return false;
+    }
+
+    public function isAdminEvent($id){
+        foreach($this->events as $event){
+            if($event->event_id == $id && $event->is_admin)
                 return true;
         }
         return false;
