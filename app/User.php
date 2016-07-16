@@ -123,6 +123,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         return $this->hasMany('App\Conversation_user');
     }
+    
+    public function conversations_reverse()
+    {
+        return $this->conversations()->orderBy('updated_at', 'desc');
+    }
 
     public function equipments()
     {
