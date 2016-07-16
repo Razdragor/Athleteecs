@@ -539,6 +539,7 @@ $user = Auth::user();
         now = new Date().getDay(),
         chat_class = 'conv_messages_'+chat_msg[0]['conv_id'],
         check_concerned = false;
+        var heureMessage = chat_msg[0]['message_h'];
 
         $.each(chat_msg[0]['users'],function(i,user){
             if(user.user_id == {{$user->id}})
@@ -552,7 +553,6 @@ $user = Auth::user();
         {
             if(chat_msg[0]['user']['id'] == {{ $user->id }})
             {
-                var heureMessage = chat_msg[0]['created_at'];
                 $('.'+chat_class).append('<li class="right clearfix"><span class="chat-avatar pull-right"><img src="{{ $user->picture }}" alt="{{ $user->firstname.' '. $user->lastname }}" width="55px" height="55px"></span>'+
                         '<div id="chat_sender1" class="chat-body clearfix"><div class="header">'+
                         '<small class="text-muted"><span class="fa fa-clock-o">&nbsp;'+heureMessage+'</span>'+
@@ -567,7 +567,7 @@ $user = Auth::user();
                 {
                     $('.'+chat_class).append('<li class="left clearfix"><span class="chat-avatar pull-left"><img src="'+chat_msg[0]['user']['picture']+'" alt="'+chat_msg[0]['user']['firstname']+' '+chat_msg[0]['user']['lastname']+
                             '" width="55px" height="55px"></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font">'+chat_msg[0]['user']['firstname']+' '+chat_msg[0]['user']['lastname']+
-                            '</strong><small class="pull-right text-muted"><span class="fa fa-clock-o">&nbsp;'+now+'</span></small></div><p>'+chat_msg[0]['message']+'</p></div></li>');
+                            '</strong><small class="pull-right text-muted"><span class="fa fa-clock-o">&nbsp;'+heureMessage+'</span></small></div><p>'+chat_msg[0]['message']+'</p></div></li>');
                     
                     $('.'+chat_class).parent().scrollTop($(".scroll-chat-box")[0].scrollHeight);
                 }
@@ -752,9 +752,9 @@ $user = Auth::user();
               
 
                 data.messages.forEach(function(message){
+                    var heureMessage = message['created_at'];
                     if(message['user_id'] == {{ $user->id }})
                     {
-                        var heureMessage = message['created_at'];
                         to_append = to_append + '<li class="right clearfix"><span class="chat-avatar pull-right"><img src="{{ $user->picture }}" alt="{{ $user->firstname.' '. $user->lastname }}" width="55px" height="55px"></span>'+
                                 '<div id="chat_sender1" class="chat-body clearfix"><div class="header">'+
                                 '<small class="text-muted"><span class="fa fa-clock-o">&nbsp;'+heureMessage+'</span>'+
@@ -771,7 +771,7 @@ $user = Auth::user();
                                 console.log(heureMessage);
                                 to_append = to_append + '<li class="left clearfix"><span class="chat-avatar pull-left"><img src="'+user['picture']+'" alt="'+user['firstname']+' '+user['lastname']+
                                         '" width="55px" height="55px"></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font">'+user['firstname']+' '+user['lastname']+
-                                        '</strong><small class="pull-right text-muted"><span class="fa fa-clock-o">&nbsp;'+now+'</span></small></div><p>'+message['message']+'</p></div></li>';
+                                        '</strong><small class="pull-right text-muted"><span class="fa fa-clock-o">&nbsp;'+heureMessage+'</span></small></div><p>'+message['message']+'</p></div></li>';
                             }
                         });
                     }
