@@ -112,27 +112,6 @@ $user = Auth::user();
                        </div>
                    </div>
            -->
-            <form class="chat-options">
-                <div class="input-group">
-                    <div class="input-group-btn dropup">
-                        <button type="button" tabindex="-1" data-toggle="dropdown" class="btn dropdown-toggle btn-xs"><i class="fa fa-cog"></i>
-                        </button>
-                        <ul role="menu" class="dropdown-menu pull-left">
-                            <li>
-                                <a href="#">Chat Sounds</a>
-                            </li>
-                            <li>
-                                <a href="#">Advanced Settings...</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="#">Turn Off Chat</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <input type="text" placeholder="Search user..." class="form-control">
-                </div>
-            </form>
         </div>
     </aside>
     <header>
@@ -493,8 +472,8 @@ $user = Auth::user();
         }
     });
 
-    
-    
+
+
     socket.on('change_name', function (data)
     {
         var chat_msg = $.parseJSON('[' + data + ']'),
@@ -567,8 +546,9 @@ $user = Auth::user();
                 {
                     $('.'+chat_class).append('<li class="left clearfix"><span class="chat-avatar pull-left"><img src="'+chat_msg[0]['user']['picture']+'" alt="'+chat_msg[0]['user']['firstname']+' '+chat_msg[0]['user']['lastname']+
                             '" width="55px" height="55px"></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font">'+chat_msg[0]['user']['firstname']+' '+chat_msg[0]['user']['lastname']+
+
                             '</strong><small class="pull-right text-muted"><span class="fa fa-clock-o">&nbsp;'+heureMessage+'</span></small></div><p>'+chat_msg[0]['message']+'</p></div></li>');
-                    
+
                     $('.'+chat_class).parent().scrollTop($(".scroll-chat-box")[0].scrollHeight);
                 }
                 else
@@ -718,9 +698,9 @@ $user = Auth::user();
     $('body').on('click','.chat_show', function(){
         var form = $(this);
         create_or_show_chat($(this),"{{route('show_conversation') }}");
-    }); 
-    
-    
+    });
+
+
     function create_or_show_chat(form, url,view = 0){
         var now = new Date().getDay();
         var fdata = $(form).serialize();
@@ -747,9 +727,6 @@ $user = Auth::user();
                             }
                         });              
                     }
-                    
-                }
-              
 
                 data.messages.forEach(function(message){
                     var heureMessage = message['created_at'];

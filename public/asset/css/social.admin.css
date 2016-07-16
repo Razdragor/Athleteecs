@@ -565,7 +565,12 @@ a.social-navbar .nav-indicators .nav-messages .dropdown-menu a.text-danger:hover
   }
   .social-navbar .nav-indicators-body {
     margin: 0 auto !important;
-    width: 150px;
+  @media screen and (max-width: 480px)
+  .social-navbar .nav-indicators-body {
+    margin: 0 auto !important;
+    float: none !important;
+    width: 240px;
+  }
     float: none !important;
   }
   .social-navbar .nav-indicators-body .dropdown {
