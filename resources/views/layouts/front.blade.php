@@ -727,65 +727,65 @@ $user = Auth::user();
                             }
                         });
                     }
-
-                    data.messages.forEach(function(message){
-                        var heureMessage = message['created_at'];
-                        if(message['user_id'] == {{ $user->id }})
-                        {
-                            to_append = to_append + '<li class="right clearfix"><span class="chat-avatar pull-right"><img src="{{ $user->picture }}" alt="{{ $user->firstname.' '. $user->lastname }}" width="55px" height="55px"></span>'+
-                                    '<div id="chat_sender1" class="chat-body clearfix"><div class="header">'+
-                                    '<small class="text-muted"><span class="fa fa-clock-o">&nbsp;'+heureMessage+'</span>'+
-                                    '</small><strong class="pull-right primary-font">{{ $user->firstname }} {{$user->lastname }}</strong>'+
-                                    '</div>'+
-                                    '<p>'+message['message']+'</p></div></li>';
-                        }
-                        else
-                        {
-                            data.users.forEach(function(user){
-                                if(message['user_id'] == user['id'])
-                                {
-                                    var heureMessage = message['created_at'];
-                                    console.log(heureMessage);
-                                    to_append = to_append + '<li class="left clearfix"><span class="chat-avatar pull-left"><img src="'+user['picture']+'" alt="'+user['firstname']+' '+user['lastname']+
-                                            '" width="55px" height="55px"></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font">'+user['firstname']+' '+user['lastname']+
-                                            '</strong><small class="pull-right text-muted"><span class="fa fa-clock-o">&nbsp;'+heureMessage+'</span></small></div><p>'+message['message']+'</p></div></li>';
-                                }
-                            });
-                        }
-                    });
-
-                    if(!($('.'+chat_class).length))
+                }
+                data.messages.forEach(function(message){
+                    var heureMessage = message['created_at'];
+                    if(message['user_id'] == {{ $user->id }})
                     {
-                        to_append = to_append + '</ul></div><div class="panel-footer"><form action="sendmessage" method="POST" class="chat_send_message"><div class="input-group">'+
-                                '<input type="hidden" name="_token" value="{{ csrf_token() }}"><input type="hidden" name="conversation_id" value="'+data.conv['id']+'">'+
-                                '<input id="btn-input" name="message" type="text" autocomplete="off" placeholder="Ecrivez un message..." class="form-control input-sm">'+
-                                '<span class="input-group-btn"><input type="submit" value="Envoyer" class="btn btn-success btn-sm"></span></div></form></div>';
-                    }
-                    if(view == 1)
-                    {
-                        $('.conv_users-list').after(to_append);
-                        chatbox_pos = chatbox_pos-370;
+                        to_append = to_append + '<li class="right clearfix"><span class="chat-avatar pull-right"><img src="{{ $user->picture }}" alt="{{ $user->firstname.' '. $user->lastname }}" width="55px" height="55px"></span>'+
+                                '<div id="chat_sender1" class="chat-body clearfix"><div class="header">'+
+                                '<small class="text-muted"><span class="fa fa-clock-o">&nbsp;'+heureMessage+'</span>'+
+                                '</small><strong class="pull-right primary-font">{{ $user->firstname }} {{$user->lastname }}</strong>'+
+                                '</div>'+
+                                '<p>'+message['message']+'</p></div></li>';
                     }
                     else
                     {
-                        if($('.'+chat_class).length)
-                        {
-                            $('.conv_messages_'+data.conv['id']).html(to_append);
-                            $(".scroll-chat-box").scrollTop($(".scroll-chat-box")[0].scrollHeight);
-                        }
-                        else
-                        {
-                            $('.users-list').after(to_append);
-                            $(".scroll-chat-box").scrollTop($(".scroll-chat-box")[0].scrollHeight);
-                        }
+                        data.users.forEach(function(user){
+                            if(message['user_id'] == user['id'])
+                            {
+                                var heureMessage = message['created_at'];
+                                console.log(heureMessage);
+                                to_append = to_append + '<li class="left clearfix"><span class="chat-avatar pull-left"><img src="'+user['picture']+'" alt="'+user['firstname']+' '+user['lastname']+
+                                        '" width="55px" height="55px"></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font">'+user['firstname']+' '+user['lastname']+
+                                        '</strong><small class="pull-right text-muted"><span class="fa fa-clock-o">&nbsp;'+heureMessage+'</span></small></div><p>'+message['message']+'</p></div></li>';
+                            }
+                        });
                     }
-                },
-                error:function(jqXHR)
-                {
-                    $('.return').html(jqXHR.responseText);
+                });
 
+                if(!($('.'+chat_class).length))
+                {
+                    to_append = to_append + '</ul></div><div class="panel-footer"><form action="sendmessage" method="POST" class="chat_send_message"><div class="input-group">'+
+                            '<input type="hidden" name="_token" value="{{ csrf_token() }}"><input type="hidden" name="conversation_id" value="'+data.conv['id']+'">'+
+                            '<input id="btn-input" name="message" type="text" autocomplete="off" placeholder="Ecrivez un message..." class="form-control input-sm">'+
+                            '<span class="input-group-btn"><input type="submit" value="Envoyer" class="btn btn-success btn-sm"></span></div></form></div>';
                 }
-            });
+                if(view == 1)
+                {
+                    $('.conv_users-list').after(to_append);
+                    chatbox_pos = chatbox_pos-370;
+                }
+                else
+                {
+                    if($('.'+chat_class).length)
+                    {
+                        $('.conv_messages_'+data.conv['id']).html(to_append);
+                        $(".scroll-chat-box").scrollTop($(".scroll-chat-box")[0].scrollHeight);
+                    }
+                    else
+                    {
+                        $('.users-list').after(to_append);
+                        $(".scroll-chat-box").scrollTop($(".scroll-chat-box")[0].scrollHeight);
+                    }
+                }
+            },
+            error:function(jqXHR)
+            {
+                $('.return').html(jqXHR.responseText);
+
+            }
+        });
     }
 
 
