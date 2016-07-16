@@ -81,12 +81,14 @@
 }
 .social-sidebar .chat .users-list a img {
     height: 30px;
+    width: 30px;
+    float: left;
 }
 .social-sidebar .chat .users-list a .user-status.online {
-    margin: 10px 14px 10px 0px;
+    margin: 10px 14px 10px 8px;
 }
 .social-sidebar .chat .users-list a .user-status.offline {
-    margin: 10px 14px 10px 0px;
+    margin: 10px 14px 10px 8px;
 }
 
 .video-container {

@@ -91,7 +91,7 @@ $user = Auth::user();
                         <form class="create_conversation">
                             <input type="hidden" name="id" value="{{ $friend->id }}"></input>
                             <a data-firstname="{{ $friend->firstname }}" data-lastname="{{ $friend->lastname }}" data-status="online" data-userid="{{ $friend->id }}">
-                                <img src="{{ $friend->picture }}" alt="{{ $friend->firstname.' '.$friend->lastname }}" width="30px" height="30px">
+                                <img src="{{ $friend->picture }}" alt="{{ $friend->firstname.' '.$friend->lastname }}">
                                 <span>{{ $friend->firstname.' '.$friend->lastname }}</span><i class="fa fa-circle user-status online"></i>
                             </a>
                         </form>

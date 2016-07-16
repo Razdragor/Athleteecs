@@ -981,6 +981,12 @@ a.social-navbar .nav-indicators .nav-messages .dropdown-menu a.text-danger:hover
 }
 .social-sidebar .chat .users-list a span {
   display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 128px;
+  white-space: nowrap;
+  float: left;
+  margin-top: 5px;
 }
 .social-sidebar .chat .users-list a .user-status {
   top: 0;
