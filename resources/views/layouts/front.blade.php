@@ -518,7 +518,8 @@ $user = Auth::user();
                 now = new Date().getDay(),
                 chat_class = 'conv_messages_'+chat_msg[0]['conv_id'],
                 check_concerned = false;
-        var heureMessage = chat_msg[0]['message_h'];
+        var heureMessage = chat_msg[0]['message_h']['created_at'];
+        console.log(heureMessage);
 
         $.each(chat_msg[0]['users'],function(i,user){
             if(user.user_id == {{$user->id}})
