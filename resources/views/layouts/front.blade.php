@@ -727,7 +727,7 @@ $user = Auth::user();
                             }
                         });              
                     }
-
+                }
                 data.messages.forEach(function(message){
                     var heureMessage = message['created_at'];
                     if(message['user_id'] == {{ $user->id }})

@@ -102,6 +102,23 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-sm-2 control-label" for="private">Privé</label>
+                            <div class="col-sm-10">
+                                <div id="private">
+                                    @if($event->private)
+                                    <input type="radio" class="radio-inline" name="private" value="0"> Non
+                                    @else
+                                    <input type="radio" class="radio-inline" name="private" value="0" checked="checked"> Non
+                                    @endif
+                                    @if($event->private)
+                                    <input type="radio" class="radio-inline" name="private" value="1" checked="checked"> Oui
+                                    @else
+                                    <input type="radio" class="radio-inline" name="private" value="1"> Oui
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
                                 <a href="{{ route('event.show', ['event' => $event->id]) }}" class="btn btn-default">Retour</a>
                                 <button type="submit" class="btn btn-default">Editer l'event</button>

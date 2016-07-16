@@ -90,7 +90,7 @@
                             <label class="col-sm-2 control-label" for="private">Privé</label>
                             <div class="col-sm-10">
                                 <div id="private">
-                                    <input type="radio" class="radio-inline" name="private" value="0" selected> Non
+                                    <input type="radio" class="radio-inline" name="private" value="0"  checked="checked"> Non
                                     <input type="radio" class="radio-inline" name="private" value="1"> Oui
                                 </div>
                             </div>
