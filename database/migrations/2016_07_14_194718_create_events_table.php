@@ -27,6 +27,7 @@ class CreateEventsTable extends Migration
             $table->string('longitude')->nullable();
             $table->bigInteger('user_id');
             $table->bigInteger('sport_id');
+            $table->boolean('private')->nullable();
             $table->timestamps();
         });
     }
