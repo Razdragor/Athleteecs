@@ -716,7 +716,6 @@ $user = Auth::user();
     
     
     function create_or_show_chat(form, url,view = 0){
-        console.log(form[0]);
         var now = new Date().getDay();
         var fdata = $(form).serialize();
         $.ajax({
@@ -725,7 +724,6 @@ $user = Auth::user();
             data:fdata,
             processData: false,
             success:function(data) {
-                console.log(data);
                 var to_append = '<div class="tchat-box" style="left:'+chatbox_pos+'px"><div class="panel panel-default panel-chat"><div class="head-tchat"><div class="head-tchat-left">'+data.conv['name']+'</div><div class="head-tchat-right"><i class="fa fa-user-plus chat_user_add_button" aria-hidden="true"></i><i class="fa fa-times close" aria-hidden="true"></i></div></div><div class="chat_user_add_div"></div><div class="panel-body scroll-chat-box"><ul class="scroll conv_messages_'+data.conv['id']+'">';
                 chatbox_pos+=370;
 
@@ -744,10 +742,9 @@ $user = Auth::user();
                     if(message['user_id'] == {{ $user->id }})
                     {
                         var heureMessage = message['created_at'];
-                        console.log(heureMessage);
                         to_append = to_append + '<li class="right clearfix"><span class="chat-avatar pull-right"><img src="{{ $user->picture }}" alt="{{ $user->firstname.' '. $user->lastname }}" width="55px" height="55px"></span>'+
                                 '<div id="chat_sender1" class="chat-body clearfix"><div class="header">'+
-                                '<small class="text-muted"><span class="fa fa-clock-o">&nbsp;'+now+'</span>'+
+                                '<small class="text-muted"><span class="fa fa-clock-o">&nbsp;'+heureMessage+'</span>'+
                                 '</small><strong class="pull-right primary-font">{{ $user->firstname }} {{$user->lastname }}</strong>'+
                                 '</div>'+
                                 '<p>'+message['message']+'</p></div></li>';
