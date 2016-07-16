@@ -82,3 +82,6 @@
 .alignement-utilisateurs{
     float: left;
 }
+.hauteur-utilisateurs-liste{
+    height:44px;
+}
