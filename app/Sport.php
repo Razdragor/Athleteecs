@@ -32,4 +32,8 @@ class Sport extends Model
     {
         return $this->belongsToMany('App\User', 'users_sports', 'user_id', 'sport_id');
     }
+
+    public function userSport(){
+        return $this->belongsToMany('App\User', 'users_sports', 'user_id', 'sport_id');
+    }
 }

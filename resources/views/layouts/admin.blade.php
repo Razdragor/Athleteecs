@@ -95,6 +95,12 @@
                                 <span>Publications</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ route('admin.sport.index') }}">
+                                <!-- icon--><i class="fa fa-star"></i>
+                                <span>Sports</span>
+                            </a>
+                        </li>
 
         <!-- BEGIN CHAT SECTION-->
         <div class="chat visible-lg visible-md">

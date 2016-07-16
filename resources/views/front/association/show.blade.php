@@ -323,7 +323,7 @@
                                             <div class="timeline-footer">
                                                 <div class="comments" id="comments-{{ $publication->id }}">
                                                     @foreach($publication->commentspost as $comment)
-                                                        <div class="comment">
+                                                        <div class="comment" id="comment-{{$comment->id}}">
                                                             <a class="pull-left" href="{{ route("user.show", $comment->user->id ) }}">
                                                                 <img width="35" height="35" class="comment-avatar" alt="{{ $comment->user->firstname.' '.$comment->user->lastname }}" src="{{ asset($comment->user->picture) }}">
                                                             </a>
@@ -331,6 +331,12 @@
                                                                 <span class="message"><strong>{{ $comment->user->firstname.' '.$comment->user->lastname }}</strong> {{ $comment->message }}</span>
                                                                 <span class="time">{{ $comment->timeago($comment->created_at) }}</span>
                                                             </div>
+                                                            <span class="action">
+                                                                <i class="fa fa-warning" id="signalComment"></i>
+                                                                @if(Auth::user()->id == $comment->user->id)
+                                                                    <i class="fa fa-close" id="deleteComment"></i>
+                                                                @endif
+                                                            </span>
                                                         </div>
                                                     @endforeach
                                                     @if($publication->comments->count() > 3)
@@ -504,6 +510,24 @@
                         <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
 
                         <button type="submit" class="btn btn-primary" id="confirm">Oui</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade modal-signal-comment" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="modal-signal-comment">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4>Signalement du commentaire</h4>
+                </div>
+                <div class="modal-body">
+                    Le signalement a bien été pris en compte! Merci
+                </div>
+                <form id="signal-modal-post" method="post">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
                     </div>
                 </form>
             </div>

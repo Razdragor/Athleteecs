@@ -40,6 +40,8 @@ use Illuminate\Support\Facades\File;
             Route::get('/', 'Admin\AdminController@index');
             Route::get('/datauser', 'Admin\AdminController@datauser');
             Route::resource('user', 'Admin\UserController');
+            Route::resource('sport', 'Admin\SportController');
+            Route::get('/sport/{sport}/destroy',  ['as' => 'admin.sport.delete', 'uses' => 'Admin\SportController@destroy']);
             Route::resource('publication', 'Admin\PublicationController',['except' => ['update']]);
             Route::post('/publication/{publication}/update', ['as' => 'admin.publication.update', 'uses' => 'Admin\PublicationController@update']);
             Route::get('/comment/{comment}/destroy',  ['as' => 'admin.comment.destroy', 'uses' => 'Admin\CommentController@destroy']);
