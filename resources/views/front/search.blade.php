@@ -29,19 +29,19 @@
                                     </div>
                                 </a>
                             </div>
-                            @foreach($user->demandsto as $friendto)
-                                <a href="{{ route('front.friends.accept', ['friend' => $friendto]) }}">Accepter la demande</a>
-                                <a href="{{ route('front.friends.cancel', ['friend' => $friendto]) }}">Refuser la demande</a>
-                            @endforeach
-                            @foreach($user->demandsfrom as $friendfrom)
-                                <a href="{{ route('front.friends.cancel', ['friend' => $friendfrom]) }}">Annuler la demande</a>
-                            @endforeach
-                            @foreach($user->friends as $yetfriend)
-                                {{$yetfriend->id}}
-                                @if($friend['id'] == $yetfriend->id)
-                                    <a href="{{ route('front.friends.add', ['friend' => $yetfriend]) }}">Ajouter un ami</a>
-                                @endif
-                            @endforeach
+                            @if(Auth::user()->isfriend(Auth::user()->id,$friend['id'])==='demandsfrom')
+                                <a href="{{ route('front.friends.cancel', ['friend' => $friend['id']]) }}">Annuler la demande</a>
+
+                            @elseif(Auth::user()->isfriend(Auth::user()->id,$friend['id'])==='demandsto')
+                                <a href="{{ route('front.friends.accept', ['friend' => $friend['id']]) }}">Accepter la demande</a>
+                                <a href="{{ route('front.friends.cancel', ['friend' => $friend['id']]) }}">Refuser la demande</a>
+
+                            @elseif(Auth::user()->isfriend(Auth::user()->id,$friend['id'])==='estami')
+                                <a href="{{ route('front.friends.destroy', ['friend' => $friend['id']]) }}">Retirer de la liste d'amis</a>
+
+                            @else
+                                <a href="{{ route('front.friends.add', ['friend' => $friend['id']]) }}">Ajouter un ami</a>
+                            @endif
                         </div>
                     @endif
                 @empty
