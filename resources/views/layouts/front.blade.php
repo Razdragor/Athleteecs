@@ -548,7 +548,7 @@ $user = Auth::user();
                             '" width="55px" height="55px"></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font">'+chat_msg[0]['user']['firstname']+' '+chat_msg[0]['user']['lastname']+
 
                             '</strong><small class="pull-right text-muted"><span class="fa fa-clock-o">&nbsp;'+heureMessage+'</span></small></div><p>'+chat_msg[0]['message']+'</p></div></li>');
-                    
+
                     $('.'+chat_class).parent().scrollTop($(".scroll-chat-box")[0].scrollHeight);
                 }
                 else
