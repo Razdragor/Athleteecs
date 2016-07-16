@@ -88,9 +88,9 @@ $user = Auth::user();
                 @foreach($user->friends as $friend)
                     <li>
 
-                        <form class="create_conversation">
+                        <form class="create_conversation alignement-utilisateurs">
                             <input type="hidden" name="id" value="{{ $friend->id }}"></input>
-                            <a data-firstname="{{ $friend->firstname }}" data-lastname="{{ $friend->lastname }}" data-status="online" data-userid="{{ $friend->id }}">
+                            <a data-firstname="{{ $friend->firstname }}" data-lastname="{{ $friend->lastname }}" data-status="online" data-userid="{{ $friend->id }}" class="hauteur-utilisateurs-liste">
                                 <img src="{{ $friend->picture }}" alt="{{ $friend->firstname.' '.$friend->lastname }}">
                                 <span>{{ $friend->firstname.' '.$friend->lastname }}</span><i class="fa fa-circle user-status online"></i>
                             </a>
