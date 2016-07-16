@@ -30,12 +30,12 @@
 <?php
 $user = Auth::user();
 ?>
-    
+
     <div class="wrapper">
         <aside class="social-sidebar">
     <div class="visible-lg visible-md">
         <h4>Events :</h4>
-        
+
         <ul>
             @foreach($user->events as $user_event)
                 @if($user->isMemberEvent($user_event->event->id))
@@ -49,10 +49,10 @@ $user = Auth::user();
             @endforeach
         </ul>
         <a href="{{ route('event.create') }}">Créer un event</a>
-        
-        
+
+
         <h4>Associations :</h4>
-        
+
         <ul>
             @foreach($user->associations as $association)
                 @if($user->isMemberAssociation($association->association->id))
@@ -65,9 +65,9 @@ $user = Auth::user();
             @endforeach
         </ul>
         <a href="{{ route('association.create') }}">Créer une association</a>
-        
+
         <h4>Conversations :</h4>
-        
+
         <ul>
             @foreach($user->conversations as $conversation)
                 @if($conversation->conversation->group)
@@ -81,7 +81,7 @@ $user = Auth::user();
             @endforeach
         </ul>
         <a href="#">Créer un groupe</a>
-    
+
     <!-- BEGIN CHAT SECTION-->
     <div class="chat visible-lg visible-md">
         <ul class="users-list">
@@ -91,7 +91,7 @@ $user = Auth::user();
                         <form class="create_conversation">
                             <input type="hidden" name="id" value="{{ $friend->id }}"></input>
                             <a data-firstname="{{ $friend->firstname }}" data-lastname="{{ $friend->lastname }}" data-status="online" data-userid="{{ $friend->id }}">
-                                <img src="{{ $friend->picture }}" alt="{{ $friend->firstname.' '.$friend->lastname }}">
+                                <img src="{{ $friend->picture }}" alt="{{ $friend->firstname.' '.$friend->lastname }}" width="30px" height="30px">
                                 <span>{{ $friend->firstname.' '.$friend->lastname }}</span><i class="fa fa-circle user-status online"></i>
                             </a>
                         </form>
@@ -416,7 +416,7 @@ $user = Auth::user();
 <script src="{{ asset('asset/js/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js') }}"></script>
 <script src="{{ asset('asset/js/plugins/google-code-prettify/prettify.js') }}"></script>
 <script src="{{ asset('asset/js/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker.js') }}"></script>
-    
+
 <script src="{{ asset('asset/js/chat/socketio.js') }}"></script>
 <script src="{{ asset('asset/js/app.js') }}"></script>
 <script>
@@ -464,15 +464,15 @@ $user = Auth::user();
     // envoyer des éléments dans tchatbox
     var socket = io.connect('http://localhost:8890');
 
-    
-    socket.on('add_user', function (data) 
+
+    socket.on('add_user', function (data)
     {
         var chat_msg = $.parseJSON('[' + data + ']'),
         now = new Date().getDay(),
         chat_class = 'conv_messages_'+chat_msg[0]['conv_id'],
         check_concerned = false;
-        
-        
+
+
         $.each(chat_msg[0]['users'],function(i,user){
             if(user.user_id == {{$user->id}})
             {
@@ -495,14 +495,14 @@ $user = Auth::user();
             }
         }
     });
-    socket.on('change_name', function (data) 
+    socket.on('change_name', function (data)
     {
         var chat_msg = $.parseJSON('[' + data + ']'),
         now = new Date().getDay(),
         chat_class = 'conv_messages_'+chat_msg[0]['conv_id'];
-        
+
         var check_concerned = false;
-        
+
        $.each(chat_msg[0]['users'],function(i,user){
             if(user.user_id == {{$user->id}})
             {
@@ -531,13 +531,13 @@ $user = Auth::user();
         }
 
     });
-    
+
     socket.on('message', function (data) {
         var chat_msg = $.parseJSON('[' + data + ']'),
         now = new Date().getDay(),
         chat_class = 'conv_messages_'+chat_msg[0]['conv_id'],
         check_concerned = false;
-        
+
         $.each(chat_msg[0]['users'],function(i,user){
             if(user.user_id == {{$user->id}})
             {
@@ -545,7 +545,7 @@ $user = Auth::user();
                 return false;
             }
         });
-        
+
         if(check_concerned)
         {
             if(chat_msg[0]['user']['id'] == {{ $user->id }})
@@ -576,7 +576,7 @@ $user = Auth::user();
         }
     });
 
-    
+
     // fermer la tchatbox
     $('body').on('click','#close', function(){
         $('div.tchat-box').remove();
@@ -604,7 +604,7 @@ $user = Auth::user();
             }
         });
     });
-    
+
     // Input pour changer nom de la conversation
     $('body').on('click','.head-tchat-left', function(e){
         e.preventDefault();
@@ -614,7 +614,7 @@ $user = Auth::user();
         $(this).after('<form action="change_conversation_name" method="POST" class="chat_conv_name"><input class="quit_on_blur" type="text" name="conv_name" value="'+conv_name+'"><input type="hidden" name="conversation_id" value="'+conv_id+'"><input type="submit" value="OK" class=" btn-primary"></form>');
         $(this).remove();
     });
-    
+
     //Changement du nom de la conversation
     $('body').on('submit','.chat_conv_name', function(e){
         e.preventDefault();
@@ -634,7 +634,7 @@ $user = Auth::user();
             }
         });
     });
-    
+
     //Input pour Ajout d'utilisateur à la conversation
     $('body').on('click','#chat_user_add', function(e){
         var div_for_input = $(this).parent().parent().parent().find(".chat_user_add_div");
@@ -643,7 +643,7 @@ $user = Auth::user();
         $(div_for_input).append('<form action="chat_add_user" method="POST" class="chat_user_add"><input type="text" name="add_user" class="form-control chat_json_user_add"><input type="hidden" name="conversation_id" value="'+conv_id+'"><br><div class="chat_show_user_div"></div></form>');
         $(".chat_json_user_add").focus();
     });
-    
+
      //Listes d'utilisateur ajoutables à la conversation
     $('body').on('keyup','.chat_json_user_add', function(e){
         e.preventDefault();
@@ -669,13 +669,13 @@ $user = Auth::user();
             }
         });
     });
-    
-    
+
+
     //Ajout d'input lors de clic sur user + submit du form d'ajout d'user à la conv
     $('body').on('click','.chat_show_user_span', function(e){
         var chat_friend_id = $(this).attr('value');
         $(this).parent().parent().append('<input type="hidden" name="friend_id" value="'+chat_friend_id+'">'); //ajout de l'input
-        
+
         var fdata = $(this).parent().parent().serialize();
                     console.log(fdata);
             $.ajax({
@@ -693,17 +693,17 @@ $user = Auth::user();
             }
         });
 
-        
-        $('.chat_user_add').remove(); //on supprimme le form pour nettoyer la chat box 
-    });  
-    
+
+        $('.chat_user_add').remove(); //on supprimme le form pour nettoyer la chat box
+    });
+
     //Ajout d'utilisateur à la conversation
     $('body').on('click','.chat_show', function(){
         var form = $(this);
         create_or_show_chat($(this),"{{route('show_conversation') }}");
-    }); 
-    
-    
+    });
+
+
     function create_or_show_chat(form, url){
         console.log(form[0]);
         var now = new Date().getDay();
@@ -718,7 +718,7 @@ $user = Auth::user();
                 var to_append = '<div class="tchat-box" style="left:'+chatbox_pos+'px"><div class="panel panel-default panel-chat"><div class="head-tchat"><div class="head-tchat-left">'+data.conv['name']+'</div><div class="head-tchat-right"><i id="chat_user_add" class="fa fa-user-plus" aria-hidden="true"></i><i id="close" class="fa fa-times" aria-hidden="true"></i></div></div><div class="chat_user_add_div"></div><div class="panel-body scroll-chat-box"><ul id="conv_messages_'+data.conv['id']+'" class="scroll">';
                 chatbox_pos+=370;
                 if(chatbox_pos > ($(document).width()-400))                 {                     chatbox_pos = 200;                     $('div.tchat-box').remove();                 }
-                 
+
                 data.messages.forEach(function(message){
                     if(message['user_id'] == {{ $user->id }})
                     {
@@ -760,8 +760,8 @@ $user = Auth::user();
             }
         });
     }
-    
-    
+
+
 </script>
 
 

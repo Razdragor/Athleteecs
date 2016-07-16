@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a2b6b496c21bc8c2332f75028e76464c",
-    "content-hash": "53439040b161efaf3d3594a17e2f3f33",
+    "hash": "9c4b829cb26f915f8d6f123fea83574a",
+    "content-hash": "c5739129e80e9d08aeb61d2dc4ef09f9",
     "packages": [
         {
             "name": "alexpechkarev/geometry-library",
@@ -2429,44 +2429,6 @@
                 "dump"
             ],
             "time": "2016-06-29 05:40:00"
-        },
-        {
-            "name": "vetruvet/laravel-phpredis",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/vetruvet/laravel-phpredis.git",
-                "reference": "a11dbcd2afdabcc61f5f327822f571d448cf03e1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/vetruvet/laravel-phpredis/zipball/a11dbcd2afdabcc61f5f327822f571d448cf03e1",
-                "reference": "a11dbcd2afdabcc61f5f327822f571d448cf03e1",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Vetruvet\\PhpRedis": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache"
-            ],
-            "authors": [
-                {
-                    "name": "Valera Trubachev",
-                    "email": "vetruvet@gmail.com"
-                }
-            ],
-            "description": "Use phpredis as the redis connection in Laravel",
-            "keywords": [
-                "laravel",
-                "phpredis",
-                "redis"
-            ],
-            "time": "2014-04-29 04:49:46"
         },
         {
             "name": "vlucas/phpdotenv",

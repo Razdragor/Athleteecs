@@ -29,7 +29,19 @@
                                     </div>
                                 </a>
                             </div>
-                            <a href="{{ route('front.friends.add', ['friend' => $friend['id']]) }}">Ajouter un ami</a>
+                            @foreach($user->demandsto as $friendto)
+                                <a href="{{ route('front.friends.accept', ['friend' => $friendto]) }}">Accepter la demande</a>
+                                <a href="{{ route('front.friends.cancel', ['friend' => $friendto]) }}">Refuser la demande</a>
+                            @endforeach
+                            @foreach($user->demandsfrom as $friendfrom)
+                                <a href="{{ route('front.friends.cancel', ['friend' => $friendfrom]) }}">Annuler la demande</a>
+                            @endforeach
+                            @foreach($user->friends as $yetfriend)
+                                {{$yetfriend->id}}
+                                @if($friend['id'] == $yetfriend->id)
+                                    <a href="{{ route('front.friends.add', ['friend' => $yetfriend]) }}">Ajouter un ami</a>
+                                @endif
+                            @endforeach
                         </div>
                     @endif
                 @empty
