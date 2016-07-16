@@ -15,10 +15,6 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-primary panel-fixed-top">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Profil</h3>
-                    </div>
                     <div class="panel-body">
                         <!--Notice .user-profile class-->
                         <div class="user-profile">
@@ -126,32 +122,57 @@
                                                 @endforeach
                                             </div>
 
-                                            <form class="form" method="POST" enctype="multipart/form-data" action="{{ route('user.edit',['user' => $user]) }}">
+                                            <form class="form" method="PUT" enctype="multipart/form-data" action="{{ route('user.update',['user' => $user]) }}">
                                                 {{ csrf_field() }}
                                                 <div class="tab-pane active infos">
                                                     <br>
                                                     <dl class="dl-horizontal">
+                                                        <dt>Prénom</dt>
+                                                        <dd><input type="text" class="form-control" name="firstname" value="{{ $user->firstname }}">
+                                                        <dd class="divider"></dd>
+                                                        <dt>Nom</dt>
+                                                        <dd><input type="text" class="form-control" name="lastname" value="{{ $user->lastname }}">
+                                                        <dd class="divider"></dd>
                                                         <dt>Sexe</dt>
-                                                        <dd><input type="text" class="form-control" name="sexe" value="{{ $user->sexe }}">
+                                                        <dd><select id="select-beast" value="{{$user->sexe }}" class="form-control" name="sexe">
+                                                            <option value="Homme">
+                                                                Homme
+                                                            </option>
+                                                            <option value="Femme">
+                                                                Femme
+                                                            </option>
+                                                            <option value="Autre">
+                                                                Autre
+                                                            </option>
+                                                        </select></dd>
+
                                                         <dd class="divider"></dd>
                                                         <dt>Poste actuel</dt>
-                                                        <dd><input type="text" class="form-control" name="job" value="">
+                                                        <dd><input type="text" class="form-control" name="job" value="{{ $user->job }}">
                                                         <dd class="divider"></dd>
                                                         <dt>Entreprise</dt>
-                                                        <dd><input type="text" class="form-control" name="firm" value="">
+                                                        <dd><input type="text" class="form-control" name="firm" value="{{ $user->firm }}">
                                                         <dd class="divider"></dd>
                                                         <dt>Scolarité</dt>
-                                                        <dd><input type="text" class="form-control" name="school" value="">
+                                                        <dd><input type="text" class="form-control" name="school" value="{{ $user->school }}">
                                                         <dd class="divider"></dd>
                                                         <dt>Sports pratiqué</dt>
                                                         @foreach($user->sports as $sport)
                                                             <dd>{{ $sport->name }}</dd>
                                                         @endforeach
                                                         <dd class="divider"></dd>
-                                                        <dd><input type="text" class="form-control" name="sport" value="">
+
+                                                        <dt>Sports disponibles</dt>
+                                                        <ul class="list-unstyled"></dd>
+                                                            @foreach($sports as $sport)
+                                                            <dd><li>
+                                                                <input type="checkbox" id="{{$sport->id}}"> {{ $sport->name }}
+                                                            </li></dd>
+                                                            @endforeach
+                                                        </ul>
                                                         <dd class="divider"></dd>
                                                         <dt>Adresse postal</dt>
-                                                        <dd><input type="text" class="form-control" name="adresse" value="">
+                                                        <dd><input type="text" class="form-control" name="address" value="{{ $user->address }}">
                                                         <dd class="divider"></dd>
                                                         <dd>
                                                             <button type="submit" class="btn btn-primary">Modifier</button>
@@ -162,145 +183,11 @@
                                             </form>
                                         </div>
                                         <!-- END TABS SECTIONS-->
-                                        <div id="user-links" class="col-sm-3 col-md-3">
-                                            <h4>Other Profiles</h4>
-                                            <ul class="list-unstyled">
-                                                <li>
-                                                    <a href="#"><i class="fa fa-github"></i>Gihub</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><i class="fa fa-pinterest"></i>Pinterest</a>
-                                                </li>
-                                            </ul>
-                                            <h4>Recomended Links</h4>
-                                            <ul class="list-unstyled">
-                                                <li>
-                                                    <a href="#"><i class="fa fa-css3"></i>CS3 Documentation</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><i class="fa fa-hospital-o"></i>Local Hospital</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"><i class="fa fa-html5"></i>HTML5 Documentation</a>
-                                                </li>
-                                            </ul>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">User Cards</h3>
-                    </div>
-                    <div class="panel-body">
-                        <!-- BEGIN USER CARD SIMPLE EXAMPLE-->
-                        <!--Notice .user-card-simple class-->
-                        <div class="col-md-5 user-card-simple">
-                            <div class="text-center">
-                                <a href="#aboutModal" data-toggle="modal" data-target="#myModal">
-                                    <img src="{{ asset('asset/img/avatars/avatar.png') }}" alt="Avatar" class="img-circle">
-                                </a>
-                                <h3>John Doe</h3>
-                                <em>click my face for more</em>
-                            </div>
-                        </div>
-                        <!-- Modal-->
-                        <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" data-dismiss="modal" aria-hidden="true" class="close"></button>
-                                        <h4 id="myModalLabel" class="modal-title">More About John</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="center">
-                                            <img src="{{ asset('asset/img/avatars/avatar.png') }}" width="140" height="140" alt="Avatar" class="img-circle">
-                                            <h3 class="media-heading">John Doe
-                                                <small>NOWHERE</small>
-                                            </h3>
-                        <span><strong>Skills:</strong>
-                        </span>
-                                            <span class="label label-warning">HTML5/CSS</span>
-                                            <span class="label label-info">Adobe CS 5.5</span>
-                                            <span class="label label-info">Microsoft Office</span>
-                                            <span class="label label-success">Windows XP, Vista, 7</span>
-                                        </div>
-                                        <hr>
-                                        <div class="center">
-                                            <p class="text-left"><strong>Bio:</strong>
-                                                <br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sem dui, tempor sit amet commodo a, vulputate vel tellus.</p>
-                                            <br>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <div class="center">
-                                            <button type="button" data-dismiss="modal" class="btn btn-default">I've heard enough about John</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END USER CARD SIMPLE EXAMPLE-->
-                        <!--Notice .user-card-tabs class-->
-                        <div class="col-md-5 col-md-offset-2 user-card-tabs">
-                            <div class="user-image">
-                                <img src="{{ asset('asset/img/avatars/avatar.png') }}" alt="Karan Singh Sisodia" title="Karan Singh Sisodia" class="img-rounded">
-                            </div>
-                            <div class="user-info">
-                                <div class="user-heading">
-                                    <h3>John Doe</h3>
-                                    <span class="help-block">Nowhere, DC</span>
-                                </div>
-                                <ul class="nav nav-pills nav-justified">
-                                    <li class="active">
-                                        <a data-toggle="tab" href="#information">
-                                            <span class="fa fa-user fa-lg"></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a data-toggle="tab" href="#settings">
-                                            <span class="fa fa-cog fa-lg"></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a data-toggle="tab" href="#email">
-                                            <span class="fa fa-envelope fa-lg"></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a data-toggle="tab" href="#events">
-                                            <span class="fa fa-calendar fa-lg"></span>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <ul class="navigation"></ul>
-                                <div class="user-body">
-                                    <div class="tab-content">
-                                        <div id="information" class="tab-pane active">
-                                            <h4>Account Information</h4>
-                                        </div>
-                                        <div id="settings" class="tab-pane">
-                                            <h4>Settings</h4>
-                                        </div>
-                                        <div id="email" class="tab-pane">
-                                            <h4>Send Message</h4>
-                                        </div>
-                                        <div id="events" class="tab-pane">
-                                            <h4>Events</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

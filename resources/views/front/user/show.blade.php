@@ -164,18 +164,19 @@
                                         <dd>{{ $user->sexe }}</dd>
                                         <dd class="divider"></dd>
                                         <dt>Poste actuel</dt>
-                                        <dd>A rajouté !</dd>
+                                        <dd>{{ $user->job }}</dd>
                                         <dd class="divider"></dd>
                                         <dt>Entreprise</dt>
-                                        <dd>A rajouté</dd>
+                                        <dd>{{ $user->firm }}</dd>
                                         <dd class="divider"></dd>
                                         <dt>Scolarité</dt>
-                                        <dd>A ajouté</dd>
+                                        <dd>{{ $user->school }}</dd>
                                         <dd class="divider"></dd>
                                         <dt>Sports pratiqué</dt>
                                         @foreach($user->sports as $sport)
                                             <dd>{{ $sport->name }}</dd>
                                         @endforeach
+
                                         <dd class="divider"></dd>
                                         <dt>Adresse postal</dt>
                                         <dd>
@@ -185,7 +186,7 @@
                                 </div>
                                 <div class="tab-pane active photos">
                                     <div id="3" class="section-portfolio-items isotopeWrapper clearfix">
-                                        @foreach($user->pictures as $picture)
+                                    @foreach($user->pictures as $picture)
                                         <article class="col-md-4 isotopeItem webdesign">
                                             <div class="section-portfolio-item">
                                                 <div class="picture-cadre">

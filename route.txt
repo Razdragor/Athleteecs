@@ -1,47 +1,124 @@
-+--------+-----------+--------------------------------+---------------------+-----------------------------------------------------------------+--------------------------+
-| Domain | Method    | URI                            | Name                | Action                                                          | Middleware               |
-+--------+-----------+--------------------------------+---------------------+-----------------------------------------------------------------+--------------------------+
-|        | GET|HEAD  | /                              |                     | App\Http\Controllers\Front\IndexController@index                | web,auth,role:user|admin |
-|        | GET|HEAD  | activity                       | activity.index      | App\Http\Controllers\Front\ActivityController@index             | web,auth,role:user|admin |
-|        | POST      | activity                       | activity.store      | App\Http\Controllers\Front\ActivityController@store             | web,auth,role:user|admin |
-|        | GET|HEAD  | activity/create                | activity.create     | App\Http\Controllers\Front\ActivityController@create            | web,auth,role:user|admin |
-|        | PUT|PATCH | activity/{activity}            | activity.update     | App\Http\Controllers\Front\ActivityController@update            | web,auth,role:user|admin |
-|        | DELETE    | activity/{activity}            | activity.destroy    | App\Http\Controllers\Front\ActivityController@destroy           | web,auth,role:user|admin |
-|        | GET|HEAD  | activity/{activity}            | activity.show       | App\Http\Controllers\Front\ActivityController@show              | web,auth,role:user|admin |
-|        | GET|HEAD  | activity/{activity}/edit       | activity.edit       | App\Http\Controllers\Front\ActivityController@edit              | web,auth,role:user|admin |
-|        | GET|HEAD  | admin                          |                     | App\Http\Controllers\Admin\AdminController@index                | web,auth,role:admin      |
-|        | POST      | comment                        | comment.store       | App\Http\Controllers\Front\CommentController@store              | web,auth,role:user|admin |
-|        | GET|HEAD  | comment                        | comment.index       | App\Http\Controllers\Front\CommentController@index              | web,auth,role:user|admin |
-|        | GET|HEAD  | comment/create                 | comment.create      | App\Http\Controllers\Front\CommentController@create             | web,auth,role:user|admin |
-|        | GET|HEAD  | comment/{comment}              | comment.show        | App\Http\Controllers\Front\CommentController@show               | web,auth,role:user|admin |
-|        | PUT|PATCH | comment/{comment}              | comment.update      | App\Http\Controllers\Front\CommentController@update             | web,auth,role:user|admin |
-|        | DELETE    | comment/{comment}              | comment.destroy     | App\Http\Controllers\Front\CommentController@destroy            | web,auth,role:user|admin |
-|        | GET|HEAD  | comment/{comment}/edit         | comment.edit        | App\Http\Controllers\Front\CommentController@edit               | web,auth,role:user|admin |
-|        | GET|HEAD  | connect                        |                     | Closure                                                         | web                      |
-|        | POST      | login                          |                     | App\Http\Controllers\Auth\AuthController@login                  | web,guest                |
-|        | GET|HEAD  | login                          |                     | App\Http\Controllers\Auth\AuthController@showLoginForm          | web,guest                |
-|        | GET|HEAD  | login/callback/{provider}      |                     | App\Http\Controllers\SocialAuthController@callback              | web                      |
-|        | GET|HEAD  | login/redirect/{provider}      |                     | App\Http\Controllers\SocialAuthController@redirect              | web                      |
-|        | GET|HEAD  | logout                         |                     | App\Http\Controllers\Auth\AuthController@logout                 | web                      |
-|        | POST      | password/email                 |                     | App\Http\Controllers\Auth\PasswordController@sendResetLinkEmail | web,guest                |
-|        | POST      | password/reset                 |                     | App\Http\Controllers\Auth\PasswordController@reset              | web,guest                |
-|        | GET|HEAD  | password/reset/{token?}        |                     | App\Http\Controllers\Auth\PasswordController@showResetForm      | web,guest                |
-|        | POST      | publication                    | publication.store   | App\Http\Controllers\Front\PublicationController@store          | web,auth,role:user|admin |
-|        | GET|HEAD  | publication                    | publication.index   | App\Http\Controllers\Front\PublicationController@index          | web,auth,role:user|admin |
-|        | GET|HEAD  | publication/create             | publication.create  | App\Http\Controllers\Front\PublicationController@create         | web,auth,role:user|admin |
-|        | DELETE    | publication/{publication}      | publication.destroy | App\Http\Controllers\Front\PublicationController@destroy        | web,auth,role:user|admin |
-|        | PUT|PATCH | publication/{publication}      | publication.update  | App\Http\Controllers\Front\PublicationController@update         | web,auth,role:user|admin |
-|        | GET|HEAD  | publication/{publication}      | publication.show    | App\Http\Controllers\Front\PublicationController@show           | web,auth,role:user|admin |
-|        | GET|HEAD  | publication/{publication}/edit | publication.edit    | App\Http\Controllers\Front\PublicationController@edit           | web,auth,role:user|admin |
-|        | POST      | register                       |                     | App\Http\Controllers\Auth\AuthController@register               | web,guest                |
-|        | GET|HEAD  | register                       |                     | App\Http\Controllers\Auth\AuthController@showRegistrationForm   | web,guest                |
-|        | GET|HEAD  | uploads/{image}                |                     | Closure                                                         | web,auth                 |
-|        | GET|HEAD  | user                           | user.index          | App\Http\Controllers\UserController@index                       | web,auth,role:user|admin |
-|        | POST      | user                           | user.store          | App\Http\Controllers\UserController@store                       | web,auth,role:user|admin |
-|        | GET|HEAD  | user/activation/{token}        | user.activate       | App\Http\Controllers\Auth\AuthController@activateUser           | web,guest                |
-|        | GET|HEAD  | user/create                    | user.create         | App\Http\Controllers\UserController@create                      | web,auth,role:user|admin |
-|        | GET|HEAD  | user/{user}                    | user.show           | App\Http\Controllers\UserController@show                        | web,auth,role:user|admin |
-|        | DELETE    | user/{user}                    | user.destroy        | App\Http\Controllers\UserController@destroy                     | web,auth,role:user|admin |
-|        | PUT|PATCH | user/{user}                    | user.update         | App\Http\Controllers\UserController@update                      | web,auth,role:user|admin |
-|        | GET|HEAD  | user/{user}/edit               | user.edit           | App\Http\Controllers\UserController@edit                        | web,auth,role:user|admin |
-+--------+-----------+--------------------------------+---------------------+-----------------------------------------------------------------+--------------------------+
++--------+-----------+------------------------------------------+---------------------------+-----------------------------------------------------------------+--------------------------+
+| Domain | Method    | URI                                      | Name                      | Action                                                          | Middleware               |
++--------+-----------+------------------------------------------+---------------------------+-----------------------------------------------------------------+--------------------------+
+|        | GET|HEAD  | /                                        |                           | App\Http\Controllers\Front\IndexController@index                | web,auth,role:user|admin |
+|        | GET|HEAD  | activity                                 | activity.index            | App\Http\Controllers\Front\ActivityController@index             | web,auth,role:user|admin |
+|        | POST      | activity                                 | activity.store            | App\Http\Controllers\Front\ActivityController@store             | web,auth,role:user|admin |
+|        | GET|HEAD  | activity/create                          | activity.create           | App\Http\Controllers\Front\ActivityController@create            | web,auth,role:user|admin |
+|        | PUT|PATCH | activity/{activity}                      | activity.update           | App\Http\Controllers\Front\ActivityController@update            | web,auth,role:user|admin |
+|        | GET|HEAD  | activity/{activity}                      | activity.show             | App\Http\Controllers\Front\ActivityController@show              | web,auth,role:user|admin |
+|        | DELETE    | activity/{activity}                      | activity.destroy          | App\Http\Controllers\Front\ActivityController@destroy           | web,auth,role:user|admin |
+|        | POST      | activity/{activity}/destroyAjax          |                           | App\Http\Controllers\Front\ActivityController@destroyAjax       | web,auth,role:user|admin |
+|        | GET|HEAD  | activity/{activity}/edit                 | activity.edit             | App\Http\Controllers\Front\ActivityController@edit              | web,auth,role:user|admin |
+|        | POST      | activity/{activity}/signaleAjax          |                           | App\Http\Controllers\Front\ActivityController@signaleAjax       | web,auth,role:user|admin |
+|        | POST      | activity/{activity}/updateAjax           |                           | App\Http\Controllers\Front\ActivityController@updateAjax        | web,auth,role:user|admin |
+|        | GET|HEAD  | admin                                    |                           | App\Http\Controllers\Admin\AdminController@index                | web,auth,role:admin      |
+|        | GET|HEAD  | admin/comment/{comment}/destroy          | comment.destroy           | App\Http\Controllers\Admin\CommentController@destroy            | web,auth,role:admin      |
+|        | GET|HEAD  | admin/datauser                           |                           | App\Http\Controllers\Admin\AdminController@datauser             | web,auth,role:admin      |
+|        | GET|HEAD  | admin/publication                        | admin.publication.index   | App\Http\Controllers\Admin\PublicationController@index          | web,auth,role:admin      |
+|        | POST      | admin/publication                        | admin.publication.store   | App\Http\Controllers\Admin\PublicationController@store          | web,auth,role:admin      |
+|        | GET|HEAD  | admin/publication/create                 | admin.publication.create  | App\Http\Controllers\Admin\PublicationController@create         | web,auth,role:admin      |
+|        | DELETE    | admin/publication/{publication}          | admin.publication.destroy | App\Http\Controllers\Admin\PublicationController@destroy        | web,auth,role:admin      |
+|        | PUT|PATCH | admin/publication/{publication}          | admin.publication.update  | App\Http\Controllers\Admin\PublicationController@update         | web,auth,role:admin      |
+|        | GET|HEAD  | admin/publication/{publication}          | admin.publication.show    | App\Http\Controllers\Admin\PublicationController@show           | web,auth,role:admin      |
+|        | GET|HEAD  | admin/publication/{publication}/edit     | admin.publication.edit    | App\Http\Controllers\Admin\PublicationController@edit           | web,auth,role:admin      |
+|        | POST      | admin/user                               | admin.user.store          | App\Http\Controllers\Admin\UserController@store                 | web,auth,role:admin      |
+|        | GET|HEAD  | admin/user                               | admin.user.index          | App\Http\Controllers\Admin\UserController@index                 | web,auth,role:admin      |
+|        | GET|HEAD  | admin/user/create                        | admin.user.create         | App\Http\Controllers\Admin\UserController@create                | web,auth,role:admin      |
+|        | DELETE    | admin/user/{user}                        | admin.user.destroy        | App\Http\Controllers\Admin\UserController@destroy               | web,auth,role:admin      |
+|        | PUT|PATCH | admin/user/{user}                        | admin.user.update         | App\Http\Controllers\Admin\UserController@update                | web,auth,role:admin      |
+|        | GET|HEAD  | admin/user/{user}                        | admin.user.show           | App\Http\Controllers\Admin\UserController@show                  | web,auth,role:admin      |
+|        | GET|HEAD  | admin/user/{user}/edit                   | admin.user.edit           | App\Http\Controllers\Admin\UserController@edit                  | web,auth,role:admin      |
+|        | GET|HEAD  | association                              | association.index         | App\Http\Controllers\Front\AssociationController@index          | web,auth,role:user|admin |
+|        | POST      | association                              | association.store         | App\Http\Controllers\Front\AssociationController@store          | web,auth,role:user|admin |
+|        | GET|HEAD  | association/create                       | association.create        | App\Http\Controllers\Front\AssociationController@create         | web,auth,role:user|admin |
+|        | POST      | association/search                       | association.search        | App\Http\Controllers\Front\AssociationController@search         | web,auth,role:user|admin |
+|        | GET|HEAD  | association/{association}                | association.show          | App\Http\Controllers\Front\AssociationController@show           | web,auth,role:user|admin |
+|        | DELETE    | association/{association}                | association.destroy       | App\Http\Controllers\Front\AssociationController@destroy        | web,auth,role:user|admin |
+|        | POST      | association/{association}/act            | association.act.store     | App\Http\Controllers\Front\AssociationController@storeact       | web,auth,role:user|admin |
+|        | GET|HEAD  | association/{association}/delete         | association.delete        | App\Http\Controllers\Front\AssociationController@delete         | web,auth,role:user|admin |
+|        | GET|HEAD  | association/{association}/edit           | association.edit          | App\Http\Controllers\Front\AssociationController@edit           | web,auth,role:user|admin |
+|        | GET|HEAD  | association/{association}/join           | association.join          | App\Http\Controllers\Front\AssociationController@join           | web,auth,role:user|admin |
+|        | POST      | association/{association}/post           | association.post.store    | App\Http\Controllers\Front\AssociationController@storepost      | web,auth,role:user|admin |
+|        | GET|HEAD  | association/{association}/quit           | association.quit          | App\Http\Controllers\Front\AssociationController@quit           | web,auth,role:user|admin |
+|        | POST      | association/{association}/update         | association.update        | App\Http\Controllers\Front\AssociationController@update         | web,auth,role:user|admin |
+|        | POST      | association/{userassociation}/destituer  | association.dest          | App\Http\Controllers\Front\AssociationController@destituer      | web,auth,role:user|admin |
+|        | POST      | association/{userassociation}/promouvoir | association.promot        | App\Http\Controllers\Front\AssociationController@promouvoir     | web,auth,role:user|admin |
+|        | POST      | change_conversation_name                 | change_conversation_name  | App\Http\Controllers\ConversationController@changeName          | web,auth,role:user|admin |
+|        | POST      | chat_add_user                            | chat_add_user             | App\Http\Controllers\ConversationController@addUser             | web,auth,role:user|admin |
+|        | POST      | chat_show_user                           | chat_show_user            | App\Http\Controllers\ConversationController@showUser            | web,auth,role:user|admin |
+|        | GET|HEAD  | comment                                  | comment.index             | App\Http\Controllers\Front\CommentController@index              | web,auth,role:user|admin |
+|        | POST      | comment                                  | comment.store             | App\Http\Controllers\Front\CommentController@store              | web,auth,role:user|admin |
+|        | GET|HEAD  | comment/create                           | comment.create            | App\Http\Controllers\Front\CommentController@create             | web,auth,role:user|admin |
+|        | PUT|PATCH | comment/{comment}                        | comment.update            | App\Http\Controllers\Front\CommentController@update             | web,auth,role:user|admin |
+|        | GET|HEAD  | comment/{comment}                        | comment.show              | App\Http\Controllers\Front\CommentController@show               | web,auth,role:user|admin |
+|        | DELETE    | comment/{comment}                        | comment.destroy           | App\Http\Controllers\Front\CommentController@destroy            | web,auth,role:user|admin |
+|        | GET|HEAD  | comment/{comment}/edit                   | comment.edit              | App\Http\Controllers\Front\CommentController@edit               | web,auth,role:user|admin |
+|        | POST      | create_conversation                      | create_conversation       | App\Http\Controllers\ConversationController@create              | web,auth,role:user|admin |
+|        | GET|HEAD  | event                                    | event.index               | App\Http\Controllers\Front\EventController@index                | web,auth,role:user|admin |
+|        | POST      | event                                    | event.store               | App\Http\Controllers\Front\EventController@store                | web,auth,role:user|admin |
+|        | GET|HEAD  | event/create                             | event.create              | App\Http\Controllers\Front\EventController@create               | web,auth,role:user|admin |
+|        | POST      | event/search                             | event.search              | App\Http\Controllers\Front\EventController@search               | web,auth,role:user|admin |
+|        | GET|HEAD  | event/{event}                            | event.show                | App\Http\Controllers\Front\EventController@show                 | web,auth,role:user|admin |
+|        | DELETE    | event/{event}                            | event.destroy             | App\Http\Controllers\Front\EventController@destroy              | web,auth,role:user|admin |
+|        | POST      | event/{event}/act                        | event.act.store           | App\Http\Controllers\Front\EventController@storeact             | web,auth,role:user|admin |
+|        | GET|HEAD  | event/{event}/delete                     | event.delete              | App\Http\Controllers\Front\EventController@delete               | web,auth,role:user|admin |
+|        | GET|HEAD  | event/{event}/edit                       | event.edit                | App\Http\Controllers\Front\EventController@edit                 | web,auth,role:user|admin |
+|        | GET|HEAD  | event/{event}/join                       | event.join                | App\Http\Controllers\Front\EventController@join                 | web,auth,role:user|admin |
+|        | POST      | event/{event}/post                       | event.post.store          | App\Http\Controllers\Front\EventController@storepost            | web,auth,role:user|admin |
+|        | GET|HEAD  | event/{event}/quit                       | event.quit                | App\Http\Controllers\Front\EventController@quit                 | web,auth,role:user|admin |
+|        | POST      | event/{event}/update                     | event.update              | App\Http\Controllers\Front\EventController@update               | web,auth,role:user|admin |
+|        | POST      | event/{userevent}/destituer              | event.dest                | App\Http\Controllers\Front\EventController@destituer            | web,auth,role:user|admin |
+|        | POST      | event/{userevent}/promouvoir             | event.promot              | App\Http\Controllers\Front\EventController@promouvoir           | web,auth,role:user|admin |
+|        | GET|HEAD  | friends                                  | front.friends.show        | App\Http\Controllers\Front\FriendsController@index              | web,auth,role:user|admin |
+|        | GET|HEAD  | friends/accept/{user}                    | front.friends.accept      | App\Http\Controllers\Front\FriendsController@accept             | web,auth,role:user|admin |
+|        | GET|HEAD  | friends/add/{user}                       | front.friends.add         | App\Http\Controllers\Front\FriendsController@add                | web,auth,role:user|admin |
+|        | GET|HEAD  | friends/cancel/{user}                    | front.friends.cancel      | App\Http\Controllers\Front\FriendsController@cancel             | web,auth,role:user|admin |
+|        | GET|HEAD  | friends/destroy/{user}                   | front.friends.destroy     | App\Http\Controllers\Front\FriendsController@destroy            | web,auth,role:user|admin |
+|        | POST      | groups                                   | groups.store              | App\Http\Controllers\GroupController@store                      | web,auth,role:user|admin |
+|        | GET|HEAD  | groups                                   | groups.index              | App\Http\Controllers\GroupController@index                      | web,auth,role:user|admin |
+|        | GET|HEAD  | groups/create                            |                           | App\Http\Controllers\GroupController@createForm                 | web,auth,role:user|admin |
+|        | GET|HEAD  | groups/create/{group}                    | group.create              | App\Http\Controllers\GroupController@create                     | web,auth,role:user|admin |
+|        | PUT|PATCH | groups/{groups}                          | groups.update             | App\Http\Controllers\GroupController@update                     | web,auth,role:user|admin |
+|        | GET|HEAD  | groups/{groups}                          | groups.show               | App\Http\Controllers\GroupController@show                       | web,auth,role:user|admin |
+|        | DELETE    | groups/{groups}                          | groups.destroy            | App\Http\Controllers\GroupController@destroy                    | web,auth,role:user|admin |
+|        | GET|HEAD  | groups/{groups}/edit                     | groups.edit               | App\Http\Controllers\GroupController@edit                       | web,auth,role:user|admin |
+|        | GET|HEAD  | groups/{group}                           | group.index               | App\Http\Controllers\GroupController@index                      | web,auth,role:user|admin |
+|        | GET|HEAD  | login                                    |                           | App\Http\Controllers\Auth\AuthController@showLoginForm          | web,guest                |
+|        | POST      | login                                    |                           | App\Http\Controllers\Auth\AuthController@login                  | web,guest                |
+|        | GET|HEAD  | login/callback/{provider}                |                           | App\Http\Controllers\SocialAuthController@callback              | web                      |
+|        | GET|HEAD  | login/redirect/{provider}                |                           | App\Http\Controllers\SocialAuthController@redirect              | web                      |
+|        | GET|HEAD  | logout                                   |                           | App\Http\Controllers\Auth\AuthController@logout                 | web                      |
+|        | GET|HEAD  | message                                  | front.message.show        | App\Http\Controllers\Front\MessagesController@index             | web,auth,role:user|admin |
+|        | GET|HEAD  | notifications                            | front.notifications.show  | App\Http\Controllers\Front\NotificationsController@index        | web,auth,role:user|admin |
+|        | POST      | notifications/{notification}/see         | notification.see          | App\Http\Controllers\Front\NotificationsController@see          | web,auth,role:user|admin |
+|        | POST      | password/email                           |                           | App\Http\Controllers\Auth\PasswordController@sendResetLinkEmail | web,guest                |
+|        | POST      | password/reset                           |                           | App\Http\Controllers\Auth\PasswordController@reset              | web,guest                |
+|        | GET|HEAD  | password/reset/{token?}                  |                           | App\Http\Controllers\Auth\PasswordController@showResetForm      | web,guest                |
+|        | POST      | publication                              | publication.store         | App\Http\Controllers\Front\PublicationController@store          | web,auth,role:user|admin |
+|        | GET|HEAD  | publication                              | publication.index         | App\Http\Controllers\Front\PublicationController@index          | web,auth,role:user|admin |
+|        | GET|HEAD  | publication/create                       | publication.create        | App\Http\Controllers\Front\PublicationController@create         | web,auth,role:user|admin |
+|        | POST      | publication/loadAll                      |                           | App\Http\Controllers\Front\PublicationController@loadAll        | web,auth,role:user|admin |
+|        | GET|HEAD  | publication/{publication}                | publication.show          | App\Http\Controllers\Front\PublicationController@show           | web,auth,role:user|admin |
+|        | PUT|PATCH | publication/{publication}                | publication.update        | App\Http\Controllers\Front\PublicationController@update         | web,auth,role:user|admin |
+|        | DELETE    | publication/{publication}                | publication.destroy       | App\Http\Controllers\Front\PublicationController@destroy        | web,auth,role:user|admin |
+|        | POST      | publication/{publication}/destroyAjax    |                           | App\Http\Controllers\Front\PublicationController@destroyAjax    | web,auth,role:user|admin |
+|        | GET|HEAD  | publication/{publication}/edit           | publication.edit          | App\Http\Controllers\Front\PublicationController@edit           | web,auth,role:user|admin |
+|        | POST      | publication/{publication}/loadComment    |                           | App\Http\Controllers\Front\PublicationController@loadComment    | web,auth,role:user|admin |
+|        | POST      | publication/{publication}/signaleAjax    |                           | App\Http\Controllers\Front\PublicationController@signaleAjax    | web,auth,role:user|admin |
+|        | POST      | publication/{publication}/updateAjax     |                           | App\Http\Controllers\Front\PublicationController@updateAjax     | web,auth,role:user|admin |
+|        | GET|HEAD  | register                                 |                           | App\Http\Controllers\Auth\AuthController@showRegistrationForm   | web,guest                |
+|        | POST      | register                                 |                           | App\Http\Controllers\Auth\AuthController@register               | web,guest                |
+|        | GET|HEAD  | search                                   | front.search.show         | App\Http\Controllers\Front\SearchController@search              | web,auth,role:user|admin |
+|        | POST      | sendmessage                              | sendmessage               | App\Http\Controllers\ConversationController@sendMessage         | web,auth,role:user|admin |
+|        | POST      | show_conversation                        | show_conversation         | App\Http\Controllers\ConversationController@show                | web,auth,role:user|admin |
+|        | GET|HEAD  | uploads/{image}                          |                           | Closure                                                         | web,auth                 |
+|        | POST      | user                                     | user.store                | App\Http\Controllers\UserController@store                       | web,auth,role:user|admin |
+|        | GET|HEAD  | user                                     | user.index                | App\Http\Controllers\UserController@index                       | web,auth,role:user|admin |
+|        | GET|HEAD  | user/activation/{token}                  | user.activate             | App\Http\Controllers\Auth\AuthController@activateUser           | web,guest                |
+|        | GET|HEAD  | user/create                              | user.create               | App\Http\Controllers\UserController@create                      | web,auth,role:user|admin |
+|        | PUT|PATCH | user/{user}                              | user.update               | App\Http\Controllers\UserController@update                      | web,auth,role:user|admin |
+|        | GET|HEAD  | user/{user}                              | user.show                 | App\Http\Controllers\UserController@show                        | web,auth,role:user|admin |
+|        | DELETE    | user/{user}                              | user.destroy              | App\Http\Controllers\UserController@destroy                     | web,auth,role:user|admin |
+|        | GET|HEAD  | user/{user}/edit                         | user.edit                 | App\Http\Controllers\UserController@edit                        | web,auth,role:user|admin |
++--------+-----------+------------------------------------------+---------------------------+-----------------------------------------------------------------+--------------------------+
