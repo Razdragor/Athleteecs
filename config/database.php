@@ -105,7 +105,7 @@ return [
     */
 
     'redis' => [
-        'cluster' => true, // if true a RedisArray will be created
+        'cluster' => false, // if true a RedisArray will be created
         'default' => [
             'host'       => env('REDIS_HOST', 'athleteec.razdragor.fr'), // default: '127.0.0.1'
             'port'       => env('REDIS_PORT', 6379),        // default: 6379

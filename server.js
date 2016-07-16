@@ -7,7 +7,10 @@ server.listen(8890);
 io.on('connection', function (socket) {
  
   console.log("new client connected");
-  var redisClient = redis.createClient();
+  var redisClient = redis.createClient(8890, 'athleteec.razdragor.fr');
+  redisClient.on('error',function(e){
+    console.log('error:' + e);
+  });
   redisClient.subscribe('message');
   redisClient.subscribe('change_name');
   redisClient.subscribe('add_user');
