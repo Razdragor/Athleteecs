@@ -36,5 +36,4 @@ class Conversation extends Model
     {
         return $this->hasMany('App\Conversation_message');
     }
-
 }
