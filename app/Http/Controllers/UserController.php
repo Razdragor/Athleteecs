@@ -96,12 +96,26 @@ class UserController extends Controller
                 $rules = [
                     'firstname' => 'required',
                     'lastname' => 'required',
+                    'picture' => 'mimes:jpeg,png,jpg'
                 ];
 
                 $messages = [
                     'firstname.required'    => 'Prenom requis',
                     'lastname.required'    => 'Nom requis',
+                    'picture.mimes'      => 'Le format de l\'image n\'est pas pris en charge (jpeg,png,jpg)'
                 ];
+
+                if ($request->hasFile('picture')) {
+                    $guid = com_create_guid();
+                    $imageName = $guid.'user' . $request->file('picture')->getClientOriginalExtension();;
+
+                    $request->file('picture')->move(
+                        storage_path() . '\uploads', $imageName
+                    );
+
+                  //  $user->pictures->link = '/uploads/'.$imageName;
+                }
+
 
                 $validator = Validator::make($input,$rules,$messages);
 

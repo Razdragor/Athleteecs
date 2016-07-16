@@ -17,12 +17,21 @@
             <div class="col-md-12">
                     <div class="panel-body">
                         <!--Notice .user-profile class-->
-                        <div class="user-profile">
+                        <form class="form" method="POST" enctype="multipart/form-data" action="{{ route('user.update',['user' => $user]) }}">
+                            {{ csrf_field() }}
+
+                            <div class="user-profile">
                             <div class="row">
                                 <div class="col-sm-2 col-md-2">
                                     <div class="row">
                                         <div class="col-md-12 text-center">
                                             <img src="{{ asset('asset/img/avatars/avatar.png') }}" alt="Avatar" class="img-thumbnail img-responsive">
+                                            <input type="file" name="picture" id="picture">
+                                            @if ($errors->has('picture'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('picture') }}</strong>
+                                                </span>
+                                            @endif
                                         </div>
                                     </div>
 
@@ -122,8 +131,6 @@
                                                 @endforeach
                                             </div>
 
-                                            <form class="form" method="POST" enctype="multipart/form-data" action="{{ route('user.update',['user' => $user]) }}">
-                                                {{ csrf_field() }}
                                                 <div class="tab-pane active infos">
                                                     <br>
                                                     <dl class="dl-horizontal">
