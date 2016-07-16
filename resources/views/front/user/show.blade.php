@@ -179,9 +179,8 @@
 
                                         <dd class="divider"></dd>
                                         <dt>Adresse postal</dt>
-                                        <dd>
-                                            <img src="http://maps.googleapis.com/maps/api/staticmap?center=-12.043333,-77.028333&amp;size=450x150&amp;sensor=true&amp;zoom=15" alt="Map" class="img-responsive">
-                                        </dd>
+                                        <dd>{{ $user->address}}</dd>
+
                                     </dl>
                                 </div>
                                 <div class="tab-pane active photos">

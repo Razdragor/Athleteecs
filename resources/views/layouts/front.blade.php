@@ -388,11 +388,6 @@ $user = Auth::user();
         </nav>
     </header>
         <div class="main">
-            @if(Session::has('flash_message'))
-                <div class="alert alert-success">
-                    {{ Session::get('flash_message') }}
-                </div>
-            @endif
             @yield('content')
     </div>
     <footer>2016 - <a href="http://localhost" target="_blank">ATHLETEEC</a></footer>

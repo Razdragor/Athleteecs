@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\User;
 use App\UsersSports;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
-
+use Validator;
 use App\Http\Requests;
 
 class UserController extends Controller
@@ -83,45 +84,77 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function update($id, Request $request)
+    public function update(User $user, Request $request)
     {
-        $user = User::findOrFail($id);
+        $avaiblesexe = ["Homme","Femme","Autre"];
 
-        $input = $request->all();
+        if($user){
+            $input = $request->all();
 
-        $rules = [
-            'firstname' => 'required',
-            'lastname' => 'required',
-        ];
+            if(in_array($input["sexe"],$avaiblesexe))
+            {
+                $rules = [
+                    'firstname' => 'required',
+                    'lastname' => 'required',
+                ];
 
-        $messages = [
-            'firstname.required'    => 'Prenom requis',
-            'lastname.required'    => 'Nom requis',
-        ];
+                $messages = [
+                    'firstname.required'    => 'Prenom requis',
+                    'lastname.required'    => 'Nom requis',
+                ];
 
-        $validator = Validator::make($input,$rules,$messages);
+                $validator = Validator::make($input,$rules,$messages);
 
-        if($validator->fails())
-        {
-            $request->flash();
-            return Redirect::back()->withErrors($validator);
+                if($validator->fails())
+                {
+                    $request->flash();
+                    return Redirect::back()->withErrors($validator);
+                }
+
+                $user->firstname = $input['firstname'];
+                $user->lastname= $input['lastname'];
+                $user->job = $input['job'];
+                $user->firm = $input['firm'];
+                $user->school = $input['school'];
+                $user->address= $input['address'];
+                $user->sexe= $input['sexe'];
+
+                $user->save();
+                if(!empty($input['sport']))
+                {
+                    $sports = $request->input('sport');
+
+                    foreach($sports as $sport)
+                    {
+                        $userSport = new UsersSports();
+                        $userSport->user_id = $user->id;
+                        $userSport->sport_id= $sport;
+                        $userSport->save();
+                    }
+                }
+                if(!empty($input['sportsuppr']))
+                {
+                    $sportsuppr = $request->input('sportsuppr');
+
+                    foreach($sportsuppr as $sport)
+                    {
+                        $match = ['user_id' => $user->id, 'sport_id' => $sport];
+                        $userSport = UsersSports::where($match)->delete();
+                    }
+                }
+
+
+                return Redirect::route('user.show', ['user' => $user])->with('message', 'Modification effectué avec succès');
+            }
+
         }
+        return Redirect::back()->withErrors("Vous n'êtes pas autorisé");
+
 //
 //        $usersport = new UsersSports();
 //        $usersport->user_id = $user->id;
 //        $usersport->sport_id = $request->input('sports');
 //        $usersport->save();
-
-        $user->firstname = $input['firstname'];
-        $user->lastname= $input['lastname'];
-        $user->job = $input['job'];
-        $user->firm = $input['firm'];
-        $user->school = $input['school'];
-        $user->address= $input['address'];
-
-        $user->save();
-
-        return redirect()->back();
     }
 
 

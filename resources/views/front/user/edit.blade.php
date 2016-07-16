@@ -122,26 +122,38 @@
                                                 @endforeach
                                             </div>
 
-                                            <form class="form" method="PUT" enctype="multipart/form-data" action="{{ route('user.update',['user' => $user]) }}">
+                                            <form class="form" method="POST" enctype="multipart/form-data" action="{{ route('user.update',['user' => $user]) }}">
                                                 {{ csrf_field() }}
                                                 <div class="tab-pane active infos">
                                                     <br>
                                                     <dl class="dl-horizontal">
                                                         <dt>Prénom</dt>
                                                         <dd><input type="text" class="form-control" name="firstname" value="{{ $user->firstname }}">
+                                                        @if ($errors->has('firstname'))
+                                                            <span class="help-block">
+                                                                <strong>{{ $errors->first('firstname') }}</strong>
+                                                            </span>
+                                                        @endif
+
                                                         <dd class="divider"></dd>
                                                         <dt>Nom</dt>
                                                         <dd><input type="text" class="form-control" name="lastname" value="{{ $user->lastname }}">
+                                                        @if ($errors->has('lastname'))
+                                                            <span class="help-block">
+                                                            <strong>{{ $errors->first('lastname') }}</strong>
+                                                        </span>
+                                                        @endif
+
                                                         <dd class="divider"></dd>
                                                         <dt>Sexe</dt>
-                                                        <dd><select id="select-beast" value="{{$user->sexe }}" class="form-control" name="sexe">
-                                                            <option value="Homme">
+                                                        <dd><select id="select-beast" class="form-control" name="sexe">
+                                                            <option value="Homme" @if($user->sexe == "Homme") selected="selected" @endif>
                                                                 Homme
                                                             </option>
-                                                            <option value="Femme">
+                                                            <option value="Femme" @if($user->sexe == "Femme") selected="selected" @endif>
                                                                 Femme
                                                             </option>
-                                                            <option value="Autre">
+                                                            <option value="Autre" @if($user->sexe == "Autre") selected="selected" @endif>
                                                                 Autre
                                                             </option>
                                                         </select></dd>
@@ -157,17 +169,26 @@
                                                         <dd><input type="text" class="form-control" name="school" value="{{ $user->school }}">
                                                         <dd class="divider"></dd>
                                                         <dt>Sports pratiqué</dt>
+                                                        <ul class="list-unstyled"></dd>
                                                         @foreach($user->sports as $sport)
-                                                            <dd>{{ $sport->name }}</dd>
+                                                            <dd>
+                                                                <li>
+                                                                    <input type="checkbox" id="{{$sport->id}}" name="sportsuppr[]" value="{{$sport->id}}">{{ $sport->name }}
+                                                                </li>
+                                                            </dd>
+
                                                         @endforeach
+                                                        </ul>
                                                         <dd class="divider"></dd>
 
                                                         <dt>Sports disponibles</dt>
                                                         <ul class="list-unstyled"></dd>
                                                             @foreach($sports as $sport)
-                                                            <dd><li>
-                                                                <input type="checkbox" id="{{$sport->id}}"> {{ $sport->name }}
-                                                            </li></dd>
+                                                            <dd>
+                                                                <li>
+                                                                    <input type="checkbox" id="{{$sport->id}}" name="sport[]" value="{{$sport->id}}">{{ $sport->name }}
+                                                                </li>
+                                                            </dd>
                                                             @endforeach
                                                         </ul>
                                                         <dd class="divider"></dd>
