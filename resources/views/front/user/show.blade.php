@@ -29,37 +29,20 @@
                             <div>
                                 <a class="btn btn-block btn-success"><i class="fa fa-envelope-alt"></i>Envoyer un message</a>
                             </div>
-                            @foreach($user->friends as $friend)
-                                @if($friend->id == Auth::user()->id)
-                                    <div>
-                                        <a href="{{ route('front.friends.destroy', ['friend' => $user]) }}" class="btn btn-block btn-success">Retirer de la liste des amis</a>
-                                    </div>
-                                @else
-                                    @foreach($user->demandsfrom as $friend)
-                                            <?php echo $friend->id ?>
-                                        @if( $friend->id == Auth::user()->id)
-                                            <div>
-                                                <a href="{{ route('front.friends.cancel', ['friend' => $user]) }}" class="btn btn-block btn-success">Annuler la demande</a>
-                                            </div>
-                                        @else
-                                            @foreach($user->demandsto as $friend)
-                                                @if( $friend->id == Auth::user()->id)
-                                                    <div>
-                                                        <a href="{{ route('front.friends.accept', ['friend' => $user]) }}" class="btn btn-block btn-success">Accepter</a>
-                                                    </div>
-                                                    <div>
-                                                        <a href="{{ route('front.friends.cancel', ['friend' => $user]) }}" class="btn btn-block btn-success">Annuler</a>
-                                                    </div>
-                                                @else
-                                                    <div>
-                                                        <a href="{{ route('front.friends.add', ['friend' => $user]) }}" class="btn btn-block btn-success">Ajouter</a>
-                                                    </div>
-                                                @endif
-                                            @endforeach
-                                        @endif
-                                    @endforeach
-                                @endif
-                            @endforeach
+
+                            @if(Auth::user()->isfriend(Auth::user()->id,$user->id)==='demandsfrom')
+                                <a href="{{ route('front.friends.cancel', ['friend' => $user->id]) }}" class="btn btn-block btn-success">Annuler la demande</a>
+
+                            @elseif(Auth::user()->isfriend(Auth::user()->id,$user->id)==='demandsto')
+                                <a href="{{ route('front.friends.accept', ['friend' => $user->id]) }}" class="btn btn-block btn-success">Accepter la demande</a>
+                                <a href="{{ route('front.friends.cancel', ['friend' => $user->id]) }}" class="btn btn-block btn-success">Refuser la demande</a>
+
+                            @elseif(Auth::user()->isfriend(Auth::user()->id,$user->id)==='estami')
+                                <a href="{{ route('front.friends.destroy', ['friend' => $user->id]) }}" class="btn btn-block btn-success">Retirer de la liste d'amis</a>
+
+                            @else
+                                <a href="{{ route('front.friends.add', ['friend' => $user->id]) }}" class="btn btn-block btn-success">Ajouter un ami</a>
+                            @endif
                         @endif
                         <br>
                         <!-- BEGIN SOCIAL ICONS-->
@@ -179,9 +162,8 @@
 
                                         <dd class="divider"></dd>
                                         <dt>Adresse postal</dt>
-                                        <dd>
-                                            <img src="http://maps.googleapis.com/maps/api/staticmap?center=-12.043333,-77.028333&amp;size=450x150&amp;sensor=true&amp;zoom=15" alt="Map" class="img-responsive">
-                                        </dd>
+                                        <dd>{{ $user->address}}</dd>
+
                                     </dl>
                                 </div>
                                 <div class="tab-pane active photos">

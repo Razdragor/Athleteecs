@@ -79,7 +79,6 @@
     padding: 0px;
     width: 195px;
 }
-
 img.chat-avatar{
     max-width: 50px;
 }
@@ -130,4 +129,7 @@ img.chat-avatar{
 
 .no_padding {
     padding:0px;
+}
+.alignement-utilisateurs{
+    float: left;
 }

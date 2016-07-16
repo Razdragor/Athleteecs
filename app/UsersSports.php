@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class UsersSports extends Model
 {
     protected $table = 'users_sports';
+    public $timestamps = false;
     /**
      * The attributes that are mass assignable.
      *
