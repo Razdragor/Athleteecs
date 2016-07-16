@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Picture;
+use App\Product;
 use App\User;
 use App\UsersSports;
 use Illuminate\Http\Request;
@@ -74,7 +75,19 @@ class UserController extends Controller
             ->whereNotIn('id', $arraySport)
             ->get();
 
-        return view('front.user.edit',['user' => $user, 'sports' => $sports]);
+        $userEquipement = $user->products;
+        $arrayUser = [];
+
+        foreach($userEquipement as $us){
+            $arrayUser[] = $us->id;
+        }
+
+        $equipements = DB::table('products')
+            ->whereNotIn('id', $arrayUser)
+            ->get();
+
+
+        return view('front.user.edit',['user' => $user, 'sports' => $sports,'equipements' => $equipements]);
     }
 
     /**

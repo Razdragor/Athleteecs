@@ -17,15 +17,15 @@
             <div class="col-md-12">
                     <div class="panel-body">
                         <!--Notice .user-profile class-->
-                        <form class="form" method="POST" enctype="multipart/form-data" action="{{ route('user.update',['user' => $user]) }}">
-                            {{ csrf_field() }}
-
-                            <div class="user-profile">
+                        <div class="user-profile">
                             <div class="row">
                                 <div class="col-sm-2 col-md-2">
                                     <div class="row">
                                         <div class="col-md-12 text-center">
-                                            <img src="{{asset('images/'.$user->picture)}}" alt="Avatar" class="img-thumbnail img-responsive">
+                                            <form class="form" method="POST" enctype="multipart/form-data" action="{{ route('user.update',['user' => $user]) }}">
+                                                {{ csrf_field() }}
+
+                                                <img src="{{ asset('asset/img/avatars/avatar.png') }}" alt="Avatar" class="img-thumbnail img-responsive">
                                             <input type="file" name="picture" id="picture">
                                             @if ($errors->has('picture'))
                                                 <span class="help-block">
@@ -35,28 +35,6 @@
                                         </div>
                                     </div>
 
-                                    @if(Auth::user() != $user)
-                                        <div>
-                                            <a class="btn btn-block btn-success"><i class="fa fa-envelope-alt"></i>Envoyer un message</a>
-                                        </div>
-                                    @endif
-                                    <br>
-                                    <!-- BEGIN SOCIAL ICONS-->
-                                    <div class="text-center social-icons">
-                                        <a href="#">
-                        <span class="fa-stack fa-lg"><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-facebook"></i>
-                        </span>
-                                        </a>
-                                        <a href="#">
-                        <span class="fa-stack fa-lg"><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-twitter"></i>
-                        </span>
-                                        </a>
-                                        <a href="#">
-                        <span class="fa-stack fa-lg"><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-google-plus"></i>
-                        </span>
-                                        </a>
-                                    </div>
-                                    <!-- END SOCIAL ICONS-->
                                 </div>
                                 <div class="col-sm-10 col-md-10">
                                     <div class="row">
@@ -83,54 +61,28 @@
                                     <div class="row">
                                         <ul id="profileTab" class="nav nav-tabs">
                                             <li id="pots" class="ok">
-                                                <a href="#">Posts</a>
+                                                <a href="#">Dernières publications</a>
                                             </li>
                                             <li class="active ok" id="infos">
-                                                <a href="#" data-toggle="tab">Info</a>
+                                                <a href="#" data-toggle="tab">Information</a>
+                                            </li>
+                                            <li id="amis" class="ok">
+                                                <a href="#">{{count($user->friends)}} @if(count($user->friends)>1) Amis @else
+                                                        Ami @endif</a>
+                                            </li>
+                                            <li id="equipement" class="ok">
+                                                <a href="#">Equipements</a>
                                             </li>
                                             <li id="photos" class="ok">
                                                 <a href="#">Photos</a>
                                             </li>
-                                            <li id="videos" class="ok">
-                                                <a href="#">Videos</a>
-                                            </li>
+
                                         </ul>
                                     </div>
                                     <!-- END TABS SELECTIONS-->
                                     <div class="row">
                                         <!-- BEGIN TABS SECTIONS-->
                                         <div id="profileTabContent" class="tab-content col-sm-9 col-md-9">
-                                            <div class="tab-pane active pots" style="display: none;">
-                                                @foreach($user->publications as $publication)
-                                                    <br>
-
-                                                    <div class="timeline-panel">
-                                                        <!-- //Notice .timeline-heading class-->
-                                                        <div class="timeline-heading">
-                                                            <img src="http://lorempixel.com/800/250/sports/5/" alt="Image" class="img-responsive">
-                                                        </div>
-                                                        <!-- //Notice .timeline-body class-->
-                                                        <div class="timeline-body">
-                                                            <p>{{ $publication->message }}</p>
-                                                        </div>
-                                                        <!-- //Notice .timeline-footer class-->
-                                                        <div class="timeline-footer">
-                                                            <!---->
-                                                            <a href="#"><i class="fa fa-thu mbs-up"></i>
-                                                            </a>
-                                                            <!---->
-                                                            <a href="#"><i class="fa fa-comment"></i>
-                                                            </a>
-                                                            <!---->
-                                                            <a href="#"><i class="fa fa-share"></i>
-                                                            </a>
-                                                            <!---->
-                                                            <a class="late-reading">Continue Reading</a>
-                                                        </div>
-                                                    </div>
-                                                @endforeach
-                                            </div>
-
                                                 <div class="tab-pane active infos">
                                                     <br>
                                                     <dl class="dl-horizontal">
@@ -206,6 +158,123 @@
                                                             <button type="submit" class="btn btn-primary">Modifier</button>
                                                         </dd>
                                                     </dl>
+                                                </div>
+                                                <div class="tab-pane active equipement" style="display: none;">
+                                                    <div class="row">
+                                                        @foreach($user->products as $equipment)
+                                                            <div class="row">
+                                                                <ul class="list-unstyled"></dd>
+                                                                    <li>
+                                                                        <div class="col-md-1">
+                                                                            <input type="checkbox" id="{{$equipment->id}}" name="equipement[]" value="{{$equipment->id}}" checked>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div class="equipement-cadre">
+                                                                                <div class="equipement-box">
+                                                                                    <img src="{{asset('images/'.$equipment->picture)}}"
+                                                                                         alt="Avatar" class="img-thumbnail img-responsive">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-9">
+                                                                            <a href="{{ $equipment->url }}">
+                                                                                <dd>{{ $equipment->name }}</dd>
+                                                                            </a>
+                                                                            <dd>{{ $equipment->description }}</dd>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        @endforeach
+
+                                                        @foreach($equipements as $equip)
+                                                            <div class="row">
+                                                                <ul class="list-unstyled"></dd>
+                                                                    <li>
+                                                                        <div class="col-md-1">
+                                                                            <input type="checkbox" id="{{$equip->id}}" name="equipement[]" value="{{$equip->id}}">
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div class="equipement-cadre">
+                                                                                <div class="equipement-box">
+                                                                                    <img src="{{asset('images/'.$equip->picture)}}"
+                                                                                         alt="Avatar" class="img-thumbnail img-responsive">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-9">
+                                                                            <a href="{{ $equip->url }}">
+                                                                                <dd>{{ $equip->name }}</dd>
+                                                                            </a>
+                                                                            <dd>{{ $equip->description }}</dd>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        @endforeach
+
+                                                        <div class="form-group">
+                                                            <h3>Ajouter un équipement</h3>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <label for="productname" class="col-md-2 control-label">Nom de l'équipement</label>
+                                                                    <div class="col-md-10">
+                                                                        <input type="text" class="form-control" name="productname" placeholder="...">
+                                                                         <span class="help-block">
+                                                                                 <strong>{{ $errors->first('productname') }}</strong>
+                                                                             </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <label for="description" class="col-md-2 control-label">Description</label>
+                                                                    <div class="col-md-10">
+                                                                        <input type="text" class="form-control" name="description" placeholder="...">
+                                                                         <span class="help-block">
+                                                                                 <strong>{{ $errors->first('description') }}</strong>
+                                                                         </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <label for="productpicture" class="col-md-2 control-label">Image</label>
+                                                                    <div class="col-md-10">
+                                                                        <input type="file" name="productpicture" id="productpicture">
+                                                                        @if ($errors->has('productpicture'))
+                                                                            <span class="help-block">
+                                                                                 <strong>{{ $errors->first('picture') }}</strong>
+                                                                             </span>
+                                                                        @endif
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <label for="price" class="col-md-2 control-label">Prix</label>
+
+                                                                    <div class="col-md-10">
+                                                                        <input type="number" class="form-control" name="price" placeholder="...">
+                                                                        @if ($errors->has('price'))
+                                                                         <span class="help-block">
+                                                                                 <strong>{{ $errors->first('price') }}</strong>
+                                                                             </span>
+                                                                        @endif
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <label for="url" class="col-md-2 control-label">Lien vers l'équipement</label>
+
+                                                                    <div class="col-md-10">
+                                                                        <input type="text" class="form-control" name="url" placeholder="...">
+                                                                        @if ($errors->has('url'))
+                                                                            <span class="help-block">
+                                                                             <strong>{{ $errors->first('url') }}</strong>
+                                                                         </span>
+                                                                        @endif
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+
                                                 </div>
 
                                             </form>
