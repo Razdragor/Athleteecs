@@ -148,8 +148,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         }
 
         $isfriend = $this->demandsfrom()
-            ->where('user_id', $userid)
-            ->where('userL_id', $friendid)
+            ->where('user_id', $friendid)
+            ->where('userL_id', $userid)
             ->get();
         if(count($isfriend)>0){
             return 'demandsfrom';

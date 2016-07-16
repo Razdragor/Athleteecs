@@ -707,7 +707,6 @@ $user = Auth::user();
             error:function(jqXHR)
             {
                 $('.return').html(jqXHR.responseText);
-
             }
         });
 
@@ -782,7 +781,7 @@ $user = Auth::user();
                 {  
                     to_append = to_append + '</ul></div><div class="panel-footer"><form action="sendmessage" method="POST" class="chat_send_message"><div class="input-group">'+
                             '<input type="hidden" name="_token" value="{{ csrf_token() }}"><input type="hidden" name="conversation_id" value="'+data.conv['id']+'">'+
-                            '<input id="btn-input" name="message" type="text" placeholder="Ecrivez un message..." class="form-control input-sm">'+
+                            '<input id="btn-input" name="message" type="text" autocomplete="off" placeholder="Ecrivez un message..." class="form-control input-sm">'+
                             '<span class="input-group-btn"><input type="submit" value="Envoyer" class="btn btn-success btn-sm"></span></div></form></div>';
                 }
                 if(view == 1)
