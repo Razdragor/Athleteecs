@@ -146,6 +146,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Illuminate\Redis\RedisServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -162,12 +163,6 @@ return [
         Zizaco\Entrust\EntrustServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         GoogleMaps\ServiceProvider\GoogleMapsServiceProvider::class,
-
-        /*
-         * redis pour tchat
-         */
-    // 'Illuminate\Redis\RedisServiceProvider',
-    'Vetruvet\PhpRedis\PhpRedisServiceProvider',
 
     ],
 

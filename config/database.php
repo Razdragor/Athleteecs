@@ -105,9 +105,9 @@ return [
     */
 
     'redis' => [
-        'cluster' => true, // if true a RedisArray will be created
+        'cluster' => false, // if true a RedisArray will be created
         'default' => [
-            'host'       => env('REDIS_HOST', 'localhost'), // default: '127.0.0.1'
+            'host'       => env('REDIS_HOST', '127.0.0.1'), // default: '127.0.0.1'
             'port'       => env('REDIS_PORT', 6379),        // default: 6379
         ],
     ],
