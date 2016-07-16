@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\UsersSports;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use App\Http\Requests;
 
@@ -59,7 +61,18 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('front.user.edit',['user' => $user]);
+        $userSports = $user->sports;
+        $arraySport = [];
+
+        foreach($userSports as $us){
+            $arraySport[] = $us->id;
+        }
+
+        $sports = DB::table('sports')
+            ->whereNotIn('id', $arraySport)
+            ->get();
+
+        return view('front.user.edit',['user' => $user, 'sports' => $sports]);
     }
 
     /**
@@ -69,9 +82,46 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+
+    public function update($id, Request $request)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $input = $request->all();
+
+        $rules = [
+            'firstname' => 'required',
+            'lastname' => 'required',
+        ];
+
+        $messages = [
+            'firstname.required'    => 'Prenom requis',
+            'lastname.required'    => 'Nom requis',
+        ];
+
+        $validator = Validator::make($input,$rules,$messages);
+
+        if($validator->fails())
+        {
+            $request->flash();
+            return Redirect::back()->withErrors($validator);
+        }
+//
+//        $usersport = new UsersSports();
+//        $usersport->user_id = $user->id;
+//        $usersport->sport_id = $request->input('sports');
+//        $usersport->save();
+
+        $user->firstname = $input['firstname'];
+        $user->lastname= $input['lastname'];
+        $user->job = $input['job'];
+        $user->firm = $input['firm'];
+        $user->school = $input['school'];
+        $user->address= $input['address'];
+
+        $user->save();
+
+        return redirect()->back();
     }
 
 
