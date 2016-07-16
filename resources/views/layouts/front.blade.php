@@ -552,9 +552,10 @@ $user = Auth::user();
         {
             if(chat_msg[0]['user']['id'] == {{ $user->id }})
             {
+                var heureMessage = chat_msg[0]['created_at'];
                 $('.'+chat_class).append('<li class="right clearfix"><span class="chat-avatar pull-right"><img src="{{ $user->picture }}" alt="{{ $user->firstname.' '. $user->lastname }}" width="55px" height="55px"></span>'+
                         '<div id="chat_sender1" class="chat-body clearfix"><div class="header">'+
-                        '<small class="text-muted"><span class="fa fa-clock-o">&nbsp;'+now+'</span>'+
+                        '<small class="text-muted"><span class="fa fa-clock-o">&nbsp;'+heureMessage+'</span>'+
                         '</small><strong class="pull-right primary-font">{{ $user->firstname }} {{$user->lastname }}</strong>'+
                         '</div>'+
                         '<p>'+chat_msg[0]['message']+'</p></div></li>');
@@ -586,11 +587,17 @@ $user = Auth::user();
     $('body').on('click','.close', function(){
         $(this).parent().parent().parent().parent().remove();
         $.each($('.tchat-box'),function(i,box){
-            if($(box).css("left") > 200 )
+            if(parseInt(box.style.left) > 200 )
             {
-                $(box).css("left",($(box).css("left")-375));
+                var val = parseInt(box.style.left) - 370;
+                $(box).css({ left: val+"px" });
             }
         });
+        
+        if(chatbox_pos > 200)
+        {
+            chatbox_pos = chatbox_pos -370;
+        }
     });
 
 
@@ -724,19 +731,26 @@ $user = Auth::user();
             data:fdata,
             processData: false,
             success:function(data) {
-                var to_append = '<div class="tchat-box" style="left:'+chatbox_pos+'px"><div class="panel panel-default panel-chat"><div class="head-tchat"><div class="head-tchat-left">'+data.conv['name']+'</div><div class="head-tchat-right"><i class="fa fa-user-plus chat_user_add_button" aria-hidden="true"></i><i class="fa fa-times close" aria-hidden="true"></i></div></div><div class="chat_user_add_div"></div><div class="panel-body scroll-chat-box"><ul class="scroll conv_messages_'+data.conv['id']+'">';
+                var to_append = '';
+                var chat_class = 'conv_messages_'+data.conv['id'];
+                if(!($('.'+chat_class).length))
+                {  
+                    to_append = to_append+'<div class="tchat-box" style="left:'+chatbox_pos+'px"><div class="panel panel-default panel-chat"><div class="head-tchat"><div class="head-tchat-left">'+data.conv['name']+'</div><div class="head-tchat-right"><i class="fa fa-user-plus chat_user_add_button" aria-hidden="true"></i><i class="fa fa-times close" aria-hidden="true"></i></div></div><div class="chat_user_add_div"></div><div class="panel-body scroll-chat-box"><ul class="scroll conv_messages_'+data.conv['id']+'">';
                 chatbox_pos+=370;
 
-                if(chatbox_pos > ($(document).width()-400))                 
-                {                     
-                    chatbox_pos = 200;
-                    $.each($('.tchat-box'),function(i,box){
-                        if($(box).css("left") == 200 )
-                        {
-                            $(box).remove();
-                        }
-                    });              
+                    if(chatbox_pos > ($(document).width()-400))                 
+                    {                     
+                        chatbox_pos = 200;
+                        $.each($('.tchat-box'),function(i,box){
+                            if($(box).css("left") == 200 )
+                            {
+                                $(box).remove();
+                            }
+                        });              
+                    }
+                    
                 }
+              
 
                 data.messages.forEach(function(message){
                     if(message['user_id'] == {{ $user->id }})
@@ -763,20 +777,32 @@ $user = Auth::user();
                         });
                     }
                 });
-                to_append = to_append + '</ul></div><div class="panel-footer"><form action="sendmessage" method="POST" class="chat_send_message"><div class="input-group">'+
-                        '<input type="hidden" name="_token" value="{{ csrf_token() }}"><input type="hidden" name="conversation_id" value="'+data.conv['id']+'">'+
-                        '<input id="btn-input" name="message" type="text" placeholder="Ecrivez un message..." class="form-control input-sm">'+
-                        '<span class="input-group-btn"><input type="submit" value="Envoyer" class="btn btn-success btn-sm"></span></div></form></div>';
-                if(view)
+                
+                if(!($('.'+chat_class).length))
+                {  
+                    to_append = to_append + '</ul></div><div class="panel-footer"><form action="sendmessage" method="POST" class="chat_send_message"><div class="input-group">'+
+                            '<input type="hidden" name="_token" value="{{ csrf_token() }}"><input type="hidden" name="conversation_id" value="'+data.conv['id']+'">'+
+                            '<input id="btn-input" name="message" type="text" placeholder="Ecrivez un message..." class="form-control input-sm">'+
+                            '<span class="input-group-btn"><input type="submit" value="Envoyer" class="btn btn-success btn-sm"></span></div></form></div>';
+                }
+                if(view == 1)
                 {
                     $('.conv_users-list').after(to_append);
                     chatbox_pos = chatbox_pos-370;
                 }
                 else
                 {
-                    $('.users-list').after(to_append);
+                    if($('.'+chat_class).length)
+                    {  
+                        $('.conv_messages_'+data.conv['id']).html(to_append);
+                        $(".scroll-chat-box").scrollTop($(".scroll-chat-box")[0].scrollHeight);
+                    }
+                    else
+                    {
+                        $('.users-list').after(to_append);
+                        $(".scroll-chat-box").scrollTop($(".scroll-chat-box")[0].scrollHeight);
+                    }
                 }
-                $(".scroll-chat-box").scrollTop($(".scroll-chat-box")[0].scrollHeight);
             },
             error:function(jqXHR)
             {
