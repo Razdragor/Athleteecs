@@ -22,7 +22,7 @@
                     <div class="col-sm-2 col-md-2">
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                <img src="{{ $user->picture}}" alt="Avatar" class="img-thumbnail img-responsive">
+                                <img src="{{asset('images/'.$user->picture)}}" alt="Avatar" class="img-thumbnail img-responsive">
                             </div>
                         </div>
                         @if(Auth::user() != $user)
@@ -176,7 +176,11 @@
                                         @foreach($user->sports as $sport)
                                             <dd>{{ $sport->name }}</dd>
                                         @endforeach
-
+                                        <dd class="divider"></dd>
+                                        <dt>Equipement utilisé</dt>
+                                        @foreach($user->products as $equipment)
+                                            <dd>{{ $equipment->name }}</dd>
+                                        @endforeach
                                         <dd class="divider"></dd>
                                         <dt>Adresse postal</dt>
                                         <dd>{{ $user->address}}</dd>

@@ -124,9 +124,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->hasMany('App\Conversation_user');
     }
 
-    public function equipments()
+    public function products()
     {
-        return $this->hasMany('App\Equipment', 'users_equips_sports', 'user_id', 'product_id');
+        return $this->belongsToMany('App\Product', 'users_equips_sports', 'user_id', 'product_id');
     }
     
     public function friends(){

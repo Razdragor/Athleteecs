@@ -25,7 +25,7 @@
                                 <div class="col-sm-2 col-md-2">
                                     <div class="row">
                                         <div class="col-md-12 text-center">
-                                            <img src="{{ asset('asset/img/avatars/avatar.png') }}" alt="Avatar" class="img-thumbnail img-responsive">
+                                            <img src="{{asset('images/'.$user->picture)}}" alt="Avatar" class="img-thumbnail img-responsive">
                                             <input type="file" name="picture" id="picture">
                                             @if ($errors->has('picture'))
                                                 <span class="help-block">
