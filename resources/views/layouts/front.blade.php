@@ -112,27 +112,6 @@ $user = Auth::user();
                        </div>
                    </div>
            -->
-            <form class="chat-options">
-                <div class="input-group">
-                    <div class="input-group-btn dropup">
-                        <button type="button" tabindex="-1" data-toggle="dropdown" class="btn dropdown-toggle btn-xs"><i class="fa fa-cog"></i>
-                        </button>
-                        <ul role="menu" class="dropdown-menu pull-left">
-                            <li>
-                                <a href="#">Chat Sounds</a>
-                            </li>
-                            <li>
-                                <a href="#">Advanced Settings...</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="#">Turn Off Chat</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <input type="text" placeholder="Search user..." class="form-control">
-                </div>
-            </form>
         </div>
     </aside>
     <header>
@@ -493,8 +472,8 @@ $user = Auth::user();
         }
     });
 
-    
-    
+
+
     socket.on('change_name', function (data)
     {
         var chat_msg = $.parseJSON('[' + data + ']'),
@@ -567,7 +546,7 @@ $user = Auth::user();
                     $('.'+chat_class).append('<li class="left clearfix"><span class="chat-avatar pull-left"><img src="'+chat_msg[0]['user']['picture']+'" alt="'+chat_msg[0]['user']['firstname']+' '+chat_msg[0]['user']['lastname']+
                             '" width="55px" height="55px"></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font">'+chat_msg[0]['user']['firstname']+' '+chat_msg[0]['user']['lastname']+
                             '</strong><small class="pull-right text-muted"><span class="fa fa-clock-o">&nbsp;'+now+'</span></small></div><p>'+chat_msg[0]['message']+'</p></div></li>');
-                    
+
                     $('.'+chat_class).parent().scrollTop($(".scroll-chat-box")[0].scrollHeight);
                 }
                 else
@@ -711,9 +690,9 @@ $user = Auth::user();
     $('body').on('click','.chat_show', function(){
         var form = $(this);
         create_or_show_chat($(this),"{{route('show_conversation') }}");
-    }); 
-    
-    
+    });
+
+
     function create_or_show_chat(form, url,view = 0){
         console.log(form[0]);
         var now = new Date().getDay();
@@ -728,15 +707,15 @@ $user = Auth::user();
                 var to_append = '<div class="tchat-box" style="left:'+chatbox_pos+'px"><div class="panel panel-default panel-chat"><div class="head-tchat"><div class="head-tchat-left">'+data.conv['name']+'</div><div class="head-tchat-right"><i class="fa fa-user-plus chat_user_add_button" aria-hidden="true"></i><i class="fa fa-times close" aria-hidden="true"></i></div></div><div class="chat_user_add_div"></div><div class="panel-body scroll-chat-box"><ul class="scroll conv_messages_'+data.conv['id']+'">';
                 chatbox_pos+=370;
 
-                if(chatbox_pos > ($(document).width()-400))                 
-                {                     
+                if(chatbox_pos > ($(document).width()-400))
+                {
                     chatbox_pos = 200;
                     $.each($('.tchat-box'),function(i,box){
                         if($(box).css("left") == 200 )
                         {
                             $(box).remove();
                         }
-                    });              
+                    });
                 }
 
                 data.messages.forEach(function(message){
