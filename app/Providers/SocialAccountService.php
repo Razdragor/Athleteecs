@@ -55,7 +55,6 @@ class SocialAccountService
                     $user = $this->createUserGoogle($providerUser);
                 }
                 if($providerName == 'TwitterProvider'){
-                    dd($providerUser);
                     $user = $this->createUserTwitter($providerUser);
                 }
             }
