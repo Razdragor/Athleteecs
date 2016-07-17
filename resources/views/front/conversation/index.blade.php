@@ -4,7 +4,28 @@
 
     <div class="row">
         <div class="panel panel-default col-xs-3 col-xs-offset-1">
+                @if(isset($friend->id))
+                    <div class="conversation_div">
+                        <form class="conversation_chat_show">
+                                <div class="row">                                  
+                                    <div class="col-xs-4">
+                                        <img class="chat-avatar" src="{{ asset('images/'.$friend->picture) }}">
+                                    </div>
+                                    <div class="col-xs-8">
+                                        <input type="hidden" name="conv_id" value="{{$conv->id}}">
+                                        <p>
+                                            {{$conv->name}}<br>
+                                            @if($conv->conversation_messages->last())
+                                                Dernier message :{{ $conv->conversation_messages->last()->message }}
+                                            @endif
+                                        </p>
+                                    </div>
+                                </div>
+                        </form>
+                    </div>
+                @endif
                 @foreach($user->conversations_reverse as $conversation)
+                    @if(!(isset($conv->id) && $conversation->conversation->id == $conv->id))
                     <div class="conversation_div">
                         <form class="conversation_chat_show">
                                 <div class="row">
@@ -28,6 +49,7 @@
                                 </div>
                         </form>
                     </div>
+                    @endif
                 @endforeach
 
         </div>
@@ -39,13 +61,21 @@
             <div class="panel-heading">
                     <div class="panel-title">
                         <i class="fa fa-comments"></i>
+                        @if(isset($conv->id))
+                        {{ $conv->name }}
+                        @else
                         {{ $user->conversations_reverse->first()->conversation->name }}
+                        @endif
                     </div>
             </div>
             <div class="panel-body">
                 <ul class="conv_users-list">
                     <form class="first_load">
+                        @if(isset($conv->id))
+                        <input type="hidden" name="conv_id" value="{{$conv->id}}">
+                        @else
                         <input type="hidden" name="conv_id" value="{{$user->conversations_reverse->first()->conversation->id}}">
+                        @endif
                     </form>
                 </ul>
             </div>
