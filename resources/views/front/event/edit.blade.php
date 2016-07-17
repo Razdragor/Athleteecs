@@ -85,7 +85,7 @@
                         </div>                        <div class="form-group">
                             <label for="datetimepicker5" class="col-sm-2 control-label">Date de début :</label>
                             <div class="col-sm-10 date" id="datetimepicker5">
-                                <input type="text" class="form-control" placeholder="__/__/____ __:__" name="date_start_act" value="{{ $event->started_at }}">
+                                <input type="text" class="form-control" placeholder="__/__/____ __:__" name="date_start_act" value="{{ $event->started_at }}" required>
                                 <span class="input-group-addon">
                                     <i class="fa-calendar fa"></i>
                                 </span>
@@ -99,7 +99,7 @@
                         <div class="form-group">
                             <label for="datetimepicker6" class="col-sm-2 control-label">Date de fin :</label>
                             <div class="col-sm-10 date" id="datetimepicker6">
-                                <input type="text" class="form-control" placeholder="__/__/____ __:__" name="date_end_act" value="{{ $event->end_at }}">
+                                <input type="text" class="form-control" placeholder="__/__/____ __:__" name="date_end_act" value="{{ $event->end_at }}" required>
                                 <span class="input-group-addon">
                                 <i class="fa-calendar fa"></i>
                                 </span>
