@@ -134,7 +134,7 @@
                                 <div class="timeline-heading row" style="margin: 0;">
                                     <div style="margin:0 10px 0 0;float:left;">
                                         <a href="{{ route("user.show", $publication->user->id ) }}">
-                                            <img src="{{ asset('images/'.$publication->user->picture) }}" alt="Image" class="img-responsive" style="width: 50px;height:50px; margin: 5px;display: inline-block;">
+                                            <img src="{{ $publication->user->picture }}" alt="Image" class="img-responsive" style="width: 50px;height:50px; margin: 5px;display: inline-block;">
                                         </a>
                                     </div>
                                     <div style="margin: 10px;float:left;">
@@ -211,7 +211,7 @@
                                         @foreach($publication->commentspost as $comment)
                                             <div class="comment" id="comment-{{$comment->id}}">
                                                 <a class="pull-left" href="{{ route("user.show", $comment->user->id ) }}">
-                                                    <img width="35" height="35" class="comment-avatar" alt="{{ $comment->user->firstname.' '.$comment->user->lastname }}" src="{{ asset('images/'.$comment->user->picture) }}">
+                                                    <img width="35" height="35" class="comment-avatar" alt="{{ $comment->user->firstname.' '.$comment->user->lastname }}" src="{{ $comment->user->picture }}">
                                                 </a>
                                                 <div class="comment-body">
                                                     <span class="message"><strong>{{ $comment->user->firstname.' '.$comment->user->lastname }}</strong> {{ $comment->message }}</span>
@@ -230,7 +230,7 @@
                                         @endif
                                         <div class="comment">
                                             <a class="pull-left" href="{{ route("user.show", $publication->user->id ) }}">
-                                                <img width="35" height="35" class="comment-avatar" alt="{{Auth::user()->name}}" src="{{ asset('images/'.Auth::user()->picture) }}">
+                                                <img width="35" height="35" class="comment-avatar" alt="{{Auth::user()->name}}" src="{{ Auth::user()->picture }}">
                                             </a>
                                             <div class="comment-body">
                                                 <input type="text" class="form-control" name="{{ $publication->id }}" id="post-comment" placeholder="Ecris un commentaire...">
@@ -266,7 +266,7 @@
                                 <input id="file-input-modal" name="picture_status_modal" type="file" accept="image/*"/>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary pull-right" >Post</button>
+                        <button type="submit" class="btn btn-primary pull-right" >Poster</button>
                     </div>
                     </form>
                 </div>
@@ -333,7 +333,7 @@
                                 <input id="file-input2-modal" name="picture_act_modal" type="file"/>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary pull-right">Post</button>
+                        <button type="submit" class="btn btn-primary pull-right">Poster</button>
                     </div>
                     </form>
                 </div>

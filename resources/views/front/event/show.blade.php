@@ -53,9 +53,6 @@
                 @if($user->isAdminEvent($event->id))
                     <div class="col-sm-6 col-md-4 col-lg-2">
                         <a class="btn btn-block btn-primary" href="{{ route('event.edit', ['event' => $event]) }}"><i class="fa fa-edit"></i>Editer</a>
-                        @if(isset($message))
-                            <small>{{ var_dump($message) }}</small>
-                        @endif
                     </div>
                     <div class="col-sm-6 col-md-4 col-lg-2">
                         <a class="btn btn-block btn-primary" href="{{ route('event.delete', ['event' => $event]) }}">Supprimer</a>
@@ -144,7 +141,7 @@
                                                                 <input id="file-input" name="picture_status" type="file"/>
                                                             </div>
                                                         </div>
-                                                        <button type="submit" class="btn btn-primary pull-right">Post</button>
+                                                        <button type="submit" class="btn btn-primary pull-right">Poster</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -202,7 +199,7 @@
                                                                 <input id="file-input2" name="picture_status" type="file"/>
                                                             </div>
                                                         </div>
-                                                        <button type="submit" class="btn btn-primary pull-right">Post</button>
+                                                        <button type="submit" class="btn btn-primary pull-right">Poster</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -227,7 +224,7 @@
                                             <div class="timeline-heading row" style="margin: 0;">
                                                 <div style="margin:0 10px 0 0;float:left;">
                                                     <a href="{{ route("user.show", $publication->user->id ) }}">
-                                                        <img src="{{ asset($publication->user->picture) }}" alt="Image" class="img-responsive" style="width: 50px; margin: 5px;display: inline-block;">
+                                                        <img src="{{ $publication->user->picture }}" alt="Image" class="img-responsive" style="width: 50px; margin: 5px;display: inline-block;">
                                                     </a>
                                                 </div>
                                                 <div style="margin: 10px;float:left;">
@@ -272,7 +269,7 @@
                                                         @if(!is_null($publication->video))
                                                             <div class="video-container"><iframe src="https://www.youtube.com/embed/{{$publication->video->url}}" frameborder="0" allowfullscreen></iframe></div>
                                                         @elseif(!is_null($publication->picture))
-                                                            <img src="{{ asset('images/'.$publication->picture) }}" alt="" class="img-responsive">
+                                                            <img src="{{ asset($publication->picture) }}" alt="" class="img-responsive">
                                                         @endif
                                                     </div>
 
@@ -304,7 +301,7 @@
                                                     @foreach($publication->commentspost as $comment)
                                                         <div class="comment" id="comment-{{$comment->id}}">
                                                             <a class="pull-left" href="{{ route("user.show", $comment->user->id ) }}">
-                                                                <img width="35" height="35" class="comment-avatar" alt="{{ $comment->user->firstname.' '.$comment->user->lastname }}" src="{{ asset('images/'.$comment->user->picture) }}">
+                                                                <img width="35" height="35" class="comment-avatar" alt="{{ $comment->user->firstname.' '.$comment->user->lastname }}" src="{{ $comment->user->picture }}">
                                                             </a>
                                                             <div class="comment-body">
                                                                 <span class="message"><strong>{{ $comment->user->firstname.' '.$comment->user->lastname }}</strong> {{ $comment->message }}</span>
@@ -323,7 +320,7 @@
                                                     @endif
                                                     <div class="comment">
                                                         <a class="pull-left" href="{{ route("user.show", $publication->user->id ) }}">
-                                                            <img width="35" height="35" class="comment-avatar" alt="{{Auth::user()->name}}" src="{{ asset('images/'.Auth::user()->picture) }}">
+                                                            <img width="35" height="35" class="comment-avatar" alt="{{Auth::user()->name}}" src="{{ Auth::user()->picture }}">
                                                         </a>
                                                         <div class="comment-body">
                                                             <input type="text" class="form-control" name="{{ $publication->id }}" id="post-comment" placeholder="Ecris un commentaire...">
@@ -345,7 +342,7 @@
                         <div class="tab-pane fade" id="member">
                             @foreach($event->members as $member)
                                 <div class="col-xs-3 col-sm-5 col-md-3 col-lg-2" style="text-align: center">
-                                    <img src="{{ asset('images/'.$member->user->picture) }}" alt="{{$member->user->firstname}}" style="height: 100px;width: auto"><br>
+                                    <img src="{{ $member->user->picture }}" alt="{{$member->user->firstname}}" style="height: 100px;width: auto"><br>
                                     {{ $member->user->firstname }} {{ $member->user->lastname }}
                                     @if($user->id == $event->user_id && $user->id != $member->user->id)
                                         <?php
