@@ -90,7 +90,7 @@ $user = Auth::user();
                             <form class="create_conversation alignement-utilisateurs">
                                 <input type="hidden" name="id" value="{{ $friend->id }}"></input>
                                 <a data-firstname="{{ $friend->firstname }}" data-lastname="{{ $friend->lastname }}" data-status="online" data-userid="{{ $friend->id }}" class="hauteur-utilisateurs-liste">
-                                    <img src="{{ $friend->picture }}" alt="{{ $friend->firstname.' '.$friend->lastname }}">
+                                    <img src="{{ asset('images/'.$friend->picture) }}" alt="{{ $friend->firstname.' '.$friend->lastname }}">
                                     <span>{{ $friend->firstname.' '.$friend->lastname }}</span><i class="fa fa-circle user-status online"></i>
                                 </a>
                             </form>
@@ -151,8 +151,8 @@ $user = Auth::user();
                 </ul>
                 <div class="nav-indicators">
                     <ul class="nav navbar-nav navbar-right nav-indicators-body">
-                        <a href="{{ route('user.show',['user' => Auth::user()->id]) }}"><img src="{{ Auth::user()->picture}}" alt="Avatar" class="dropdown nav-notifications img-navbarre"></a>
-
+                      <!-- DEBUT AMIS-->
+                        <a href="{{ route('user.show',['user' => Auth::user()->id]) }}"><img src="{{ asset('images/'.Auth::user()->picture)}}" alt="Avatar" class="dropdown nav-notifications img-navbarre"></a>
                         <li class="dropdown nav-notifications">
                             <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
                                 @if(Auth::user()->getfriendsnotificationstrue()->count()>0)<span class="badge">{{Auth::user()->getfriendsnotificationstrue()->count()}}</span>@endif<i class="fa fa-users fa-lg"></i>

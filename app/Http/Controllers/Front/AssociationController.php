@@ -94,9 +94,9 @@ class AssociationController extends Controller
             $imageName = $guid.'_assos.' . $request->file('picture')->getClientOriginalExtension();;
 
             $request->file('picture')->move(
-                storage_path() . '\uploads', $imageName
+                public_path() . '\associations', $imageName
             );
-            $imageName = '/uploads/'.$imageName;
+            $imageName = '/associations/'.$imageName;
         }
 
         $association = Association::create(array(
@@ -205,9 +205,9 @@ class AssociationController extends Controller
                 $imageName = $guid.'_assos.' . $request->file('picture')->getClientOriginalExtension();;
 
                 $request->file('picture')->move(
-                    storage_path() . '\uploads', $imageName
+                    public_path() . '\associations', $imageName
                 );
-                $association->picture = '/uploads/'.$imageName;
+                $association->picture = '/associations/'.$imageName;
             }
 
             $association->name = $data['name'];

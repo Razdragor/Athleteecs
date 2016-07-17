@@ -41,8 +41,8 @@ class HelperActivity
         $data['time_m_act'] = intval($data['time_m_act']);
         $data['time_s_act'] = intval($data['time_s_act']);
         $time = ($data['time_h_act']*3600) + ($data['time_m_act'] * 60) + $data['time_s_act'];
-        $dateStart = strtotime($data['date_start_act']);
-        $dateStart = date("Y-m-d H:i:s", $dateStart);
+        $datedate = \DateTime::createFromFormat('d/m/Y G:i',$data['date_start_act']);
+        $dateStart = date("Y-m-d H:i:s", $datedate->getTimestamp());
 
         $act = array(
             'sport_id' => $data['sport_act'],
@@ -124,9 +124,9 @@ class HelperActivity
             $imageName = $user->id . '_' . date('YmdHis') . '_post.' . $request->file('picture_act_modal')->getClientOriginalExtension();;
 
             $request->file('picture_act_modal')->move(
-                storage_path() . '\uploads', $imageName
+                public_path() . '/images/publications', $imageName
             );
-            $imageName = '/uploads/' . $imageName;
+            $imageName = '/images/publications/' . $imageName;
             $activity->picture = $imageName;
         }
 

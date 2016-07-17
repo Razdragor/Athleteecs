@@ -30,7 +30,7 @@
 <div class="container" style="margin-bottom: 50px;">
     <div class="row padding">
             <div class="col-md-2 col-sm-12">
-                <img src="{{ $user->picture}}">
+                <img src="{{ asset('images/'.$user->picture)}}">
             </div>
             <div class="col-md-10 col-sm-12">
                 <h1>{{$user->firstname." ".$user->lastname }}</h1>
@@ -73,7 +73,7 @@
                                     <div class="timeline-heading row" style="margin: 0;">
                                         <div style="margin:0 10px 0 0;float:left;">
                                             <a href="{{ route("admin.user.show", $publication->user->id ) }}">
-                                                <img src="{{ asset($publication->user->picture) }}" alt="Image" class="img-responsive" style="width: 50px; margin: 5px;display: inline-block;">
+                                                <img src="{{ asset('images/'.$publication->user->picture) }}" alt="Image" class="img-responsive" style="width: 50px; margin: 5px;display: inline-block;">
                                             </a>
                                         </div>
                                         <div style="margin: 10px;float:left;">
@@ -122,7 +122,7 @@
                                             @foreach($publication->commentspost as $comment)
                                                 <div class="comment">
                                                     <a class="pull-left" href="{{ route("admin.user.show", $comment->user->id ) }}">
-                                                        <img width="35" height="35" class="comment-avatar" alt="{{ $comment->user->firstname.' '.$comment->user->lastname }}" src="{{ asset($comment->user->picture) }}">
+                                                        <img width="35" height="35" class="comment-avatar" alt="{{ $comment->user->firstname.' '.$comment->user->lastname }}" src="{{ asset('images/'.$comment->user->picture) }}">
                                                     </a>
                                                     <div class="comment-body">
                                                         <span class="message"><strong>{{ $comment->user->firstname.' '.$comment->user->lastname }}</strong> {{ $comment->message }}</span>

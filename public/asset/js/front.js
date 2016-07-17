@@ -26,6 +26,7 @@ $(document).ready(function() {
     });
 
     $("body").on('click','#signalepost' ,function(e){
+        var self = $(this);
         parent = $(this).parents(".publicationJS");
         var splitID = parent.attr("id").split("-");
         if(splitID[0] == 'activite'){
@@ -34,7 +35,18 @@ $(document).ready(function() {
         else{
             publicationDestroy = 'publication/'+splitID[1]+'/signaleAjax';
         }
-        $('#modal-signal').modal('show');
+        $.ajax({
+            url: "/"+publicationDestroy,
+            type: 'post',
+            data: {},
+            success: function(data) {
+                if(data['success'] == true)
+                {
+                    self.remove();
+                    $('#modal-signal').modal('show');
+                }
+            }
+        });
     });
 
     $("body").on('click','#addproduct' ,function(e){
@@ -102,21 +114,6 @@ $(document).ready(function() {
                         "</ul>"+
                     "</div>"+
                     "</div>");
-                }
-            }
-        });
-    });
-
-    $('#signal-modal-post').submit(function(e){
-        e.preventDefault();
-        $.ajax({
-            url: "/"+publicationDestroy,
-            type: 'post',
-            data: {},
-            success: function(data) {
-                if(data['success'] == true)
-                {
-                    $('#modal-signal').modal('hide');
                 }
             }
         });
@@ -286,7 +283,7 @@ $(document).ready(function() {
                         $last.before(
                             "<div class='comment'>" +
                             "<a class='pull-left' href='#'>" +
-                            "<img width='30' height='30' class='comment-avatar' alt='" + $user.firstname + " " + $user.lastname + "' src='" + $user.picture + "'>" +
+                            "<img width='30' height='30' class='comment-avatar' alt='" + $user.firstname + " " + $user.lastname + "' src='images/" + $user.picture + "'>" +
                             "</a>" +
                             "<div class='comment-body'>" +
                             "<span class='message'><strong>" + $user.firstname + " " + $user.lastname + "</strong> " + $value + "</span>" +
@@ -324,7 +321,7 @@ $(document).ready(function() {
                         $elem.before(
                             "<div class='comment'>" +
                             "<a class='pull-left' href='#'>"+
-                            "<img width='30' height='30' class='comment-avatar' alt='"+ $user.firstname + " " + $user.lastname+ "' src='"+ $user.picture + "'>"+
+                            "<img width='30' height='30' class='comment-avatar' alt='"+ $user.firstname + " " + $user.lastname+ "' src='images/"+ $user.picture + "'>"+
                             "</a>"+
                             "<div class='comment-body'>"+
                             "<span class='message'><strong>"+ $user.firstname + " " + $user.lastname + "</strong> " + $comment.message + "</span>"+
@@ -401,7 +398,6 @@ $(document).ready(function() {
         var self = $(this);
         var parent = $(this).parents(".comment");
         var splitID = parent.attr("id").split("-");
-        console.log(splitID);
         if(splitID){
             $.ajax({
                 url: '/comment/'+ splitID[1] +'/signal',
@@ -417,7 +413,6 @@ $(document).ready(function() {
     $('body').on('click','#deleteComment',function(e){
         parent = $(this).parents(".comment");
         var splitID = parent.attr("id").split("-");
-        console.log(splitID);
         if(splitID){
             $.ajax({
                 url: '/comment/'+ splitID[1] +'/destroy',
