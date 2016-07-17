@@ -82,7 +82,7 @@
                         <div class="form-group">
                             <label for="datetimepicker5" class="col-sm-2 control-label">Date de début :</label>
                             <div class="col-sm-10 date" id="datetimepicker5">
-                                <input type="text" data-format="yyyy-MM-dd hh:mm:ss" class="form-control" placeholder="__/__/____ __:__" name="date_start_act">
+                                <input type="text" data-format="yyyy-MM-dd hh:mm:ss" class="form-control" placeholder="__/__/____ __:__" name="date_start_act" required>
                                 <span class="input-group-addon">
                                     <i class="fa-calendar fa"></i>
                                 </span>
@@ -96,7 +96,7 @@
                         <div class="form-group">
                             <label for="datetimepicker6" class="col-sm-2 control-label">Date de fin :</label>
                             <div class="col-sm-10 date" id="datetimepicker6">
-                                <input type="text" data-format="yyyy-MM-dd hh:mm:ss" class="form-control" placeholder="__/__/____ __:__" name="date_end_act">
+                                <input type="text" data-format="yyyy-MM-dd hh:mm:ss" class="form-control" placeholder="__/__/____ __:__" name="date_end_act" required>
                                 <span class="input-group-addon">
                                 <i class="fa-calendar fa"></i>
                                 </span>
