@@ -14,30 +14,49 @@
             <div id="activities-feed" class="tab-pane active activities-feed">
                 <div class="scroll">
                     <ul class="list-group">
-                        @foreach (Auth::user()->getnotifications as $notification)
-                            @if($notification->afficher==true)
-                                <li class="list-group-item">
-                                    <a href="/friends/accept/{{$notification->userL_id}}">
-                                        <div class="label label-info feed-icon"><i class="fa fa-info"></i></div>
-                                        <span>&nbsp;Demande d'ami de &nbsp;</span>
-                                        <span class="label label-primary hidden-xs">{{$notification->libelle}}</span>
+                        @foreach (Auth::user()->getallnotifications as $notification)
+                            @if($notification->notification=='users_links')
+                                @if($notification->afficher==true)
+                                    <li class="list-group-item">
+                                        <a href="/friends/accept/{{$notification->userL_id}}">
+                                            <div class="label label-info feed-icon"><i class="fa fa-info"></i></div>
+                                            <span>&nbsp;Demande d'ami de &nbsp;</span>
+                                            <span class="label label-primary hidden-xs">{{$notification->libelle}}</span>
+                                            <span class="feed-time">
+                                                <em>{{$notification->timeAgo($notification->updated_at)}}</em>
+                                            </span>
+                                        </a>
+                                    </li>
+                                @else
+                                    <li class="list-group-item">
+                                        <a href="/user/{{$notification->userL_id}}">
+                                            <div class="label label-info feed-icon"><i class="fa fa-info"></i></div>
+                                            <span>&nbsp;Ajout de &nbsp;</span>
+                                            <span class="label label-primary hidden-xs">{{$notification->libelle}}</span>
+                                            <span>&nbsp; à votre liste d'amis.&nbsp;</span>
                                         <span class="feed-time">
-                                            <em>{{$notification->timeAgo($notification->updated_at)}}</em>
+                                        <em>{{$notification->timeAgo($notification->updated_at)}}</em>
                                         </span>
-                                    </a>
-                                </li>
-                            @else
+                                        </a>
+                                    </li>
+                                @endif
+                            @elseif($notification->notification=='events')
                                 <li class="list-group-item">
-                                    <a href="/user/{{$notification->userL_id}}">
-                                        <div class="label label-info feed-icon"><i class="fa fa-info"></i></div>
-                                        <span>&nbsp;Ajout de &nbsp;</span>
-                                        <span class="label label-primary hidden-xs">{{$notification->libelle}}</span>
-                                        <span>&nbsp; à votre liste d'amis.&nbsp;</span>
-                                    <span class="feed-time">
-                                    <em>{{$notification->timeAgo($notification->updated_at)}}</em>
-                                    </span>
+                                    <a href="#ignore">
+                                        <!-- //Notice .feed-icon class-->
+                                        <div class="label label-danger feed-icon"><i class="fa fa-times"></i>
+                                        </div>
+                                        <span>&nbsp;Emails couldn't be sent</span>
+                                        <!-- //Notice .feed-time class-->
+                              <span class="feed-time">
+                                <em>4 minutes ago</em>
+                              </span>
                                     </a>
                                 </li>
+                            @elseif($notification->notification=='groups')
+
+                            @else
+
                             @endif
                         @endforeach
                         <li class="list-group-item">

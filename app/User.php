@@ -188,6 +188,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
             ->orderBy('updated_at', 'DESC');
     }
 
+    public function getallnotifications(){
+        return $this->hasMany('App\Notifications')
+            ->whereIn('notification', ['events', 'associations', 'groups', 'users_links'])
+            ->orderBy('updated_at', 'DESC');
+    }
+
     public function getnotifications(){
         return $this->hasMany('App\Notifications')
             ->where('afficher', true)
