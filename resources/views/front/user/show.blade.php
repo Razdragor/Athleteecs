@@ -27,6 +27,16 @@
                                 </div>
                             </div>
 
+                            @if(Auth::user() != $user)
+                                <div>
+                                    <a class="btn btn-block btn-success"><i class="fa fa-envelope-alt"></i>Envoyer un
+                                        message</a>
+                                </div>
+
+                            <br>
+                            <!-- BEGIN SOCIAL ICONS-->
+                            <div class="text-center social-icons">
+
                             @if(Auth::user()->isfriend(Auth::user()->id,$user->id)==='demandsfrom')
                                 <div>
                                     <a href="{{ route('front.friends.cancel', ['friend' => $user->id]) }}" class="btn btn-block btn-success">Annuler la demande</a>
@@ -48,24 +58,7 @@
                                 </div>
                             @endif
                         @endif
-                        <br>
-                        <!-- BEGIN SOCIAL ICONS-->
-                        <div class="text-center social-icons">
-                            <a href="#">
-
-                <span class="fa-stack fa-lg"><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-facebook"></i>
-                </span>
-                                </a>
-                                <a href="#">
-                <span class="fa-stack fa-lg"><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-twitter"></i>
-                </span>
-                                </a>
-                                <a href="#">
-                <span class="fa-stack fa-lg"><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-google-plus"></i>
-                </span>
-                                </a>
-                            </div>
-                            <!-- END SOCIAL ICONS-->
+                        
                         </div>
                         <div class="col-sm-10 col-md-10">
                             <div class="row">
