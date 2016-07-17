@@ -90,19 +90,28 @@ class SocialAccountService
 
     public function createUserTwitter(ProviderUser $user){
         $password = Str::random(10);
-        $sexe = "Femme";
-        if($user->user['gender'] == 'male'){
-            $sexe = "Homme";
+        $sexe = "Homme";
+        $name = explode(" ",$user->getNickname());
+        $firstname = "";
+        $lastname = "";
+        for($i = 0;$i < count($name);$i++){
+            if($i == 0){
+                $firstname = $name[$i];
+            }
+            else{
+                $lastname .= $name[$i];
+            }
         }
+
         $user = User::create([
             'email' => $user->getEmail(),
-            'firstname' => $user->user['name']['givenName'],
-            'lastname' => $user->user['name']['familyName'],
+            'firstname' => $firstname,
+            'lastname' => $lastname,
             'password' => $password,
             'sexe' => $sexe,
             'status' => 'success',
             'newsletter' => 0,
-            'picture' => $user->getAvatar(),
+            'picture' => $user->avatar_original,
             'activated' => 1
         ]);
 
