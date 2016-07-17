@@ -12,7 +12,7 @@
             <span style="width: 74px;" class="pull-left text-center"><i class="fa fa-code fa-4x media-object"></i>
             </span>
                     <div class="media-body">
-                        <h4 class="media-heading"><strong>Valid HTML5</strong></h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
+                        <h4 class="media-heading"><strong>CONSTRUISEZ VOTRE RÉSEAU SPORTIF</strong></h4>Recherchez vos partenaires selon votre sport, constituez vos équipes, créez vos événements, challengez vos amis, découvrez de nouveaux sports
                     </div>
                 </div>
             </blockquote>
@@ -21,7 +21,7 @@
             <span style="width: 74px;" class="pull-left text-center"><i class="fa fa-terminal fa-4x media-object"></i>
             </span>
                     <div class="media-body">
-                        <h4 class="media-heading"><strong>Responsive</strong></h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
+                        <h4 class="media-heading"><strong>PARTAGEZ DES EXPÉRIENCES</strong></h4>Echangez sur Le Hub, plateforme unique d'échanges live entre les sportifs et les champions, découvrez les tribunes de champions
                     </div>
                 </div>
             </blockquote>
@@ -30,7 +30,7 @@
             <span style="width: 74px;" class="pull-left text-center"><i class="fa fa-bolt fa-4x media-object"></i>
             </span>
                     <div class="media-body">
-                        <h4 class="media-heading"><strong>Customizable</strong></h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
+                        <h4 class="media-heading"><strong>AMÉLIOREZ VOS COMPÉTENCES</strong></h4>Evaluez votre réseau, suivez vos statistiques personnelles, gardez un historique de vos événements sportifs, comparez vous face aux champions
                     </div>
                 </div>
             </blockquote>
