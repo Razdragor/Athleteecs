@@ -68,7 +68,6 @@ class ActivityController extends Controller
             return Redirect::back()->withErrors($publicationArray['errors']);
         }
         $activityArray = HelperActivity::store($request,$publicationArray);
-
         $activity = Activity::create($activityArray);
 
         $publicationArray['activity_id'] = $activity->id;

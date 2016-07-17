@@ -42,7 +42,7 @@
                         <div class="timeline-heading row" style="margin: 0;">
                             <div style="margin:0 10px 0 0;float:left;">
                                 <a href="{{ route("admin.user.show", $publication->user->id ) }}">
-                                    <img src="{{ asset($publication->user->picture) }}" alt="Image" class="img-responsive" style="width: 50px; margin: 5px;display: inline-block;">
+                                    <img src="{{ asset('images/'.$publication->user->picture) }}" alt="Image" class="img-responsive" style="width: 50px;height: 50px; margin: 5px;display: inline-block;">
                                 </a>
                             </div>
                             <div style="margin: 10px;float:left;">

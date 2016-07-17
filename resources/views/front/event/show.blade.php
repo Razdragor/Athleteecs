@@ -94,9 +94,6 @@
                             <a href="#member" data-toggle="tab" aria-expanded="false">Membres</a>
                         </li>
                         <li>
-                            <a href="#photo" data-toggle="tab" aria-expanded="false">Photos</a>
-                        </li>
-                        <li>
                             <a href="#video" data-toggle="tab" aria-expanded="false">Videos</a>
                         </li>
                     </ul>
@@ -265,7 +262,7 @@
                                                         @if(!is_null($publication->video))
                                                             <div class="video-container"><iframe src="https://www.youtube.com/embed/{{$publication->video->url}}" frameborder="0" allowfullscreen></iframe></div>
                                                         @elseif(!is_null($publication->picture))
-                                                            <img src="{{ asset($publication->picture) }}" alt="" class="img-responsive">
+                                                            <img src="{{ asset('images/'.$publication->picture) }}" alt="" class="img-responsive">
                                                         @endif
                                                     </div>
 
@@ -297,7 +294,7 @@
                                                     @foreach($publication->commentspost as $comment)
                                                         <div class="comment" id="comment-{{$comment->id}}">
                                                             <a class="pull-left" href="{{ route("user.show", $comment->user->id ) }}">
-                                                                <img width="35" height="35" class="comment-avatar" alt="{{ $comment->user->firstname.' '.$comment->user->lastname }}" src="{{ asset($comment->user->picture) }}">
+                                                                <img width="35" height="35" class="comment-avatar" alt="{{ $comment->user->firstname.' '.$comment->user->lastname }}" src="{{ asset('images/'.$comment->user->picture) }}">
                                                             </a>
                                                             <div class="comment-body">
                                                                 <span class="message"><strong>{{ $comment->user->firstname.' '.$comment->user->lastname }}</strong> {{ $comment->message }}</span>
@@ -316,7 +313,7 @@
                                                     @endif
                                                     <div class="comment">
                                                         <a class="pull-left" href="{{ route("user.show", $publication->user->id ) }}">
-                                                            <img width="35" height="35" class="comment-avatar" alt="{{Auth::user()->name}}" src="{{ asset(Auth::user()->picture) }}">
+                                                            <img width="35" height="35" class="comment-avatar" alt="{{Auth::user()->name}}" src="{{ asset('images/'.Auth::user()->picture) }}">
                                                         </a>
                                                         <div class="comment-body">
                                                             <input type="text" class="form-control" name="{{ $publication->id }}" id="post-comment" placeholder="Ecris un commentaire...">
@@ -338,7 +335,7 @@
                         <div class="tab-pane fade" id="member">
                             @foreach($event->members as $member)
                                 <div class="col-xs-3 col-sm-5 col-md-3 col-lg-2" style="text-align: center">
-                                    <img src="{{ $member->user->picture }}" alt="{{$member->user->firstname}}" style="height: 100px;width: auto"><br>
+                                    <img src="{{ asset('images/'.$member->user->picture) }}" alt="{{$member->user->firstname}}" style="height: 100px;width: auto"><br>
                                     {{ $member->user->firstname }} {{ $member->user->lastname }}
                                     @if($user->id == $event->user_id && $user->id != $member->user->id)
                                         <?php
@@ -357,8 +354,6 @@
                                     @endif
                                 </div>
                             @endforeach
-                        </div>
-                        <div class="tab-pane fade" id="photo">
                         </div>
                         <div class="tab-pane fade" id="video">
                             @foreach($event->videos() as $video)
@@ -482,6 +477,24 @@
                         <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
 
                         <button type="submit" class="btn btn-primary" id="confirm">Oui</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade modal-signal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="modal-signal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4>Signalement de la publication</h4>
+                </div>
+                <div class="modal-body">
+                    Le signalement a bien été pris en compte! Merci
+                </div>
+                <form id="signal-modal-post" method="post">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
                     </div>
                 </form>
             </div>

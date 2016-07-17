@@ -28,7 +28,7 @@
                     @foreach($allusers as $oneuser)
                         <tr>
                             <td>{{ $oneuser->id }}</td>
-                            <td><img src="{{ $oneuser->picture }}" alt="{{ $oneuser->firstname.' '.$oneuser->lastname }}" class="avatar" width="25" height="25"></td>
+                            <td><img src="{{ asset('images/'.$oneuser->picture) }}" alt="{{ $oneuser->firstname.' '.$oneuser->lastname }}" class="avatar" width="25" height="25"></td>
                             <td>{{ $oneuser->firstname }}</td>
                             <td>{{ $oneuser->lastname }}</td>
                             <td>{{ $oneuser->email }}</td>

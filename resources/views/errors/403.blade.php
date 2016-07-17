@@ -1,47 +1,58 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Be right back.</title>
+<head>
+    <meta charset="utf-8">
+    <title>Accès refusé</title>
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+    <link href="{{ asset('asset/css/font-awesome/font-awesome.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/social.core.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/social.admin.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/layouts/login2.css') }}" rel="stylesheet">
 
-        <style>
-            html, body {
-                height: 100%;
-            }
+    <style>
+        html, body {
+            height: 100%;
+        }
 
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                color: #B0BEC5;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato';
-            }
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            display: table;
+            font-weight: 100;
+            font-family: 'Lato';
+        }
 
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
+        .container {
+            text-align: center;
+            display: table-cell;
+            vertical-align: middle;
+        }
 
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
-
-            .title {
-                font-size: 72px;
-                margin-bottom: 40px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="content">
-                <div class="title">Be right back.</div>
+        .content {
+            text-align: center;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body class="backgroundsignin">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-8 col-md-offset-4 col-md-4">
+            <div class="error-page"><i class="fa fa-warning fa-5x"></i>
+                <h1>Vous n'aez pas accès à cette page</h1>
+                <span class="text-danger">
+                        <small><strong>Erreur 403</strong></small>
+                    </span>
+                <div class="form-group content">
+                    <div class="input-group">
+                        <a class="btn btn-default" href="{{ url('/') }}" >Retour</a>
+                    </div>
+                </div>
             </div>
         </div>
-    </body>
+    </div>
+</div>
+</body>
 </html>

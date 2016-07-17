@@ -246,6 +246,9 @@
     padding-top: 15px;
 }
 
+.post_picture_video img{
+    max-height: 400px;
+}
 .filehide{
     display: none;
 }
