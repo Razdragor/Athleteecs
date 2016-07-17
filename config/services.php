@@ -48,8 +48,8 @@ return [
     ],
 
     'google' => [
-        'client_id' => '65532960165-b2ls72mjheo2as9cvjejb8soqqe87ejq.apps.googleusercontent.com',
-        'client_secret' => 'SKvzq9Tsjn5_B5HUeTB8Zojf',
+        'client_id' => '77559020404-gug01gc8j48nmoe6pbs8j7iaudmgft9j.apps.googleusercontent.com',
+        'client_secret' => 'ZSDML300Kf2O0eY5X1hAyypZ',
         'redirect' => env('APP_URL', 'https://localhost').'login/callback/google',
     ]
 
