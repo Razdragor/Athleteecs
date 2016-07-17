@@ -26,7 +26,7 @@
                                         <div class="col-md-12 text-center">
 
 
-                                                <img src="{{asset('images/'.$user->picture)}}" alt="Avatar"
+                                                <img src="{{$user->picture}}" alt="Avatar"
                                                      class="img-thumbnail img-responsive">
 
                                                 <div class="image-upload">

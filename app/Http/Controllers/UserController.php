@@ -136,7 +136,7 @@ class UserController extends Controller
                         base_path() . '/public/images/', $imageName
                     );
 
-                    $user->picture = $imageName;
+                    $user->picture = '/public/images/'.$imageName;
                 }
 
 
