@@ -38,7 +38,7 @@
                                 @endif
                             </td>
                             <td>
-                                {{ $sport->users->count() }}
+                                {{ $sport->userSport->count() }}
                             </td>
                             <td>
                                 <a href="{{ route('admin.sport.show', ['sport' => $sport->id]) }}">Consulter</a>

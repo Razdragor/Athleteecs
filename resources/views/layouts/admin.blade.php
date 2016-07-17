@@ -101,6 +101,12 @@
                                 <span>Sports</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ route('admin.newsletter.index') }}">
+                                <!-- icon--><i class="fa fa-envelope-o"></i>
+                                <span>Newsletter</span>
+                            </a>
+                        </li>
 
         <!-- BEGIN CHAT SECTION-->
         <div class="chat visible-lg visible-md">

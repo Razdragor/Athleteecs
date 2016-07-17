@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Role;
 use App\User;
+use App\UsersNewsletters;
 use Illuminate\Http\Request;
 use Validator;
 use App\Http\Controllers\Controller;
@@ -95,7 +96,14 @@ class AuthController extends Controller
 
 
         $user = $this->create($request->all());
-
+        if($request->get('newsletter')){
+            $user->newsletter = true;
+            $user->save();
+            UsersNewsletters::create(array(
+                'email' => $user->email,
+                'active' => true
+            ));
+        }
         if(isset($user)) {
             $roleUser = Role::find(2);
             if(!$user->hasRole($roleUser->name)){

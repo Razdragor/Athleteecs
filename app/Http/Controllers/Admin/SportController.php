@@ -144,6 +144,10 @@ class SportController extends Controller
      */
     public function destroy(Sport $sport)
     {
+        $usersSports = $sport->userSport;
+        foreach ($usersSports as $us){
+            $us->delete();
+        }
         $sport->delete();
 
         return Redirect::route('admin.sport.index');
