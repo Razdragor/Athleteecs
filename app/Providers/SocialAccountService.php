@@ -73,8 +73,12 @@ class SocialAccountService
         if($user->user['gender'] == 'male'){
             $sexe = "Homme";
         }
+        $email = "";
+        if(!is_null($user->getEmail())){
+            $email = $user->getEmail();
+        }
         $user = User::create([
-            'email' => $user->getEmail(),
+            'email' => $email,
             'firstname' => $user->user['first_name'],
             'lastname' => $user->user['last_name'],
             'password' => $password,
@@ -90,20 +94,32 @@ class SocialAccountService
 
     public function createUserTwitter(ProviderUser $user){
         $password = Str::random(10);
-        dd($user);
-        $sexe = "Femme";
-        if($user->user['gender'] == 'male'){
-            $sexe = "Homme";
+        $sexe = "Homme";
+        $name = explode(" ",$user->getNickname());
+        $firstname = "";
+        $lastname = "";
+        $email = "";
+        for($i = 0;$i < count($name);$i++){
+            if($i == 0){
+                $firstname = $name[$i];
+            }
+            else{
+                $lastname .= $name[$i];
+            }
         }
+        if(!is_null($user->getEmail())){
+            $email = $user->getEmail();
+        }
+
         $user = User::create([
-            'email' => $user->getEmail(),
-            'firstname' => $user->user['name']['givenName'],
-            'lastname' => $user->user['name']['familyName'],
+            'email' => $email,
+            'firstname' => $firstname,
+            'lastname' => $lastname,
             'password' => $password,
             'sexe' => $sexe,
             'status' => 'success',
             'newsletter' => 0,
-            'picture' => $user->getAvatar(),
+            'picture' => $user->avatar_original,
             'activated' => 1
         ]);
 
@@ -116,8 +132,12 @@ class SocialAccountService
         if($user->user['gender'] == 'male'){
             $sexe = "Homme";
         }
+        $email = "";
+        if(!is_null($user->getEmail())){
+            $email = $user->getEmail();
+        }
         $user = User::create([
-            'email' => $user->getEmail(),
+            'email' => $email,
             'firstname' => $user->user['name']['givenName'],
             'lastname' => $user->user['name']['familyName'],
             'password' => $password,

@@ -146,6 +146,7 @@
                                                     <dd class="divider"></dd>
                                                     <dt>Sports pratiqué</dt>
                                                     <ul class="list-unstyled"></dd>
+
                                                     @foreach($user->sports as $sport)
                                                         <dd>
                                                             <li>
@@ -176,7 +177,9 @@
                                             </div>
                                             <div class="tab-pane active equipement" style="display: none;">
                                                 <div class="row">
-                                                    @foreach($user->products as $equipment)
+                                                    <dt>Equipements utilisées</dt>
+
+                                                @foreach($user->products as $equipment)
                                                         <div class="row">
                                                             <ul class="list-unstyled"></dd>
                                                                 <li>
@@ -195,13 +198,14 @@
                                                                         <dd>{{ $equipment->description }}</dd>
                                                                     </div>
                                                                     <div class="col-md-1 checkbox-correct">
-                                                                        <input type="checkbox" id="{{$equipment->id}}" name="equipement[]" value="{{$equipment->id}}" checked>
+                                                                        <input type="checkbox" id="{{$equipment->id}}" name="equipementsuppr[]" value="{{$equipment->id}}" >
                                                                     </div>
 
                                                                 </li>
                                                             </ul>
                                                         </div>
                                                     @endforeach
+                                                    <dt>Equipements disponible</dt>
 
                                                     @foreach($equipements as $equip)
                                                         <div class="row">

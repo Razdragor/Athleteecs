@@ -40,7 +40,7 @@ class SocialAuthController extends Controller
         }elseif($provider == 'google'){
             $user = $service->createOrGetUser(Socialite::driver($provider));
         } elseif($provider == 'twitter') {
-
+            $user = $service->createOrGetUser(Socialite::driver($provider));
         }
 
         if(isset($user)) {
