@@ -177,6 +177,25 @@ $user = Auth::user();
 
                         <li class="dropdown nav-notifications">
                             <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
+                                @if(Auth::user()->getfriendsnotificationstrue()->count()>0)<span class="badge">{{Auth::user()->getfriendsnotificationstrue()->count()}}</span>@endif<i class="fa fa-users fa-lg"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                @if(Auth::user()->friends()->count()>0)
+                                    <li class="nav-notifications-header">
+                                        <a href="{{ route('front.friends.show') }}">Voir tous les amis ({{Auth::user()->friends()->count() }})</a>
+                                    </li>
+                                @endif
+                                <li class="nav-notifications-body">
+
+                                </li>
+                                <li class="nav-notifications-footer">
+                                    <a href="/notifications">Voir toutes les notifications</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown nav-notifications">
+                            <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
                                 <span class="badge">{{Auth::user()->getnotifications()->count()}}</span><i class="fa fa-warning fa-lg"></i>
                             </a>
                             <ul class="dropdown-menu">
@@ -231,7 +250,7 @@ $user = Auth::user();
     <div class="main">
         @yield('content')
     </div>
-    <footer>2016 - <a href="http://localhost" target="_blank">ATHLETEEC</a> / <a href="{{ route('front.confidentialite.index')}}">Confidentialité</a></footer>
+    <footer>2016 - <a href="http://localhost" target="_blank">ATHLETEEC</a> / <a href="{{ route('front.obligatoire.confidentialite')}}">Confidentialité</a> / <a href="{{ route('front.obligatoire.mentionslegales')}}">Mentions Légales</a></footer>
 </div>
 
 

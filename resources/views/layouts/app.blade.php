@@ -135,10 +135,6 @@
                     <div class="col-sm-12 align-center">
                         <ul>
                             <li>
-                                <a title="RSS" class="btn btn-social-icon btn-warning"><i class="fa fa-rss"></i>
-                                </a>
-                            </li>
-                            <li>
                                 <a title="Facebook" class="btn btn-social-icon btn-facebook"><i class="fa fa-facebook"></i>
                                 </a>
                             </li>
@@ -159,7 +155,7 @@
                 </div>
                 <div class="row copyright">
                     <div class="col-sm-12">
-                        <p>2016 - <a href="/" target="_blank">ATHLETEEC</a> / <a href="{{ route('front.confidentialite.index')}}">Confidentialité</a></p>
+                        <p>2016 - <a href="/" target="_blank">ATHLETEEC</a> / <a href="{{ route('front.obligatoire.confidentialite')}}">Confidentialité</a> / <a href="{{ route('front.obligatoire.mentionslegales')}}">Mentions Légales</a></p>
                     </div>
                 </div>
             </div>
