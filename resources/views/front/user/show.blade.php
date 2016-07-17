@@ -10,6 +10,7 @@
     <link href="{{ asset('asset/css/glyphicons_free/glyphicons.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.halflings.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/friends.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -143,22 +144,46 @@
                                         <dd>{{ $user->sexe }}</dd>
                                         <dd class="divider"></dd>
                                         <dt>Poste actuel</dt>
-                                        <dd>{{ $user->job }}</dd>
+                                        <dd>@if(!empty(($user->job)))
+                                                {{ $user->job }}
+                                            @else
+                                                Non renseigné
+                                            @endif
+                                        </dd>
                                         <dd class="divider"></dd>
                                         <dt>Entreprise</dt>
-                                        <dd>{{ $user->firm }}</dd>
+                                        <dd>@if(!empty(($user->firm)))
+                                                {{ $user->firm}}
+                                            @else
+                                                Non renseigné
+                                            @endif
+                                        </dd>
                                         <dd class="divider"></dd>
                                         <dt>Scolarité</dt>
-                                        <dd>{{ $user->school }}</dd>
+                                        <dd>@if(!empty(($user->school)))
+                                                {{ $user->school}}
+                                            @else
+                                                Non renseigné
+                                            @endif
+                                        </dd>
                                         <dd class="divider"></dd>
                                         <dt>Sports pratiqué</dt>
-                                        @foreach($user->sports as $sport)
-                                            <dd>{{ $sport->name }}</dd>
-                                        @endforeach
-                                        <dd class="divider"></dd>
 
+                                        @if((count($user->sports)) > 1)
+                                            @foreach($user->sports as $sport)
+                                                <dd>{{ $sport->name }}</dd>
+                                            @endforeach
+                                        @else
+                                            <dd>Non renseigné</dd>
+                                        @endif
+                                                <dd class="divider"></dd>
                                         <dt>Adresse postal</dt>
-                                        <dd>{{ $user->address}}</dd>
+                                        <dd>@if(!empty(($user->address)))
+                                                {{ $user->address}}
+                                            @else
+                                                Non renseigné
+                                            @endif
+                                        </dd>
 
                                     </dl>
                                 </div>
