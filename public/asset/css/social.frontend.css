@@ -491,8 +491,14 @@ a {
   background: #242424;
   margin: 0;
   padding: 30px 0;
-  /* footer menu */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
 }
+
+/* footer menu */
+
 .footer .btn-inverse {
   background: #3e3e3e;
   border: 1px solid #3e3e3e;
@@ -593,4 +599,7 @@ a {
   -webkit-transition: all 0.2s;
   -o-transition: all 0.2s;
           transition: all 0.2s;
+}
+.main {
+  min-height: 350px
 }
