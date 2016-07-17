@@ -40,8 +40,9 @@ use Illuminate\Support\Facades\File;
             Route::get('/', 'Admin\AdminController@index');
             Route::get('/datauser', 'Admin\AdminController@datauser');
             Route::resource('user', 'Admin\UserController');
-            Route::resource('publication', 'Admin\PublicationController');
-            Route::get('/comment/{comment}/destroy',  ['as' => 'comment.destroy', 'uses' => 'Admin\CommentController@destroy']);
+            Route::resource('publication', 'Admin\PublicationController',['except' => ['update']]);
+            Route::post('/publication/{publication}/update', ['as' => 'admin.publication.update', 'uses' => 'Admin\PublicationController@update']);
+            Route::get('/comment/{comment}/destroy',  ['as' => 'admin.comment.destroy', 'uses' => 'Admin\CommentController@destroy']);
         });
 
     Route::group(['middleware' => ['role:user|admin']], function () {
@@ -78,6 +79,8 @@ use Illuminate\Support\Facades\File;
 
         //Commentaire
         Route::resource('comment', 'Front\CommentController');
+        Route::post('/comment/{comment}/destroy', 'Front\CommentController@destroy');
+        Route::post('/comment/{comment}/signal', 'Front\CommentController@signal');
 
         //Association
         Route::resource('association', 'Front\AssociationController',['except' => ['update']]);

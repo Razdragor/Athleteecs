@@ -121,8 +121,41 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Comment $comment)
     {
-        //
+        if(\Request::ajax() && !is_null($comment)) {
+            if(Auth::user()->id == $comment->user_id){
+                $comment->status = "Blocked";
+                $comment->save();
+
+                return \Response::json(array(
+                    'success' => true
+                ));
+            }
+        }
+        return \Response::json(array(
+            'success' => false
+        ));
+    }
+
+    public function signal(Comment $comment)
+    {
+        if(\Request::ajax() && !is_null($comment)) {
+            $comment->score += 1;
+            if($comment->score > 10){
+                $comment->status = "Signaled";
+            }
+            $comment->save();
+
+            return \Response::json(array(
+                'success' => true
+            ));
+        }
+
+        return \Response::json(array(
+            'success' => false
+        ));
+
+
     }
 }

@@ -90,7 +90,7 @@ class CommentController extends Controller
     public function destroy(Comment $comment)
     {
         $post = $comment->publication;
-        $comment->delete();
+        $comment->status = "Blocked";
         return Redirect::route('admin.publication.show', ['publication' => $post->id]);
     }
 

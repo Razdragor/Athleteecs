@@ -96,7 +96,8 @@
                     <h4>Informations</h4>
                 </div>
                 <div class="panel-body">
-                    <form class="form-horizontal" method="post" action="{{ route("admin.publication.update", ['publication' => $publication->id]) }}">
+                    <form class="form-horizontal" method="post" action="{{ route("admin.publication.update", ['publication' => $publication->id]) }}" enctype="multipart/form-data">
+                        {{csrf_field()}}
                         <div class="form-group">
                             <label class="col-sm-4 control-label">Crée le : </label>
                             <div class="col-sm-8">
@@ -170,11 +171,12 @@
                             <th>Message</th>
                             <th>Date de création</th>
                             <th>Signalement</th>
+                            <th>Statut</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($publication->comments as $comment)
+                        @foreach($comments as $comment)
                             <tr>
                                 <td>{{ $comment->id }}</td>
                                 <td><a href="{{ route('admin.user.show', ['user' => $comment->user->id]) }}">{{ $comment->user->firstname.' '.$comment->user->lastname }}</a></td>
@@ -183,14 +185,25 @@
                                 <td>
                                     @if($comment->score < 5)
                                         <span class="label label-success">{{ $comment->score }}</span>
-                                    @elseif($comment < 15)
+                                    @elseif($comment->score < 15)
                                         <span class="label label-warning">{{ $comment->score }}</span>
                                     @else
                                         <span class="label label-danger">{{ $comment->score }}</span>
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ route('admin.comment.destroy', ['comment' => $comment->id]) }}">Supprimer</a>
+                                    @if($comment->status == "Success")
+                                        <span class="label label-success">Valide</span>
+                                    @elseif($comment->status == "Signaled")
+                                        <span class="label label-warning">Signalé</span>
+                                    @else
+                                        <span class="label label-danger">Bloqué</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($comment->status != "Blocked")
+                                        <a href="{{ route('admin.comment.destroy', ['comment' => $comment->id]) }}">Supprimer</a>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

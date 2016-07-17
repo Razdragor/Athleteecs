@@ -46,7 +46,7 @@ class Association extends Model
     }
 
     public function publications(){
-        return $this->hasMany('App\Publication');
+        return $this->hasMany('App\Publication')->where("status","!=","Blocked");
     }
 
     public function videos(){
