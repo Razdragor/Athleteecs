@@ -146,6 +146,6 @@ use Illuminate\Support\Facades\File;
             return Image::make($image)->response('jpg'); //will ensure a jpg is always returned
         });
 
-        Route::get('confidentialite', ['as' => 'front.confidentialite.index', 'uses' => 'Front\ConfidentialiteController@index']);
-
     });
+
+Route::get('confidentialite', ['as' => 'front.confidentialite.index', 'uses' => 'Front\ConfidentialiteController@index']);
