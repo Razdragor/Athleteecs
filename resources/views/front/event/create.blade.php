@@ -240,8 +240,20 @@
         // [END region_geolocation]
         
         $('body').on('submit','.form_valid',function(e){
-           $('input[name="date_start_act"]').attr('value',$('input[name="date_start_act"]').val()); 
-           $('input[name="date_end_act"]').attr('value',$('input[name="date_end_act"]').val()); 
+            var date_start = $('input[name="date_start_act"]').val();
+            var date_end = $('input[name="date_end_act"]').val();
+            
+            var date_array = date_start.split("/");
+            var year = date_array[2].split(" ");
+            var final_date = year[0] + '-' + date_array[1] + '-' + date_array[0] + ' ' + year[1]+':00';
+            $('input[name="date_start_act"]').val(final_date);
+            
+            var date_array = date_end.split("/");
+            var year = date_array[2].split(" ");
+            var final_date = year[0] + '-' + date_array[1] + '-' + date_array[0] + ' ' + year[1]+':00';
+            $('input[name="date_end_act"]').val(final_date);
+            
+            
         });
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWyHTNe168m9pt0cOiXjlIL9BBUaYT2SI&libraries=geometry,places&callback=init"

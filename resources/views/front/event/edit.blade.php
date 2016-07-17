@@ -91,7 +91,7 @@
                                 </span>
                                 @if ($errors->has('date_start_act'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('date_start_act') }}</strong>
+                                        <strong></strong>
                                     </span>
                                 @endif
                             </div>
@@ -304,10 +304,20 @@
         // [END region_geolocation]
         
         $('body').on('submit','.form_valid',function(e){
-            var date_start = $('input[name="date_start_act"]');
-            var date_end = $('input[name="date_end_act"]');
+            var date_start = $('input[name="date_start_act"]').val();
+            var date_end = $('input[name="date_end_act"]').val();
             
             var date_array = date_start.split("/");
+            var year = date_array[2].split(" ");
+            var final_date = year[0] + '-' + date_array[1] + '-' + date_array[0] + ' ' + year[1]+':00';
+            $('input[name="date_start_act"]').val(final_date);
+            
+            var date_array = date_end.split("/");
+            var year = date_array[2].split(" ");
+            var final_date = year[0] + '-' + date_array[1] + '-' + date_array[0] + ' ' + year[1]+':00';
+            $('input[name="date_end_act"]').val(final_date);
+            
+            
         });
         
         $('body').on('click','.event_delete_user',function(e){

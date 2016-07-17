@@ -82,8 +82,8 @@ class EventController extends Controller
             'picture.mimes'      => 'Le format de l\'image n\'est pas pris en charge (jpeg,png,jpg)',
             'lattitude.required'      => 'Indiquer une adresse',
             'sport.required' => 'Choisir un sport',
-            'started_at.required' => 'Choisir une date de début',
-            'end_at.required' => 'Choisir une date de fin'
+            'date_start_act.required' => 'Choisir une date de début',
+            'date_end_act.required' => 'Choisir une date de fin'
         ];
         $validator = Validator::make($data,$rules,$messages);
 
@@ -120,8 +120,8 @@ class EventController extends Controller
             'sport_id' => $data['sport'],
             'private' => $data['private'],
             'association_id' => $data['association_id'],
-            'started_at' => strtotime($data['date_start_act']),
-            'end_at' => strtotime($data['date_end_act'])
+            'started_at' => $data['date_start_act'],
+            'end_at' => $data['date_end_act']
         ));
 
         $event->description = $data['description'];
@@ -304,6 +304,8 @@ class EventController extends Controller
     {
         $data = $request->all();
         $user = Auth::user();
+        //$data['date_start_act'] = date_create_from_format('Y-m-d H:i:s',$data['date_start_act']);
+        //$data['date_end_act'] = strtotime($data['date_end_act']);
         if($user->isAdminEvent($event->id)){
             $rules = [
                 'name' => 'required',
@@ -311,8 +313,8 @@ class EventController extends Controller
                 'picture' => 'mimes:jpeg,png,jpg',
                 'lattitude' => 'required',
                 'sport' => 'required',
-                'data_start_act' => 'required',
-                'data_end_act' => 'required'
+                'date_start_act' => 'required',
+                'date_end_act' => 'required'
             ];
             $messages = [
                 'name.required'    => 'Le nom de l\'event est requis',
@@ -320,8 +322,8 @@ class EventController extends Controller
                 'picture.mimes'      => 'Le format de l\'image n\'est pas pris en charge (jpeg,png,jpg)',
                 'lattitude.required'      => 'Indiquer une adresse',
                 'sport.required' => 'Choisir un sport',
-                'data_start_act.required' => 'Choisir une date de début',
-                'data_end_act.required' => 'Choisir une date de fin'
+                'date_start_act.required' => 'Choisir une date de début',
+                'date_end_act.required' => 'Choisir une date de fin'
             ];
             $validator = Validator::make($data,$rules,$messages);
 
@@ -352,9 +354,9 @@ class EventController extends Controller
             $event->country = $data['country'];
             $event->sport_id = $data['sport'];
             $event->private = $data['private'];
-            $event->started_at = strtotime($data['data_start_act']);
-            $event->end_at = strtotime($data['data_end_act']);
-
+            $event->started_at = $data['date_start_act'];
+            $event->end_at = $data['date_end_act'];
+            
             $event->save();
 
             return Redirect::route('event.show', ['event' => $event->id])->with('message', 'Modification effectué avec succès');
