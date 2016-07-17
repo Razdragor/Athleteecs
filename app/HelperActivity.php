@@ -128,6 +128,10 @@ class HelperActivity
             );
             $imageName = '/images/publications/' . $imageName;
             $activity->picture = $imageName;
+            Picture::create(array(
+                'user_id' => $user->id,
+                'link' => $imageName
+            ));
         }
 
         $time = ($data['time_h_act_modal'] * 3600) + ($data['time_m_act_modal'] * 60) + $data['time_s_act_modal'];

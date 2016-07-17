@@ -122,9 +122,6 @@
                             <a href="#member" data-toggle="tab" aria-expanded="false">Membres</a>
                         </li>
                         <li>
-                            <a href="#photo" data-toggle="tab" aria-expanded="false">Photos</a>
-                        </li>
-                        <li>
                             <a href="#video" data-toggle="tab" aria-expanded="false">Videos</a>
                         </li>
                     </ul>
@@ -385,8 +382,6 @@
                                     @endif
                                 </div>
                             @endforeach
-                        </div>
-                        <div class="tab-pane fade" id="photo">
                         </div>
                         <div class="tab-pane fade" id="video">
                             @foreach($association->videos() as $video)

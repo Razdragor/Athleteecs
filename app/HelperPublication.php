@@ -63,6 +63,11 @@ class HelperPublication
                 public_path().'/images/publications', $imageName
             );
             $imageName = '/images/publications/'.$imageName;
+
+            Picture::create(array(
+                'user_id' => $user->id,
+                'link' => $imageName
+            ));
         }
 
         return array(
@@ -127,6 +132,10 @@ class HelperPublication
             );
             $imageName = '/images/publications/'.$imageName;
             $publication->picture = $imageName;
+            Picture::create(array(
+                'user_id' => $publication->user->id,
+                'link' => $imageName
+            ));
         }
         return array(
             'publication' => $publication,

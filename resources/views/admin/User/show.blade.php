@@ -42,7 +42,6 @@
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Informations</a></li>
             <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Publications</a></li>
-            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Photos</a></li>
             <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Videos</a></li>
         </ul>
         <div class="tab-content">
@@ -140,9 +139,6 @@
                         @endforeach
                     </ul>
                 </div>
-            </div>
-            <div role="tabpanel" class="tab-pane" id="messages">
-
             </div>
             <div role="tabpanel" class="tab-pane" id="settings">
                 @foreach($user->videos() as $video)
