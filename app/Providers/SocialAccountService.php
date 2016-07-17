@@ -54,6 +54,9 @@ class SocialAccountService
                 if($providerName == 'GoogleProvider'){
                     $user = $this->createUserGoogle($providerUser);
                 }
+                if($providerName == 'TwitterProvider'){
+                    $user = $this->createUserTwitter($providerUser);
+                }
             }
             $account->user()->associate($user);
             $account->save();
@@ -74,6 +77,28 @@ class SocialAccountService
             'email' => $user->getEmail(),
             'firstname' => $user->user['first_name'],
             'lastname' => $user->user['last_name'],
+            'password' => $password,
+            'sexe' => $sexe,
+            'status' => 'success',
+            'newsletter' => 0,
+            'picture' => $user->getAvatar(),
+            'activated' => 1
+        ]);
+
+        return $user;
+    }
+
+    public function createUserTwitter(ProviderUser $user){
+        $password = Str::random(10);
+        dd($user);
+        $sexe = "Femme";
+        if($user->user['gender'] == 'male'){
+            $sexe = "Homme";
+        }
+        $user = User::create([
+            'email' => $user->getEmail(),
+            'firstname' => $user->user['name']['givenName'],
+            'lastname' => $user->user['name']['familyName'],
             'password' => $password,
             'sexe' => $sexe,
             'status' => 'success',
