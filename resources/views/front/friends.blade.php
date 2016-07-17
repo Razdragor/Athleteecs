@@ -22,7 +22,7 @@
         @forelse($user->friends as $friend)
         <div class="col-md-2 onefriend">
           <div class="team-member">
-             <a href="/user/{{ $friend->id }}">
+             <a href="{{  route('user.show', ['user' => $friend])  }}">
                  <figure class="member-photo">
                      <img class="imgonefriend" src="{{ $friend->picture }}" alt="{{ $friend->firstname }} {{ $friend->lastname }}" width="100px" height="100px">
                  </figure>
