@@ -100,7 +100,7 @@
     <div class="main">
         @yield('content')
     </div>
-    <footer>2016 - <a href="http://localhost" target="_blank">ATHLETEEC</a> / <a href="{{ route('front.confidentialite.index')}}">Confidentialité</a></footer>
+    <footer>2016 - <a href="http://localhost" target="_blank">ATHLETEEC</a> / <a href="{{ route('obligatoire')}}">Confidentialité</a></footer>
 </div>
 <!-- Modal-->
 <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
