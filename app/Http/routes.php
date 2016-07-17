@@ -55,8 +55,10 @@ use Illuminate\Support\Facades\File;
     Route::group(['middleware' => ['role:user|admin']], function () {
         Route::get('/', 'Front\IndexController@index');
         Route::get('/friends', 'Front\FriendsController@getAllFriends');
+        
         //Chat
         Route::resource('conversation', 'ConversationController',['only' => ['index']]);
+        Route::get('conversation/{id}', ['as' => 'conversation.show_id', 'uses' => 'ConversationController@show_id']);
         Route::post('sendmessage', ['as' => 'sendmessage', 'uses' => 'ConversationController@sendMessage']);
         Route::post('create_conversation', ['as' => 'create_conversation', 'uses' => 'ConversationController@create']);
         Route::post('show_conversation', ['as' => 'show_conversation', 'uses' => 'ConversationController@show']);
@@ -102,6 +104,7 @@ use Illuminate\Support\Facades\File;
 
         //Evenement
         Route::resource('event', 'Front\EventController',['except' => ['update']]);
+        Route::get('/event/create/{id}', ['as' => 'event.create_association', 'uses' => 'Front\EventController@create_association']);
         Route::post('/event/{event}/update', ['as' => 'event.update', 'uses' => 'Front\EventController@update']);
         Route::get('/event/{event}/delete', ['as' => 'event.delete', 'uses' => 'Front\EventController@delete']);
         Route::post('/event/{event}/post', ['as' => 'event.post.store', 'uses' => 'Front\EventController@storepost']);

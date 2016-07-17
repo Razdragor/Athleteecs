@@ -21,6 +21,50 @@ class ConversationController extends Controller
         return view('front.conversation.index',['user' => Auth::user()]);
     }
     
+    public function show_id($id)
+    {
+        $user = Auth::user();
+        $friend = User::where('id',$id)->first();
+        $conv = false;
+        $end = false;
+        foreach($friend->conversations as $conv_users)
+        {
+            if($conv_users->conversation->group == false)
+            {      
+                foreach($conv_users->conversation->conversation_users as $conv_user)
+                {
+                    if($user->id == $conv_user->user_id)
+                    {
+                        $end = true;
+                    }
+                }
+            }
+            if($end)
+            {
+                $conv = $conv_users->conversation;
+                break;
+            }
+
+        }
+        if($conv == false)
+        {
+            $conv = new Conversation;
+            $conv->name = $user->firstname.' & '.$friend->firstname;
+            $conv->save();
+
+            $conversation_user_me = new Conversation_user;
+            $conversation_user_me->conversation_id = $conv->id;
+            $conversation_user_me->user_id = $user->id;
+            $conversation_user_me->save();
+
+            $conversation_user_friend = new Conversation_user;
+            $conversation_user_friend->conversation_id = $conv->id;
+            $conversation_user_friend->user_id = $friend->id;
+            $conversation_user_friend->save();
+        }
+        return view('front.conversation.index',['user' => $user,'friend'=>$friend, 'conv'=>$conv]);
+    }
+    
     public function create()
     {
         
