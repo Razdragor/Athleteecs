@@ -50,6 +50,7 @@
     display: table-row;
 }
 
+
 .post_activity_img{
     width: 70px;
     display: table-cell;
@@ -215,4 +216,20 @@
     opacity: 0.2;
     z-index: 90;
     right: 1px;
+}
+.padding-bottom-correct{
+    padding-bottom: 20px;
+}
+
+.panel-foo {
+    background-color: white;
+}
+.equipement-box img{
+    width: 60px;
+    height: 60px;
+}
+
+.checkbox-correct{
+    text-align: center;
+    padding-top: 15px;
 }

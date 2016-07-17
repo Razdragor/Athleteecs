@@ -31,11 +31,7 @@ class Product extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\Brand');
+        return $this->belongsToMany('App\User', 'users_equips_sports', 'user_id', 'product_id');
     }
 
-    public function sport()
-    {
-        return $this->belongsTo('App\Sport');
-    }
 }

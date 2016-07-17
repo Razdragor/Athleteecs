@@ -20,7 +20,7 @@ class CreateProductsTable extends Migration
             $table->string('picture')->nullable();
             $table->decimal('price')->nullable();
             $table->string('url')->nullable();
-            $table->boolean('buy');
+            $table->boolean('buy')->nullable();;
             $table->bigInteger('brand_id')->nullable();
             $table->bigInteger('category_id');
             $table->timestamps();

@@ -37,6 +37,10 @@ $(document).ready(function() {
         $('#modal-signal').modal('show');
     });
 
+    $("body").on('click','#addproduct' ,function(e){
+        $('#modal-product').modal('show');
+    });
+
     $('#delete-modal-post').submit(function(e){
         e.preventDefault();
         $.ajax({
@@ -47,6 +51,24 @@ $(document).ready(function() {
                 if(data['success'] == true)
                 {
                     $('#modal-delete').modal('hide');
+                    location.reload();
+                }
+            }
+        });
+    });
+    $('#submit-modal-product').submit(function(e){
+        e.preventDefault();
+        var $form = $(this);
+        $.ajax({
+            url: "/" +$form.attr('action'),
+            type: $form.attr('method'),
+            contentType: false, // obligatoire pour de l'upload
+            processData: false, // obligatoire pour de l'upload
+            data: new FormData($("#submit-modal-product")[0]),
+            success: function(data) {
+                if(data['success'] == true)
+                {
+                    $('#modal-product').modal('hide');
                     location.reload();
                 }
             }

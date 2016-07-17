@@ -74,13 +74,13 @@ $('#infos').click(function() {
   $(this).addClass('active');
   $('.infos').show();
 });
-$('#videos').click(function() {
+$('#equipement').click(function() {
   var valeur;
   valeur = $(".active.ok").attr('id');
   $('#'+valeur).removeClass("active");
   $('.'+valeur).hide();
   $(this).addClass('active');
-  $('.videos').show();
+  $('.equipement').show();
 });
 
 $('#amis').click(function() {
