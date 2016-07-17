@@ -31,7 +31,7 @@
                     @foreach($publications as $publication)
                         <tr>
                             <td>{{ $publication->id }}</td>
-                            <td><a href="{{ route('admin.user.show', ['user' => $publication->user->id]) }}" ><img src="{{ $publication->user->picture }}" alt="{{ $publication->user->firstname.' '.$publication->user->lastname }}" class="avatar" width="25" height="25"></a></td>
+                            <td><a href="{{ route('admin.user.show', ['user' => $publication->user->id]) }}" ><img src="{{ asset('images/'.$publication->user->picture) }}" alt="{{ $publication->user->firstname.' '.$publication->user->lastname }}" class="avatar" width="25" height="25"></a></td>
                             <td style="max-width: 10%;">{{ $publication->message }}</td>
                             <td>
                                 @if(!is_null($publication->picture))

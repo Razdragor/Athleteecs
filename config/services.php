@@ -42,14 +42,14 @@ return [
     ],
 
     'twitter' => [
-        'client_id' => 'jvVgZoMJFDGF0nuSRFzrE4jO3',
-        'client_secret' => 'onPJd84dU1ZrHgsGmWCFBI4iv5octmWDLQooJ1TZix1T34ttjf',
+        'client_id' => 'aY3nP0eqLsn2GIugrWcnXCd9h',
+        'client_secret' => 'aWiRIWeMxG1N5l1Ys2PQ6tJXmZNepg2LPT0fufc3wsFU7AdqDW',
         'redirect' => env('APP_URL', 'https://localhost').'login/callback/twitter',
     ],
 
     'google' => [
-        'client_id' => '65532960165-b2ls72mjheo2as9cvjejb8soqqe87ejq.apps.googleusercontent.com',
-        'client_secret' => 'SKvzq9Tsjn5_B5HUeTB8Zojf',
+        'client_id' => '77559020404-gug01gc8j48nmoe6pbs8j7iaudmgft9j.apps.googleusercontent.com',
+        'client_secret' => 'ZSDML300Kf2O0eY5X1hAyypZ',
         'redirect' => env('APP_URL', 'https://localhost').'login/callback/google',
     ]
 

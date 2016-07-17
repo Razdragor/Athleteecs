@@ -1,7 +1,7 @@
-@extends('layouts.front')
+@extends('layouts.app')
 
 @section('content')
-    <h1>Politique mod&egrave;le de confidentialit&eacute;.</h1>
+    <h1>Politique de confidentialit&eacute;.</h1>
     <p><strong>Introduction</strong><br />
         Devant le d&eacute;veloppement des nouveaux outils de communication, il est n&eacute;cessaire de porter une attention particuli&egrave;re &agrave; la protection de la vie priv&eacute;e.
         C'est pourquoi, nous nous engageons &agrave; respecter la confidentialit&eacute; des renseignements personnels que nous collectons.

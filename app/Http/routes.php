@@ -55,7 +55,6 @@ use Illuminate\Support\Facades\File;
     Route::group(['middleware' => ['role:user|admin']], function () {
         Route::get('/', 'Front\IndexController@index');
         Route::get('/friends', 'Front\FriendsController@getAllFriends');
-
         //Chat
         Route::resource('conversation', 'ConversationController',['only' => ['index']]);
         Route::post('sendmessage', ['as' => 'sendmessage', 'uses' => 'ConversationController@sendMessage']);
@@ -112,6 +111,9 @@ use Illuminate\Support\Facades\File;
         Route::post('/event/{userevent}/promouvoir', ['as' => 'event.promot', 'uses' => 'Front\EventController@promouvoir']);
         Route::post('/event/{userevent}/destituer', ['as' => 'event.dest', 'uses' => 'Front\EventController@destituer']);
         Route::post('/event/search', ['as' => 'event.search', 'uses' => 'Front\EventController@search']);
+        Route::post('/event/showuser', ['as' => 'event.showuser', 'uses' => 'Front\EventController@showUser']);
+        Route::post('/event/authorise', ['as' => 'event.authorise', 'uses' => 'Front\EventController@authorise']);
+        Route::post('/event/deleteuser', ['as' => 'event.deleteuser', 'uses' => 'Front\EventController@deleteUser']);
         
         // Groupes
         Route::resource('groups', 'GroupController');
@@ -148,4 +150,4 @@ use Illuminate\Support\Facades\File;
 
     });
 
-Route::get('confidentialite', ['as' => 'front.confidentialite.index', 'uses' => 'Front\ConfidentialiteController@index']);
+Route::get('confidentialite.html', ['as' => 'front.confidentialite.index', 'uses' => 'Front\ConfidentialiteController@index']);

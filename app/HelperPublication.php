@@ -60,9 +60,14 @@ class HelperPublication
             $imageName = $user->id . '_' . date('YmdHis'). '_post.' . $request->file('picture_status')->getClientOriginalExtension();;
 
             $request->file('picture_status')->move(
-                storage_path().'/uploads', $imageName
+                public_path().'/images/publications', $imageName
             );
-            $imageName = '/uploads/'.$imageName;
+            $imageName = '/images/publications/'.$imageName;
+
+            Picture::create(array(
+                'user_id' => $user->id,
+                'link' => $imageName
+            ));
         }
 
         return array(
@@ -119,15 +124,18 @@ class HelperPublication
         }
         $publication->message = $message;
 
-        if ($request->hasFile('picture_status_modal') && !is_null($publication->video)) {
+        if ($request->hasFile('picture_status_modal') && is_null($publication->video)) {
             $imageName = $publication->user->id . '_' . date('YmdHis'). '_post.' . $request->file('picture_status_modal')->getClientOriginalExtension();
 
             $request->file('picture_status_modal')->move(
-                storage_path() . '\uploads', $imageName
+                public_path().'/images/publications', $imageName
             );
-            $imageName = '/uploads/'.$imageName;
-
+            $imageName = '/images/publications/'.$imageName;
             $publication->picture = $imageName;
+            Picture::create(array(
+                'user_id' => $publication->user->id,
+                'link' => $imageName
+            ));
         }
         return array(
             'publication' => $publication,
@@ -237,9 +245,16 @@ class HelperPublication
             "<div class='timeline-panel'>".
             "<div class='timeline-heading row' style='margin: 0;'>".
             "<div style='margin:0 10px 0 0;float:left;'>".
-            "<a href='". route('user.show', ['user' => $publication->user->id])."'>".
-            "<img src='". $publication->user->picture."' alt='Image' class='img-responsive' style='width: 50px; margin: 5px;display: inline-block;'>".
-            "</a>".
+            "<a href='". route('user.show', ['user' => $publication->user->id])."'>";
+
+        if(strstr($publication->user->picture,'facebook')){
+            $string .=  "<img src='".$publication->user->picture."' alt='Image' class='img-responsive' style='width: 50px;height:50px;margin: 5px;display: inline-block;'>";
+        }
+        else{
+            $string .=  "<img src='".asset('images/'.$publication->user->picture)."' alt='Image' class='img-responsive' style='width: 50px;height:50px; margin: 5px;display: inline-block;'>";
+        }
+
+        $string .=    "</a>".
             "</div>".
             "<div style='margin: 10px;float:left;'>".
             "<span>" . $publication->user->firstname . ' ' . $publication->user->lastname . "</span><br>".
@@ -261,7 +276,7 @@ class HelperPublication
                 $string .= "<div class='video-container'><iframe src='https://www.youtube.com/embed/".$publication->video->url."' frameborder='0' allowfullscreen></iframe></div>";
             }
             elseif(!is_null($publication->picture)){
-                $string .= "<img src='".$publication->picture."' alt='Image' class='img-responsive'>";
+                $string .= "<img src='".asset($publication->picture)."' alt='Image' class='img-responsive'>";
             }
             $string .= "</div>";
         }
@@ -271,7 +286,7 @@ class HelperPublication
                 $string .= "<div class='video-container'><iframe src='https://www.youtube.com/embed/".$publication->video->url."' frameborder='0' allowfullscreen></iframe></div>";
             }
             elseif(!is_null($publication->activity->picture)) {
-                $string .= "<img src='".$publication->activity->picture."' alt='Image' class='img-responsive'>";
+                $string .= "<img src='".asset($publication->activity->picture)."' alt='Image' class='img-responsive'>";
             }
             $string .= "</div>";
             $string .=  "<div class='post_activity'>".
@@ -293,7 +308,7 @@ class HelperPublication
         foreach($publication->commentspost as $comment){
             $string .= "<div class='comment' id='comment-".$comment->id."'>".
                 "<a class='pull-left' href='". route('user.show', ['user' => $comment->user->id])."'>".
-                "<img width='30' height='30' class='comment-avatar' alt='Julio Marquez' src='".asset($comment->user->picture)."'>".
+                "<img width='30' height='30' class='comment-avatar' alt='".$comment->user->firstname." ".$comment->user->lastname."' src='".asset('images/'.$comment->user->picture)."'>".
                 "</a>".
                 "<div class='comment-body'>".
                 "<span class='message'><strong>".$comment->user->firstname.' '.$comment->user->lastname."</strong> ". $comment->message ."</span>".
@@ -316,7 +331,7 @@ class HelperPublication
 
         $string .= "<div class='comment'>".
             "<a class='pull-left' href='". route("user.show", $publication->user->id )."'>".
-            "<img width='30' height='30' class='comment-avatar' alt='Julio Marquez' src='". Auth::user()->picture ."'>".
+            "<img width='30' height='30' class='comment-avatar' alt='".Auth::user()->firstname." ".Auth::user()->lastname."' src='".asset('images/'.Auth::user()->picture)."'>".
             "</a>".
             "<div class='comment-body'>".
             "<input type='text' class='form-control' name='".$publication->id."' id='post-comment' placeholder='Ecris un commentaire...'>".

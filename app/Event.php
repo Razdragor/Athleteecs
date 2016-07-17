@@ -19,7 +19,7 @@ class Event extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'name', 'picture', 'address', 'city', 'city_code','lattitude','longitude','number_street','region','country','user_id', 'sport_id','private','created_at', 'updated_at'
+        'id', 'name', 'picture', 'address', 'city', 'city_code','lattitude','longitude','number_street','region','country','user_id', 'sport_id','private', 'association_id','started_at','end_at','created_at', 'updated_at'
     ];
 
     /**
@@ -34,6 +34,10 @@ class Event extends Model
     {
         return $this->belongsTo('App\User','user_id');
     }
+    public function association()
+    {
+        return $this->belongsTo('App\Association','association_id');
+    }
 
     public function sport()
     {
@@ -43,6 +47,11 @@ class Event extends Model
     public function members()
     {
         return $this->hasMany('App\UsersEvents', 'event_id');
+    }
+
+    public function authorisedMembers()
+    {
+        return $this->hasMany('App\UsersDemandsEvents', 'event_id');
     }
 
     public function publications(){

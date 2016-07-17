@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-site-verification" content="OZ5EaazJ8k-vftAyTNRIeoewQVsBYfDNSkqTnlYwt-Y" />
 
     <title>ATHLETEEC</title>
 
@@ -158,7 +159,7 @@
                 </div>
                 <div class="row copyright">
                     <div class="col-sm-12">
-                        <p>2016 - <a href="/" target="_blank">ATHLETEEC</a></p>
+                        <p>2016 - <a href="/" target="_blank">ATHLETEEC</a> / <a href="{{ route('front.confidentialite.index')}}">Confidentialité</a></p>
                     </div>
                 </div>
             </div>

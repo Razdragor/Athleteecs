@@ -28,6 +28,9 @@ class CreateEventsTable extends Migration
             $table->bigInteger('user_id');
             $table->bigInteger('sport_id');
             $table->boolean('private')->nullable();
+            $table->boolean('association_id')->nullable();
+            $table->dateTime('started_at');
+            $table->dateTime('end_at');
             $table->timestamps();
         });
     }
