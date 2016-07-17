@@ -8107,6 +8107,12 @@ button.close {
   }
 }
 
-.main{
+.wrapper{
+  position: relative;
+  min-height: 100%;
+}
 
+.main{
+  padding-bottom: 50px;
+  min-height: 750px;
 }
