@@ -90,7 +90,7 @@ class AssociationController extends Controller
 
         $imageName = null;
         if ($request->hasFile('picture')) {
-            $guid = com_create_guid();
+            $guid = sha1(time());
             $imageName = $guid.'_assos.' . $request->file('picture')->getClientOriginalExtension();;
 
             $request->file('picture')->move(
@@ -201,7 +201,7 @@ class AssociationController extends Controller
             }
 
             if ($request->hasFile('picture')) {
-                $guid = com_create_guid();
+                $guid = sha1(time());
                 $imageName = $guid.'_assos.' . $request->file('picture')->getClientOriginalExtension();;
 
                 $request->file('picture')->move(

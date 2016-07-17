@@ -129,7 +129,7 @@ class UserController extends Controller
                 }
 
                 if ($request->hasFile('picture')) {
-                    $guid = com_create_guid();
+                    $guid = sha1(time());
                     $imageName = $guid . $user->id . "." . $request->file('picture')->getClientOriginalExtension();;
 
                     $request->file('picture')->move(
