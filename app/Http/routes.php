@@ -65,6 +65,8 @@ use Illuminate\Support\Facades\File;
         //Profil
         Route::resource('user', 'UserController',['except' => ['update']]);
         Route::post('/user/{user}/update', ['as' => 'user.update', 'uses' => 'UserController@update']);
+        Route::post('/product/addAjax',['as' => 'product.store', 'uses' => 'ProductController@addAjax']);
+
 
         //Activité
         Route::resource('activity', 'Front\ActivityController');

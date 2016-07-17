@@ -50,6 +50,7 @@
     display: table-row;
 }
 
+
 .post_activity_img{
     width: 70px;
     display: table-cell;
@@ -213,4 +214,11 @@
     opacity: 0.2;
     z-index: 90;
     right: 1px;
+}
+.padding-bottom-correct{
+    padding-bottom: 20px;
+}
+
+.panel-foo {
+    background-color: white;
 }
