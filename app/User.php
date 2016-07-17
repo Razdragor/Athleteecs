@@ -184,35 +184,41 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function notifications(){
         return $this->hasMany('App\Notifications')
             ->where('afficher', true)
-            ->whereIn('notification', ['events', 'associations', 'groups']);
+            ->whereIn('notification', ['events', 'associations', 'groups'])
+            ->orderBy('updated_at', 'DESC');
     }
 
     public function getnotifications(){
         return $this->hasMany('App\Notifications')
-            ->where('afficher', true);
+            ->where('afficher', true)
+            ->orderBy('id', 'DESC');
     }
 
     public function getfriendsnotificationstrue(){
         return $this->hasMany('App\Notifications')
             ->where('afficher', true)
-            ->where('notification', 'users_links');
+            ->where('notification', 'users_links')
+            ->orderBy('updated_at', 'DESC');
     }
 
     public function getfriendsnotifications(){
         return $this->hasMany('App\Notifications')
             ->where('notification', 'users_links')
+            ->orderBy('updated_at', 'DESC')
             ->limit(8);
     }
 
     public function geteventsnotificationstrue(){
         return $this->hasMany('App\Notifications')
             ->where('afficher', true)
-            ->where('notification', 'events');
+            ->where('notification', 'events')
+            ->orderBy('updated_at', 'DESC');
     }
 
     public function geteventsnotifications(){
         return $this->hasMany('App\Notifications')
             ->where('notification', 'events')
+            ->orderBy('updated_at', 'DESC')
             ->limit(8);
     }
 

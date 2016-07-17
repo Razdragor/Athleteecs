@@ -10,10 +10,11 @@
 @section('content')
     <div class="panel-body">
         <div class="tab-content">
+            <h1>La page des notifications</h1>
             <div id="activities-feed" class="tab-pane active activities-feed">
                 <div class="scroll">
                     <ul class="list-group">
-                        @foreach (Auth::user()->getfriendsnotifications as $notification)
+                        @foreach (Auth::user()->getnotifications as $notification)
                             @if($notification->afficher==true)
                                 <li class="list-group-item">
                                     <a href="/friends/accept/{{$notification->userL_id}}">

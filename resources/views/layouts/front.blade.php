@@ -213,65 +213,11 @@ $user = Auth::user();
                                     @endforeach
                                 </li>
                                 <li class="nav-notifications-footer">
-                                    <a href="#">View all messages</a>
+                                    <a href="/notifications">Voir toutes les notifications</a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="dropdown nav-tasks">
-                            <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
-                                <span class="badge">13</span><i class="fa fa-tasks fa-lg"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-tasks-header">
-                                    <a href="#">You have <strong>13</strong> tasks in progress</a>
-                                </li>
-                                <li class="nav-tasks-body">
-                                    <a>Prepare Report
-                                        <span class="pull-right">30%</span>
-                                        <div class="progress">
-                                            <div role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%" class="progress-bar progress-bar-danger">
-                                                <span class="sr-only">30% Complete</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a>Make new update
-                                        <span class="pull-right">40%</span>
-                                        <div class="progress">
-                                            <div role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%" class="progress-bar progress-bar-info">
-                                                <span class="sr-only">40% Complete</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a>Fix critical bugs
-                                        <span class="pull-right">80%</span>
-                                        <div class="progress progress-striped active">
-                                            <div role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%" class="progress-bar">
-                                                <span class="sr-only">80% Complete</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a>Complete project
-                                        <span class="pull-right">5%</span>
-                                        <div class="progress">
-                                            <div role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100" style="width: 5%" class="progress-bar progress-bar-success">
-                                                <span class="sr-only">5% Complete (success)</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a>Others
-                                        <span class="pull-right">15%</span>
-                                        <div class="progress">
-                                            <div role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100" style="width: 15%" class="progress-bar progress-bar-warning">
-                                                <span class="sr-only">15% Complete (warning)</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="nav-tasks-footer">
-                                    <a href="#">View all tasks</a>
-                                </li>
-                            </ul>
-                        </li>
+
                         <li class="dropdown nav-messages">
                             <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
                                 <span class="badge">8</span><i class="fa fa-envelope fa-lg"></i>
