@@ -55,6 +55,7 @@ class SocialAccountService
                     $user = $this->createUserGoogle($providerUser);
                 }
                 if($providerName == 'TwitterProvider'){
+                    dd($providerUser);
                     $user = $this->createUserTwitter($providerUser);
                 }
             }
@@ -90,7 +91,6 @@ class SocialAccountService
 
     public function createUserTwitter(ProviderUser $user){
         $password = Str::random(10);
-        dd($user);
         $sexe = "Femme";
         if($user->user['gender'] == 'male'){
             $sexe = "Homme";
