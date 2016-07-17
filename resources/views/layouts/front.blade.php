@@ -282,7 +282,7 @@ $user = Auth::user();
     <div class="main">
         @yield('content')
     </div>
-    <footer>2016 - <a href="http://localhost" target="_blank">ATHLETEEC</a></footer>
+    <footer>2016 - <a href="http://localhost" target="_blank">ATHLETEEC</a> / <a href="{{ route('front.confidentialite.index')}}">Confidentialité</a></footer>
 </div>
 
 
