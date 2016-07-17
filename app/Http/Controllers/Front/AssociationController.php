@@ -100,7 +100,7 @@ class AssociationController extends Controller
         }
 
         $association = Association::create(array(
-            'name' => $data['name'],
+            'name' => htmlspecialchars($data['name']),
             'picture' => $imageName,
             'address' => $data['route'],
             'city' => $data['locality'],
@@ -112,12 +112,12 @@ class AssociationController extends Controller
             'country' => $data['country'],
             'user_id' => $user->id,
             'sport_id' => $data['sport'],
-            'facebook' => $data['facebook'],
-            'twitter' => $data['twitter'],
-            'google' => $data['google']
+            'facebook' => htmlspecialchars($data['facebook']),
+            'twitter' => htmlspecialchars($data['twitter']),
+            'google' => htmlspecialchars($data['google'])
         ));
 
-        $association->description = $data['description'];
+        $association->description = htmlspecialchars($data['description']);
         $association->save();
 
         UsersAssociations::create(array(
@@ -210,7 +210,7 @@ class AssociationController extends Controller
                 $association->picture = '/images/associations/'.$imageName;
             }
 
-            $association->name = $data['name'];
+            $association->name = htmlspecialchars($data['name']);
             $association->address = $data['route'];
             $association->city = $data['locality'];
             $association->city_code = $data['postal_code'];
@@ -220,9 +220,10 @@ class AssociationController extends Controller
             $association->region = $data['region'];
             $association->country = $data['country'];
             $association->sport_id = $data['sport'];
-            $association->facebook = $data['facebook'];
-            $association->twitter = $data['twitter'];
-            $association->google = $data['google'];
+            $association->facebook = htmlspecialchars($data['facebook']);
+            $association->twitter = htmlspecialchars($data['twitter']);
+            $association->google = htmlspecialchars($data['google']);
+            $association->description = htmlspecialchars($data['description']);
 
             $association->save();
 

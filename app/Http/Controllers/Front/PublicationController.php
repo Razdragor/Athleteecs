@@ -153,9 +153,12 @@ class PublicationController extends Controller
     public function loadComment(Publication $publication,Request $request){
 
         if(\Request::ajax()) {
-            return HelperPublication::loadComments($publication,$request);
+            $helper = new HelperPublication();
+            $data = $helper->loadComments($publication,$request);
+
+            return \Response::json($data);
         }
-        return Response::json(array(
+        return \Response::json(array(
             'success' => false
         ));
     }

@@ -67,7 +67,7 @@ class CommentController extends Controller
         $comment = Comment::create(array(
             'user_id' => $user->id,
             'publication_id' => $data["publication"],
-            'message' => $data["value"]
+            'message' => htmlspecialchars($data["value"])
         ));
 
         return \Response::json(array(
@@ -77,7 +77,8 @@ class CommentController extends Controller
                 'firstname' => $user->firstname,
                 'lastname' => $user->lastname,
                 'created_at' => $comment->timeAgo($comment->created_at)
-            )
+            ),
+            'message' => $comment->message
         ));
     }
 

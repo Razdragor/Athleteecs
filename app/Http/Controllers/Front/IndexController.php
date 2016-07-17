@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Event;
 use App\Http\Controllers\Controller;
 use App\Publication;
 use App\Sport;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
@@ -23,17 +25,30 @@ class IndexController extends Controller
         $user = Auth::user();
         $arrayFriends = array();
         $arrayFriends[] = $user->id;
+
         foreach($user->friends as $friend){
             $arrayFriends[] = $friend->id;
         }
+
         $posts = Publication::whereIn('user_id', $arrayFriends)
             ->where('status', '!=', 'Blocked')
             ->orderBy('updated_at', 'DESC')
             ->take(10)
             ->get();
 
+        $arraySports = array();
+        foreach($user->sports as $sport){
+            $arraySports[] = $sport->id;
+        }
 
-        return view('front.index', ["sports" => $sports, "publications" => $posts]);
+        $events = Event::whereIn('sport_id', $arraySports )
+            ->where('private', '=', '0')
+            ->where('started_at', '>=', Carbon::today()->toDateString())
+            ->orderBy('started_at', 'DESC')
+            ->take(3)
+            ->get();
+
+        return view('front.index', ["sports" => $sports, "publications" => $posts, "events" => $events]);
     }
 
     /**
