@@ -158,7 +158,7 @@
                 </div>
                 <div class="row copyright">
                     <div class="col-sm-12">
-                        <p>2016 - <a href="/" target="_blank">ATHLETEEC</a></p>
+                        <p>2016 - <a href="/" target="_blank">ATHLETEEC</a> / <a href="{{ route('front.confidentialite.index')}}">Confidentialité</a></p>
                     </div>
                 </div>
             </div>

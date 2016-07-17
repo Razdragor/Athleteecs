@@ -42,8 +42,8 @@ return [
     ],
 
     'twitter' => [
-        'client_id' => 'jvVgZoMJFDGF0nuSRFzrE4jO3',
-        'client_secret' => 'onPJd84dU1ZrHgsGmWCFBI4iv5octmWDLQooJ1TZix1T34ttjf',
+        'client_id' => 'aY3nP0eqLsn2GIugrWcnXCd9h',
+        'client_secret' => 'aWiRIWeMxG1N5l1Ys2PQ6tJXmZNepg2LPT0fufc3wsFU7AdqDW',
         'redirect' => env('APP_URL', 'https://localhost').'login/callback/twitter',
     ],
 
