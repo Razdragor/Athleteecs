@@ -44,7 +44,7 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-xs-6 col-md-6">
-                            <input name="firstname" placeholder="Prénom" type="text" required="" autofocus="" class="form-control">
+                            <input name="firstname" placeholder="Prénom" type="text" required autofocus="" class="form-control">
                             @if ($errors->has('firstname'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('firstname') }}</strong>
@@ -52,7 +52,7 @@
                             @endif
                         </div>
                         <div class="col-xs-6 col-md-6">
-                            <input name="lastname" placeholder="Nom" type="text" required="" class="form-control">
+                            <input name="lastname" placeholder="Nom" type="text" required class="form-control">
 
                             @if ($errors->has('lastname'))
                                 <span class="help-block">
@@ -63,7 +63,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <input name="email" placeholder="E-mail" type="email" class="form-control">
+                    <input name="email" placeholder="E-mail" type="email" class="form-control" required>
                     @if ($errors->has('email'))
                         <span class="help-block">
                                     <strong>{{ $errors->first('email') }}</strong>
@@ -71,39 +71,41 @@
                     @endif
                 </div>
                 <div class="form-group">
-                    <input name="email_confirmation" placeholder="Confirmation votre e-mail" type="email" class="form-control">
-                    @if ($errors->has('email_confirmation'))
-                        <span class="help-block">
-                                        <strong>{{ $errors->first('email_confirmation') }}</strong>
-                                    </span>
-                    @endif
-
+                    <input name="email_confirmation" placeholder="Confirmation votre e-mail" type="email" required class="form-control">
                 </div>
                 <div class="form-group">
-                    <input name="password" placeholder="Nouveau mot de passe" type="password" class="form-control">
-
+                    <input name="password" placeholder="Nouveau mot de passe" type="password" required class="form-control">
                     @if ($errors->has('password'))
                         <span class="help-block">
-                                    <strong>{{ $errors->first('password') }}</strong>
-                                </span>
+                            <strong>{{ $errors->first('password') }}</strong>
+                        </span>
                     @endif
                 </div>
 
                 <div class="form-group">
-                    <input name="password_confirmation" placeholder="Confirmer votre mot de passe" type="password" class="form-control">
-
-                    @if ($errors->has('password'))
-                        <span class="help-block">
-                                <strong>{{ $errors->first('password') }}</strong>
-                            </span>
-                    @endif
+                    <input name="password_confirmation" placeholder="Confirmer votre mot de passe" type="password" required class="form-control">
                 </div>
                 <div class="form-group">
                     <label>Date de naissance</label>
+                    @if ($errors->has('day'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('day') }}</strong>
+                        </span>
+                    @endif
+                    @if ($errors->has('month'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('month') }}</strong>
+                        </span>
+                    @endif
+                    @if ($errors->has('year'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('year') }}</strong>
+                        </span>
+                    @endif
                     <div class="row">
                         <div class="col-xs-4 col-md-4">
                             <select class="form-control" name="day">
-                                <option value="day">Jour</option>
+                                <option value="">Jour</option>
                                 @for ($i = 1 ; $i <= 31 ; $i++ )
                                     <option value="{{ $i }}">{{ $i }}</option>
                                 @endfor
@@ -111,7 +113,7 @@
 
                         </div>
                         <div class="col-xs-4 col-md-4">
-                            <select class="form-control" name="month">
+                            <select class="form-control" name="month" >
                                 <?php
                                 $months = array(
                                 '1' => 'Janvier',
@@ -127,7 +129,7 @@
                                 '11' => 'Novembre',
                                 '12' => 'Décembre');?>
 
-                                <option name="Month">Mois</option>
+                                <option value="">Mois</option>
                                 @foreach($months as $key => $value)
                                     <option value="{{ $key }}">{{ $value  }}</option>
                                 @endforeach
@@ -136,7 +138,7 @@
                         </div>
                         <div class="col-xs-4 col-md-4">
                             <select class="form-control" name="year">
-                                <option value="Year">Année</option>
+                                <option value="">Année</option>
                                 @for ( $i = date("Y"); $i > date("Y")-100 ; $i-- )
                                     <option value="{{ $i }}">{{ $i }}</option>
                                 @endfor
@@ -153,7 +155,7 @@
                 </div>
                 <div class="form-group text-center">
                     <label class="radio-inline">
-                        <input id="inlineCheckbox1" type="radio" name="sexe" value="homme">Homme
+                        <input id="inlineCheckbox1" type="radio" name="sexe" value="homme" required>Homme
                     </label>
                     <label class="radio-inline">
                         <input id="inlineCheckbox2" type="radio" name="sexe" value="femme">Femme

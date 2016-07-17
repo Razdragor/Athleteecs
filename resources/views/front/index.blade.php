@@ -123,6 +123,7 @@
                             <?php
                                 $event = $events[$y];
                                 $y++;
+                                $z--;
                             ?>
                             <li class="<?php if($i%2){echo 'timeline-inverted';} ?>">
                                 <div class="timeline-badge primary">
@@ -143,7 +144,6 @@
                         @else
                         <?php
                             $publication = $publications[$z];
-                            $z++;
                         ?>
                         <li id="<?php
                                 if(is_null($publication->activity)){
