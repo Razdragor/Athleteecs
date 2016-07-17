@@ -185,7 +185,7 @@
                         @foreach($event->authorisedMembers as $authorisedMember)
                             @if($authorisedMember->is_authorised)
                                 <form action="{{ route('event.deleteuser') }}" method="post" enctype="multipart/form-data" class="form-horizontal form_event_delete_user" data-toggle="validator">
-                                    <span class="event_delete_user">{{ $authorisedMember->user->firstname }} {{ $authorisedMember->user->lastname }} <i class="fa fa-close"></i></span>
+                                    <span class="event_delete_user chat_show_user_span"><img src="{{ $authorisedMember->user->picture }}">{{ $authorisedMember->user->firstname }} {{ $authorisedMember->user->lastname }} <i class="fa fa-close"></i></span>
                                     <input type="hidden" name="event_id" value="{{ $event->id }}">
                                     <input type="hidden" name="friend_id" value="{{ $authorisedMember->user->id }}">
                                 </form>
@@ -376,7 +376,7 @@
                     console.log(data);
                     var to_append='';
                     $.each(data.friends,function(i,friend){
-                        to_append = to_append+'<span value="'+friend.id+'" class="event_show_user_span">'+friend.firstname+' '+friend.lastname+'</span>';
+                        to_append = to_append+'<span value="'+friend.id+'" class="chat_show_user_span event_show_user_span"><img src="'+friend.picture+'"> '+friend.firstname+' '+friend.lastname+'</span>';
                     });
                     $('.autocomplete_json').html(to_append);
                 },
@@ -403,8 +403,10 @@
                 success:function(data) {
                     console.log('Success !');
                     console.log(data);
-                    var to_append = '<form action="'+route+'" method="post" enctype="multipart/form-data" class="form-horizontal form_event_delete_user" data-toggle="validator"><span class="event_delete_user">'+data.friend.firstname+' '+data.friend.lastname+'<i class="fa fa-close"></i></span><input type="hidden" name="event_id" value="'+data.event_id+'"><input type="hidden" name="friend_id" value="'+data.friend.id+'"></form>';
+                    var to_append = '<form action="'+route+'" method="post" enctype="multipart/form-data" class="form-horizontal form_event_delete_user" data-toggle="validator"><span class="event_delete_user chat_show_user_span"><img src="'+data.friend.picture+'">'+data.friend.firstname+' '+data.friend.lastname+'<i class="fa fa-close"></i></span><input type="hidden" name="event_id" value="'+data.event_id+'"><input type="hidden" name="friend_id" value="'+data.friend.id+'"></form>';
                     $('#authorised_members').append(to_append);
+                    $('#authorised').val('');
+                    $('.autocomplete_json').html('');
                 },
                 error:function(jqXHR)
                 {

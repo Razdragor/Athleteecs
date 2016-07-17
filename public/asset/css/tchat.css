@@ -65,6 +65,15 @@
     width: 100%;
     display: -webkit-box;
 }
+.autocomplete_json .chat_show_user_span,.event_delete_user.chat_show_user_span {
+    border: 1px solid grey;
+    padding: 4px;
+    cursor: pointer;
+    max-width: 33%; 
+    min-width:50px;
+    display: -webkit-box;
+}
+
 .chat_show_user_span:hover{
     
 }
@@ -136,7 +145,7 @@ img.chat-avatar{
 .hauteur-utilisateurs-liste{
     height:44px;
 }
-.search-add-user-chat-img{
+.chat_show_user_span img{
     width: 30px;
     height: 30px;
 }
