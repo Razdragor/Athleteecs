@@ -73,8 +73,12 @@ class SocialAccountService
         if($user->user['gender'] == 'male'){
             $sexe = "Homme";
         }
+        $email = "";
+        if(!is_null($user->getEmail())){
+            $email = $user->getEmail();
+        }
         $user = User::create([
-            'email' => $user->getEmail(),
+            'email' => $email,
             'firstname' => $user->user['first_name'],
             'lastname' => $user->user['last_name'],
             'password' => $password,
@@ -94,6 +98,7 @@ class SocialAccountService
         $name = explode(" ",$user->getNickname());
         $firstname = "";
         $lastname = "";
+        $email = "";
         for($i = 0;$i < count($name);$i++){
             if($i == 0){
                 $firstname = $name[$i];
@@ -102,9 +107,12 @@ class SocialAccountService
                 $lastname .= $name[$i];
             }
         }
+        if(!is_null($user->getEmail())){
+            $email = $user->getEmail();
+        }
 
         $user = User::create([
-            'email' => $user->getEmail(),
+            'email' => $email,
             'firstname' => $firstname,
             'lastname' => $lastname,
             'password' => $password,
@@ -124,8 +132,12 @@ class SocialAccountService
         if($user->user['gender'] == 'male'){
             $sexe = "Homme";
         }
+        $email = "";
+        if(!is_null($user->getEmail())){
+            $email = $user->getEmail();
+        }
         $user = User::create([
-            'email' => $user->getEmail(),
+            'email' => $email,
             'firstname' => $user->user['name']['givenName'],
             'lastname' => $user->user['name']['familyName'],
             'password' => $password,
