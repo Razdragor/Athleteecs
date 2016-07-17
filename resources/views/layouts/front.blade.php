@@ -94,28 +94,15 @@ $user = Auth::user();
                             <form class="create_conversation alignement-utilisateurs">
                                 <input type="hidden" name="id" value="{{ $friend->id }}"></input>
                                 <a data-firstname="{{ $friend->firstname }}" data-lastname="{{ $friend->lastname }}" data-status="online" data-userid="{{ $friend->id }}" class="hauteur-utilisateurs-liste">
-                                    <img src="{{ asset('images/'.$friend->picture) }}" alt="{{ $friend->firstname.' '.$friend->lastname }}">
+                                    <img src="{{ $friend->picture }}" alt="{{ $friend->firstname.' '.$friend->lastname }}">
                                     <span>{{ $friend->firstname.' '.$friend->lastname }}</span><i class="fa fa-circle user-status online"></i>
                                 </a>
                             </form>
                         </li>
                     @endforeach
                 </ul>
-                <!--
-                       <div class="container" style="position: absolute;bottom: 0px;left: 20%;width: 350px;height: 500px;z-index: 9999;background-color: white;">
-                           <div class="row">
-                               <h3 class="text-center">Interlocuteur</h3>
-                               <hr>
-                               <div class="col-lg-8 col-lg-offset-2 " >
-                                 <div id="messages" >Messages</div>
-                               </div>
-                               <div class="col-lg-8 col-lg-offset-2 text-right" >
-                                 <div id="messages" >Messages de l'interloc'</div>
-                               </div>
-                           </div>
-                       </div>
-               -->
             </div>
+        </div>
     </aside>
     <header>
         <nav role="navigation" class="navbar navbar-fixed-top navbar-super social-navbar">
@@ -140,9 +127,11 @@ $user = Auth::user();
                             <li>
                                 <a href="{{ route('association.index') }}"><i class="fa fa-circle-thin"></i>&nbsp;Associations</a>
                             </li>
-                            <li>
-                                <a href="#"><i class="fa fa-cogs"></i>&nbsp;Paramètres</a>
-                            </li>
+                            @if(Auth::user()->hasRole('admin'))
+                                <li>
+                                    <a href="/admin"><i class="fa fa-cogs"></i>&nbsp;Admin</a>
+                                </li>
+                            @endif
                             <li>
                                 <a href="/logout"><i class="fa fa-sign-out"></i>&nbsp;Déconnexion</a>
                             </li>
@@ -156,7 +145,7 @@ $user = Auth::user();
                 <div class="nav-indicators">
                     <ul class="nav navbar-nav navbar-right nav-indicators-body">
                       <!-- DEBUT AMIS-->
-                        <a href="{{ route('user.show',['user' => Auth::user()->id]) }}"><img src="{{ asset('images/'.Auth::user()->picture)}}" alt="Avatar" class="dropdown nav-notifications img-navbarre"></a>
+                        <a href="{{ route('user.show',['user' => Auth::user()->id]) }}"><img src="{{ Auth::user()->picture}}" alt="Avatar" class="dropdown nav-notifications img-navbarre"></a>
                         <li class="dropdown nav-notifications">
                             <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
                                 @if(Auth::user()->getfriendsnotificationstrue()->count()>0)<span class="badge">{{Auth::user()->getfriendsnotificationstrue()->count()}}</span>@endif<i class="fa fa-users fa-lg"></i>
@@ -221,56 +210,12 @@ $user = Auth::user();
                                 </li>
                             </ul>
                         </li>
-
-                        <li class="dropdown nav-messages">
-                            <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
-                                <span class="badge">8</span><i class="fa fa-envelope fa-lg"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-messages-header">
-                                    <a tabindex="-1" href="#">You have <strong>8</strong> new messages</a>
-                                </li>
-                                <li class="nav-messages-body">
-                                    <a>
-                                        <img src="../../assets/img/avatars/user1_55.jpg" alt="User" class="avatar">
-                                        <div class="title">
-                                            <small class="pull-right">Just Now</small><strong>Yadra Abels</strong>
-                                        </div>
-                                        <div class="message">Lorem ipsum dolor sit amet, consectetur...</div>
-                                    </a>
-                                    <a>
-                                        <img src="../../assets/img/avatars/user2_55.jpg" alt="User" class="avatar">
-                                        <div class="title">
-                                            <small class="pull-right">Just Now</small><strong>Cesar Mendoza</strong>
-                                        </div>
-                                        <div class="message">Lorem ipsum dolor sit amet, consectetur...</div>
-                                    </a>
-                                    <a>
-                                        <img src="../../assets/img/avatars/user3_55.jpg" alt="User" class="avatar">
-                                        <div class="title">
-                                            <small class="pull-right">Just Now</small><strong>John Doe</strong>
-                                        </div>
-                                        <div class="message">Lorem ipsum dolor sit amet, consectetur...</div>
-                                    </a>
-                                    <a>
-                                        <img src="../../assets/img/avatars/user4_55.jpg" alt="User" class="avatar">
-                                        <div class="title">
-                                            <small class="pull-right">Just Now</small><strong>Tobei Tsumura</strong>
-                                        </div>
-                                        <div class="message">Lorem ipsum dolor sit amet, consectetur...</div>
-                                    </a>
-                                </li>
-                                <li class="nav-messages-footer">
-                                    <a tabindex="-1" href="#">View all messages</a>
-                                </li>
-                            </ul>
-                        </li>
                     </ul>
                     <form class="onefriend nav navbar-nav" method="GET" action="{{ route('front.search.show')}}">
                         {{ csrf_field() }}
                         <div id="custom-search-input">
                             <div class="input-group col-md-12">
-                                <input id="terme" class="form-control input-lg" placeholder="Chercher des utilisateurs, des associations ou d'autre choses" name="terme" type="text" value="">
+                                <input id="terme" class="form-control input-lg" placeholder="Rechercher" name="terme" type="text" value="">
                                 <span class="input-group-btn">
                                     <button class="btn btn-info btn-lg" type="submit">
                                         <i class="glyphicon glyphicon-search"></i>
