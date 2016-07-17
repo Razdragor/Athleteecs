@@ -247,12 +247,7 @@ class HelperPublication
             "<div style='margin:0 10px 0 0;float:left;'>".
             "<a href='". route('user.show', ['user' => $publication->user->id])."'>";
 
-        if(strstr($publication->user->picture,'facebook')){
-            $string .=  "<img src='".$publication->user->picture."' alt='Image' class='img-responsive' style='width: 50px;height:50px;margin: 5px;display: inline-block;'>";
-        }
-        else{
-            $string .=  "<img src='".asset('images/'.$publication->user->picture)."' alt='Image' class='img-responsive' style='width: 50px;height:50px; margin: 5px;display: inline-block;'>";
-        }
+            $string .=  "<img src='".$publication->user->picture."' alt='Image' class='img-responsive' style='width: 50px;height:50px; margin: 5px;display: inline-block;'>";
 
         $string .=    "</a>".
             "</div>".
@@ -286,7 +281,7 @@ class HelperPublication
                 $string .= "<div class='video-container'><iframe src='https://www.youtube.com/embed/".$publication->video->url."' frameborder='0' allowfullscreen></iframe></div>";
             }
             elseif(!is_null($publication->activity->picture)) {
-                $string .= "<img src='".asset($publication->activity->picture)."' alt='Image' class='img-responsive'>";
+                $string .= "<img src='".$publication->activity->picture."' alt='Image' class='img-responsive'>";
             }
             $string .= "</div>";
             $string .=  "<div class='post_activity'>".
@@ -308,7 +303,7 @@ class HelperPublication
         foreach($publication->commentspost as $comment){
             $string .= "<div class='comment' id='comment-".$comment->id."'>".
                 "<a class='pull-left' href='". route('user.show', ['user' => $comment->user->id])."'>".
-                "<img width='30' height='30' class='comment-avatar' alt='".$comment->user->firstname." ".$comment->user->lastname."' src='".asset('images/'.$comment->user->picture)."'>".
+                "<img width='30' height='30' class='comment-avatar' alt='".$comment->user->firstname." ".$comment->user->lastname."' src='".$comment->user->picture."'>".
                 "</a>".
                 "<div class='comment-body'>".
                 "<span class='message'><strong>".$comment->user->firstname.' '.$comment->user->lastname."</strong> ". $comment->message ."</span>".
@@ -331,7 +326,7 @@ class HelperPublication
 
         $string .= "<div class='comment'>".
             "<a class='pull-left' href='". route("user.show", $publication->user->id )."'>".
-            "<img width='30' height='30' class='comment-avatar' alt='".Auth::user()->firstname." ".Auth::user()->lastname."' src='".asset('images/'.Auth::user()->picture)."'>".
+            "<img width='30' height='30' class='comment-avatar' alt='".Auth::user()->firstname." ".Auth::user()->lastname."' src='".Auth::user()->picture."'>".
             "</a>".
             "<div class='comment-body'>".
             "<input type='text' class='form-control' name='".$publication->id."' id='post-comment' placeholder='Ecris un commentaire...'>".

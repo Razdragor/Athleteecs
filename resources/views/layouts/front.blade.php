@@ -127,9 +127,11 @@ $user = Auth::user();
                             <li>
                                 <a href="{{ route('association.index') }}"><i class="fa fa-circle-thin"></i>&nbsp;Associations</a>
                             </li>
-                            <li>
-                                <a href="#"><i class="fa fa-cogs"></i>&nbsp;Paramètres</a>
-                            </li>
+                            @if(Auth::user()->hasRole('admin'))
+                                <li>
+                                    <a href="/admin"><i class="fa fa-cogs"></i>&nbsp;Admin</a>
+                                </li>
+                            @endif
                             <li>
                                 <a href="/logout"><i class="fa fa-sign-out"></i>&nbsp;Déconnexion</a>
                             </li>
