@@ -25,7 +25,7 @@ class HelperActivity
         $user = Auth::user();
         $validator =  Validator::make($data, [
             'date_start_act' => 'required',
-            'sport_act' => 'required',
+            'sport_act' => 'required|numeric|min:1',
             'time_h_act' => 'numeric|min:0',
             'time_m_act' => 'numeric|min:0|max:59',
             'time_s_act' => 'numeric|min:0|max:59'

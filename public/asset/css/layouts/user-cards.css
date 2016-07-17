@@ -89,4 +89,12 @@
   width: 300px;
   height: 300px;
 }
+.col-md-8-2{
+  width: 62%;
+}
+
+.equip{
+     padding-right: 70px;
+     padding-left: 70px;
+ }
 

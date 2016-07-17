@@ -53,6 +53,10 @@ $(document).ready(function() {
         $('#modal-product').modal('show');
     });
 
+    $("body").on('click','#addphoto' ,function(e){
+        $('#modal-photo').modal('show');
+    });
+
     $('#delete-modal-post').submit(function(e){
         e.preventDefault();
         $.ajax({
@@ -284,10 +288,10 @@ $(document).ready(function() {
                         $last.before(
                             "<div class='comment'>" +
                             "<a class='pull-left' href='#'>" +
-                            "<img width='30' height='30' class='comment-avatar' alt='" + $user.firstname + " " + $user.lastname + "' src='images/" + $user.picture + "'>" +
+                            "<img width='30' height='30' class='comment-avatar' alt='" + $user.firstname + " " + $user.lastname + "' src='" + $user.picture + "'>" +
                             "</a>" +
                             "<div class='comment-body'>" +
-                            "<span class='message'><strong>" + $user.firstname + " " + $user.lastname + "</strong> " + $value + "</span>" +
+                            "<span class='message'><strong>" + $user.firstname + " " + $user.lastname + "</strong> " + data['message'] + "</span>" +
                             "<span class='time'>" + $user.created_at + "</span>" +
                             "</div>" +
                             "</div>");
@@ -311,24 +315,13 @@ $(document).ready(function() {
             url: '/publication/'+$publication+'/loadComment',
             data: {page: $page},
             type: 'post',
+
             success: function(data) {
                 if(data['success'] == true)
                 {
                     $comments = data['comments'];
-
                     $comments.forEach(function(a){
-                        $user = a['user'];
-                        $comment = a['comment'];
-                        $elem.before(
-                            "<div class='comment'>" +
-                            "<a class='pull-left' href='#'>"+
-                            "<img width='30' height='30' class='comment-avatar' alt='"+ $user.firstname + " " + $user.lastname+ "' src='images/"+ $user.picture + "'>"+
-                            "</a>"+
-                            "<div class='comment-body'>"+
-                            "<span class='message'><strong>"+ $user.firstname + " " + $user.lastname + "</strong> " + $comment.message + "</span>"+
-                            "<span class='time'>" + $comment.created_at + "</span>"+
-                            "</div>"+
-                            "</div>").fadeIn('slow');
+                        $elem.before(a).fadeIn('slow');
                     });
 
                     if(data['page'] == false){
@@ -336,9 +329,6 @@ $(document).ready(function() {
                     }else{
                         $elem.attr("data-url",data['page']);
                     }
-
-
-
                 }
             }
         });
@@ -479,11 +469,23 @@ function editact(activity){
     $('#modal-activity').modal('show');
 }
 
-    function isEmpty(obj) {
-        for(var prop in obj) {
-            if(obj.hasOwnProperty(prop))
-                return false;
-        }
-
-        return true && JSON.stringify(obj) === JSON.stringify({});
+function isEmpty(obj) {
+    for(var prop in obj) {
+        if(obj.hasOwnProperty(prop))
+            return false;
     }
+
+    return true && JSON.stringify(obj) === JSON.stringify({});
+}
+
+function escapeHtml(text) {
+    var map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+
+    return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+}
