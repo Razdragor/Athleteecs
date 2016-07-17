@@ -2,9 +2,11 @@
 
 
 @section('css')
+    <link href="{{ asset('asset/css/layouts/timeline-facebook.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/layouts/timeline-2-cols.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/layouts/user-profile.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/layouts/user-cards.css') }}" rel="stylesheet">
-    <link href="{{ asset('asset/css/layouts/social.core.css') }}" rel="stylesheet">
+
     <link href="{{ asset('asset/css/plugins/selectizejs/selectize-default.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/glyphicons_free/glyphicons.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.css') }}" rel="stylesheet">
@@ -237,6 +239,75 @@
                                                 </div>
                                                 <a href="#" id="addproduct">
                                                     <span class="fa fa-plus"></span> Ajouter un équipement</a>
+                                            </div>
+                                            <div class="tab-pane active pots" style="display: none;">
+                                                <ul class="timeline-2-cols">
+                                                    <?php $i = 0; ?>
+                                                    @foreach($user->publications as $publication)
+                                                        <li id="<?php
+                                                        if(is_null($publication->activity)){
+                                                            echo "publication-".$publication->id;
+                                                        }else{
+                                                            echo "activite-".$publication->activity->id;
+                                                        }
+                                                        ?>" class="<?php if($i%2){echo 'timeline-inverted';} ?> publicationJS">
+                                                            <div class="timeline-badge primary">
+                                                                <a href="#"><i rel="tooltip" title="{{ $publication->date_start }}" class="glyphicon glyphicon-record <?php if($i%2){echo 'timeline-inverted';} $i++; ?>"></i>
+                                                                </a>
+                                                            </div>
+                                                            <div class="timeline-panel">
+                                                                <div class="timeline-heading row" style="margin: 0;">
+                                                                    <div style="margin:0 10px 0 0;float:left;">
+                                                                        <a href="{{ route("user.show", $publication->user->id ) }}">
+                                                                            <img src="<?php echo $publication->user->picture ?>" alt="Image" class="img-responsive" style="width: 50px;height:50px; margin: 5px;display: inline-block;">
+                                                                        </a>
+                                                                    </div>
+                                                                    <div style="margin: 10px;float:left;">
+                                                                        <span>{{ $publication->user->firstname.' '.$publication->user->lastname}}</span><br>
+                                                                        <small><i aria-hidden="true" class="fa fa-clock-o"></i> {{ $publication->timeAgo($publication->created_at) }}</small>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="timeline-body">
+                                                                    @if(is_null($publication->activity))
+                                                                        <div class="post_activity_msg">
+                                                                            {{$publication->message}}
+                                                                        </div>
+                                                                        <div class="post_picture_video">
+                                                                            @if(!is_null($publication->video))
+                                                                                <div class="video-container"><iframe src="https://www.youtube.com/embed/{{$publication->video->url}}" frameborder="0" allowfullscreen></iframe></div>
+                                                                            @elseif(!is_null($publication->picture))
+                                                                                <img src="{{ asset($publication->picture) }}" alt="" class="img-responsive">
+                                                                            @endif
+                                                                        </div>
+
+                                                                    @else
+                                                                        <div class="post_picture_video">
+                                                                            @if(!is_null($publication->video))
+                                                                                <div class="video-container"><iframe src="https://www.youtube.com/embed/{{$publication->video->url}}" frameborder="0" allowfullscreen></iframe></div>
+                                                                            @elseif(!is_null($publication->picture))
+                                                                                <img src="{{ asset($publication->picture) }}" alt="" class="img-responsive">
+                                                                            @endif
+                                                                        </div>
+                                                                        <div class="post_activity">
+                                                                            <div class="post_activity_img">
+                                                                                <img src="{{ asset("../images/icons/".$publication->activity->sport->icon) }}" alt="{{ $publication->activity->sport->name }}" class="img-responsive">
+                                                                            </div>
+                                                                            <div class="post_activity_stats">
+                                                                                <span data-text="{{$publication->activity->date_start}}"><i aria-hidden="true" class="fa fa-calendar"></i>{{$publication->activity->getDateStartString() }}</span>
+                                                                                <span data-text="{{$publication->activity->getTimeSecondes() }}">Durée : {{$publication->activity->time }}</span>
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="post_activity_msg">
+                                                                            {{$publication->message}}
+                                                                        </div>
+                                                                    @endif
+                                                                </div>
+
+                                                            </div>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
                                             </div>
 
                                         </div>

@@ -2,6 +2,8 @@
 
 
 @section('css')
+    <link href="{{ asset('asset/css/layouts/timeline-facebook.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/layouts/timeline-2-cols.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/layouts/user-profile.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/layouts/user-cards.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/js/plugins/isotope/isotope.css') }}" rel="stylesheet">
@@ -108,34 +110,73 @@
                             <!-- BEGIN TABS SECTIONS-->
                             <div id="profileTabContent" class="tab-content col-sm-9 col-md-9">
                                 <div class="tab-pane active pots" style="display: none;">
-                                    @foreach($user->publications as $publication)
-                                        <br>
-                                        <div class="timeline-panel">
-                                            <!-- //Notice .timeline-heading class-->
-                                            <div class="timeline-heading">
-                                                <img src="http://lorempixel.com/800/250/sports/5/" alt="Image"
-                                                     class="img-responsive">
-                                            </div>
-                                            <!-- //Notice .timeline-body class-->
-                                            <div class="timeline-body">
-                                                <p>{{ $publication->message }}</p>
-                                            </div>
-                                            <!-- //Notice .timeline-footer class-->
-                                            <div class="timeline-footer">
-                                                <!---->
-                                                <a href="#"><i class="fa fa-thu mbs-up"></i>
-                                                </a>
-                                                <!---->
-                                                <a href="#"><i class="fa fa-comment"></i>
-                                                </a>
-                                                <!---->
-                                                <a href="#"><i class="fa fa-share"></i>
-                                                </a>
-                                                <!---->
-                                                <a class="late-reading">Continue Reading</a>
-                                            </div>
-                                        </div>
-                                    @endforeach
+                                    <ul class="timeline-2-cols">
+                                        <?php $i = 0; ?>
+                                        @foreach($user->publications as $publication)
+                                            <li id="<?php
+                                            if(is_null($publication->activity)){
+                                                echo "publication-".$publication->id;
+                                            }else{
+                                                echo "activite-".$publication->activity->id;
+                                            }
+                                            ?>" class="<?php if($i%2){echo 'timeline-inverted';} ?> publicationJS">
+                                                <div class="timeline-badge primary">
+                                                    <a href="#"><i rel="tooltip" title="{{ $publication->date_start }}" class="glyphicon glyphicon-record <?php if($i%2){echo 'timeline-inverted';} $i++; ?>"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="timeline-panel">
+                                                    <div class="timeline-heading row" style="margin: 0;">
+                                                        <div style="margin:0 10px 0 0;float:left;">
+                                                            <a href="{{ route("user.show", $publication->user->id ) }}">
+                                                                <img src="<?php echo $publication->user->picture ?>" alt="Image" class="img-responsive" style="width: 50px;height:50px; margin: 5px;display: inline-block;">
+                                                            </a>
+                                                        </div>
+                                                        <div style="margin: 10px;float:left;">
+                                                            <span>{{ $publication->user->firstname.' '.$publication->user->lastname}}</span><br>
+                                                            <small><i aria-hidden="true" class="fa fa-clock-o"></i> {{ $publication->timeAgo($publication->created_at) }}</small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="timeline-body">
+                                                        @if(is_null($publication->activity))
+                                                            <div class="post_activity_msg">
+                                                                {{$publication->message}}
+                                                            </div>
+                                                            <div class="post_picture_video">
+                                                                @if(!is_null($publication->video))
+                                                                    <div class="video-container"><iframe src="https://www.youtube.com/embed/{{$publication->video->url}}" frameborder="0" allowfullscreen></iframe></div>
+                                                                @elseif(!is_null($publication->picture))
+                                                                    <img src="{{ asset($publication->picture) }}" alt="" class="img-responsive">
+                                                                @endif
+                                                            </div>
+
+                                                        @else
+                                                            <div class="post_picture_video">
+                                                                @if(!is_null($publication->video))
+                                                                    <div class="video-container"><iframe src="https://www.youtube.com/embed/{{$publication->video->url}}" frameborder="0" allowfullscreen></iframe></div>
+                                                                @elseif(!is_null($publication->picture))
+                                                                    <img src="{{ asset($publication->picture) }}" alt="" class="img-responsive">
+                                                                @endif
+                                                            </div>
+                                                            <div class="post_activity">
+                                                                <div class="post_activity_img">
+                                                                    <img src="{{ asset("../images/icons/".$publication->activity->sport->icon) }}" alt="{{ $publication->activity->sport->name }}" class="img-responsive">
+                                                                </div>
+                                                                <div class="post_activity_stats">
+                                                                    <span data-text="{{$publication->activity->date_start}}"><i aria-hidden="true" class="fa fa-calendar"></i>{{$publication->activity->getDateStartString() }}</span>
+                                                                    <span data-text="{{$publication->activity->getTimeSecondes() }}">Durée : {{$publication->activity->time }}</span>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="post_activity_msg">
+                                                                {{$publication->message}}
+                                                            </div>
+                                                        @endif
+                                                    </div>
+
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    </ul>
                                 </div>
                                 <div class="tab-pane active infos">
                                     <br>
@@ -249,6 +290,8 @@
                                         @endforelse
                                     </div>
                                 </div>
+
+
                             </div>
                         </div>
                     </div>
