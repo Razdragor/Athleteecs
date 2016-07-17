@@ -194,8 +194,9 @@ class HelperPublication
         $data = $request->all();
         $page = intval($data['page']);
         $skip =  $page * 10;
-        $count = Publication::all()->count();
-        $result = Publication::orderBy('updated_at', 'DESC')->skip($skip)->take(2)->get();
+        $posts = $this->publicationAll();
+        $count = $posts->count();
+        $result = $this->publicationAll($skip,10);
         if($count > ($skip+3)){
             $page++;
         }
@@ -290,7 +291,7 @@ class HelperPublication
             "<div class='comments' id='comments-". $publication->id ."'>";
 
         foreach($publication->commentspost as $comment){
-            $string .= "<div class='comment'>".
+            $string .= "<div class='comment' id='comment-".$comment->id."'>".
                 "<a class='pull-left' href='". route('user.show', ['user' => $comment->user->id])."'>".
                 "<img width='30' height='30' class='comment-avatar' alt='Julio Marquez' src='".asset($comment->user->picture)."'>".
                 "</a>".
@@ -298,7 +299,15 @@ class HelperPublication
                 "<span class='message'><strong>".$comment->user->firstname.' '.$comment->user->lastname."</strong> ". $comment->message ."</span>".
                 "<span class='time'>".$comment->timeago($comment->created_at)."</span>".
                 "</div>".
-                "</div>";
+                "<span class='action'>".
+                "<i class='fa fa-warning' id='signalComment'></i>";
+
+                if(Auth::user()->id == $comment->user->id)
+                {
+                    $string .= "<i class='fa fa-close' id='deleteComment'></i>";
+                }
+
+                $string .= "</span></div>";
         }
 
         if($publication->comments->count() > 3) {
@@ -322,5 +331,28 @@ class HelperPublication
             $publication->status = "Signaled";
         }
         $publication->save();
+    }
+
+    private function publicationAll($skip = null,$take = null){
+        $user = Auth::user();
+        $arrayFriends = array();
+        $arrayFriends[] = $user->id;
+        foreach($user->friends as $friend){
+            $arrayFriends[] = $friend->id;
+        }
+
+        $posts = Publication::whereIn('user_id', $arrayFriends)
+            ->where('status', '!=', 'Blocked')
+            ->orderBy('updated_at', 'DESC');
+
+        if(!is_null($skip)){
+            $posts = $posts->skip($skip);
+        }
+
+        if(!is_null($take)){
+            $posts = $posts->take($take);
+        }
+
+        return $posts->get();
     }
 }

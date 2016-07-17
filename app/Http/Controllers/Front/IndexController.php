@@ -27,6 +27,7 @@ class IndexController extends Controller
             $arrayFriends[] = $friend->id;
         }
         $posts = Publication::whereIn('user_id', $arrayFriends)
+            ->where('status', '!=', 'Blocked')
             ->orderBy('updated_at', 'DESC')
             ->take(10)
             ->get();

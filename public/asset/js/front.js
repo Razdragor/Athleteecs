@@ -358,6 +358,38 @@ $(document).ready(function() {
             });
         }
     });
+
+    $('body').on('click','#signalComment',function(e){
+        var self = $(this);
+        var parent = $(this).parents(".comment");
+        var splitID = parent.attr("id").split("-");
+        console.log(splitID);
+        if(splitID){
+            $.ajax({
+                url: '/comment/'+ splitID[1] +'/signal',
+                type: 'post',
+                success: function(data) {
+                    self.remove();
+                    $('#modal-signal-comment').modal('show');
+                }
+            });
+        }
+    });
+
+    $('body').on('click','#deleteComment',function(e){
+        parent = $(this).parents(".comment");
+        var splitID = parent.attr("id").split("-");
+        console.log(splitID);
+        if(splitID){
+            $.ajax({
+                url: '/comment/'+ splitID[1] +'/destroy',
+                type: 'post',
+                success: function(data) {
+                    parent.remove();
+                }
+            });
+        }
+    });
 });
 
 function editpost(publication){
@@ -413,11 +445,11 @@ function editact(activity){
     $('#modal-activity').modal('show');
 }
 
-function isEmpty(obj) {
-    for(var prop in obj) {
-        if(obj.hasOwnProperty(prop))
-            return false;
-    }
+    function isEmpty(obj) {
+        for(var prop in obj) {
+            if(obj.hasOwnProperty(prop))
+                return false;
+        }
 
-    return true && JSON.stringify(obj) === JSON.stringify({});
-}
+        return true && JSON.stringify(obj) === JSON.stringify({});
+    }
