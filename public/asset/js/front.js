@@ -163,6 +163,12 @@ $(document).ready(function() {
 
     $("#datetimepicker1").datetimepicker({language: "fr",icons:{time:"fa fa-clock-o",date:"fa fa-calendar",up:"fa fa-arrow-up",down:"fa fa-arrow-down"}});
     $("#datetimepicker1-modal").datetimepicker({language: "fr",icons:{time:"fa fa-clock-o",date:"fa fa-calendar",up:"fa fa-arrow-up",down:"fa fa-arrow-down"}});
+    
+    
+    $("#datetimepicker5").datetimepicker({language: "fr",icons:{time:"fa fa-clock-o",date:"fa fa-calendar",up:"fa fa-arrow-up",down:"fa fa-arrow-down"}});
+    $("#datetimepicker5-modal").datetimepicker({language: "fr",icons:{time:"fa fa-clock-o",date:"fa fa-calendar",up:"fa fa-arrow-up",down:"fa fa-arrow-down"}});
+    $("#datetimepicker6").datetimepicker({language: "fr",icons:{time:"fa fa-clock-o",date:"fa fa-calendar",up:"fa fa-arrow-up",down:"fa fa-arrow-down"}});
+    $("#datetimepicker6-modal").datetimepicker({language: "fr",icons:{time:"fa fa-clock-o",date:"fa fa-calendar",up:"fa fa-arrow-up",down:"fa fa-arrow-down"}});
 
     $('#select-beast').selectize({
         create: true,

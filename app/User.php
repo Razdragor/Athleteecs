@@ -105,6 +105,15 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         }
         return false;
     }
+    
+    public function isAuthorisedEvent($event){
+        foreach($event->authorisedMembers as $event_auth_member)
+        {
+            if($event_auth_member->user_id == $this->id && $event_auth_member->is_authorised == 1)
+            return true;
+        }
+        return false;
+    }
 
     public function isAdminEvent($id){
         foreach($this->events as $event){

@@ -19,7 +19,7 @@
             <div style="border-bottom: solid black 1px;width: 90%;margin:auto"></div>
         </div>
         <div class="row" style="margin-top: 40px;">
-            <form action="{{ route('event.store')}}" method="post" enctype="multipart/form-data" class="form-horizontal" data-toggle="validator">
+            <form action="{{ route('event.store')}}" method="post" enctype="multipart/form-data" class="form-horizontal form_valid" data-toggle="validator">
                 {{ csrf_field() }}
                 <input id="street_number" name="street_number" disabled="disabled" type="hidden"  value="{{ old('street_number') }}">
                 <input id="route" name="route" disabled="disabled" type="hidden" value="{{ old('route') }}">
@@ -74,7 +74,36 @@
                                     </span>
                                 @endif
                             </div>
-                        </div>
+                        </div>                                                
+
+                        <div class="form-group">
+                            <label for="datetimepicker5" class="col-sm-2 control-label">Date de début :</label>
+                            <div class="col-sm-10 date" id="datetimepicker5">
+                                <input type="text" data-format="yyyy-MM-dd hh:mm:ss" class="form-control" placeholder="__/__/____ __:__" name="date_start_act">
+                                <span class="input-group-addon">
+                                    <i class="fa-calendar fa"></i>
+                                </span>
+                                @if ($errors->has('date_start_act'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('date_start_act') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>  
+                        <div class="form-group">
+                            <label for="datetimepicker6" class="col-sm-2 control-label">Date de fin :</label>
+                            <div class="col-sm-10 date" id="datetimepicker6">
+                                <input type="text" data-format="yyyy-MM-dd hh:mm:ss" class="form-control" placeholder="__/__/____ __:__" name="date_end_act">
+                                <span class="input-group-addon">
+                                <i class="fa-calendar fa"></i>
+                                </span>
+                                @if ($errors->has('date_end_act'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('date_end_act') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>         
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="description">Adresse</label>
                             <div class="col-sm-10">
@@ -207,9 +236,18 @@
                 });
             }
         }
+        
         // [END region_geolocation]
+        
+        $('body').on('submit','.form_valid',function(e){
+           $('input[name="date_start_act"]').attr('value',$('input[name="date_start_act"]').val()); 
+           $('input[name="date_end_act"]').attr('value',$('input[name="date_end_act"]').val()); 
+        });
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWyHTNe168m9pt0cOiXjlIL9BBUaYT2SI&libraries=geometry,places&callback=init"
             async defer></script>
-
+    <script src="{{ asset('asset/js/plugins/moment.js/moment-with-locales.js') }}"></script>
+    <script src="{{ asset('asset/js/plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.fr.js') }}"></script>
+    <script src="{{ asset('asset/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js') }}"></script>
+    <script src="{{ asset('asset/js/scroll.js') }}"></script>
 @endsection

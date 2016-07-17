@@ -9,6 +9,7 @@ use App\Notifications;
 use App\Sport;
 use App\User;
 use App\UsersEvents;
+use App\UsersDemandsEvents;
 use App\Publication;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -70,7 +71,9 @@ class EventController extends Controller
             'description' => 'required',
             'picture' => 'required|mimes:jpeg,png,jpg',
             'lattitude' => 'required',
-            'sport' => 'required'
+            'sport' => 'required',
+            'date_start_act' => 'required',
+            'date_end_act' => 'required'
         ];
         $messages = [
             'name.required'    => 'Le nom de l\'event est requis',
@@ -78,7 +81,9 @@ class EventController extends Controller
             'picture.required' => 'Image requise',
             'picture.mimes'      => 'Le format de l\'image n\'est pas pris en charge (jpeg,png,jpg)',
             'lattitude.required'      => 'Indiquer une adresse',
-            'sport.required' => 'Choisir un sport'
+            'sport.required' => 'Choisir un sport',
+            'started_at.required' => 'Choisir une date de début',
+            'end_at.required' => 'Choisir une date de fin'
         ];
         $validator = Validator::make($data,$rules,$messages);
 
@@ -98,7 +103,8 @@ class EventController extends Controller
             );
             $imageName = '/uploads/'.$imageName;
         }
-
+        if(!isset($data['association_id']))
+        $data['association_id'] = 0;
         $event = Event::create(array(
             'name' => $data['name'],
             'picture' => $imageName,
@@ -112,7 +118,10 @@ class EventController extends Controller
             'country' => $data['country'],
             'user_id' => $user->id,
             'sport_id' => $data['sport'],
-            'private' => $data['private']
+            'private' => $data['private'],
+            'association_id' => $data['association_id'],
+            'started_at' => strtotime($data['date_start_act']),
+            'end_at' => strtotime($data['date_end_act'])
         ));
 
         $event->description = $data['description'];
@@ -136,15 +145,128 @@ class EventController extends Controller
      */
     public function show($id)
     {
-        $user = Auth::user();
-        $sports = Sport::all();
-        $ismember = DB::table('users_events')
-                    ->where('event_id' ,'=', $id->id)
-                    ->where('user_id' ,'=', $user->id)
-                    ->get();
+       if(Auth::user()->isAuthorisedEvent($id) || Auth::user()->isAdminEvent($id->id))
+       {
+            $user = Auth::user();
+            $sports = Sport::all();
+            $ismember = DB::table('users_events')
+                        ->where('event_id' ,'=', $id->id)
+                        ->where('user_id' ,'=', $user->id)
+                        ->get();
 
-        return view('front.event.show', ["event" => $id, "sports" =>$sports, "isMember" => $ismember, "user" => $user]);
+            return view('front.event.show', ["event" => $id, "sports" =>$sports, "isMember" => $ismember, "user" => $user]);
+       }
+       else
+       {
+           abort(403, 'Unauthorized action.');
+       }
     }
+    
+    
+    //Montrer les amis en JSON pour les ajouter a un event privé
+    function showUser()
+    {
+            if(!empty(Input::get('event_id')) && !empty(Input::get('is_authorised')))
+            {
+                $event = Event::where('id',Input::get('event_id'))->first();
+                
+                if($event)
+                {
+                    
+                    $event_users = $event->members;  
+                    $event_auth_users = $event->authorisedMembers;  
+                    $friends = Auth::user()->friends;
+                    
+                    foreach($friends as $friendKey => $friend)
+                    {
+                        $total_name = $friend->firstname.' '.$friend->lastname;
+                        if(stripos($total_name,Input::get('is_authorised')) !== false)
+                        {
+                            foreach($event_users as $event_user)
+                            {
+                                if($friend->id == $event_user->user_id)
+                                {
+                                    unset($friends[$friendKey]);
+                                }
+                            }
+                            foreach($event_auth_users as $event_auth_user)
+                            {
+                                if($friend->id == $event_auth_user->user_id && $event_auth_user->is_authorised == 1)
+                                {
+                                    unset($friends[$friendKey]);
+                                }
+                            }
+                            
+                        }
+                        else
+                        {
+                           unset($friends[$friendKey]); 
+                        }
+                    }
+                    return \Response::json(array(
+                            'success' => true,
+                        'friends' => $friends,
+                        '$event_users' => $event_users,
+                        ));
+                }
+                
+            }
+	}
+    
+    function authorise()
+    {
+            $friend = User::where('id',Input::get('friend_id'))->first();
+            if(!empty(Input::get('is_authorised')) && !empty(Input::get('friend_id')))
+            {
+                $event = Event::where('id',Input::get('event_id'))->first();
+                
+                if($event)
+                {
+                    $potential_user = UsersDemandsEvents::where('event_id',"=",$event->id)->where('user_id',"=",$friend->id)->first();
+                    if(!$potential_user)
+                    {
+                        $user_authorised = new UsersDemandsEvents();
+                        $user_authorised->user_id = $friend->id;
+                        $user_authorised->event_id = $event->id;
+                        $user_authorised->is_authorised = 1;
+                        $user_authorised->save();
+                    }
+                    else
+                    {
+                        $potential_user->is_authorised = 1;
+                        $potential_user->save();
+                    }
+                    
+                    return \Response::json(array(
+                        'friend'=>$friend,
+                        'event_id'=>$event->id,
+                        'user'=>Auth::user(),
+                    ));
+                }
+            }
+	}
+    
+    function deleteUser()
+    {
+            $friend = User::where('id',Input::get('friend_id'))->first();
+            if(!empty(Input::get('friend_id')))
+            {
+                $event = Event::where('id',Input::get('event_id'))->first();
+                
+                if($event)
+                {
+                    $user_authorised = UsersDemandsEvents::where('event_id',"=",$event->id)->where('user_id',"=",$friend->id)->first();
+                    $user_authorised->is_authorised = 0;
+                    $user_authorised->save();
+                    
+                    return \Response::json(array(
+                        'friend'=>$friend,
+                        'event_id'=>$event->id,
+                        'user'=>Auth::user(),
+                    ));
+                }
+            }
+	}
 
     /**
      * Show the form for editing the specified resource.
@@ -154,13 +276,20 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        $user = Auth::user();
-        if($user->isAdminEvent($event->id)){
-            $sports = Sport::all();
-            return view('front.event.edit', ['event' => $event, 'sports' => $sports]);
-        }
+       if(Auth::user()->isAuthorisedEvent($event) || Auth::user()->isAdminEvent($event->id))
+       {
+            $user = Auth::user();
+            if($user->isAdminEvent($event->id)){
+                $sports = Sport::all();
+                return view('front.event.edit', ['event' => $event, 'sports' => $sports]);
+            }
 
-        return Redirect::back();
+            return Redirect::back();
+        }
+        else
+        {
+            abort(403, 'Unauthorized action.');
+        }
 
     }
 
@@ -181,14 +310,18 @@ class EventController extends Controller
                 'description' => 'required',
                 'picture' => 'mimes:jpeg,png,jpg',
                 'lattitude' => 'required',
-                'sport' => 'required'
+                'sport' => 'required',
+                'data_start_act' => 'required',
+                'data_end_act' => 'required'
             ];
             $messages = [
                 'name.required'    => 'Le nom de l\'event est requis',
                 'description.required'    => 'Description requise',
                 'picture.mimes'      => 'Le format de l\'image n\'est pas pris en charge (jpeg,png,jpg)',
                 'lattitude.required'      => 'Indiquer une adresse',
-                'sport.required' => 'Choisir un sport'
+                'sport.required' => 'Choisir un sport',
+                'data_start_act.required' => 'Choisir une date de début',
+                'data_end_act.required' => 'Choisir une date de fin'
             ];
             $validator = Validator::make($data,$rules,$messages);
 
@@ -219,6 +352,8 @@ class EventController extends Controller
             $event->country = $data['country'];
             $event->sport_id = $data['sport'];
             $event->private = $data['private'];
+            $event->started_at = strtotime($data['data_start_act']);
+            $event->end_at = strtotime($data['data_end_act']);
 
             $event->save();
 
@@ -336,7 +471,14 @@ class EventController extends Controller
         $data = $request->all();
         if(array_key_exists('sports', $data)){
             $events = Event::whereIn('sport_id', $data['sports'])->get();
-
+            
+            foreach($events as $key => $event)
+            {
+                if(!(Auth::user()->isAuthorisedEvent($event)) && !(Auth::user()->isAdminEvent($event->id)))
+                {
+                    unset($events[$key]);
+                }
+            }
             return \Response::json(array(
                 'success' => true,
                 'events' => $events
@@ -365,4 +507,5 @@ class EventController extends Controller
             'success' => true
         ));
     }
+
 }
