@@ -104,6 +104,7 @@ use Illuminate\Support\Facades\File;
 
         //Evenement
         Route::resource('event', 'Front\EventController',['except' => ['update']]);
+        Route::get('/event/create/{id}', ['as' => 'event.create_association', 'uses' => 'Front\EventController@create_association']);
         Route::post('/event/{event}/update', ['as' => 'event.update', 'uses' => 'Front\EventController@update']);
         Route::get('/event/{event}/delete', ['as' => 'event.delete', 'uses' => 'Front\EventController@delete']);
         Route::post('/event/{event}/post', ['as' => 'event.post.store', 'uses' => 'Front\EventController@storepost']);

@@ -47,7 +47,7 @@
         </div>
         <div class="row">
             <div class="col-sm-4 col-md-3">
-                <a class="btn btn-block btn-success"><i class="fa fa-envelope-alt"></i>Envoyer un message</a>
+                <a href="{{ url('conversation/'.$event->user_id) }}" class="btn btn-block btn-success"><i class="fa fa-envelope-alt"></i>Envoyer un message</a>
             </div>
             <div class="col-sm-8 col-md-9">
                 @if($user->isAdminEvent($event->id))

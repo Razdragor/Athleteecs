@@ -56,6 +56,12 @@ class EventController extends Controller
         return view('front.event.create', ['sports' => $sports]);
     }
 
+    public function create_association($id)
+    {
+        $sports = Sport::all();
+        return view('front.event.create', ['sports' => $sports,"association_id"=>$id]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -145,7 +151,8 @@ class EventController extends Controller
      */
     public function show($id)
     {
-       if(Auth::user()->isAuthorisedEvent($id) || Auth::user()->isAdminEvent($id->id))
+        
+       if(!$id->private || (Auth::user()->isAuthorisedEvent($id) || Auth::user()->isAdminEvent($id->id)))
        {
             $user = Auth::user();
             $sports = Sport::all();
@@ -276,7 +283,7 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-       if(Auth::user()->isAuthorisedEvent($event) || Auth::user()->isAdminEvent($event->id))
+       if(!$event->private || (Auth::user()->isAuthorisedEvent($event) || Auth::user()->isAdminEvent($event->id)))
        {
             $user = Auth::user();
             if($user->isAdminEvent($event->id)){
@@ -476,7 +483,8 @@ class EventController extends Controller
             
             foreach($events as $key => $event)
             {
-                if(!(Auth::user()->isAuthorisedEvent($event)) && !(Auth::user()->isAdminEvent($event->id)))
+                
+                if($event->private && (!(Auth::user()->isAuthorisedEvent($event)) || !(Auth::user()->isAdminEvent($event->id))))
                 {
                     unset($events[$key]);
                 }
