@@ -29,6 +29,9 @@
                 <input id="country" name="country" disabled="disabled" type="hidden" value="{{ old('country') }}">
                 <input id="lattitude" name="lattitude" type="hidden" value="{{ old('lat') }}">
                 <input id="longitude" name="longitude" type="hidden" value="{{ old('lng') }}">
+                @if(isset($association_id))
+                <input id="association_id" name="association_id" type="hidden" value="{{ $association_id }}">
+                @endif
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="name">Nom</label>
