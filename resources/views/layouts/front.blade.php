@@ -82,7 +82,6 @@ $user = Auth::user();
             </ul>
             <a href="#">Créer un groupe</a>
 
-            <!-- BEGIN CHAT SECTION-->
             <div class="chat visible-lg visible-md">
                 <ul class="users-list">
                     @foreach($user->friends as $friend)
@@ -152,11 +151,10 @@ $user = Auth::user();
                 </ul>
                 <div class="nav-indicators">
                     <ul class="nav navbar-nav navbar-right nav-indicators-body">
-                        <!-- DEBUT AMIS-->
                         <a href="{{ route('user.show',['user' => Auth::user()->id]) }}"><img src="{{ Auth::user()->picture}}" alt="Avatar" class="dropdown nav-notifications img-navbarre"></a>
+
                         <li class="dropdown nav-notifications">
-                            <!-- <a href="{{ route('front.friends.show') }}" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle"> -->
-                            <a href="{{ url('/friends') }}" >
+                            <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
                                 @if(Auth::user()->getfriendsnotificationstrue()->count()>0)<span class="badge">{{Auth::user()->getfriendsnotificationstrue()->count()}}</span>@endif<i class="fa fa-users fa-lg"></i>
                             </a>
                             <ul class="dropdown-menu">
@@ -167,34 +165,31 @@ $user = Auth::user();
                                 @endif
                                 <li class="nav-notifications-body">
                                     @foreach (Auth::user()->getfriendsnotifications as $notification)
-                                        <a href="/friends/accept/{{$notification->userL_id}}" class="text-info"><i class="fa fa-user"></i>&nbsp;@if($notification->afficher==true)Demande de @else Ajout de @endif{{$notification->libelle}}
-                                            <small class="pull-right">{{$notification->timeAgo($notification->updated_at)}}</small>
+                                        @if($notification->afficher==true)
+                                        <a href="/friends/accept/{{$notification->userL_id}}" class="text-info"><i class="fa fa-user"></i>&nbsp;Demande de
+                                        @else
+                                        <a href="/user/{{$notification->userL_id}}" class="text-info"><i class="fa fa-user"></i>&nbsp;Ajout de
+                                        @endif
+                                            {{$notification->libelle}} <small class="pull-right">{{$notification->timeAgo($notification->updated_at)}}</small>
                                         </a>
                                     @endforeach
                                 </li>
                                 @if(Auth::user()->getfriendsnotificationstrue()->count()>0)
                                     <li class="nav-notifications-footer">
-                                        <a tabindex="-1" href="{{ route('front.friends.show') }}">Vous avez <strong>{{Auth::user()->getfriendsnotificationstrue()->count()}}</strong> @if(Auth::user()->getfriendsnotificationstrue()->count()>1)nouveaux amis @else nouvel ami @endif</a>
+                                        <a tabindex="-1" href="{{ route('front.friends.show') }}">Vous avez <strong>{{Auth::user()->getfriendsnotificationstrue()->count()}}</strong> @if(Auth::user()->getfriendsnotificationstrue()->count()>1)nouvelles demandes @else nouvelle demande @endif</a>
                                     </li>
                                 @endif
                             </ul>
                         </li>
-                        <!-- FIN AMIS-->
-                        <!-- BEGIN DROPDOWN NOTIFICATIONS-->
+
                         <li class="dropdown nav-notifications">
-                            <!-- BEGIN DROPDOWN TOGGLE-->
                             <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
                                 <span class="badge">{{Auth::user()->getnotifications()->count()}}</span><i class="fa fa-warning fa-lg"></i>
                             </a>
-                            <!-- END DROPDOWN TOGGLE-->
-                            <!-- BEGIN DROPDOWN MENU-->
                             <ul class="dropdown-menu">
-                                <!-- BEGIN DROPDOWN HEADER-->
                                 <li class="nav-notifications-header">
                                     <a tabindex="-1" href="#">Vous avez <strong>{{Auth::user()->getnotifications()->count()}}</strong> @if(Auth::user()->getnotifications()->count()>1)nouvelles notifications @else nouvelle notification @endif</a>
                                 </li>
-                                <!-- END DROPDOWN HEADER-->
-                                <!-- BEGIN NOTIFICATION ITEMS-->
                                 <li class="nav-notifications-body">
                                     @foreach(Auth::user()->notifications as $notification)
                                         @if($notification->notification == 'events')
@@ -218,96 +213,19 @@ $user = Auth::user();
                                     @endforeach
                                 </li>
                                 <li class="nav-notifications-footer">
-                                    <a href="#">View all messages</a>
+                                    <a href="/notifications">Voir toutes les notifications</a>
                                 </li>
-                                <!-- END DROPDOWN FOOTER-->
                             </ul>
-                            <!-- END DROPDOWN MENU-->
                         </li>
-                        <!-- END DROPDOWN NOTIFICATIONS-->
 
-                        <!-- BEGIN DROPDOWN TASKS-->
-                        <li class="dropdown nav-tasks">
-                            <!-- BEGIN DROPDOWN TOGGLE-->
-                            <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
-                                <span class="badge">13</span><i class="fa fa-tasks fa-lg"></i>
-                            </a>
-                            <!-- END DROPDOWN TOGGLE-->
-                            <!-- BEGIN DROPDOWN MENU-->
-                            <ul class="dropdown-menu">
-                                <!-- BEGIN DROPDOWN HEADER-->
-                                <li class="nav-tasks-header">
-                                    <a href="#">You have <strong>13</strong> tasks in progress</a>
-                                </li>
-                                <!-- END DROPDOWN HEADER-->
-                                <!-- BEGIN DROPDOWN ITEMS-->
-                                <li class="nav-tasks-body">
-                                    <a>Prepare Report
-                                        <span class="pull-right">30%</span>
-                                        <div class="progress">
-                                            <div role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%" class="progress-bar progress-bar-danger">
-                                                <span class="sr-only">30% Complete</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a>Make new update
-                                        <span class="pull-right">40%</span>
-                                        <div class="progress">
-                                            <div role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%" class="progress-bar progress-bar-info">
-                                                <span class="sr-only">40% Complete</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a>Fix critical bugs
-                                        <span class="pull-right">80%</span>
-                                        <div class="progress progress-striped active">
-                                            <div role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%" class="progress-bar">
-                                                <span class="sr-only">80% Complete</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a>Complete project
-                                        <span class="pull-right">5%</span>
-                                        <div class="progress">
-                                            <div role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100" style="width: 5%" class="progress-bar progress-bar-success">
-                                                <span class="sr-only">5% Complete (success)</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a>Others
-                                        <span class="pull-right">15%</span>
-                                        <div class="progress">
-                                            <div role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100" style="width: 15%" class="progress-bar progress-bar-warning">
-                                                <span class="sr-only">15% Complete (warning)</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <!-- END DROPDOWN ITEMS-->
-                                <!-- BEGIN DROPDOWN FOOTER-->
-                                <li class="nav-tasks-footer">
-                                    <a href="#">View all tasks</a>
-                                </li>
-                                <!-- END DROPDOWN FOOTER-->
-                            </ul>
-                            <!-- END DROPDOWN MENU-->
-                        </li>
-                        <!-- END DROPDOWN TASKS-->
-                        <!-- BEGIN DROPDOWN MESSAGES-->
                         <li class="dropdown nav-messages">
-                            <!-- BEGIN DROPDOWN TOGGLE-->
                             <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
                                 <span class="badge">8</span><i class="fa fa-envelope fa-lg"></i>
                             </a>
-                            <!-- END DROPDOWN TOGGLE-->
-                            <!-- BEGIN DROPDOWN MENU-->
                             <ul class="dropdown-menu">
-                                <!-- BEGIN DROPDOWN HEADER-->
                                 <li class="nav-messages-header">
                                     <a tabindex="-1" href="#">You have <strong>8</strong> new messages</a>
                                 </li>
-                                <!-- END DROPDOWN HEADER-->
-                                <!-- BEGIN DROPDOWN ITEMS-->
                                 <li class="nav-messages-body">
                                     <a>
                                         <img src="../../assets/img/avatars/user1_55.jpg" alt="User" class="avatar">
@@ -338,14 +256,10 @@ $user = Auth::user();
                                         <div class="message">Lorem ipsum dolor sit amet, consectetur...</div>
                                     </a>
                                 </li>
-                                <!-- END DROPDOWN ITEMS-->
-                                <!-- BEGIN DROPDOWN FOOTER-->
                                 <li class="nav-messages-footer">
                                     <a tabindex="-1" href="#">View all messages</a>
                                 </li>
-                                <!-- END DROPDOWN FOOTER-->
                             </ul>
-                            <!-- END DROPDOWN MENU-->
                         </li>
                     </ul>
                     <form class="onefriend nav navbar-nav" method="GET" action="{{ route('front.search.show')}}">
@@ -363,30 +277,25 @@ $user = Auth::user();
                     </form>
                 </div>
             </div>
-            <!-- /.navbar-collapse-->
         </nav>
     </header>
     <div class="main">
         @yield('content')
     </div>
-    <footer>2016 - <a href="http://localhost" target="_blank">ATHLETEEC</a></footer>
+    <footer>2016 - <a href="http://localhost" target="_blank">ATHLETEEC</a> / <a href="{{ route('front.confidentialite.index')}}">Confidentialité</a></footer>
 </div>
 
 
 <div class="return"></div>
-<!-- jQuery-->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-<!-- jQuery-->
 <script>
     window.jQuery || document.write('<script src="{{asset('asset/js/jquery/jquery.min.js') }}"><\/script>')
 </script>
-<!-- Bootstrap JS-->
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script>
     $.fn.modal || document.write('<script src="{{ asset('asset/js/plugins/bootstrap/bootstrap.min.js') }}"><\/script>')
 </script>
-<!-- Bootstrap Hover Dropdown-->
 <script src="{{ asset('asset/js/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js') }}"></script>
 <script src="{{ asset('asset/js/plugins/google-code-prettify/prettify.js') }}"></script>
 <script src="{{ asset('asset/js/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker.js') }}"></script>
@@ -394,17 +303,14 @@ $user = Auth::user();
 <script src="{{ asset('asset/js/chat/socketio.js') }}"></script>
 <script src="{{ asset('asset/js/app.js') }}"></script>
 <script>
-    /*<![CDATA[*/
     $(function() {
         prettyPrint();
     });
-    /*]]>*/
 </script>
 <script src="{{ asset('asset/js/sidebar.js') }}"></script>
 <script src="{{ asset('asset/js/panels.js') }}"></script>
 <script src="{{ asset('asset/js/front.js') }}"></script>
 
-<!-- BEGIN GENERAL SCRIPTS-->
 <script>
     $.ajaxSetup({
         headers: {
@@ -413,7 +319,6 @@ $user = Auth::user();
     });
 </script>
 <script>
-    /*<![CDATA[*/
     $(function() {
         $(".social-sidebar").socialSidebar();
         $('.main').panels();
@@ -424,7 +329,6 @@ $user = Auth::user();
     $(document).on('click', '.navbar-super .navbar-super-fw', function(e) {
         e.stopPropagation()
     });
-    /*]]>*/
 </script>
 
 <script>
@@ -515,10 +419,9 @@ $user = Auth::user();
 
     socket.on('message', function (data) {
         var chat_msg = $.parseJSON('[' + data + ']'),
-                now = new Date().getDay(),
                 chat_class = 'conv_messages_'+chat_msg[0]['conv_id'],
                 check_concerned = false;
-        var heureMessage = chat_msg[0]['message_h'];
+        var heureMessage = chat_msg[0]['message_h']['created_at'];
 
         $.each(chat_msg[0]['users'],function(i,user){
             if(user.user_id == {{$user->id}})
@@ -595,10 +498,9 @@ $user = Auth::user();
                 $('#btn-input').val('');
                 $(".scroll-chat-box").scrollTop($(".scroll-chat-box")[0].scrollHeight);
             },
-            error:function(jqXHR)
+            error:function()
             {
-                $('.return').html(jqXHR.responseText);
-
+                console.log('erreur chat');
             }
         });
     });
@@ -625,10 +527,9 @@ $user = Auth::user();
             success:function(data) {
                 console.log('Success !');
             },
-            error:function(jqXHR)
+            error:function()
             {
-                $('.return').html(jqXHR.responseText);
-
+                console.log('erreur chat');
             }
         });
     });
@@ -656,14 +557,14 @@ $user = Auth::user();
                 console.log(data);
                 var to_append='';
                 $.each(data.friends,function(i,friend){
-                    to_append = to_append+'<span value="'+friend.id+'" class="chat_show_user_span">'+friend.firstname+' '+friend.lastname+'</span>';
+                    console.log(friend);
+                    to_append = to_append+'<span value="'+friend.id+'" class="chat_show_user_span"><img src="'+friend.picture+'" class="search-add-user-chat-img">'+friend.firstname+' '+friend.lastname+'</span>';
                 });
                 $('.chat_show_user_div').html(to_append);
             },
-            error:function(jqXHR)
+            error:function()
             {
-                $('.return').html(jqXHR.responseText);
-
+                console.log('erreur chat');
             }
         });
     });
@@ -684,9 +585,9 @@ $user = Auth::user();
             success:function(data) {
                 console.log('Success !');
             },
-            error:function(jqXHR)
+            error:function()
             {
-                $('.return').html(jqXHR.responseText);
+                console.log('erreur chat');
             }
         });
 
@@ -780,10 +681,9 @@ $user = Auth::user();
                     }
                 }
             },
-            error:function(jqXHR)
+            error:function()
             {
-                $('.return').html(jqXHR.responseText);
-
+                console.log('erreur du chat');
             }
         });
     }

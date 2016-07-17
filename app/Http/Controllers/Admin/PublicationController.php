@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Comment;
 use App\HelperPublication;
 use App\Http\Controllers\Controller;
 use App\Publication;
@@ -55,7 +56,8 @@ class PublicationController extends Controller
      */
     public function show(Publication $publication)
     {
-        return view('admin.publication.show', ['publication' => $publication]);
+        $comments = Comment::where('publication_id', '=', $publication->id)->get();
+        return view('admin.publication.show', ['publication' => $publication, 'comments' => $comments]);
     }
 
     /**
@@ -83,8 +85,8 @@ class PublicationController extends Controller
             $publication->status = $data['status'];
             $publication->save();
         }
-
-        return Redirect::back();
+        $comments = Comment::where('publication_id', '=', $publication->id)->get();
+        return view('admin.publication.show', ['publication' => $publication, 'comments' => $comments]);
     }
 
 

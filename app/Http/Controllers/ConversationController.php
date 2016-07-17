@@ -140,7 +140,7 @@ class ConversationController extends Controller
                     
                     $redis = LRedis::connection();
                     $redis->publish('message', json_encode(['message'=>$conv_message->message,
-                                                            'message_h'=>$conv_message->created_at,
+                                                            'message_h'=>$conv_message,
                                                             'conv_id'=>Input::get('conversation_id'),
                                                             'user'=>$user,
                                                             'users'=>$conv->first()->conversation_users

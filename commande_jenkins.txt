@@ -1,0 +1,29 @@
+# Lancer la commande composer install
+composer install
+ 
+# Renommer .env.example en .env
+mv .env.example .env
+ 
+# Générer la clef de Laravel à l'aide de php artisan
+php artisan key:generate
+
+#generation de la base migrate avec --seed
+#php artisan migrate:refresh --seed
+ 
+# Modifier les droit du répertoire "storage" de Laravel
+chmod 777 -R storage/
+
+#npm install
+npm install express redis socket.io gulp
+
+# déplacement du fichier indispensable au tchat
+mv server.js node_modules/
+
+# suppression du contenu du dossier athleteec pour mise à jour du site
+rm -rf /var/www/athleteec
+
+# déplacement du répertoire dans var/www
+mv /var/lib/jenkins/workspace/athleteec /var/www
+
+# lancement du server node pour le chat
+node /var/www/athleteec/node_modules/server.js

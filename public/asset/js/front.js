@@ -37,6 +37,10 @@ $(document).ready(function() {
         $('#modal-signal').modal('show');
     });
 
+    $("body").on('click','#addproduct' ,function(e){
+        $('#modal-product').modal('show');
+    });
+
     $('#delete-modal-post').submit(function(e){
         e.preventDefault();
         $.ajax({
@@ -48,6 +52,56 @@ $(document).ready(function() {
                 {
                     $('#modal-delete').modal('hide');
                     location.reload();
+                }
+            }
+        });
+    });
+    $("body").on('submit','#submit-modal-product' ,function(e){
+        e.preventDefault();
+        var $form = $(this);
+        $.ajax({
+            url: "/Athleteecs/public/product/addAjax",
+            type: 'post',
+            contentType: false, // obligatoire pour de l'upload
+            processData: false, // obligatoire pour de l'upload
+            data: new FormData($("#submit-modal-product")[0]),
+            success: function(data) {
+                if(data['success'] == true)
+                {
+                    $('#modal-product').modal('hide');
+
+                    $productname = data['productname'];
+                    $picture = data['picture'];
+                    $url = data['url'];
+                    $price = data['price'];
+                    $description = data['description'];
+
+
+                    var divparent = $('.row .tab-pane.active.equipement').first();
+                    var div = divparent.children();
+                    div.append("<div class ='row'>" +
+                        "<ul class='list-unstyled'></dd>" +
+                            "<li>" +
+                                "<div class='col-md-1'>" +
+                                    "<div class='equipement-cadre'>" +
+                                        "<div class='equipement-box'>"+
+                                            "<img src='http://localhost/Athleteecs/public/images/"+$picture+"'"+"alt='Avatar' class='img-thumbnail img-responsive'>"+
+                                        "</div>"+
+                                    "</div>"+
+                                "</div>"+
+                                "<div class='col-md-9'>"+
+                                    "<a href='" + $url + "'>"+
+                                        "<dd>" + $productname + "</dd>"+
+                                    "</a>"+
+                                    "<dd>" + $description + "</dd>"+
+                                "</div>"+
+                                "<div class='col-md-1 checkbox-correct'>"+
+                                    "<input type='checkbox' id='' name='equipement[]' value=''>"+
+                                "</div>"+
+                            "</li>"+
+                        "</ul>"+
+                    "</div>"+
+                    "</div>");
                 }
             }
         });
@@ -342,6 +396,38 @@ $(document).ready(function() {
             });
         }
     });
+
+    $('body').on('click','#signalComment',function(e){
+        var self = $(this);
+        var parent = $(this).parents(".comment");
+        var splitID = parent.attr("id").split("-");
+        console.log(splitID);
+        if(splitID){
+            $.ajax({
+                url: '/comment/'+ splitID[1] +'/signal',
+                type: 'post',
+                success: function(data) {
+                    self.remove();
+                    $('#modal-signal-comment').modal('show');
+                }
+            });
+        }
+    });
+
+    $('body').on('click','#deleteComment',function(e){
+        parent = $(this).parents(".comment");
+        var splitID = parent.attr("id").split("-");
+        console.log(splitID);
+        if(splitID){
+            $.ajax({
+                url: '/comment/'+ splitID[1] +'/destroy',
+                type: 'post',
+                success: function(data) {
+                    parent.remove();
+                }
+            });
+        }
+    });
 });
 
 function editpost(publication){
@@ -397,11 +483,11 @@ function editact(activity){
     $('#modal-activity').modal('show');
 }
 
-function isEmpty(obj) {
-    for(var prop in obj) {
-        if(obj.hasOwnProperty(prop))
-            return false;
-    }
+    function isEmpty(obj) {
+        for(var prop in obj) {
+            if(obj.hasOwnProperty(prop))
+                return false;
+        }
 
-    return true && JSON.stringify(obj) === JSON.stringify({});
-}
+        return true && JSON.stringify(obj) === JSON.stringify({});
+    }

@@ -7,7 +7,7 @@
 
 @section('content')
 <div class="container">
-    <div class="row" style="padding:20px;">
+    <div class="row padding margin-top-admin">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Liste des publications</h3>
@@ -23,6 +23,7 @@
                         <th>Video</th>
                         <th>Nb. commentaires</th>
                         <th>Signalement</th>
+                        <th>Status</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -42,7 +43,7 @@
                                     <a href=https://www.youtube.com/embed/{{$publication->video->url}}>{{$publication->video->url}}</a>
                                 @endif
                             </td>
-                            <td>{{ $publication->comments->count() }}</td>
+                            <td>{{ $publication->commentsALl->count() }}</td>
                             <td>
                                 @if($publication->score < 5)
                                     <span class="label label-success">{{ $publication->score }}</span>
@@ -50,6 +51,15 @@
                                     <span class="label label-warning">{{ $publication->score }}</span>
                                 @else
                                     <span class="label label-danger">{{ $publication->score }}</span>
+                                @endif
+                            </td>
+                            <td>
+                                @if($publication->status == "Success")
+                                    <span class="label label-success">Valide</span>
+                                @elseif($publication->status == "Signaled")
+                                    <span class="label label-warning">Signalé</span>
+                                @else
+                                    <span class="label label-danger">Bloqué</span>
                                 @endif
                             </td>
                             <td>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Picture;
+use App\Product;
 use App\User;
 use App\UsersSports;
 use Illuminate\Http\Request;
@@ -73,7 +75,19 @@ class UserController extends Controller
             ->whereNotIn('id', $arraySport)
             ->get();
 
-        return view('front.user.edit',['user' => $user, 'sports' => $sports]);
+        $userEquipement = $user->products;
+        $arrayUser = [];
+
+        foreach($userSports as $us){
+            $arrayUser[] = $us->id;
+        }
+
+        $equipements = DB::table('products')
+            ->whereNotIn('id', $arrayUser)
+            ->get();
+
+
+        return view('front.user.edit',['user' => $user, 'sports' => $sports,'equipements' => $equipements]);
     }
 
     /**
@@ -105,18 +119,6 @@ class UserController extends Controller
                     'picture.mimes'      => 'Le format de l\'image n\'est pas pris en charge (jpeg,png,jpg)'
                 ];
 
-                if ($request->hasFile('picture')) {
-                    $guid = com_create_guid();
-                    $imageName = $guid.'user' . $request->file('picture')->getClientOriginalExtension();;
-
-                    $request->file('picture')->move(
-                        storage_path() . '\uploads', $imageName
-                    );
-
-                  //  $user->pictures->link = '/uploads/'.$imageName;
-                }
-
-
                 $validator = Validator::make($input,$rules,$messages);
 
                 if($validator->fails())
@@ -124,6 +126,18 @@ class UserController extends Controller
                     $request->flash();
                     return Redirect::back()->withErrors($validator);
                 }
+
+                if ($request->hasFile('picture')) {
+                    $guid = com_create_guid();
+                    $imageName = $guid . $user->id . "." . $request->file('picture')->getClientOriginalExtension();;
+
+                    $request->file('picture')->move(
+                        base_path() . '/public/images/', $imageName
+                    );
+
+                    $user->picture = $imageName;
+                }
+
 
                 $user->firstname = $input['firstname'];
                 $user->lastname= $input['lastname'];

@@ -12,13 +12,14 @@ class Product extends Model
      * @var string
      */
     protected $table = 'products';
+    public $timestamps = false;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'ean','name', 'title', 'description', 'brand_id', 'picture', 'price', 'url', 'buy', 'created_at', 'updated_at', 'brand_id', 'category_id'
+        'ean','name', 'description', 'brand_id', 'picture', 'price', 'url', 'created_at', 'updated_at', 'brand_id', 'category_id'
     ];
 
     /**
@@ -31,11 +32,7 @@ class Product extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\Brand');
+        return $this->belongsToMany('App\User', 'users_equips_sports', 'user_id', 'product_id');
     }
 
-    public function sport()
-    {
-        return $this->belongsTo('App\Sport');
-    }
 }

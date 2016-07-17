@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\File;
     Route::model('event', 'App\Event');
     Route::model('userevent', 'App\UsersEvents');
     Route::model('notification', 'App\Notifications');
+    Route::model('newsletter', 'App\Newsletter');
 
 
 
@@ -40,8 +41,15 @@ use Illuminate\Support\Facades\File;
             Route::get('/', 'Admin\AdminController@index');
             Route::get('/datauser', 'Admin\AdminController@datauser');
             Route::resource('user', 'Admin\UserController');
-            Route::resource('publication', 'Admin\PublicationController');
-            Route::get('/comment/{comment}/destroy',  ['as' => 'comment.destroy', 'uses' => 'Admin\CommentController@destroy']);
+            Route::resource('sport', 'Admin\SportController');
+            Route::resource('newsletter', 'Admin\NewsletterController',['except' => ['update']]);
+            Route::post('/newsletter/{newsletter}/update', ['as' => 'admin.newsletter.update', 'uses' => 'Admin\NewsletterController@update']);
+            Route::get('/newsletter/{newsletter}/delete',  ['as' => 'admin.newsletter.delete', 'uses' => 'Admin\NewsletterController@destroy']);
+            Route::get('/newsletter/{newsletter}/send',  ['as' => 'admin.newsletter.send', 'uses' => 'Admin\NewsletterController@send']);
+            Route::get('/sport/{sport}/destroy',  ['as' => 'admin.sport.delete', 'uses' => 'Admin\SportController@destroy']);
+            Route::resource('publication', 'Admin\PublicationController',['except' => ['update']]);
+            Route::post('/publication/{publication}/update', ['as' => 'admin.publication.update', 'uses' => 'Admin\PublicationController@update']);
+            Route::get('/comment/{comment}/destroy',  ['as' => 'admin.comment.destroy', 'uses' => 'Admin\CommentController@destroy']);
         });
 
     Route::group(['middleware' => ['role:user|admin']], function () {
@@ -66,6 +74,8 @@ use Illuminate\Support\Facades\File;
         //Profil
         Route::resource('user', 'UserController',['except' => ['update']]);
         Route::post('/user/{user}/update', ['as' => 'user.update', 'uses' => 'UserController@update']);
+        Route::post('/product/addAjax','ProductController@addAjax');
+
 
         //Activité
         Route::resource('activity', 'Front\ActivityController');
@@ -76,6 +86,8 @@ use Illuminate\Support\Facades\File;
 
         //Commentaire
         Route::resource('comment', 'Front\CommentController');
+        Route::post('/comment/{comment}/destroy', 'Front\CommentController@destroy');
+        Route::post('/comment/{comment}/signal', 'Front\CommentController@signal');
 
         //Association
         Route::resource('association', 'Front\AssociationController',['except' => ['update']]);
@@ -136,4 +148,7 @@ use Illuminate\Support\Facades\File;
 
             return Image::make($image)->response('jpg'); //will ensure a jpg is always returned
         });
+
     });
+
+Route::get('confidentialite', ['as' => 'front.confidentialite.index', 'uses' => 'Front\ConfidentialiteController@index']);
