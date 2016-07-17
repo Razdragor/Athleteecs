@@ -28,7 +28,7 @@ class SocialAuthController extends Controller
 
     public function callback(SocialAccountService $service, $provider)
     {
-        dd(Socialite::driver($provider));
+        dd(Socialite::driver($provider)->user());
         if($provider == 'facebook') {
             $user = $service->createOrGetUser(Socialite::driver($provider)->fields([
                 'name',
