@@ -72,7 +72,7 @@ $(document).ready(function() {
         e.preventDefault();
         var $form = $(this);
         $.ajax({
-            url: "/Athleteecs/public/product/addAjax",
+            url: "/product/addAjax",
             type: 'post',
             contentType: false, // obligatoire pour de l'upload
             processData: false, // obligatoire pour de l'upload
