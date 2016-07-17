@@ -26,28 +26,23 @@
                                 <div class="col-sm-2 col-md-2">
                                     <div class="row">
                                         <div class="col-md-12 text-center">
+                                            <img src="{{$user->picture}}" alt="Avatar"
+                                                 class="img-thumbnail img-responsive">
 
+                                            <div class="image-upload">
+                                                <label for="picture">
+                                                    <div class="btn btn-default">
+                                                        <i class="fa fa-camera"></i>
+                                                    </div>
+                                                </label>
+                                                <input type="file" name="picture" id="picture" class="filehide"/>
 
-                                                <img src="{{$user->picture}}" alt="Avatar"
-                                                     class="img-thumbnail img-responsive">
-
-                                                <div class="image-upload">
-                                                    <label for="picture">
-                                                        <div class="btn btn-default">
-                                                            <i class="fa fa-camera"></i>
-                                                        </div>
-                                                    </label>
-                                                    <input type="file" name="picture" id="picture" class="filehide"/>
-
-                                                </div>
-                                                @if ($errors->has('picture'))
-                                                    <span class="help-block">
-                                                    <strong>{{ $errors->first('picture') }}</strong>
-                                                </span>
-                                                @endif
-
-
-
+                                            </div>
+                                            @if ($errors->has('picture'))
+                                                <span class="help-block">
+                                                <strong>{{ $errors->first('picture') }}</strong>
+                                            </span>
+                                            @endif
                                         </div>
                                     </div>
 
@@ -75,7 +70,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-2 col-md-2"></div>
-                                <div class="col-sm-10 col-md-10">
+                                <div class="col-sm-10 col-md-8-2">
                                     <!-- BEGIN TABS SELECTIONS-->
                                     <div class="row">
                                         <ul id="profileTab" class="nav nav-tabs">
@@ -101,7 +96,7 @@
                                     <!-- END TABS SELECTIONS-->
                                     <div class="row">
                                         <!-- BEGIN TABS SECTIONS-->
-                                        <div id="profileTabContent" class="tab-content col-sm-9 col-md-9">
+                                        <div id="profileTabContent" class="tab-content">
                                             <div class="tab-pane active infos">
                                                 <br>
                                                 <dl class="dl-horizontal">
@@ -178,7 +173,7 @@
                                                 </dl>
                                             </div>
                                             <div class="tab-pane active equipement" style="display: none;">
-                                                <div class="row">
+                                                <div class="row equip">
                                                     <dt>Equipements utilisées</dt>
 
                                                 @foreach($user->products as $equipment)
@@ -309,6 +304,22 @@
                                                     @endforeach
                                                 </ul>
                                             </div>
+                                            <div class="tab-pane active photos" style="display: none;">
+
+                                                    @foreach($user->pictures as $picture)
+                                                        <article class="col-md-4 isotopeItem webdesign">
+                                                            <div class="section-portfolio-item">
+                                                                <div class="picture-cadre">
+                                                                    <div class="picture-box">
+                                                                        <img src="{{ $picture->link }}" alt="image">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </article>
+                                                    @endforeach
+                                                        <a href="#" id="addphoto">
+                                                            <span class="fa fa-plus fa-2x"></span> Ajouter une photo</a>
+                                            </div>
 
                                         </div>
 
@@ -347,6 +358,39 @@
                                             <input type="number" class="form-control" name="price" placeholder="...">
                                         </div>
                                     </div>
+                                    <div class="col-md-12 padding-bottom-correct">
+                                        <label for="url" class="col-md-2 control-label">Lien vers l'équipement</label>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" name="url" placeholder="...">
+                                        </div>
+                                    </div>
+                                    <div class="form-actions panel-foo">
+                                        <div class="btn-group">
+                                            <div class="image-upload">
+                                                <label for="file-input-modal">
+                                                    <div class="btn btn-default"><i class="fa fa-camera"></i></div>
+                                                </label>
+                                                <input id="file-input-modal" name="productpicture" type="file" accept="image/*"/>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary pull-right" >Ajouter</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade modal-photo" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="modal-photo">
+                    <div class="modal-dialog modal-sm ">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4>Ajouter un équipement</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form id="submit-modal-photo" enctype="multipart/form-data">
+
+
                                     <div class="col-md-12 padding-bottom-correct">
                                         <label for="url" class="col-md-2 control-label">Lien vers l'équipement</label>
                                         <div class="col-md-10">

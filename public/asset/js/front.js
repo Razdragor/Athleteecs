@@ -53,6 +53,10 @@ $(document).ready(function() {
         $('#modal-product').modal('show');
     });
 
+    $("body").on('click','#addphoto' ,function(e){
+        $('#modal-photo').modal('show');
+    });
+
     $('#delete-modal-post').submit(function(e){
         e.preventDefault();
         $.ajax({
