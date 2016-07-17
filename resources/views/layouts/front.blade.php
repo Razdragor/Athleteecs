@@ -654,7 +654,7 @@ $user = Auth::user();
                 var to_append='';
                 $.each(data.friends,function(i,friend){
                     console.log(friend);
-                    to_append = to_append+'<span value="'+friend.id+'" class="chat_show_user_span"><img src="'+friend.picture+'">'+friend.firstname+' '+friend.lastname+'</span>';
+                    to_append = to_append+'<span value="'+friend.id+'" class="chat_show_user_span"><img src="'+friend.picture+'" class="search-add-user-chat-img">'+friend.firstname+' '+friend.lastname+'</span>';
                 });
                 $('.chat_show_user_div').html(to_append);
             },

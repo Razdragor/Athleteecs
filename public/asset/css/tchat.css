@@ -136,3 +136,7 @@ img.chat-avatar{
 .hauteur-utilisateurs-liste{
     height:44px;
 }
+.search-add-user-chat-img{
+    width: 30px;
+    height: 30px;
+}
