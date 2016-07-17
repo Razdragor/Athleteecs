@@ -13,6 +13,7 @@ class CreateUsersSportsTable extends Migration
     public function up()
     {
         Schema::create('users_sports', function (Blueprint $table) {
+            $table->increments('id');
             $table->bigInteger('user_id');
             $table->bigInteger('sport_id');
             $table->dateTime('date');

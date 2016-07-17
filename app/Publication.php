@@ -51,6 +51,10 @@ class Publication extends Model
     }
 
     public function comments(){
+        return $this->hasMany('App\Comment')->where("status","!=","Blocked");
+    }
+
+    public function commentsALl(){
         return $this->hasMany('App\Comment');
     }
 

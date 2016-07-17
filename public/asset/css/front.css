@@ -4,6 +4,18 @@
 
 .timeline-2-cols .timeline-footer .comments .comment, .timeline-2-cols .timeline-footer .comments .comment-body {
     overflow: hidden;
+    position:relative;
+}
+
+.comment .action{
+     position:absolute;
+     right: 0px;
+     top:0px;
+     display: none;
+ }
+
+.comment:hover .action{
+    display:block;
 }
 
 .timeline-2-cols .timeline-footer .comments .comment > .pull-left {

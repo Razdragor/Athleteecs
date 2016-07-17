@@ -39,7 +39,6 @@
 
             <form role="form" method="POST" action="{{ url('/register') }}">
                 {!! csrf_field() !!}
-
                 <form action="#" method="post" role="form" class="form">
                 <h4 class="text-center">Inscription</h4>
                 <div class="form-group">
@@ -159,13 +158,17 @@
                     <label class="radio-inline">
                         <input id="inlineCheckbox2" type="radio" name="sexe" value="femme">Femme
                     </label>
-                @if ($errors->has('sexe'))
-                    <span class="help-block">
-                            <strong>{{ $errors->first('sexe') }}</strong>
-                        </span>
-                @endif
-
+                    @if ($errors->has('sexe'))
+                        <span class="help-block">
+                                <strong>{{ $errors->first('sexe') }}</strong>
+                            </span>
+                    @endif
                 </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="newsletter" checked="checked"> S'inscrire à la newsletter ?
+                        </label>
+                    </div>
                 <button type="submit" class="btn btn-lg btn-inverse btn-block">S'inscrire</button>
             </form>
         </div>

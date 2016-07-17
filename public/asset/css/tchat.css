@@ -60,15 +60,15 @@
 
 .chat_show_user_span{
     border: 1px solid grey;
-    border-radius: 5px;
-    padding: 1px;
+    padding: 4px;
     cursor: pointer;
+    width: 100%;
+    display: -webkit-box;
 }
 .chat_show_user_span:hover{
     
 }
 .chat_user_add{
-    position: fixed;
     width: 347px;
 }
 
@@ -135,4 +135,8 @@ img.chat-avatar{
 }
 .hauteur-utilisateurs-liste{
     height:44px;
+}
+.search-add-user-chat-img{
+    width: 30px;
+    height: 30px;
 }

@@ -18,7 +18,7 @@ class Sport extends Model
      * @var array
      */
     protected $fillable = [
-        'name',"icon","created_at","updated_at"];
+        'id','name',"icon","created_at","updated_at"];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -28,8 +28,12 @@ class Sport extends Model
     protected $hidden = [
     ];
 
-    public function users()
+    /*public function users()
     {
         return $this->belongsToMany('App\User', 'users_sports', 'user_id', 'sport_id');
+    }*/
+
+    public function userSport(){
+        return $this->hasMany('App\UsersSports', 'sport_id');
     }
 }
