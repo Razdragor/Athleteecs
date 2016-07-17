@@ -34,8 +34,8 @@
     <div class="container user-profile" style="margin-bottom: 50px;">
         <div class="row row-eq-height">
             <div class="col-sm-4 col-md-3">
-                <div class="col-md-12 text-center" style="position: relative;">
-                    <img src="{{ $association->picture}}" alt="Avatar" class="img-thumbnail img-responsive">
+                <div class="col-md-12 text-center"  style="position: relative;">
+                    <img src="{{ $association->picture}}" alt="Avatar" class="img-thumbnail img-responsive img-top">
                     <img src="{{ asset("../images/icons/".$association->sport->icon) }}" alt="{{ $association->sport->name }}" class="img-association">
                 </div>
             </div>
@@ -69,19 +69,19 @@
             <div class="col-sm-4 col-md-3">
                 <!-- BEGIN SOCIAL ICONS-->
                 <div class="text-center social-icons">
-                    @if(!is_null($association->facebook))
+                    @if($association->facebook != "")
                         <a href="{{ $association->facebook }}">
                             <span class="fa-stack fa-lg"><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-facebook"></i>
                             </span>
                         </a>
                     @endif
-                    @if(!is_null($association->twitter))
+                    @if($association->twitter != "")
                         <a href="{{ $association->twitter }}">
                                 <span class="fa-stack fa-lg"><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-twitter"></i>
                                 </span>
                         </a>
                     @endif
-                    @if(!is_null($association->google))
+                    @if($association->google != "")
                         <a href="{{ $association->google }}">
                                 <span class="fa-stack fa-lg"><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-google-plus"></i>
                                 </span>
@@ -132,7 +132,7 @@
                     <!-- BEGIN TABS SECTIONS-->
                     <div id="profileTabContent" class="tab-content col-sm-12 col-md-12">
                         <div class="tab-pane fade active in" id="anchorpost">
-                            @if(isset($isMember) && is_array($isMember) && count($isMember) > 0 && $isMember[0]->is_admin)
+                            @if(isset($isMember) && is_array($isMember) && count($isMember) > 0)
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <div class="panel-title">Quoi de neuf ?</div>

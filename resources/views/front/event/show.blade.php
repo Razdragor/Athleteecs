@@ -35,7 +35,7 @@
         <div class="row row-eq-height">
             <div class="col-sm-4 col-md-3">
                 <div class="col-md-12 text-center" style="position: relative;">
-                    <img src="{{ $event->picture}}" alt="Avatar" class="img-thumbnail img-responsive">
+                    <img src="{{ $event->picture}}" alt="Avatar" class="img-thumbnail img-responsive img-top">
                     <img src="{{ asset("../images/icons/".$event->sport->icon) }}" alt="{{ $event->sport->name }}" class="img-association">
                 </div>
             </div>
