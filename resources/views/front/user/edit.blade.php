@@ -15,23 +15,37 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                    <div class="panel-body">
+                <div class="panel-body">
+                    <form class="form" method="POST" enctype="multipart/form-data" action="{{ route('user.update',['user' => $user]) }}">
+                        {{ csrf_field() }}
                         <!--Notice .user-profile class-->
                         <div class="user-profile">
                             <div class="row">
                                 <div class="col-sm-2 col-md-2">
                                     <div class="row">
                                         <div class="col-md-12 text-center">
-                                            <form class="form" method="POST" enctype="multipart/form-data" action="{{ route('user.update',['user' => $user]) }}">
-                                                {{ csrf_field() }}
 
-                                                <img src="{{ asset('asset/img/avatars/avatar.png') }}" alt="Avatar" class="img-thumbnail img-responsive">
-                                            <input type="file" name="picture" id="picture">
-                                            @if ($errors->has('picture'))
-                                                <span class="help-block">
+
+                                                <img src="{{asset('images/'.$user->picture)}}" alt="Avatar"
+                                                     class="img-thumbnail img-responsive">
+
+                                                <div class="image-upload">
+                                                    <label for="picture">
+                                                        <div class="btn btn-default">
+                                                            <i class="fa fa-camera"></i>
+                                                        </div>
+                                                    </label>
+                                                    <input type="file" name="picture" id="picture" class="filehide"/>
+
+                                                </div>
+                                                @if ($errors->has('picture'))
+                                                    <span class="help-block">
                                                     <strong>{{ $errors->first('picture') }}</strong>
                                                 </span>
-                                            @endif
+                                                @endif
+
+
+
                                         </div>
                                     </div>
 
@@ -216,68 +230,70 @@
                                                         </div>
                                                     @endforeach
 
-                                                    <a href="#" id="addproduct">
-                                                        <span class="fa fa-plus"></span> Ajouter un équipement</a>
                                                 </div>
+                                                <a href="#" id="addproduct">
+                                                    <span class="fa fa-plus"></span> Ajouter un équipement</a>
                                             </div>
+
                                         </div>
 
-                                        </form>
-                                        <div class="modal fade modal-product" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="modal-product">
-                                            <div class="modal-dialog modal-sm ">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                        <h4>Ajouter un équipement</h4>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form id="submit-modal-product" method="post" action="{{ route("product.store")}}" enctype="multipart/form-data">
 
-                                                            <div class="col-md-12 padding-bottom-correct">
-                                                                <label for="productname" class="col-md-2">Nom de l'équipement</label>
-                                                                <div class="col-md-10">
-                                                                    <input type="text" class="form-control" name="productname" placeholder="...">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-12 padding-bottom-correct">
-                                                                <label for="description" class="col-md-2 control-label">Description</label>
-                                                                <div class="col-md-10">
-                                                                    <input type="text" class="form-control" name="description" placeholder="...">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-12 padding-bottom-correct">
-                                                                <label for="price" class="col-md-2 control-label">Prix</label>
-                                                                <div class="col-md-10">
-                                                                    <input type="number" class="form-control" name="price" placeholder="...">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-12 padding-bottom-correct">
-                                                                <label for="url" class="col-md-2 control-label">Lien vers l'équipement</label>
-                                                                <div class="col-md-10">
-                                                                    <input type="text" class="form-control" name="url" placeholder="...">
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-actions panel-foo">
-                                                                <div class="btn-group">
-                                                                    <div class="image-upload">
-                                                                        <label for="file-input-modal">
-                                                                            <div class="btn btn-default"><i class="fa fa-camera"></i></div>
-                                                                        </label>
-                                                                        <input id="file-input-modal" name="productpicture" type="file" accept="image/*"/>
-                                                                    </div>
-                                                                </div>
-                                                                <button type="submit" class="btn btn-primary pull-right" >Ajouter</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </form>
+                </div>
+                <div class="modal fade modal-product" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="modal-product">
+                    <div class="modal-dialog modal-sm ">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4>Ajouter un équipement</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form id="submit-modal-product" enctype="multipart/form-data">
+
+                                    <div class="col-md-12 padding-bottom-correct">
+                                        <label for="productname" class="col-md-2">Nom de l'équipement</label>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" name="productname" placeholder="...">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 padding-bottom-correct">
+                                        <label for="description" class="col-md-2 control-label">Description</label>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" name="description" placeholder="...">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 padding-bottom-correct">
+                                        <label for="price" class="col-md-2 control-label">Prix</label>
+                                        <div class="col-md-10">
+                                            <input type="number" class="form-control" name="price" placeholder="...">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 padding-bottom-correct">
+                                        <label for="url" class="col-md-2 control-label">Lien vers l'équipement</label>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" name="url" placeholder="...">
+                                        </div>
+                                    </div>
+                                    <div class="form-actions panel-foo">
+                                        <div class="btn-group">
+                                            <div class="image-upload">
+                                                <label for="file-input-modal">
+                                                    <div class="btn btn-default"><i class="fa fa-camera"></i></div>
+                                                </label>
+                                                <input id="file-input-modal" name="productpicture" type="file" accept="image/*"/>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary pull-right" >Ajouter</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
+                </div>
             </div>
         </div>
     </div>

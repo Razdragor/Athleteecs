@@ -78,7 +78,7 @@ class UserController extends Controller
         $userEquipement = $user->products;
         $arrayUser = [];
 
-        foreach($userEquipement as $us){
+        foreach($userSports as $us){
             $arrayUser[] = $us->id;
         }
 

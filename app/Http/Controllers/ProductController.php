@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use Illuminate\Http\Request;
-
+use Validator;
 use App\Http\Requests;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Redirect;
+
 
 class ProductController extends Controller
 {
@@ -17,16 +20,14 @@ class ProductController extends Controller
     public function addAjax(Request $request)
     {
         if(\Request::ajax()){
-
-            $publicationUpdate = HelperPublication::update($request,$product);
+            $product = new Product();
 
             $data = $request->all();
 
             $validator = Validator::make($data, [
-                'message_status' => 'required',
-                'description' => 'required',
-                'productpicture' => 'mimes:jpeg,png,jpg'
-            ]);;
+                'productname' => 'required',
+                'description' => 'required'
+            ]);
 
             if ($validator->fails()) {
                 return array(
@@ -34,26 +35,38 @@ class ProductController extends Controller
                 );
             }
 
-            if(is_array($publicationUpdate) && array_key_exists('errors',$publicationUpdate)){
-                return \Response::json(array(
-                    'success' => false,
-                    'errors' => $publicationUpdate['errors']
-                ));
+            $product->name = $data['productname'];
+            $product->description = $data['description'];
+            $product->price= $data['price'];
+            $product->url = $data['url'];
+
+            if ($request->hasFile('picture')) {
+                $guid = com_create_guid();
+                $imageName = $guid . "." . $request->file('picture')->getClientOriginalExtension();;
+
+                $request->file('picture')->move(
+                    base_path() . '/public/images/products', $imageName
+                );
+
+                $product->picture = $imageName;
+            }
+            else{
+                $product->picture = "/default_picture/default-equipement.jpg";
+                $imageName = "default_picture/default-equipement.jpg";
             }
 
-            $publication = $publicationUpdate['publication'];
-            $publication->save();
-
-            $video = $publicationUpdate['video'];
+            $product->save();
 
             return \Response::json(array(
                 'success' => true,
-                'publication' => $publication,
-                'video' => $video
+                'productname' =>  $data['productname'],
+                'description' => $data['description'],
+                'price' => $data['price'],
+                'url' => $data['url'],
+                'picture' => $imageName
+
             ));
         }
-
-
     }
 
     public function index()

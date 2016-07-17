@@ -12,13 +12,14 @@ class Product extends Model
      * @var string
      */
     protected $table = 'products';
+    public $timestamps = false;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'ean','name', 'title', 'description', 'brand_id', 'picture', 'price', 'url', 'buy', 'created_at', 'updated_at', 'brand_id', 'category_id'
+        'ean','name', 'description', 'brand_id', 'picture', 'price', 'url', 'created_at', 'updated_at', 'brand_id', 'category_id'
     ];
 
     /**

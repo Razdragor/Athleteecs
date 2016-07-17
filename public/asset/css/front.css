@@ -233,3 +233,7 @@
     text-align: center;
     padding-top: 15px;
 }
+
+.filehide{
+    display: none;
+}

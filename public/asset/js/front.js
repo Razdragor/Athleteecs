@@ -56,12 +56,12 @@ $(document).ready(function() {
             }
         });
     });
-    $('#submit-modal-product').submit(function(e){
+    $("body").on('submit','#submit-modal-product' ,function(e){
         e.preventDefault();
         var $form = $(this);
         $.ajax({
-            url: "/" +$form.attr('action'),
-            type: $form.attr('method'),
+            url: "/Athleteecs/public/product/addAjax",
+            type: 'post',
             contentType: false, // obligatoire pour de l'upload
             processData: false, // obligatoire pour de l'upload
             data: new FormData($("#submit-modal-product")[0]),
@@ -69,7 +69,39 @@ $(document).ready(function() {
                 if(data['success'] == true)
                 {
                     $('#modal-product').modal('hide');
-                    location.reload();
+
+                    $productname = data['productname'];
+                    $picture = data['picture'];
+                    $url = data['url'];
+                    $price = data['price'];
+                    $description = data['description'];
+
+
+                    var divparent = $('.row .tab-pane.active.equipement').first();
+                    var div = divparent.children();
+                    div.append("<div class ='row'>" +
+                        "<ul class='list-unstyled'></dd>" +
+                            "<li>" +
+                                "<div class='col-md-1'>" +
+                                    "<div class='equipement-cadre'>" +
+                                        "<div class='equipement-box'>"+
+                                            "<img src='http://localhost/Athleteecs/public/images/"+$picture+"'"+"alt='Avatar' class='img-thumbnail img-responsive'>"+
+                                        "</div>"+
+                                    "</div>"+
+                                "</div>"+
+                                "<div class='col-md-9'>"+
+                                    "<a href='" + $url + "'>"+
+                                        "<dd>" + $productname + "</dd>"+
+                                    "</a>"+
+                                    "<dd>" + $description + "</dd>"+
+                                "</div>"+
+                                "<div class='col-md-1 checkbox-correct'>"+
+                                    "<input type='checkbox' id='' name='equipement[]' value=''>"+
+                                "</div>"+
+                            "</li>"+
+                        "</ul>"+
+                    "</div>"+
+                    "</div>");
                 }
             }
         });
