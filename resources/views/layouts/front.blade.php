@@ -353,7 +353,6 @@ $user = Auth::user();
                 chat_class = 'conv_messages_'+chat_msg[0]['conv_id'];
 
         var check_concerned = false;
-
         $.each(chat_msg[0]['users'],function(i,user){
             if(user.user_id == {{$user->id}})
             {
@@ -365,7 +364,7 @@ $user = Auth::user();
         {
             if($('.'+chat_class).length)
             {
-                $(".chat_conv_name").after('<div class="head-tchat-left">'+chat_msg[0]['conv_name']+'</div>');
+                $('.'+chat_class).parent().parent().find(".head-tchat-left").html(chat_msg[0]['conv_name']);
                 $(".chat_conv_name").remove();
                 $('.'+chat_class).append('<li class="right clearfix"><p>'+chat_msg[0]['user']['firstname']+' '+chat_msg[0]['user']['lastname']+' à changé le nom de la conversation en : '+chat_msg[0]['conv_name']+'</p></li>');
                 $('.'+chat_class).parent().scrollTop($(".scroll-chat-box")[0].scrollHeight);
@@ -376,7 +375,7 @@ $user = Auth::user();
                 var form = $(document).find('input[name="id"][value="'+chat_msg[0]['user']['id']+'"]').parent();
                 create_or_show_chat(form,"{{ route('create_conversation') }}");
 
-                $(".chat_conv_name").after('<div class="head-tchat-left">'+chat_msg[0]['conv_name']+'</div>');
+                $('.'+chat_class).parent().parent().find(".head-tchat-left").html(chat_msg[0]['conv_name']);
                 $(".chat_conv_name").remove();
                 $('.'+chat_class).append('<li class="right clearfix"><p>'+chat_msg[0]['user']['firstname']+' '+chat_msg[0]['user']['lastname']+' à changé le nom de la conversation en : '+chat_msg[0]['conv_name']+'</p></li>');
                 $('.'+chat_class).parent().scrollTop($(".scroll-chat-box")[0].scrollHeight);
