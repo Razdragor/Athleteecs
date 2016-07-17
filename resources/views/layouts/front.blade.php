@@ -30,110 +30,89 @@
 <?php
 $user = Auth::user();
 ?>
-    
-    <div class="wrapper">
-        <aside class="social-sidebar">
-    <div class="visible-lg visible-md">
-        <h4>Events :</h4>
-        
-        <ul>
-            @foreach($user->events as $user_event)
-                @if($user->isMemberEvent($user_event->event->id))
-                    <li>
-                        <a href="{{ route('event.index', ['events' => $user_event->event->id]) }}">
-                        {{$user_event->event->name}}
 
-                        </a>
-                    </li>
-                @endif
-            @endforeach
-        </ul>
-        <a href="{{ route('event.create') }}">Créer un event</a>
-        
-        
-        <h4>Associations :</h4>
-        
-        <ul>
-            @foreach($user->associations as $association)
-                @if($user->isMemberAssociation($association->association->id))
-                    <li>
-                        <a href="{{ route('association.index', ['association' => $association->association->id]) }}">
-                        {{$association->association->name}}
-                        </a>
-                    </li>
-                @endif
-            @endforeach
-        </ul>
-        <a href="{{ route('association.create') }}">Créer une association</a>
-        
-        <h4>Conversations :</h4>
-        
-        <ul>
-            @foreach($user->conversations as $conversation)
-                @if($conversation->conversation->group)
-                    <form class="chat_show">
+<div class="wrapper">
+    <aside class="social-sidebar">
+        <div class="visible-lg visible-md">
+            <h4>Events :</h4>
+
+            <ul>
+                @foreach($user->events as $user_event)
+                    @if($user->isMemberEvent($user_event->event->id))
                         <li>
-                            <input type="hidden" name="conv_id" value="{{$conversation->conversation->id}}">
-                            {{$conversation->conversation->name}}
-                        </li>
-                    </form>
-                @endif
-            @endforeach
-        </ul>
-        <a href="#">Créer un groupe</a>
-    
-    <!-- BEGIN CHAT SECTION-->
-    <div class="chat visible-lg visible-md">
-        <ul class="users-list">
-                @foreach($user->friends as $friend)
-                    <li>
+                            <a href="{{ route('event.index', ['events' => $user_event->event->id]) }}">
+                                {{$user_event->event->name}}
 
-                        <form class="create_conversation">
-                            <input type="hidden" name="id" value="{{ $friend->id }}"></input>
-                            <a data-firstname="{{ $friend->firstname }}" data-lastname="{{ $friend->lastname }}" data-status="online" data-userid="{{ $friend->id }}">
-                                <img src="{{ $friend->picture }}" alt="{{ $friend->firstname.' '.$friend->lastname }}">
-                                <span>{{ $friend->firstname.' '.$friend->lastname }}</span><i class="fa fa-circle user-status online"></i>
                             </a>
-                        </form>
-                    </li>
+                        </li>
+                    @endif
                 @endforeach
             </ul>
-            <!--
-                   <div class="container" style="position: absolute;bottom: 0px;left: 20%;width: 350px;height: 500px;z-index: 9999;background-color: white;">
-                       <div class="row">
-                           <h3 class="text-center">Interlocuteur</h3>
-                           <hr>
-                           <div class="col-lg-8 col-lg-offset-2 " >
-                             <div id="messages" >Messages</div>
-                           </div>
-                           <div class="col-lg-8 col-lg-offset-2 text-right" >
-                             <div id="messages" >Messages de l'interloc'</div>
+            <a href="{{ route('event.create') }}">Créer un event</a>
+
+
+            <h4>Associations :</h4>
+
+            <ul>
+                @foreach($user->associations as $association)
+                    @if($user->isMemberAssociation($association->association->id))
+                        <li>
+                            <a href="{{ route('association.index', ['association' => $association->association->id]) }}">
+                                {{$association->association->name}}
+                            </a>
+                        </li>
+                    @endif
+                @endforeach
+            </ul>
+            <a href="{{ route('association.create') }}">Créer une association</a>
+
+            <h4>Conversations :</h4>
+
+            <ul>
+                @foreach($user->conversations as $conversation)
+                    @if($conversation->conversation->group)
+                        <form class="chat_show">
+                            <li>
+                                <input type="hidden" name="conv_id" value="{{$conversation->conversation->id}}">
+                                {{$conversation->conversation->name}}
+                            </li>
+                        </form>
+                    @endif
+                @endforeach
+            </ul>
+            <a href="#">Créer un groupe</a>
+
+            <!-- BEGIN CHAT SECTION-->
+            <div class="chat visible-lg visible-md">
+                <ul class="users-list">
+                    @foreach($user->friends as $friend)
+                        <li>
+
+                            <form class="create_conversation alignement-utilisateurs">
+                                <input type="hidden" name="id" value="{{ $friend->id }}"></input>
+                                <a data-firstname="{{ $friend->firstname }}" data-lastname="{{ $friend->lastname }}" data-status="online" data-userid="{{ $friend->id }}" class="hauteur-utilisateurs-liste">
+                                    <img src="{{ $friend->picture }}" alt="{{ $friend->firstname.' '.$friend->lastname }}">
+                                    <span>{{ $friend->firstname.' '.$friend->lastname }}</span><i class="fa fa-circle user-status online"></i>
+                                </a>
+                            </form>
+                        </li>
+                    @endforeach
+                </ul>
+                <!--
+                       <div class="container" style="position: absolute;bottom: 0px;left: 20%;width: 350px;height: 500px;z-index: 9999;background-color: white;">
+                           <div class="row">
+                               <h3 class="text-center">Interlocuteur</h3>
+                               <hr>
+                               <div class="col-lg-8 col-lg-offset-2 " >
+                                 <div id="messages" >Messages</div>
+                               </div>
+                               <div class="col-lg-8 col-lg-offset-2 text-right" >
+                                 <div id="messages" >Messages de l'interloc'</div>
+                               </div>
                            </div>
                        </div>
-                   </div>
-           -->
-            <form class="chat-options">
-                <div class="input-group">
-                    <div class="input-group-btn dropup">
-                        <button type="button" tabindex="-1" data-toggle="dropdown" class="btn dropdown-toggle btn-xs"><i class="fa fa-cog"></i>
-                        </button>
-                        <ul role="menu" class="dropdown-menu pull-left">
-                            <li>
-                                <a href="#">Chat Sounds</a>
-                            </li>
-                            <li>
-                                <a href="#">Advanced Settings...</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="#">Turn Off Chat</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <input type="text" placeholder="Search user..." class="form-control">
-                </div>
-            </form>
-        </div>
+               -->
+            </div>
     </aside>
     <header>
         <nav role="navigation" class="navbar navbar-fixed-top navbar-super social-navbar">
@@ -387,8 +366,8 @@ $user = Auth::user();
             <!-- /.navbar-collapse-->
         </nav>
     </header>
-        <div class="main">
-            @yield('content')
+    <div class="main">
+        @yield('content')
     </div>
     <footer>2016 - <a href="http://localhost" target="_blank">ATHLETEEC</a></footer>
 </div>
@@ -411,7 +390,7 @@ $user = Auth::user();
 <script src="{{ asset('asset/js/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js') }}"></script>
 <script src="{{ asset('asset/js/plugins/google-code-prettify/prettify.js') }}"></script>
 <script src="{{ asset('asset/js/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker.js') }}"></script>
-    
+
 <script src="{{ asset('asset/js/chat/socketio.js') }}"></script>
 <script src="{{ asset('asset/js/app.js') }}"></script>
 <script>
@@ -459,15 +438,15 @@ $user = Auth::user();
     // envoyer des éléments dans tchatbox
     var socket = io.connect('http://localhost:8890');
 
-    
-    socket.on('add_user', function (data) 
+
+    socket.on('add_user', function (data)
     {
         var chat_msg = $.parseJSON('[' + data + ']'),
-        now = new Date().getDay(),
-        chat_class = 'conv_messages_'+chat_msg[0]['conv_id'],
-        check_concerned = false;
-        
-        
+                now = new Date().getDay(),
+                chat_class = 'conv_messages_'+chat_msg[0]['conv_id'],
+                check_concerned = false;
+
+
         $.each(chat_msg[0]['users'],function(i,user){
             if(user.user_id == {{$user->id}})
             {
@@ -477,68 +456,32 @@ $user = Auth::user();
         });
         if(check_concerned)
         {
-            if($('#'+chat_class).length)
+            if($('.'+chat_class).length)
             {
-                $('#'+chat_class).append('<li class="right clearfix"><p>'+chat_msg[0]['friend']['firstname']+' '+chat_msg[0]['friend']['lastname']+' à été ajouté à la conversation</p></li>');
-                $('#'+chat_class).parent().scrollTop($(".scroll-chat-box")[0].scrollHeight);
+                $('.'+chat_class).append('<li class="right clearfix"><p>'+chat_msg[0]['friend']['firstname']+' '+chat_msg[0]['friend']['lastname']+' à été ajouté à la conversation</p></li>');
+                $('.'+chat_class).parent().scrollTop($(".scroll-chat-box")[0].scrollHeight);
             }
             else
             {
                 $('.users-list').append('<form class="create_conversation"><input type="hidden" name="conv_id" value="'+chat_msg[0]['conv_id']+'"></input></form>');
                 var form = $(document).find('input[name="conv_id"][value="'+chat_msg[0]['conv_id']+'"]').parent();
                 create_or_show_chat(form,"{{ route('show_conversation') }}");
-                $('#'+chat_class).append('<li class="right clearfix"><p>'+chat_msg[0]['friend']['firstname']+' '+chat_msg[0]['friend']['lastname']+' à été ajouté à la conversation</p></li>');
-                $('#'+chat_class).parent().scrollTop($(".scroll-chat-box")[0].scrollHeight);
+                $('.'+chat_class).append('<li class="right clearfix"><p>'+chat_msg[0]['friend']['firstname']+' '+chat_msg[0]['friend']['lastname']+' à été ajouté à la conversation</p></li>');
+                $('.'+chat_class).parent().scrollTop($(".scroll-chat-box")[0].scrollHeight);
             }
         }
     });
-    
-    
-    socket.on('change_name', function (data) 
+
+
+
+    socket.on('change_name', function (data)
     {
         var chat_msg = $.parseJSON('[' + data + ']'),
-        now = new Date().getDay(),
-        chat_class = 'conv_messages_'+chat_msg[0]['conv_id'];
-        
+                now = new Date().getDay(),
+                chat_class = 'conv_messages_'+chat_msg[0]['conv_id'];
+
         var check_concerned = false;
-        
-       $.each(chat_msg[0]['users'],function(i,user){
-            if(user.user_id == {{$user->id}})
-            {
-                check_concerned = true;
-                return false;
-            }
-        });
-        if(check_concerned)
-        {
-            if($('#'+chat_class).length)
-            {
-                $(".chat_conv_name").after('<div class="head-tchat-left">'+chat_msg[0]['conv_name']+'</div>');
-                $(".chat_conv_name").remove();
-                $('#'+chat_class).append('<li class="right clearfix"><p>'+chat_msg[0]['user']['firstname']+' '+chat_msg[0]['user']['lastname']+' à changé le nom de la conversation en : '+chat_msg[0]['conv_name']+'</p></li>');
-                $('#'+chat_class).parent().scrollTop($(".scroll-chat-box")[0].scrollHeight);
 
-            }
-            else
-            {
-                    var form = $(document).find('input[name="id"][value="'+chat_msg[0]['user']['id']+'"]').parent();
-                    create_or_show_chat(form,"{{ route('create_conversation') }}");
-
-                $(".chat_conv_name").after('<div class="head-tchat-left">'+chat_msg[0]['conv_name']+'</div>');
-                $(".chat_conv_name").remove();
-                $('#'+chat_class).append('<li class="right clearfix"><p>'+chat_msg[0]['user']['firstname']+' '+chat_msg[0]['user']['lastname']+' à changé le nom de la conversation en : '+chat_msg[0]['conv_name']+'</p></li>');
-                $('#'+chat_class).parent().scrollTop($(".scroll-chat-box")[0].scrollHeight);
-            }
-        }
-
-    });
-    
-    socket.on('message', function (data) {
-        var chat_msg = $.parseJSON('[' + data + ']'),
-        now = new Date().getDay(),
-        chat_class = 'conv_messages_'+chat_msg[0]['conv_id'],
-        check_concerned = false;
-        
         $.each(chat_msg[0]['users'],function(i,user){
             if(user.user_id == {{$user->id}})
             {
@@ -546,50 +489,96 @@ $user = Auth::user();
                 return false;
             }
         });
-        
+        if(check_concerned)
+        {
+            if($('.'+chat_class).length)
+            {
+                $(".chat_conv_name").after('<div class="head-tchat-left">'+chat_msg[0]['conv_name']+'</div>');
+                $(".chat_conv_name").remove();
+                $('.'+chat_class).append('<li class="right clearfix"><p>'+chat_msg[0]['user']['firstname']+' '+chat_msg[0]['user']['lastname']+' à changé le nom de la conversation en : '+chat_msg[0]['conv_name']+'</p></li>');
+                $('.'+chat_class).parent().scrollTop($(".scroll-chat-box")[0].scrollHeight);
+
+            }
+            else
+            {
+                var form = $(document).find('input[name="id"][value="'+chat_msg[0]['user']['id']+'"]').parent();
+                create_or_show_chat(form,"{{ route('create_conversation') }}");
+
+                $(".chat_conv_name").after('<div class="head-tchat-left">'+chat_msg[0]['conv_name']+'</div>');
+                $(".chat_conv_name").remove();
+                $('.'+chat_class).append('<li class="right clearfix"><p>'+chat_msg[0]['user']['firstname']+' '+chat_msg[0]['user']['lastname']+' à changé le nom de la conversation en : '+chat_msg[0]['conv_name']+'</p></li>');
+                $('.'+chat_class).parent().scrollTop($(".scroll-chat-box")[0].scrollHeight);
+            }
+        }
+
+    });
+
+    socket.on('message', function (data) {
+        var chat_msg = $.parseJSON('[' + data + ']'),
+                now = new Date().getDay(),
+                chat_class = 'conv_messages_'+chat_msg[0]['conv_id'],
+                check_concerned = false;
+        var heureMessage = chat_msg[0]['message_h']['created_at'];
+        console.log(heureMessage);
+
+        $.each(chat_msg[0]['users'],function(i,user){
+            if(user.user_id == {{$user->id}})
+            {
+                check_concerned = true;
+                return false;
+            }
+        });
+
         if(check_concerned)
         {
             if(chat_msg[0]['user']['id'] == {{ $user->id }})
             {
-                $('#'+chat_class).append('<li class="right clearfix"><span class="chat-avatar pull-right"><img src="{{ $user->picture }}" alt="{{ $user->firstname.' '. $user->lastname }}" width="55px" height="55px"></span>'+
+                $('.'+chat_class).append('<li class="right clearfix"><span class="chat-avatar pull-right"><img src="{{ $user->picture }}" alt="{{ $user->firstname.' '. $user->lastname }}" width="55px" height="55px"></span>'+
                         '<div id="chat_sender1" class="chat-body clearfix"><div class="header">'+
-                        '<small class="text-muted"><span class="fa fa-clock-o">&nbsp;'+now+'</span>'+
+                        '<small class="text-muted"><span class="fa fa-clock-o">&nbsp;'+heureMessage+'</span>'+
                         '</small><strong class="pull-right primary-font">{{ $user->firstname }} {{$user->lastname }}</strong>'+
                         '</div>'+
                         '<p>'+chat_msg[0]['message']+'</p></div></li>');
-                        $('#'+chat_class).parent().scrollTop($(".scroll-chat-box")[0].scrollHeight);
+                $('.'+chat_class).parent().scrollTop($(".scroll-chat-box")[0].scrollHeight);
             }
             else
             {
-                if($('#'+chat_class).length)
+                if($('.'+chat_class).length)
                 {
-                    $('#'+chat_class).append('<li class="left clearfix"><span class="chat-avatar pull-left"><img src="'+chat_msg[0]['user']['picture']+'" alt="'+chat_msg[0]['user']['firstname']+' '+chat_msg[0]['user']['lastname']+
+                    $('.'+chat_class).append('<li class="left clearfix"><span class="chat-avatar pull-left"><img src="'+chat_msg[0]['user']['picture']+'" alt="'+chat_msg[0]['user']['firstname']+' '+chat_msg[0]['user']['lastname']+
                             '" width="55px" height="55px"></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font">'+chat_msg[0]['user']['firstname']+' '+chat_msg[0]['user']['lastname']+
-                            '</strong><small class="pull-right text-muted"><span class="fa fa-clock-o">&nbsp;'+now+'</span></small></div><p>'+chat_msg[0]['message']+'</p></div></li>');
-                    
-                    $('#'+chat_class).parent().scrollTop($(".scroll-chat-box")[0].scrollHeight);
+
+                            '</strong><small class="pull-right text-muted"><span class="fa fa-clock-o">&nbsp;'+heureMessage+'</span></small></div><p>'+chat_msg[0]['message']+'</p></div></li>');
+
+                    $('.'+chat_class).parent().scrollTop($(".scroll-chat-box")[0].scrollHeight);
                 }
                 else
                 {
                     var form = $(document).find('input[name="id"][value="'+chat_msg[0]['user']['id']+'"]').parent();
                     create_or_show_chat(form,"{{ route('create_conversation') }}");
-                    $('#'+chat_class).append('<div class="col-xs-8 col-xs-offset-4">'+chat_msg[0]['firstname']+' '+chat_msg[0]['lastname']+'<p>'+chat_msg[0]['message']+'</p></div>');
-                    $('#'+chat_class).parent().scrollTop($(".scroll-chat-box")[0].scrollHeight);
+                    $('.'+chat_class).append('<div class="col-xs-8 col-xs-offset-4">'+chat_msg[0]['firstname']+' '+chat_msg[0]['lastname']+'<p>'+chat_msg[0]['message']+'</p></div>');
+                    $('.'+chat_class).parent().scrollTop($(".scroll-chat-box")[0].scrollHeight);
                 }
             }
         }
     });
 
-    
+
     // fermer la tchatbox
     $('body').on('click','.close', function(){
         $(this).parent().parent().parent().parent().remove();
         $.each($('.tchat-box'),function(i,box){
-            if($(box).css("left") > 200 )
+            if(parseInt(box.style.left) > 200 )
             {
-                $(box).css("left",($(box).css("left")-375));
+                var val = parseInt(box.style.left) - 370;
+                $(box).css({ left: val+"px" });
             }
         });
+
+        if(chatbox_pos > 200)
+        {
+            chatbox_pos = chatbox_pos -370;
+        }
     });
 
 
@@ -614,7 +603,7 @@ $user = Auth::user();
             }
         });
     });
-    
+
     // Input pour changer nom de la conversation
     $('body').on('click','.head-tchat-left', function(e){
         e.preventDefault();
@@ -624,7 +613,7 @@ $user = Auth::user();
         $(this).after('<form action="change_conversation_name" method="POST" class="chat_conv_name"><input class="quit_on_blur" type="text" name="conv_name" value="'+conv_name+'"><input type="hidden" name="conversation_id" value="'+conv_id+'"><input type="submit" value="OK" class=" btn-primary"></form>');
         $(this).remove();
     });
-    
+
     //Changement du nom de la conversation
     $('body').on('submit','.chat_conv_name', function(e){
         e.preventDefault();
@@ -644,7 +633,7 @@ $user = Auth::user();
             }
         });
     });
-    
+
     //Input pour Ajout d'utilisateur à la conversation
     $('body').on('click','.chat_user_add_button', function(e){
         var div_for_input = $(this).parent().parent().parent().find(".chat_user_add_div");
@@ -653,8 +642,8 @@ $user = Auth::user();
         $(div_for_input).append('<form action="chat_add_user" method="POST" class="chat_user_add"><input type="text" name="add_user" class="form-control chat_json_user_add"><input type="hidden" name="conversation_id" value="'+conv_id+'"><br><div class="chat_show_user_div"></div></form>');
         $(".chat_json_user_add").focus();
     });
-    
-     //Listes d'utilisateur ajoutables à la conversation
+
+    //Listes d'utilisateur ajoutables à la conversation
     $('body').on('keyup','.chat_json_user_add', function(e){
         e.preventDefault();
         var fdata = $(this).parent().serialize();
@@ -667,9 +656,9 @@ $user = Auth::user();
                 console.log('Success !');
                 console.log(data);
                 var to_append='';
-                 $.each(data.friends,function(i,friend){
-                     to_append = to_append+'<span value="'+friend.id+'" class="chat_show_user_span">'+friend.firstname+' '+friend.lastname+'</span>';
-                 });
+                $.each(data.friends,function(i,friend){
+                    to_append = to_append+'<span value="'+friend.id+'" class="chat_show_user_span">'+friend.firstname+' '+friend.lastname+'</span>';
+                });
                 $('.chat_show_user_div').html(to_append);
             },
             error:function(jqXHR)
@@ -679,16 +668,16 @@ $user = Auth::user();
             }
         });
     });
-    
-    
+
+
     //Ajout d'input lors de clic sur user + submit du form d'ajout d'user à la conv
     $('body').on('click','.chat_show_user_span', function(e){
         var chat_friend_id = $(this).attr('value');
         $(this).parent().parent().append('<input type="hidden" name="friend_id" value="'+chat_friend_id+'">'); //ajout de l'input
-        
+
         var fdata = $(this).parent().parent().serialize();
-                    console.log(fdata);
-            $.ajax({
+        console.log(fdata);
+        $.ajax({
             type:'POST',
             url:"{{route('chat_add_user')}}",
             data:fdata,
@@ -699,23 +688,21 @@ $user = Auth::user();
             error:function(jqXHR)
             {
                 $('.return').html(jqXHR.responseText);
-
             }
         });
 
-        
-        $('.chat_user_add').remove(); //on supprimme le form pour nettoyer la chat box 
-    });  
-    
+
+        $('.chat_user_add').remove(); //on supprimme le form pour nettoyer la chat box
+    });
+
     //Ajout d'utilisateur à la conversation
     $('body').on('click','.chat_show', function(){
         var form = $(this);
         create_or_show_chat($(this),"{{route('show_conversation') }}");
-    }); 
-    
-    
-    function create_or_show_chat(form, url){
-        console.log(form[0]);
+    });
+
+
+    function create_or_show_chat(form, url,view = 0){
         var now = new Date().getDay();
         var fdata = $(form).serialize();
         $.ajax({
@@ -724,28 +711,31 @@ $user = Auth::user();
             data:fdata,
             processData: false,
             success:function(data) {
-                console.log(data);
-                var to_append = '<div class="tchat-box" style="left:'+chatbox_pos+'px"><div class="panel panel-default panel-chat"><div class="head-tchat"><div class="head-tchat-left">'+data.conv['name']+'</div><div class="head-tchat-right"><i class="fa fa-user-plus chat_user_add_button" aria-hidden="true"></i><i class="fa fa-times close" aria-hidden="true"></i></div></div><div class="chat_user_add_div"></div><div class="panel-body scroll-chat-box"><ul id="conv_messages_'+data.conv['id']+'" class="scroll">';
-                chatbox_pos+=370;
-                if(chatbox_pos > ($(document).width()-400))                 
-                {                     
-                    chatbox_pos = 200;
-                    $.each($('.tchat-box'),function(i,box){
-                        if($(box).css("left") == 200 )
-                        {
-                            $(box).remove();
-                        }
-                    });              
+                var to_append = '';
+                var chat_class = 'conv_messages_'+data.conv['id'];
+                if(!($('.'+chat_class).length))
+                {
+                    to_append = to_append+'<div class="tchat-box" style="left:'+chatbox_pos+'px"><div class="panel panel-default panel-chat"><div class="head-tchat"><div class="head-tchat-left">'+data.conv['name']+'</div><div class="head-tchat-right"><i class="fa fa-user-plus chat_user_add_button" aria-hidden="true"></i><i class="fa fa-times close" aria-hidden="true"></i></div></div><div class="chat_user_add_div"></div><div class="panel-body scroll-chat-box"><ul class="scroll conv_messages_'+data.conv['id']+'">';
+                    chatbox_pos+=370;
+
+                    if(chatbox_pos > ($(document).width()-400))
+                    {
+                        chatbox_pos = 200;
+                        $.each($('.tchat-box'),function(i,box){
+                            if($(box).css("left") == 200 )
+                            {
+                                $(box).remove();
+                            }
+                        });
+                    }
                 }
-                 
                 data.messages.forEach(function(message){
+                    var heureMessage = message['created_at'];
                     if(message['user_id'] == {{ $user->id }})
                     {
-                        var heureMessage = message['created_at'];
-                        console.log(heureMessage);
                         to_append = to_append + '<li class="right clearfix"><span class="chat-avatar pull-right"><img src="{{ $user->picture }}" alt="{{ $user->firstname.' '. $user->lastname }}" width="55px" height="55px"></span>'+
                                 '<div id="chat_sender1" class="chat-body clearfix"><div class="header">'+
-                                '<small class="text-muted"><span class="fa fa-clock-o">&nbsp;'+now+'</span>'+
+                                '<small class="text-muted"><span class="fa fa-clock-o">&nbsp;'+heureMessage+'</span>'+
                                 '</small><strong class="pull-right primary-font">{{ $user->firstname }} {{$user->lastname }}</strong>'+
                                 '</div>'+
                                 '<p>'+message['message']+'</p></div></li>';
@@ -759,18 +749,37 @@ $user = Auth::user();
                                 console.log(heureMessage);
                                 to_append = to_append + '<li class="left clearfix"><span class="chat-avatar pull-left"><img src="'+user['picture']+'" alt="'+user['firstname']+' '+user['lastname']+
                                         '" width="55px" height="55px"></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font">'+user['firstname']+' '+user['lastname']+
-                                        '</strong><small class="pull-right text-muted"><span class="fa fa-clock-o">&nbsp;'+now+'</span></small></div><p>'+message['message']+'</p></div></li>';
+                                        '</strong><small class="pull-right text-muted"><span class="fa fa-clock-o">&nbsp;'+heureMessage+'</span></small></div><p>'+message['message']+'</p></div></li>';
                             }
                         });
                     }
                 });
-                to_append = to_append + '</ul></div><div class="panel-footer"><form action="sendmessage" method="POST" class="chat_send_message"><div class="input-group">'+
-                        '<input type="hidden" name="_token" value="{{ csrf_token() }}"><input type="hidden" name="conversation_id" value="'+data.conv['id']+'">'+
-                        '<input id="btn-input" name="message" type="text" placeholder="Ecrivez un message..." class="form-control input-sm">'+
-                        '<span class="input-group-btn"><input type="submit" value="Envoyer" class="btn btn-success btn-sm"></span></div></form></div>';
 
-                $('.users-list').after(to_append);
-                $(".scroll-chat-box").scrollTop($(".scroll-chat-box")[0].scrollHeight);
+                if(!($('.'+chat_class).length))
+                {
+                    to_append = to_append + '</ul></div><div class="panel-footer"><form action="sendmessage" method="POST" class="chat_send_message"><div class="input-group">'+
+                            '<input type="hidden" name="_token" value="{{ csrf_token() }}"><input type="hidden" name="conversation_id" value="'+data.conv['id']+'">'+
+                            '<input id="btn-input" name="message" type="text" autocomplete="off" placeholder="Ecrivez un message..." class="form-control input-sm">'+
+                            '<span class="input-group-btn"><input type="submit" value="Envoyer" class="btn btn-success btn-sm"></span></div></form></div>';
+                }
+                if(view == 1)
+                {
+                    $('.conv_users-list').after(to_append);
+                    chatbox_pos = chatbox_pos-370;
+                }
+                else
+                {
+                    if($('.'+chat_class).length)
+                    {
+                        $('.conv_messages_'+data.conv['id']).html(to_append);
+                        $(".scroll-chat-box").scrollTop($(".scroll-chat-box")[0].scrollHeight);
+                    }
+                    else
+                    {
+                        $('.users-list').after(to_append);
+                        $(".scroll-chat-box").scrollTop($(".scroll-chat-box")[0].scrollHeight);
+                    }
+                }
             },
             error:function(jqXHR)
             {
@@ -779,8 +788,8 @@ $user = Auth::user();
             }
         });
     }
-    
-    
+
+
 </script>
 
 

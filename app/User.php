@@ -123,6 +123,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         return $this->hasMany('App\Conversation_user');
     }
+    
+    public function conversations_reverse()
+    {
+        return $this->conversations()->orderBy('updated_at', 'desc');
+    }
 
     public function products()
     {
@@ -131,6 +136,33 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     
     public function friends(){
         return $this->belongsToMany('App\User','users_links','user_id','userL_id');
+    }
+
+    public function isfriend($userid, $friendid){
+        $isfriend = $this->demandsto()
+            ->where('user_id', $userid)
+            ->where('userL_id', $friendid)
+            ->get();
+        if(count($isfriend)>0){
+            return 'demandsto';
+        }
+
+        $isfriend = $this->demandsfrom()
+            ->where('user_id', $friendid)
+            ->where('userL_id', $userid)
+            ->get();
+        if(count($isfriend)>0){
+            return 'demandsfrom';
+        }
+
+        $isfriend = $this->friends()
+            ->where('user_id', $userid)
+            ->where('userL_id', $friendid)
+            ->get();
+        if(count($isfriend)>0){
+            return 'estami';
+        }
+        return false;
     }
 
     public function pictures()

@@ -86,6 +86,15 @@
                                 @endif
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="private">Privé</label>
+                            <div class="col-sm-10">
+                                <div id="private">
+                                    <input type="radio" class="radio-inline" name="private" value="0" selected> Non
+                                    <input type="radio" class="radio-inline" name="private" value="1"> Oui
+                                </div>
+                            </div>
+                        </div>
                         <button type="submit" class="btn btn-default" style="float:right">Créer l'événement</button>
                     </div>
                     <div class="col-md-6">

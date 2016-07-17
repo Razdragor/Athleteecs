@@ -51,7 +51,7 @@
                                                     <input id="file-input" name="picture_status" type="file"/>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-primary pull-right">Post</button>
+                                            <button type="submit" class="btn btn-primary pull-right">Publier</button>
                                         </div>
                                         </form>
                                     </div>
@@ -109,7 +109,7 @@
                                                         <input id="file-input2" name="picture_status" type="file"/>
                                                     </div>
                                                 </div>
-                                                <button type="submit" class="btn btn-primary pull-right">Post</button>
+                                                <button type="submit" class="btn btn-primary pull-right">Publier</button>
                                             </div>
                                         </form>
                                     </div>

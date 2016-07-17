@@ -2292,6 +2292,10 @@ select[multiple].form-group-lg .form-control {
     margin-bottom: 0;
     padding-top: 7px;
   }
+
+    #private {
+        padding:7px;
+    }
 }
 .form-horizontal .has-feedback .form-control-feedback {
   right: 15px;

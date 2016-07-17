@@ -565,7 +565,12 @@ a.social-navbar .nav-indicators .nav-messages .dropdown-menu a.text-danger:hover
   }
   .social-navbar .nav-indicators-body {
     margin: 0 auto !important;
-    width: 150px;
+  @media screen and (max-width: 480px)
+  .social-navbar .nav-indicators-body {
+    margin: 0 auto !important;
+    float: none !important;
+    width: 240px;
+  }
     float: none !important;
   }
   .social-navbar .nav-indicators-body .dropdown {
@@ -981,6 +986,12 @@ a.social-navbar .nav-indicators .nav-messages .dropdown-menu a.text-danger:hover
 }
 .social-sidebar .chat .users-list a span {
   display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 128px;
+  white-space: nowrap;
+  float: left;
+  margin-top: 5px;
 }
 .social-sidebar .chat .users-list a .user-status {
   top: 0;

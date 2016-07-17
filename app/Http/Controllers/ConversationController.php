@@ -16,6 +16,10 @@ use LRedis;
 
 class ConversationController extends Controller
 {
+    public function index()
+    {
+        return view('front.conversation.index',['user' => Auth::user()]);
+    }
     
     public function create()
     {
@@ -114,8 +118,7 @@ class ConversationController extends Controller
         {
             if(!empty(Input::get('conversation_id')) && !empty(Input::get('message')))
             {
-                $conv = new Conversation();
-                $conv = $conv::where('id',Input::get('conversation_id'));
+                $conv = Conversation::where('id',Input::get('conversation_id'));
                 
                 if($conv->first())
                 {
@@ -127,8 +130,17 @@ class ConversationController extends Controller
                     $conv_message->user_id = $user->id;
                     $conv_message->save();
                     
+                    $conv_users = $conv->first()->conversation_users;
+                    foreach($conv_users as $conv_user)
+                    {
+                        $id = $conv_user->conversation_id;
+                        $conv_user->update(['conversation_id' => 0]);
+                        $conv_user->update(['conversation_id' => $id]);
+                    }
+                    
                     $redis = LRedis::connection();
                     $redis->publish('message', json_encode(['message'=>$conv_message->message,
+                                                            'message_h'=>$conv_message,
                                                             'conv_id'=>Input::get('conversation_id'),
                                                             'user'=>$user,
                                                             'users'=>$conv->first()->conversation_users
@@ -159,6 +171,16 @@ class ConversationController extends Controller
                     $conv->update(['name' => Input::get('conv_name')]);
                     
                     $conv = Conversation::where('id',Input::get('conversation_id'))->first();
+                    
+                    
+                    $conv_users = $conv->conversation_users;
+                    foreach($conv_users as $conv_user)
+                    {
+                        
+                        $id = $conv_user->conversation_id;
+                        $conv_user->update(['conversation_id' => 0]);
+                        $conv_user->update(['conversation_id' => $id]);
+                    }
                     
                     $redis = LRedis::connection();
                     $redis->publish('change_name', json_encode(['conv_name'=>Input::get('conv_name'),
@@ -264,6 +286,13 @@ class ConversationController extends Controller
                     $conv_id = $real_conv->id;
                     $conv_users = $real_conv->conversation_users;
                     $messages = $real_conv->conversation_messages;
+                                        
+                    foreach($conv_users as $conv_user)
+                    {
+                        $id = $conv_user->conversation_id;
+                        $conv_user->update(['conversation_id' => 0]);
+                        $conv_user->update(['conversation_id' => $id]);
+                    }
                    
                     $redis = LRedis::connection();
                     $redis->publish('add_user', json_encode(['friend'=>$friend,

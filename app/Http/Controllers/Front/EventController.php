@@ -111,7 +111,8 @@ class EventController extends Controller
             'region' => $data['region'],
             'country' => $data['country'],
             'user_id' => $user->id,
-            'sport_id' => $data['sport']
+            'sport_id' => $data['sport'],
+            'private' => $data['private']
         ));
 
         $event->description = $data['description'];
@@ -217,6 +218,7 @@ class EventController extends Controller
             $event->region = $data['region'];
             $event->country = $data['country'];
             $event->sport_id = $data['sport'];
+            $event->private = $data['private'];
 
             $event->save();
 

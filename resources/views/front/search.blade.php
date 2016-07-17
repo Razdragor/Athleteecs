@@ -29,7 +29,19 @@
                                     </div>
                                 </a>
                             </div>
-                            <a href="{{ route('front.friends.add', ['friend' => $friend['id']]) }}">Ajouter un ami</a>
+                            @if(Auth::user()->isfriend(Auth::user()->id,$friend['id'])==='demandsfrom')
+                                <a href="{{ route('front.friends.cancel', ['friend' => $friend['id']]) }}">Annuler la demande</a>
+
+                            @elseif(Auth::user()->isfriend(Auth::user()->id,$friend['id'])==='demandsto')
+                                <a href="{{ route('front.friends.accept', ['friend' => $friend['id']]) }}">Accepter la demande</a>
+                                <a href="{{ route('front.friends.cancel', ['friend' => $friend['id']]) }}">Refuser la demande</a>
+
+                            @elseif(Auth::user()->isfriend(Auth::user()->id,$friend['id'])==='estami')
+                                <a href="{{ route('front.friends.destroy', ['friend' => $friend['id']]) }}">Retirer de la liste d'amis</a>
+
+                            @else
+                                <a href="{{ route('front.friends.add', ['friend' => $friend['id']]) }}">Ajouter un ami</a>
+                            @endif
                         </div>
                     @endif
                 @empty

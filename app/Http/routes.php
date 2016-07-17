@@ -49,6 +49,7 @@ use Illuminate\Support\Facades\File;
         Route::get('/friends', 'Front\FriendsController@getAllFriends');
 
         //Chat
+        Route::resource('conversation', 'ConversationController',['only' => ['index']]);
         Route::post('sendmessage', ['as' => 'sendmessage', 'uses' => 'ConversationController@sendMessage']);
         Route::post('create_conversation', ['as' => 'create_conversation', 'uses' => 'ConversationController@create']);
         Route::post('show_conversation', ['as' => 'show_conversation', 'uses' => 'ConversationController@show']);

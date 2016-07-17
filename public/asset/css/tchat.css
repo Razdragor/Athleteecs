@@ -79,3 +79,60 @@
     padding: 0px;
     width: 195px;
 }
+img.chat-avatar{
+    max-width: 50px;
+}
+
+.conversation_chat_show{
+    margin:0px;
+    max-height: 100px;
+}
+
+.conversation_div {
+    margin: 15px 0;
+    border-bottom: 1px solid grey;
+}
+
+.conversation_chat_show .row{
+    margin:0px;
+    margin-bottom:10px;
+}
+.conversation_chat_show .row p{
+    margin:0px;
+}
+
+.panel-conv .tchat-box {
+    left: 0px!important;
+    position: relative!important;
+    bottom: 0px!important;
+    left: 200px;
+    width: 100%;
+    height: 100%;
+    z-index: 11;
+}
+
+.panel-conv .head-tchat {
+    display: none;
+}
+
+.panel-conv .panel-body .panel-footer {
+    display: none;
+}
+
+.panel-conv ul.scroll {
+    width: 100%;
+}
+
+.panel-conv.scroll-chat-box {
+    height: 100%;
+}
+
+.no_padding {
+    padding:0px;
+}
+.alignement-utilisateurs{
+    float: left;
+}
+.hauteur-utilisateurs-liste{
+    height:44px;
+}
