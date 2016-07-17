@@ -41,7 +41,7 @@
                                     <div class="tab-pane fade active in" id="tab_home">
                                         <form role="form" style="position: relative" action="{{ route("publication.store")}}" method="post" enctype="multipart/form-data">
                                             {{csrf_field()}}
-                                        <textarea id="user-post" name="message_status" placeholder="Partage ton statut" rows="3" class="form-control" style="resize: none;border: none;box-shadow: none" ></textarea>
+                                        <textarea id="user-post" name="message_status" placeholder="Partage ton statut" rows="3" class="form-control" style="resize: none;border: none;box-shadow: none" required></textarea>
                                         <div class="form-actions panel-foo">
                                             <div class="btn-group">
                                                 <div class="image-upload">
@@ -60,8 +60,8 @@
                                             {{csrf_field()}}
                                             <div style="padding: 10px;">
                                                 <div class="form-group">
-                                                    <label for="select-beast" class="">Sport :</label>
-                                                    <select id="select-beast" class="demo-default" name="sport_act">
+                                                    <label for="select-beast" class="" >Sport :</label>
+                                                    <select id="select-beast" class="demo-default" name="sport_act" required>
                                                         @foreach($sports as $sport)
                                                             <option value="{{ $sport->id }}">
                                                                 {{ $sport->name }}
@@ -72,7 +72,7 @@
                                                 <div class="form-group">
                                                     <label for="datetimepicker1" class="">Date de début :</label>
                                                     <div class="input-group date" id="datetimepicker1">
-                                                        <input type="text" class="form-control" placeholder="__/__/____ __:__" name="date_start_act">
+                                                        <input type="text" class="form-control" placeholder="__/__/____ __:__" name="date_start_act" required>
                                                         <span class="input-group-addon">
                                                         <span class="fa-calendar fa"></span>
                                                         </span>
@@ -97,7 +97,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="user-post">Donne ton ressenti</label>
-                                                    <textarea id="user-post" name="message_status" placeholder="Message..." rows="3" class="form-control" style="resize: none;border: none;" ></textarea>
+                                                    <textarea id="user-post" name="message_status" placeholder="Message..." rows="3" class="form-control" style="resize: none;border: none;" required ></textarea>
                                                 </div>
                                             </div>
                                             <div class="form-actions panel-foo">
@@ -117,8 +117,34 @@
                             </div>
                         </div>
                     </li>
-                    <?php $i = 1; ?>
-                    @foreach($publications as $publication)
+                    <?php $i = 1;$y = 0; ?>
+                    @for($z =0; $z < count($publications);$z++)
+                        @if($y < count($events) && $i % 3 == 0)
+                            <?php
+                                $event = $events[$y];
+                                $y++;
+                            ?>
+                            <li class="<?php if($i%2){echo 'timeline-inverted';} ?>">
+                                <div class="timeline-badge primary">
+                                    <a href="#"><i rel="tooltip" title="{{ $event->created_at }}" class="glyphicon glyphicon-record <?php if($i%2){echo 'timeline-inverted';} $i++; ?>"></i>
+                                    </a>
+                                </div>
+                                <div class="timeline-panel">
+                                    <div class="timeline-body">
+                                        <div class="post_picture_video">
+                                            <img src="{{ asset($event->picture) }}" alt="" class="img-responsive">
+                                        </div>
+                                        <div class="post_activity_msg">
+                                            {{$event->started_at}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        @else
+                        <?php
+                            $publication = $publications[$z];
+                            $z++;
+                        ?>
                         <li id="<?php
                                 if(is_null($publication->activity)){
                                     echo "publication-".$publication->id;
@@ -138,7 +164,13 @@
                                         </a>
                                     </div>
                                     <div style="margin: 10px;float:left;">
-                                        <span>{{ $publication->user->firstname.' '.$publication->user->lastname}}</span><br>
+                                        @if(!is_null($publication->association))
+                                            <span>{{$publication->user->firstname.' '.$publication->user->lastname}} - <a href="{{ route('association.show',['association' => $publication->association->id]) }}">{{ $publication->association->name }}</a></span><br>
+                                        @elseif(!is_null($publication->event))
+                                            <span>{{ $publication->user->firstname.' '.$publication->user->lastname}} - <a href="{{ route('event.show',['event' => $publication->event->id]) }}">{{ $publication->event->name }}</a></span><br>
+                                        @else
+                                            <span>{{ $publication->user->firstname.' '.$publication->user->lastname}}</span><br>
+                                        @endif
                                         <small><i aria-hidden="true" class="fa fa-clock-o"></i> {{ $publication->timeAgo($publication->created_at) }}</small>
 
                                         <div class="btn-group dropdown-post">
@@ -240,7 +272,8 @@
                                 </div>
                             </div>
                         </li>
-                    @endforeach
+                        @endif
+                    @endfor
                     <li style="float: none;" class="clearfix"></li>
                 </ul>
                 <input id="loadAllPublication" value="1" type="hidden" />
