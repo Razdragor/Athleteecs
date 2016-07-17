@@ -40,9 +40,9 @@ class Association extends Model
         return $this->belongsTo('App\Sport','sport_id');
     }
 
-    public function event()
+    public function events()
     {
-        return $this->hasMany('App\Event','event_id');
+        return $this->hasMany('App\Event');
     }
 
     public function members()

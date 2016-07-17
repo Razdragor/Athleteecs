@@ -47,7 +47,7 @@
         </div>
         <div class="row">
             <div class="col-sm-4 col-md-3">
-                <a class="btn btn-block btn-success"><i class="fa fa-envelope-alt"></i>Envoyer un message</a>
+                <a href="{{ url('conversation/'.$association->user_id) }}" class="btn btn-block btn-success"><i class="fa fa-envelope-alt"></i>Envoyer un message</a>
             </div>
             <div class="col-sm-8 col-md-9">
                 @if($user->isAdminAssociation($association->id))
@@ -89,14 +89,13 @@
                     @endif
                 </div>
                 <div class="association-body-left">
-                    <h4>Evènement à venir</h4>
+                    <h4>Evènement à venir <a href="{{url('event/create/'.$association->id)}}" class="pull-right"><i class="fa fa-plus"></i></a></h4>
                     <ul class="list-unstyled">
-                        <li>
-                            <a href="#"><i class="fa fa-calendar"></i>Event 1 </a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-calendar"></i>Event 2</a>
-                        </li>
+                        @foreach($association->events as $event)
+                            <li>
+                                <a href="{{url('event/'.$event->id)}}"><i class="fa fa-calendar"></i>{{$event->name}}</a>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
                 <div class="association-body-left">

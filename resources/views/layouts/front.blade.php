@@ -49,6 +49,8 @@ $user = Auth::user();
                     @endif
                 @endforeach
             </ul>
+            
+            <a href="{{ route('event.index') }}">Trouver un événement</a><br>
             <a href="{{ route('event.create') }}">Créer un event</a>
 
 
@@ -65,6 +67,7 @@ $user = Auth::user();
                     @endif
                 @endforeach
             </ul>
+            <a href="{{ route('association.index') }}">Trouver une association</a><br>
             <a href="{{ route('association.create') }}">Créer une association</a>
 
             <h4>Conversations :</h4>
