@@ -14,11 +14,26 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function addAjax(Request $request, Productduct $product)
+    public function addAjax(Request $request)
     {
-        if(\Request::ajax() && $product != null){
+        if(\Request::ajax()){
 
             $publicationUpdate = HelperPublication::update($request,$product);
+
+            $data = $request->all();
+
+            $validator = Validator::make($data, [
+                'message_status' => 'required',
+                'description' => 'required',
+                'productpicture' => 'mimes:jpeg,png,jpg'
+            ]);;
+
+            if ($validator->fails()) {
+                return array(
+                    'errors' => $validator
+                );
+            }
+
             if(is_array($publicationUpdate) && array_key_exists('errors',$publicationUpdate)){
                 return \Response::json(array(
                     'success' => false,
@@ -28,6 +43,7 @@ class ProductController extends Controller
 
             $publication = $publicationUpdate['publication'];
             $publication->save();
+
             $video = $publicationUpdate['video'];
 
             return \Response::json(array(
@@ -36,7 +52,10 @@ class ProductController extends Controller
                 'video' => $video
             ));
         }
+
+
     }
+
     public function index()
     {
 

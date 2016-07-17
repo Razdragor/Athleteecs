@@ -222,3 +222,12 @@
 .panel-foo {
     background-color: white;
 }
+.equipement-box img{
+    width: 60px;
+    height: 60px;
+}
+
+.checkbox-correct{
+    text-align: center;
+    padding-top: 15px;
+}

@@ -167,9 +167,6 @@
                                                             <ul class="list-unstyled"></dd>
                                                                 <li>
                                                                     <div class="col-md-1">
-                                                                        <input type="checkbox" id="{{$equipment->id}}" name="equipement[]" value="{{$equipment->id}}" checked>
-                                                                    </div>
-                                                                    <div class="col-md-2">
                                                                         <div class="equipement-cadre">
                                                                             <div class="equipement-box">
                                                                                 <img src="{{asset('images/'.$equipment->picture)}}"
@@ -183,6 +180,10 @@
                                                                         </a>
                                                                         <dd>{{ $equipment->description }}</dd>
                                                                     </div>
+                                                                    <div class="col-md-1 checkbox-correct">
+                                                                        <input type="checkbox" id="{{$equipment->id}}" name="equipement[]" value="{{$equipment->id}}" checked>
+                                                                    </div>
+
                                                                 </li>
                                                             </ul>
                                                         </div>
@@ -193,9 +194,6 @@
                                                             <ul class="list-unstyled"></dd>
                                                                 <li>
                                                                     <div class="col-md-1">
-                                                                        <input type="checkbox" id="{{$equip->id}}" name="equipement[]" value="{{$equip->id}}">
-                                                                    </div>
-                                                                    <div class="col-md-2">
                                                                         <div class="equipement-cadre">
                                                                             <div class="equipement-box">
                                                                                 <img src="{{asset('images/'.$equip->picture)}}"
@@ -208,6 +206,10 @@
                                                                             <dd>{{ $equip->name }}</dd>
                                                                         </a>
                                                                         <dd>{{ $equip->description }}</dd>
+                                                                    </div>
+
+                                                                    <div class="col-md-1 checkbox-correct">
+                                                                        <input type="checkbox" id="{{$equip->id}}" name="equipement[]" value="{{$equip->id}}">
                                                                     </div>
                                                                 </li>
                                                             </ul>
