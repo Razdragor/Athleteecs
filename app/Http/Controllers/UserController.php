@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Picture;
 use App\Product;
 use App\User;
+use App\UsersEquipsSports;
 use App\UsersSports;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -78,7 +79,7 @@ class UserController extends Controller
         $userEquipement = $user->products;
         $arrayUser = [];
 
-        foreach($userSports as $us){
+        foreach($userEquipement as $us){
             $arrayUser[] = $us->id;
         }
 
@@ -148,6 +149,7 @@ class UserController extends Controller
                 $user->sexe= $input['sexe'];
 
                 $user->save();
+
                 if(!empty($input['sport']))
                 {
                     $sports = $request->input('sport');
@@ -160,6 +162,7 @@ class UserController extends Controller
                         $userSport->save();
                     }
                 }
+
                 if(!empty($input['sportsuppr']))
                 {
                     $sportsuppr = $request->input('sportsuppr');
@@ -168,6 +171,35 @@ class UserController extends Controller
                     {
                         $match = ['user_id' => $user->id, 'sport_id' => $sport];
                         $userSport = UsersSports::where($match)->delete();
+                    }
+                }
+
+                if(!empty($input['equipement']))
+                {
+                    $products = $request->input('equipement');
+
+                    foreach($products as $product)
+                    {
+                        $prod = Product::find($product);
+                        $sportid = $prod->sport->first();
+
+                        $userEquipsSports = new UsersEquipsSports();
+                        $userEquipsSports->user_id = $user->id;
+                        $userEquipsSports->product_id= $product;
+                        $userEquipsSports->sport_id= $sportid->id;
+
+                        $userEquipsSports->save();
+                    }
+                }
+
+                if(!empty($input['equipementsuppr']))
+                {
+                    $productsuppr = $request->input('equipementsuppr');
+
+                    foreach($productsuppr as $prod)
+                    {
+                        $match = ['user_id' => $user->id, 'product_id' => $prod];
+                        $userEquipsSports = UsersEquipsSports::where($match)->delete();
                     }
                 }
 

@@ -20,6 +20,8 @@ class ProductController extends Controller
     public function addAjax(Request $request)
     {
         if(\Request::ajax()){
+            $lastproduct = Product::all()->last()->get();
+
             $product = new Product();
 
             $data = $request->all();
@@ -39,6 +41,16 @@ class ProductController extends Controller
             $product->description = $data['description'];
             $product->price= $data['price'];
             $product->url = $data['url'];
+
+            if(!empty($lastproduct))
+            {
+                $productId = $lastproduct->id+1;
+            }
+            else
+            {
+                $productId = 1;
+            }
+
 
             if ($request->hasFile('picture')) {
                 $guid = com_create_guid();
@@ -63,6 +75,7 @@ class ProductController extends Controller
                 'description' => $data['description'],
                 'price' => $data['price'],
                 'url' => $data['url'],
+                'productId' => $productId,
                 'picture' => $imageName
 
             ));

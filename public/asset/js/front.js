@@ -77,8 +77,9 @@ $(document).ready(function() {
                     $description = data['description'];
 
 
-                    var divparent = $('.row .tab-pane.active.equipement').first();
-                    var div = divparent.children();
+                    var parent = $('.tab-pane.active.equipement').first();
+                    var div = parent.children().first() ;
+
                     div.append("<div class ='row'>" +
                         "<ul class='list-unstyled'></dd>" +
                             "<li>" +
@@ -96,7 +97,7 @@ $(document).ready(function() {
                                     "<dd>" + $description + "</dd>"+
                                 "</div>"+
                                 "<div class='col-md-1 checkbox-correct'>"+
-                                    "<input type='checkbox' id='' name='equipement[]' value=''>"+
+                                    "<input type='checkbox' id='"+ $productId +"' name='equipement[]' value='" + $productId + "'>"+
                                 "</div>"+
                             "</li>"+
                         "</ul>"+

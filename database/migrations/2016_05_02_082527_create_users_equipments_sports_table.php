@@ -13,6 +13,7 @@ class CreateUsersEquipmentsSportsTable extends Migration
     public function up()
     {
         Schema::create('users_equips_sports', function (Blueprint $table) {
+            $table->increments('id');
             $table->bigInteger('user_id');
             $table->bigInteger('product_id');
             $table->bigInteger('sport_id');

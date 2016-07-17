@@ -34,5 +34,10 @@ class Product extends Model
     {
         return $this->belongsToMany('App\User', 'users_equips_sports', 'user_id', 'product_id');
     }
+    public function sport()
+    {
+        return $this->belongsToMany('App\Sport', 'users_equips_sports', 'sport_id', 'product_id');
+    }
+
 
 }
