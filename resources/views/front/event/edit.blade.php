@@ -222,8 +222,8 @@
             initMap();
             initAutocomplete();
         }
-        var latd = parseFloat({{ $association->lattitude }});
-        var lngd= parseFloat({{ $association->longitude }});
+        var latd = parseFloat({{ $event->lattitude }});
+        var lngd= parseFloat({{ $event->longitude }});
 
         var myLatLng = {lat: 48.866667, lng: 2.333333};
 
