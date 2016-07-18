@@ -41,7 +41,7 @@ $user = Auth::user();
                 @foreach($user->events as $user_event)
                     @if($user->isMemberEvent($user_event->event->id))
                         <li>
-                            <a href="{{ route('event.index', ['events' => $user_event->event->id]) }}">
+                            <a href="{{ route('event.show', ['events' => $user_event->event->id]) }}">
                                 {{$user_event->event->name}}
 
                             </a>
@@ -60,7 +60,7 @@ $user = Auth::user();
                 @foreach($user->associations as $association)
                     @if($user->isMemberAssociation($association->association->id))
                         <li>
-                            <a href="{{ route('association.index', ['association' => $association->association->id]) }}">
+                            <a href="{{ route('association.show', ['association' => $association->association->id]) }}">
                                 {{$association->association->name}}
                             </a>
                         </li>

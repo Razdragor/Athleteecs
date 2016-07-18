@@ -8118,3 +8118,10 @@ button.close {
 .lien-admin,.lien-admin:hover{
     color: #fff;
 }
+.associations_events {
+    padding:5px;
+    font-size:16px;
+}
+.associations_events span{
+    font-size:14px;
+}
