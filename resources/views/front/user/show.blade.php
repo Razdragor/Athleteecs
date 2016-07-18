@@ -32,6 +32,7 @@
             margin-top: 0 !important;
             margin-bottom: 40px;
         }
+
     </style>
 @endsection
 
@@ -44,7 +45,10 @@
                 <div class="row">
                     <div class="col-md-2 col-md-2">
                         <div class="row">
-                            <div class="col-md-12 text-center">
+                            <div class="col-md-12 text-center" style="position: relative">
+                                @if($user->star == true)
+                                    <img src="{{ asset('images/medal-1-s.png') }}" alt="medal" class="img-star">
+                                @endif
                                 <img src="{{$user->picture}}" alt="Avatar" class="img-thumbnail img-responsive">
                             </div>
                         </div>
@@ -84,7 +88,10 @@
                         <div class="row">
                             <!-- BEGIN USER STATUS-->
                             <div id="user-status" class="text-left col-sm-10 col-md-10">
-                                <h3>{{ $user->firstname}} {{$user->lastname }}</h3>
+
+                                <h3>
+                                    {{ $user->firstname}} {{$user->lastname }}
+                                </h3>
                             </div>
                             <!-- END USER STATUS-->
                             @if(Auth::user() == $user)
@@ -106,21 +113,21 @@
                         <!-- BEGIN TABS SELECTIONS-->
                         <div class="row">
                             <ul id="profileTab" class="nav nav-tabs">
-                                <li id="pots" class="ok">
-                                    <a href="#">Actualités</a>
+                                <li class="active">
+                                    <a href="#pots" data-toggle="tab" aria-expanded="true">Actualités</a>
                                 </li>
-                                <li class="active ok" id="infos">
-                                    <a href="#" data-toggle="tab">Informations</a>
+                                <li>
+                                    <a href="#infos" data-toggle="tab" aria-expanded="false">Informations</a>
                                 </li>
-                                <li id="amis" class="ok">
-                                    <a href="#">{{count($user->friends)}} @if(count($user->friends)>1) Amis @else
+                                <li>
+                                    <a href="#amis" data-toggle="tab" aria-expanded="false">{{count($user->friends)}} @if(count($user->friends)>1) Amis @else
                                             Ami @endif</a>
                                 </li>
-                                <li id="equipement" class="ok">
-                                    <a href="#">Equipements</a>
+                                <li>
+                                    <a href="#equipement" data-toggle="tab" aria-expanded="false">Equipements</a>
                                 </li>
-                                <li id="photos" class="ok">
-                                    <a href="#">Photos</a>
+                                <li>
+                                    <a href="#photo" data-toggle="tab" aria-expanded="false">Photos</a>
                                 </li>
 
                             </ul>
@@ -129,7 +136,7 @@
                         <div class="row">
                             <!-- BEGIN TABS SECTIONS-->
                             <div id="profileTabContent" class="tab-content col-sm-7 col-md-7">
-                                <div class="tab-pane active pots" style="display: none;">
+                                <div class="tab-pane fade active in" id="pots">
                                     <ul class="timeline-2-cols">
                                         <?php $i = 0; ?>
                                         @foreach($user->publications as $publication)
@@ -150,6 +157,9 @@
                                                             </a>
                                                         </div>
                                                         <div style="margin: 10px;float:left;">
+                                                            @if($publication->user->star == true)
+                                                                <img src="{{ asset('images/medal-1.png') }}" alt="medal">
+                                                            @endif
                                                             @if(!is_null($publication->association))
                                                                 <span>{{$publication->user->firstname.' '.$publication->user->lastname}} - <a href="{{ route('association.show',['association' => $publication->association->id]) }}">{{ $publication->association->name }}</a></span><br>
                                                             @elseif(!is_null($publication->event))
@@ -233,7 +243,7 @@
                                         @endforeach
                                     </ul>
                                 </div>
-                                <div class="tab-pane active infos">
+                                <div class="tab-pane fade" id="infos">
                                     <br>
                                     <dl class="dl-horizontal">
                                         <dt>Sexe</dt>
@@ -283,7 +293,7 @@
 
                                     </dl>
                                 </div>
-                                <div class="tab-pane active photos" style="display: none;">
+                                <div class="tab-pane fade" id="photos">
                                     <div id="3" class="section-portfolio-items isotopeWrapper clearfix">
                                         @foreach($user->pictures as $picture)
                                             <article class="col-md-4 isotopeItem webdesign">
@@ -298,7 +308,7 @@
                                         @endforeach
                                     </div>
                                 </div>
-                                <div class="tab-pane active equipement" style="display: none;">
+                                <div class="tab-pane fade" id="equipement">
                                     <div class="row">
                                         @foreach($user->products as $equipment)
                                             <div class="row">
@@ -321,7 +331,7 @@
                                     </div>
                                 </div>
 
-                                <div class="tab-pane active amis" style="display: none;">
+                                <div class="tab-pane fade" id="amis">
                                     <div class="row">
                                         @forelse($user->friends as $friend)
                                             <div class="col-md-2 onefriend">

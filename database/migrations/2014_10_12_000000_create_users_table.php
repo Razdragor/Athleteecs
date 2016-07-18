@@ -30,7 +30,7 @@ class CreateUsersTable extends Migration
             $table->string('school')->nullable();
             $table->string('address')->nullable();
             $table->boolean('newsletter')->default(false);
-            $table->boolean('start')->default(false);
+            $table->boolean('star')->default(false);
             $table->timestamps();
         });
     }

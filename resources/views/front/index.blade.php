@@ -164,6 +164,9 @@
                                         </a>
                                     </div>
                                     <div style="margin: 10px;float:left;">
+                                        @if($publication->user->star == true)
+                                            <img src="{{ asset('images/medal-1.png') }}" alt="medal">
+                                        @endif
                                         @if(!is_null($publication->association))
                                             <span>{{$publication->user->firstname.' '.$publication->user->lastname}} - <a href="{{ route('association.show',['association' => $publication->association->id]) }}">{{ $publication->association->name }}</a></span><br>
                                         @elseif(!is_null($publication->event))

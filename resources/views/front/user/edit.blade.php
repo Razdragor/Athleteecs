@@ -29,7 +29,6 @@
                                         <div class="col-md-12 text-center">
                                             <img src="{{$user->picture}}" alt="Avatar"
                                                  class="img-thumbnail img-responsive">
-
                                             <div class="image-upload">
                                                 <label for="picture">
                                                     <div class="btn btn-default">
@@ -131,7 +130,19 @@
                                                             Autre
                                                         </option>
                                                     </select></dd>
-
+                                                    <dd class="divider"></dd>
+                                                    <dt>Status</dt>
+                                                    <dd>
+                                                        @if($user->star == true)
+                                                            Personnalité <br>
+                                                            <button type="button" class="btn btn-default" id="demandeStarRemove">Ne plus être reconnu en tant que personnalité</button>
+                                                            <span id="responseDemandeStar"></span>
+                                                        @else
+                                                            Athlète <br>
+                                                            <button type="button" class="btn btn-default" id="demandeStar">Etre reconnu en tant que personnalité</button>
+                                                            <span id="responseDemandeStar"></span>
+                                                        @endif
+                                                    </dd>
                                                     <dd class="divider"></dd>
                                                     <dt>Poste actuel</dt>
                                                     <dd><input type="text" class="form-control" name="job" value="{{ $user->job }}">
@@ -178,6 +189,7 @@
                                                     @else
                                                         <dd><input type="checkbox" class="" name="newsletter"></dd>
                                                     @endif
+
 
                                                 </dl>
                                             </div>
