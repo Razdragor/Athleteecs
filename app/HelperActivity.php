@@ -128,6 +128,8 @@ class HelperActivity
             );
             $imageName = '/images/publications/' . $imageName;
             $activity->picture = $imageName;
+            $publication->picture = $imageName;
+            $publication->save();
             Picture::create(array(
                 'user_id' => $user->id,
                 'link' => $imageName

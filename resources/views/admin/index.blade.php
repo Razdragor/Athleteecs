@@ -89,8 +89,8 @@
                                                     @else
                                                         <div class="label label-danger feed-icon"><i class="fa fa-warning"></i></div>
                                                     @endif
-                                                    <span>&nbsp;{{ $post->message }}&nbsp;</span>
-                                                    <span class="feed-time">
+                                                        <span>&nbsp;{{ $post->message }}&nbsp;</span>
+                                                      <span class="feed-time">
                                                         <em>{{ $post->timeago($post->created_at) }}</em>
                                                     </span>
                                                 </a>
@@ -223,7 +223,7 @@
                     },
                     legend: {
                         show: true,
-                        placement: 'outside'
+                        placement: 'inside'
                     },
                     series: [{label: 'Publications'}, {label: 'Commentaires'}],
                     seriesDefaults: {
@@ -270,7 +270,7 @@
 
                 $('.jqplot-highlighter-tooltip').addClass('ui-corner-all')
             });
-            getRequest('admin/dataactivite', function(data) {
+            /*getRequest('admin/dataactivite', function(data) {
                 var plot1 = $.jqplot("chart3", data, {
                     seriesColors: ["rgb(247,35, 12)", "rgb(44,117,255)"],
                     highlighter: {
@@ -333,7 +333,7 @@
                 });
 
                 $('.jqplot-highlighter-tooltip').addClass('ui-corner-all')
-            });
+            });*/
         });
     </script>
     <script type="text/javascript" src="{{ asset('asset/js/jqplot/jquery.jqplot.js') }}"></script>

@@ -39,6 +39,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         'password', 'remember_token',
     ];
 
+    public function getPictureAttribute(){
+        if(is_null($this->attributes['picture'])) {
+            return '/asset/img/avatars/avatar.png';
+        }
+        return $this->attributes['picture'];
+    }
+
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = bcrypt($value);

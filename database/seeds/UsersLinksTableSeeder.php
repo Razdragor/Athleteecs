@@ -38,5 +38,19 @@ class UsersLinksTableSeeder extends Seeder
             'created_at' => Carbon\Carbon::now(),
             'updated_at' => Carbon\Carbon::now()
         ]);
+
+        DB::table('users_links')->insert([
+            'user_id' => '2',
+            'userL_id' => '3',
+            'created_at' => Carbon\Carbon::now(),
+            'updated_at' => Carbon\Carbon::now()
+        ]);
+
+        DB::table('users_links')->insert([
+            'user_id' => '3',
+            'userL_id' => '2',
+            'created_at' => Carbon\Carbon::now(),
+            'updated_at' => Carbon\Carbon::now()
+        ]);
     }
 }

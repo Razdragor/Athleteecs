@@ -7,7 +7,9 @@
         html, body { height: 100%; margin: 0; padding: 0; }
         #map {height: 500px; }
     </style>
-
+    <link href="{{ asset('asset/css/glyphicons_free/glyphicons.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.halflings.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')

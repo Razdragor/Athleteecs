@@ -22,6 +22,7 @@ class UsersTableSeeder extends Seeder
             'sexe' => 'Homme',
             'score' => 0,
             'newsletter' => 0,
+            'star' => 1,
             'created_at' => Carbon\Carbon::now(),
             'updated_at' => Carbon\Carbon::now()
         ]);
@@ -60,6 +61,16 @@ class UsersTableSeeder extends Seeder
         DB::table('role_user')->insert([
             'user_id' => 1,
             'role_id' => 1
+        ]);
+
+        DB::table('role_user')->insert([
+            'user_id' => 2,
+            'role_id' => 2
+        ]);
+
+        DB::table('role_user')->insert([
+            'user_id' => 3,
+            'role_id' => 2
         ]);
     }
 }
