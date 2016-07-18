@@ -80,11 +80,20 @@ class PublicationsTableSeeder extends Seeder
         ]);
 
         DB::table('publications')->insert([
-            'message' => 'Le plus beau but!',
-            'video_id' => 3,
+            'message' => '10 Km de paris',
             'status' => 'Success',
             'user_id' => 1,
-            'association_id' => 1,
+            'activity_id' => 1,
+            'created_at' => Carbon\Carbon::now(),
+            'updated_at' => Carbon\Carbon::now()
+        ]);
+
+        DB::table('publications')->insert([
+            'message' => 'Entrainement pectoraux',
+            'status' => 'Success',
+            'picture' => '/images/muscle.jpg',
+            'user_id' => 2,
+            'activity_id' => 2,
             'created_at' => Carbon\Carbon::now(),
             'updated_at' => Carbon\Carbon::now()
         ]);

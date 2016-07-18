@@ -22,6 +22,7 @@ class UsersTableSeeder extends Seeder
             'sexe' => 'Homme',
             'score' => 0,
             'newsletter' => 0,
+            'star' => 1,
             'created_at' => Carbon\Carbon::now(),
             'updated_at' => Carbon\Carbon::now()
         ]);
