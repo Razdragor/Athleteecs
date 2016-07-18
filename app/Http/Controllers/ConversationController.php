@@ -79,7 +79,7 @@ class ConversationController extends Controller
             {
                 if($my_conversation_users->conversation)
                 {             
-                        if(count($my_conversation_users->conversation->conversation_users)==2)
+                        if($my_conversation_users->conversation->group == false)
                         {
                             foreach($my_conversation_users->conversation->conversation_users as $my_conversation_friend)
                             {
@@ -146,10 +146,16 @@ class ConversationController extends Controller
             {
                 
                 $conv = Conversation::where('id',Input::get('conv_id'))->first();
+                
+                $users = array();
+                foreach($conv->conversation_users as $conv_user)
+                {
+                    array_push($users,$conv_user->user);
+                }
                  return \Response::json(array(
                     'success' => true,
                     'conv' => $conv,
-                    'users' => $conv->conversation_users,
+                    'users' => $users,
                     'messages' => $conv->conversation_messages,
                 ));
             } 
@@ -326,6 +332,7 @@ class ConversationController extends Controller
                     else
                     {
                         $conv->name = $conv->name.' & '.$friend->firstname;
+                        $conv->save();
                         $new_conversation_user = new Conversation_user;
                         $new_conversation_user->conversation_id = $conv->id;
                         $new_conversation_user->user_id = Input::get('friend_id');

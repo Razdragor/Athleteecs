@@ -95,7 +95,7 @@ $(document).ready(function() {
                     $url = data['url'];
                     $price = data['price'];
                     $description = data['description'];
-
+                    $productId = data['productId']
 
                     var parent = $('.tab-pane.active.equipement').first();
                     var div = parent.children().first() ;
@@ -146,7 +146,15 @@ $(document).ready(function() {
                     var parent = $('.tab-pane.active.photos').first();
                     var div = parent.children().first() ;
 
-                    div.append("<div class ='row'>ok</div>");
+                    div.append("<article class='col-md-4 isotopeItem webdesign'>"+
+                                "<div class='section-portfolio-item'>" +
+                                    "<div class='picture-cadre'>"+
+                                        "<div class='picture-box'>"+
+                                            "<img src='images/users/"+$picture+"' alt='image'>"+
+                                        "</div>"+
+                                    "</div>"+
+                                "</div>"+
+                            "</article>");
                 }
             }
         });
