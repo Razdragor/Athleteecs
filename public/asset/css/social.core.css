@@ -8115,3 +8115,6 @@ button.close {
 .main{
   min-height: 750px;
 }
+.lien-admin,.lien-admin:hover{
+    color: #fff;
+}
