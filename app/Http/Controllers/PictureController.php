@@ -23,8 +23,6 @@ class PictureController extends Controller
 
             $picture = new Picture();
 
-            dd($request->file('bader'));
-
             $data = $request->all();
 
             $rules = [
@@ -43,11 +41,11 @@ class PictureController extends Controller
                 );
             }
 
-            if($request->hasFile('bader')) {
+            if($request->hasFile('userpicture')) {
                 $guid = sha1(time());
-                $imageName = $guid . "." . $request->file('bader')->getClientOriginalExtension();;
+                $imageName = $guid . "." . $request->file('userpicture')->getClientOriginalExtension();;
 
-                $request->file('bader')->move(
+                $request->file('userpicture')->move(
                     base_path() . '/public/images/users', $imageName
                 );
 

@@ -131,7 +131,7 @@ $(document).ready(function() {
         e.preventDefault();
         var $form = $(this);
         $.ajax({
-            url: "/Athleteecs/public/picture/addAjax",
+            url: "/picture/addAjax",
             type: 'post',
             contentType: false, // obligatoire pour de l'upload
             processData: false, // obligatoire pour de l'upload

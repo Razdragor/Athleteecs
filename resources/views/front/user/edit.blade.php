@@ -407,7 +407,7 @@
                                                 <label for="file-input-modal">
                                                     <div class="btn btn-default"><i class="fa fa-camera fa-3x"></i></div>
                                                 </label>
-                                                <input id="file-input-modal" name="bader" type="file"/>
+                                                <input id="file-input-modal" name="userpicture" type="file"/>
                                         </div>
                                         <button type="submit" class="btn btn-primary pull-right semi">Ajouter</button>
                                     </div>
