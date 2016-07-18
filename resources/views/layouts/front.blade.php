@@ -50,8 +50,8 @@ $user = Auth::user();
                 @endforeach
             </ul>
 
-            <a href="{{ route('event.index') }}">Trouver un événement</a><br>
-            <a href="{{ route('event.create') }}">Créer un event</a>
+            <a href="{{ route('event.index') }}" class="lien-barre-user">Trouver un événement</a><br>
+            <a href="{{ route('event.create') }}" class="lien-barre-user">Créer un event</a>
 
 
             <h4 class="blanc">Associations :</h4>
@@ -67,8 +67,8 @@ $user = Auth::user();
                     @endif
                 @endforeach
             </ul>
-            <a href="{{ route('association.index') }}">Trouver une association</a><br>
-            <a href="{{ route('association.create') }}">Créer une association</a>
+            <a href="{{ route('association.index') }}" class="lien-barre-user">Trouver une association</a><br>
+            <a href="{{ route('association.create') }}" class="lien-barre-user">Créer une association</a>
 
             <h4 class="blanc">Conversations :</h4>
 
@@ -84,7 +84,7 @@ $user = Auth::user();
                     @endif
                 @endforeach
             </ul>
-            <a href="#">Créer un groupe</a>
+            <a href="#" class="lien-barre-user">Créer un groupe</a>
 
             <div class="chat visible-lg visible-md">
                 <ul class="users-list">
@@ -115,7 +115,8 @@ $user = Auth::user();
                 <ul class="nav navbar-nav navbar-right">
                     <li class="divider-vertical"></li>
                     <li class="dropdown">
-                        <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle"><i class="fa fa-caret-down fa-lg"></i>
+                        <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
+                            <i class="fa fa-caret-down fa-lg"></i>
                         </a>
                         <ul class="dropdown-menu">
                             <li>
@@ -146,6 +147,12 @@ $user = Auth::user();
                     <ul class="nav navbar-nav navbar-right nav-indicators-body">
                       <!-- DEBUT AMIS-->
                         <a href="{{ route('user.show',['user' => Auth::user()->id]) }}"><img src="{{ Auth::user()->picture}}" alt="Avatar" class="dropdown nav-notifications img-navbarre"></a>
+
+                        <li class="dropdown nav-notifications">
+                            <a href="/conversation" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
+                                <i class="fa fa-comments-o"></i>
+                            </a>
+                        </li>
 
                         <li class="dropdown nav-notifications">
                             <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
@@ -379,7 +386,7 @@ $user = Auth::user();
                 $('.'+chat_class).append('<li class="right clearfix"><span class="chat-avatar pull-right"><img src="{{ $user->picture }}" alt="{{ $user->firstname.' '. $user->lastname }}"></span>'+
                         '<div class="chat-body chat_sender1 clearfix"><div class="header">'+
                         '<small class="text-muted"><span class="fa fa-clock-o">&nbsp;</span>'+heureMessage+
-                        '</small><strong class="pull-right primary-font">{{ $user->firstname }} {{$user->lastname }}</strong>'+
+                        '</small><strong class="pull-right primary-font username-chatbox">{{ $user->firstname }} {{$user->lastname }}</strong>'+
                         '</div>'+
                         '<p class="chat_message">'+chat_msg[0]['message']+'</p></div></li>');
                 $('.'+chat_class).parent().scrollTop($(".scroll-chat-box")[0].scrollHeight);
@@ -576,7 +583,7 @@ $user = Auth::user();
                         to_append = to_append + '<li class="right clearfix"><span class="chat-avatar pull-right"><img src="{{ $user->picture }}" alt="{{ $user->firstname.' '. $user->lastname }}" width="45px" height="45px"></span>'+
                                 '<div class="chat-body chat_sender1 clearfix"><div class="header">'+
                                 '<small class="text-muted"><span class="fa fa-clock-o">&nbsp;</span>'+heureMessage+
-                                '</small><strong class="pull-right primary-font">{{ $user->firstname }}</strong>'+
+                                '</small><strong class="pull-right primary-font username-chatbox">{{ $user->firstname }}</strong>'+
                                 '</div>'+
                                 '<p class="chat_message">'+message['message']+'</p></div></li>';
                     }

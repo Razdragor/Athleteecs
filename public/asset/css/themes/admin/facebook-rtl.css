@@ -169,7 +169,7 @@ body {
   }
 
   .social-navbar .navbar-brand {
-    background-color: #647aab !important;
+    background-color: #B9121B !important;
     color: #ffffff !important;
     border-bottom: 1px solid #4C1B1B !important;
   }
@@ -247,7 +247,7 @@ body {
 
 .social-sidebar .user .user-settings .user-settings-content a:hover {
   color: #ffffff !important;
-  background-color: #647aab !important;
+  background-color: #B9121B !important;
 }
 
 .social-sidebar .user .user-settings .user-settings-content a:hover .title,

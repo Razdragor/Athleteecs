@@ -124,6 +124,7 @@
 .img-navbarre {
     float: left;
     height: 38px;
+    width: 38px;
     border-radius: 100%;
     border: 2px solid antiquewhite;
     margin: 1px;

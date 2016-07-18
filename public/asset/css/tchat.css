@@ -165,11 +165,19 @@ img.chat-avatar{
     cursor: pointer;
     margin-right: 5px;
 }
+.add-button:hover{
+    color: #4C1B1B;
+}
 
 .close-button{
     float: right;
     font-size: 20px !important;
     color: #B9121B;
+    opacity: inherit;
+}
+.close-button:hover{
+    color: #4C1B1B;
+    opacity: inherit;
 }
 
 .tchat-box small {
@@ -179,4 +187,12 @@ img.chat-avatar{
 .chat_message {
     margin-top:5px!important;
     margin-bottom:5px!important;
+}
+
+.username-chatbox{
+    color: #B9121B;
+}
+
+.lien-barre-user:hover{
+    color: #B9121B;
 }
