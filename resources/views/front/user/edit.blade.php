@@ -325,21 +325,35 @@
                                                     @endforeach
                                                 </ul>
                                             </div>
-                                            <div class="tab-pane active photos" style="display: none;">
+                                            <div class="tab-pane active photos">
 
-                                                    @foreach($user->pictures as $picture)
-                                                        <article class="col-md-4 isotopeItem webdesign">
-                                                            <div class="section-portfolio-item">
-                                                                <div class="picture-cadre">
-                                                                    <div class="picture-box">
-                                                                        <img src="{{ $picture->link }}" alt="image">
-                                                                    </div>
+                                                @foreach($user->pictures as $picture)
+                                                    <article class="col-md-4 isotopeItem webdesign">
+                                                        <div class="section-portfolio-item">
+                                                            <div class="picture-cadre">
+                                                                <div class="picture-box">
+                                                                    <img src="{{ $picture->link }}" alt="image">
                                                                 </div>
                                                             </div>
-                                                        </article>
-                                                    @endforeach
-                                                        <a href="#" id="addphoto">
-                                                            <span class="fa fa-plus fa-2x"></span> Ajouter une photo</a>
+                                                        </div>
+                                                    </article>
+                                                @endforeach
+                                                    <div class="col-md-12 text-center">
+                                                        <div class="image-upload">
+                                                            <label for="picture">
+                                                                <div class="btn btn-default">
+                                                                    <i class="fa fa-camera"></i>
+                                                                </div>
+                                                            </label>
+                                                            <input type="file" name="userpicture" id="userpicture" class="filehide"/>
+
+                                                        </div>
+                                                        @if ($errors->has('picture'))
+                                                            <span class="help-block">
+                                                            <strong>{{ $errors->first('picture') }}</strong>
+                                                            </span>
+                                                        @endif
+                                                    </div>
                                             </div>
                                             <div class="tab-pane active amis" style="display: none;">
                                                 <div class="row">
