@@ -325,6 +325,7 @@ class ConversationController extends Controller
                     }
                     else
                     {
+                        $conv->name = $conv->name.' & '.$friend->firstname;
                         $new_conversation_user = new Conversation_user;
                         $new_conversation_user->conversation_id = $conv->id;
                         $new_conversation_user->user_id = Input::get('friend_id');
