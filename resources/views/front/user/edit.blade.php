@@ -87,7 +87,7 @@
                                             <li id="equipement" class="ok">
                                                 <a href="#">Equipements</a>
                                             </li>
-                                            <li id="photos" class="ok">
+                                            <li id="photo" class="ok">
                                                 <a href="#">Photos</a>
                                             </li>
 
@@ -330,13 +330,13 @@
                                                     @endforeach
                                                 </ul>
                                             </div>
-                                            <div class="tab-pane active photos"  style="display: none;">
+                                            <div class="tab-pane active photo"  style="display: none;">
                                                 @foreach($user->pictures as $picture)
                                                     <article class="col-md-4 isotopeItem webdesign">
                                                         <div class="section-portfolio-item">
                                                             <div class="picture-cadre">
                                                                 <div class="picture-box">
-                                                                    <img src="{{ $picture->link }}" alt="image">
+                                                                    <img src="{{ asset('images/users/'.$picture->link) }}" alt="image">
                                                                 </div>
                                                             </div>
                                                         </div>

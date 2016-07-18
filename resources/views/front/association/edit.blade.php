@@ -10,10 +10,24 @@
     <link href="{{ asset('asset/css/glyphicons_free/glyphicons.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.halflings.css') }}" rel="stylesheet">
+    <script src="{{ asset('asset/js/plugins/tinymce/tinymce.min.js') }}"></script>
+    <script>tinymce.init({
+            selector: 'textarea',
+            height: 250,
+            plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table contextmenu paste code'
+            ],
+            toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+            content_css: [
+                '//www.tinymce.com/css/codepen.min.css'
+            ]
+        });</script>
 @endsection
 
 @section('content')
-    <div class="container">
+    <div class="container" style="margin-bottom:50px;">
         <div class="row">
             <div style="width: 90%;margin:auto;">
                 <div><h1>Modifier votre association </h1></div>
@@ -160,7 +174,14 @@
             initMap();
             initAutocomplete();
         }
+        var latd = parseFloat({{ $association->lattitude }});
+        var lngd= parseFloat({{ $association->longitude }});
+
         var myLatLng = {lat: 48.866667, lng: 2.333333};
+
+        if(latd && lngd){
+            myLatLng = {lat: latd, lng: lngd};
+        }
         var map;
         var marker;
         function initMap() {

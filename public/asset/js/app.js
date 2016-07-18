@@ -92,11 +92,11 @@ $('#amis').click(function() {
   $('.amis').show();
 });
 
-$('#photos').click(function() {
+$('#photo').click(function() {
   var valeur;
   valeur = $(".active.ok").attr('id');
   $('#'+valeur).removeClass("active");
   $('.'+valeur).hide();
   $(this).addClass('active');
-  $('.photos').show();
+  $('.photo').show();
 });
