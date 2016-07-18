@@ -336,7 +336,7 @@
                                                         <div class="section-portfolio-item">
                                                             <div class="picture-cadre">
                                                                 <div class="picture-box">
-                                                                    <img src="{{ $picture->link }}" alt="image">
+                                                                    <img src="{{ asset('images/users/'.$picture->link) }}" alt="image">
                                                                 </div>
                                                             </div>
                                                         </div>

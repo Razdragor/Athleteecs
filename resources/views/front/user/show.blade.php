@@ -293,7 +293,7 @@
 
                                     </dl>
                                 </div>
-                                <div class="tab-pane fade" id="photos">
+                                <div class="tab-pane fade" id="photo">
                                     @foreach($user->pictures as $picture)
                                         <article class="col-md-4 isotopeItem webdesign">
                                             <div class="section-portfolio-item">

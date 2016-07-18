@@ -225,7 +225,7 @@
                                             <div class="timeline-heading row" style="margin: 0;">
                                                 <div style="margin:0 10px 0 0;float:left;">
                                                     <a href="{{ route("user.show", $publication->user->id ) }}">
-                                                        <img src="{{ $publication->user->picture }}" alt="Image" class="img-responsive" style="width: 50px; margin: 5px;display: inline-block;">
+                                                        <img src="{{ $publication->user->picture }}" alt="Image" class="img-responsive" style="width: 50px; margin: 5px;display: inline-block;border-radius:25px;">
                                                     </a>
                                                 </div>
                                                 <div style="margin: 10px;float:left;">
@@ -305,7 +305,7 @@
                                                     @foreach($publication->commentspost as $comment)
                                                         <div class="comment" id="comment-{{$comment->id}}">
                                                             <a class="pull-left" href="{{ route("user.show", $comment->user->id ) }}">
-                                                                <img width="35" height="35" class="comment-avatar" alt="{{ $comment->user->firstname.' '.$comment->user->lastname }}" src="{{ $comment->user->picture }}">
+                                                                <img width="35" height="35" style="border-radius:20px;" class="comment-avatar" alt="{{ $comment->user->firstname.' '.$comment->user->lastname }}" src="{{ $comment->user->picture }}">
                                                             </a>
                                                             <div class="comment-body">
                                                                 <span class="message"><strong>{{ $comment->user->firstname.' '.$comment->user->lastname }}</strong> {{ $comment->message }}</span>
@@ -324,7 +324,7 @@
                                                     @endif
                                                     <div class="comment">
                                                         <a class="pull-left" href="{{ route("user.show", $publication->user->id ) }}">
-                                                            <img width="35" height="35" class="comment-avatar" alt="{{Auth::user()->name}}" src="{{ Auth::user()->picture }}">
+                                                            <img width="35" height="35" style="border-radius:20px;" class="comment-avatar" alt="{{Auth::user()->name}}" src="{{ Auth::user()->picture }}">
                                                         </a>
                                                         <div class="comment-body">
                                                             <input type="text" class="form-control" name="{{ $publication->id }}" id="post-comment" placeholder="Ecris un commentaire...">
@@ -346,7 +346,7 @@
                         <div class="tab-pane fade" id="member">
                             @foreach($event->members as $member)
                                 <div class="col-xs-3 col-sm-5 col-md-3 col-lg-2" style="text-align: center">
-                                    <img src="{{ $member->user->picture }}" alt="{{$member->user->firstname}}" style="height: 100px;width: auto"><br>
+                                    <img src="{{ $member->user->picture }}" alt="{{$member->user->firstname}}" style="height: 100px;width: auto;border-radius:50px;"><br>
                                     {{ $member->user->firstname }} {{ $member->user->lastname }}
                                     @if($user->id == $event->user_id && $user->id != $member->user->id)
                                         <?php
