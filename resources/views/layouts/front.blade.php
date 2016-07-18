@@ -164,11 +164,21 @@ $user = Auth::user();
                                     </li>
                                 @endif
                                 <li class="nav-notifications-body">
-
+                                    @foreach (Auth::user()->getfriendsnotifications as $notification)
+                                        @if($notification->afficher==true)
+                                        <a href="/friends/accept/{{$notification->userL_id}}" class="text-info"><i class="fa fa-user"></i>&nbsp;Demande de
+                                        @else
+                                        <a href="/user/{{$notification->userL_id}}" class="text-info"><i class="fa fa-user"></i>&nbsp;Ajout de
+                                        @endif
+                                    {{$notification->libelle}} <small class="pull-right">{{$notification->timeAgo($notification->updated_at)}}</small>
+                                    </a>
+                                    @endforeach
                                 </li>
-                                <li class="nav-notifications-footer">
-                                    <a href="/notifications">Voir toutes les notifications</a>
-                                </li>
+                                    @if(Auth::user()->getfriendsnotificationstrue()->count()>0)
+                                        <li class="nav-notifications-footer">
+                                            <a tabindex="-1" href="{{ route('front.friends.show') }}">Vous avez <strong>{{Auth::user()->getfriendsnotificationstrue()->count()}}</strong> @if(Auth::user()->getfriendsnotificationstrue()->count()>1)nouvelles demandes @else nouvelle demande @endif</a>
+                                        </li>
+                                    @endif
                             </ul>
                         </li>
 
