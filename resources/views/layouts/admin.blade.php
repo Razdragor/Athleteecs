@@ -90,7 +90,7 @@
         <!-- BEGIN NAVBAR-->
         <nav role="navigation" class="navbar navbar-fixed-top navbar-super social-navbar">
             <div class="navbar-header">
-                <a href="{{ url('/admin') }}" title="Social" class="navbar-brand">
+                <a href="{{ url('/') }}" title="Social" class="navbar-brand">
                     <img class ="logo-front" width="25" height="25" src="{{ asset('asset/img/logo.svg') }}" alt="Social">
                 </a>
             </div>
