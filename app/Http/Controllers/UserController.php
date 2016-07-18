@@ -201,12 +201,14 @@ class UserController extends Controller
                     foreach($products as $product)
                     {
                         $prod = Product::find($product);
-                        $sportid = $prod->sport->first();
+                        $sportid = $prod->sport()->first();
+                       // dd($sportid);
+                        $sportid = 1;
 
                         $userEquipsSports = new UsersEquipsSports();
                         $userEquipsSports->user_id = $user->id;
                         $userEquipsSports->product_id= $product;
-                        $userEquipsSports->sport_id= $sportid->id;
+                        $userEquipsSports->sport_id= $sportid;
 
                         $userEquipsSports->save();
                     }
