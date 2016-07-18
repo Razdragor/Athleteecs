@@ -41,20 +41,22 @@
 </head>
 <body>
 <div class="wrapper">
-    <!-- BEGIN SIDEBAR-->
     <aside class="social-sidebar">
         <div class="social-sidebar-content">
-            <!-- BEGIN USER SECTION-->
             <div class="user">
-                <!-- //Notice .avatar class-->
-                <img width="25" height="25" src="{{ Auth::user()->picture }}" alt="{{ Auth::user()->firstname.' '.Auth::user()->lastname }}" class="avatar">
-                <span>{{ Auth::user()->firstname.' '.Auth::user()->lastname }}</span>
-                <i data-toggle="dropdown" class="trigger-user-settings fa fa-user"></i>
+                    <img width="25" height="25" src="{{ Auth::user()->picture }}" alt="{{ Auth::user()->firstname.' '.Auth::user()->lastname }}" class="avatar">
+                    <span>{{ Auth::user()->firstname.' '.Auth::user()->lastname }}</span>
+                    <i data-toggle="dropdown" class="trigger-user-settings fa fa-user"></i>
             </div>
             <div class="menu">
                 <div class="menu-content">
                     <ul id="social-sidebar-menu">
-                        <!-- BEGIN ELEMENT MENU-->
+                        <li>
+                            <a href="/admin">
+                                <!-- icon--><i class="fa fa-home"></i>
+                                <span>Accueil admin</span>
+                            </a>
+                        </li>
                         <li>
                             <a href="{{ url('/admin') }}">
                                 <!-- icon--><i class="fa fa-dashboard"></i>
@@ -85,17 +87,19 @@
                                 <span>Newsletter</span>
                             </a>
                         </li>
-
-        <!-- BEGIN CHAT SECTION-->
-
-        <!-- END CHAT SECTION-->
+                        <li>
+                            <a href="/">
+                                <!-- icon--><i class="fa fa-sign-in"></i>
+                                <span>Passer sur le front</span>
+                            </a>
+                        </li>
     </aside>
     <!-- END SIDEBAR-->
     <header>
         <!-- BEGIN NAVBAR-->
         <nav role="navigation" class="navbar navbar-fixed-top navbar-super social-navbar">
             <div class="navbar-header">
-                <a href="{{ url('/admin') }}" title="Social" class="navbar-brand">
+                <a href="{{ url('/') }}" title="Social" class="navbar-brand">
                     <img class ="logo-front" width="25" height="25" src="{{ asset('asset/img/logo.svg') }}" alt="Social">
                 </a>
             </div>
@@ -106,7 +110,7 @@
     <div class="main">
         @yield('content')
     </div>
-    <footer>2016 - <a href="http://localhost" target="_blank">ATHLETEEC</a> / <a href="{{ route('front.obligatoire.confidentialite')}}">Confidentialité</a> / <a href="{{ route('front.obligatoire.mentionslegales')}}">Mentions Légales</a></footer>
+    <footer class="blanc">2016 - <a href="/" target="_blank" class="blanc">ATHLETEEC</a> / <a href="{{ route('front.obligatoire.confidentialite')}}" class="blanc">Confidentialité</a> / <a href="{{ route('front.obligatoire.mentionslegales')}}" class="blanc">Mentions Légales</a></footer>
 </div>
 <!-- Modal-->
 <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">

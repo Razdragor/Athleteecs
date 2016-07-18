@@ -53,6 +53,14 @@ $(document).ready(function() {
         $('#modal-product').modal('show');
     });
 
+    $("body").on('change','#file-input-modal',function(e){
+        readURL(this);
+    });
+
+    $("body").on('click','#addphoto' ,function(e){
+        $('#modal-photo').modal('show');
+    });
+
     $('#delete-modal-post').submit(function(e){
         e.preventDefault();
         $.ajax({
@@ -119,7 +127,30 @@ $(document).ready(function() {
             }
         });
     });
+    $("body").on('submit','#submit-modal-photo' ,function(e){
+        e.preventDefault();
+        var $form = $(this);
+        $.ajax({
+            url: "/picture/addAjax",
+            type: 'post',
+            contentType: false, // obligatoire pour de l'upload
+            processData: false, // obligatoire pour de l'upload
+            data: new FormData($("#submit-modal-photo")[0]),
+            success: function(data) {
+                if(data['success'] == true)
+                {
+                    $('#modal-photo').modal('hide');
 
+                    $picture = data['picture'];
+
+                    var parent = $('.tab-pane.active.photos').first();
+                    var div = parent.children().first() ;
+
+                    div.append("<div class ='row'>ok</div>");
+                }
+            }
+        });
+    });
     $('#submit-modal-post').submit(function(e){
         e.preventDefault();
         var $form = $(this);
@@ -331,7 +362,6 @@ $(document).ready(function() {
 
     });
 
-
     $('.dropdown.nav-notifications .dropdown-menu .nav-notifications-body a').one('mouseover', function(e){
         var id = $(this).attr('name');
         if(id){
@@ -485,3 +515,16 @@ function escapeHtml(text) {
 
     return text.replace(/[&<>"']/g, function(m) { return map[m]; });
 }
+function readURL(input) {
+
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#preview').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
