@@ -575,6 +575,7 @@ $user = Auth::user();
                         });
                     }
                 }
+                console.log(data);
                 data.messages.forEach(function(message){
                     var heureMessage = message['created_at'];
                     if(message['user_id'] == {{ $user->id }})
@@ -631,7 +632,7 @@ $user = Auth::user();
             },
             error:function()
             {
-                console.log(jqXHR);
+                console.log('Erreur chat');
             }
         });
     }
