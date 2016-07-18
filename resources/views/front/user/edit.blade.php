@@ -2,9 +2,11 @@
 
 
 @section('css')
+    <link href="{{ asset('asset/css/layouts/timeline-facebook.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/layouts/timeline-2-cols.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/layouts/user-profile.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/layouts/user-cards.css') }}" rel="stylesheet">
-    <link href="{{ asset('asset/css/layouts/social.core.css') }}" rel="stylesheet">
+
     <link href="{{ asset('asset/css/plugins/selectizejs/selectize-default.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/glyphicons_free/glyphicons.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.css') }}" rel="stylesheet">
@@ -24,28 +26,23 @@
                                 <div class="col-sm-2 col-md-2">
                                     <div class="row">
                                         <div class="col-md-12 text-center">
+                                            <img src="{{$user->picture}}" alt="Avatar"
+                                                 class="img-thumbnail img-responsive">
 
+                                            <div class="image-upload">
+                                                <label for="picture">
+                                                    <div class="btn btn-default">
+                                                        <i class="fa fa-camera"></i>
+                                                    </div>
+                                                </label>
+                                                <input type="file" name="picture" id="picture" class="filehide"/>
 
-                                                <img src="{{$user->picture}}" alt="Avatar"
-                                                     class="img-thumbnail img-responsive">
-
-                                                <div class="image-upload">
-                                                    <label for="picture">
-                                                        <div class="btn btn-default">
-                                                            <i class="fa fa-camera"></i>
-                                                        </div>
-                                                    </label>
-                                                    <input type="file" name="picture" id="picture" class="filehide"/>
-
-                                                </div>
-                                                @if ($errors->has('picture'))
-                                                    <span class="help-block">
-                                                    <strong>{{ $errors->first('picture') }}</strong>
-                                                </span>
-                                                @endif
-
-
-
+                                            </div>
+                                            @if ($errors->has('picture'))
+                                                <span class="help-block">
+                                                <strong>{{ $errors->first('picture') }}</strong>
+                                            </span>
+                                            @endif
                                         </div>
                                     </div>
 
@@ -73,7 +70,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-2 col-md-2"></div>
-                                <div class="col-sm-10 col-md-10">
+                                <div class="col-sm-10 col-md-8-2">
                                     <!-- BEGIN TABS SELECTIONS-->
                                     <div class="row">
                                         <ul id="profileTab" class="nav nav-tabs">
@@ -99,7 +96,7 @@
                                     <!-- END TABS SELECTIONS-->
                                     <div class="row">
                                         <!-- BEGIN TABS SECTIONS-->
-                                        <div id="profileTabContent" class="tab-content col-sm-9 col-md-9">
+                                        <div id="profileTabContent" class="tab-content">
                                             <div class="tab-pane active infos">
                                                 <br>
                                                 <dl class="dl-horizontal">
@@ -176,7 +173,7 @@
                                                 </dl>
                                             </div>
                                             <div class="tab-pane active equipement" style="display: none;">
-                                                <div class="row">
+                                                <div class="row equip">
                                                     <dt>Equipements utilisées</dt>
 
                                                 @foreach($user->products as $equipment)
@@ -238,6 +235,91 @@
                                                 <a href="#" id="addproduct">
                                                     <span class="fa fa-plus"></span> Ajouter un équipement</a>
                                             </div>
+                                            <div class="tab-pane active pots" style="display: none;">
+                                                <ul class="timeline-2-cols">
+                                                    <?php $i = 0; ?>
+                                                    @foreach($user->publications as $publication)
+                                                        <li id="<?php
+                                                        if(is_null($publication->activity)){
+                                                            echo "publication-".$publication->id;
+                                                        }else{
+                                                            echo "activite-".$publication->activity->id;
+                                                        }
+                                                        ?>" class="<?php if($i%2){echo 'timeline-inverted';} ?> publicationJS">
+                                                            <div class="timeline-badge primary">
+                                                                <a href="#"><i rel="tooltip" title="{{ $publication->date_start }}" class="glyphicon glyphicon-record <?php if($i%2){echo 'timeline-inverted';} $i++; ?>"></i>
+                                                                </a>
+                                                            </div>
+                                                            <div class="timeline-panel">
+                                                                <div class="timeline-heading row" style="margin: 0;">
+                                                                    <div style="margin:0 10px 0 0;float:left;">
+                                                                        <a href="{{ route("user.show", $publication->user->id ) }}">
+                                                                            <img src="<?php echo $publication->user->picture ?>" alt="Image" class="img-responsive" style="width: 50px;height:50px; margin: 5px;display: inline-block;">
+                                                                        </a>
+                                                                    </div>
+                                                                    <div style="margin: 10px;float:left;">
+                                                                        <span>{{ $publication->user->firstname.' '.$publication->user->lastname}}</span><br>
+                                                                        <small><i aria-hidden="true" class="fa fa-clock-o"></i> {{ $publication->timeAgo($publication->created_at) }}</small>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="timeline-body">
+                                                                    @if(is_null($publication->activity))
+                                                                        <div class="post_activity_msg">
+                                                                            {{$publication->message}}
+                                                                        </div>
+                                                                        <div class="post_picture_video">
+                                                                            @if(!is_null($publication->video))
+                                                                                <div class="video-container"><iframe src="https://www.youtube.com/embed/{{$publication->video->url}}" frameborder="0" allowfullscreen></iframe></div>
+                                                                            @elseif(!is_null($publication->picture))
+                                                                                <img src="{{ asset($publication->picture) }}" alt="" class="img-responsive">
+                                                                            @endif
+                                                                        </div>
+
+                                                                    @else
+                                                                        <div class="post_picture_video">
+                                                                            @if(!is_null($publication->video))
+                                                                                <div class="video-container"><iframe src="https://www.youtube.com/embed/{{$publication->video->url}}" frameborder="0" allowfullscreen></iframe></div>
+                                                                            @elseif(!is_null($publication->picture))
+                                                                                <img src="{{ asset($publication->picture) }}" alt="" class="img-responsive">
+                                                                            @endif
+                                                                        </div>
+                                                                        <div class="post_activity">
+                                                                            <div class="post_activity_img">
+                                                                                <img src="{{ asset("../images/icons/".$publication->activity->sport->icon) }}" alt="{{ $publication->activity->sport->name }}" class="img-responsive">
+                                                                            </div>
+                                                                            <div class="post_activity_stats">
+                                                                                <span data-text="{{$publication->activity->date_start}}"><i aria-hidden="true" class="fa fa-calendar"></i>{{$publication->activity->getDateStartString() }}</span>
+                                                                                <span data-text="{{$publication->activity->getTimeSecondes() }}">Durée : {{$publication->activity->time }}</span>
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="post_activity_msg">
+                                                                            {{$publication->message}}
+                                                                        </div>
+                                                                    @endif
+                                                                </div>
+
+                                                            </div>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                            <div class="tab-pane active photos" style="display: none;">
+
+                                                    @foreach($user->pictures as $picture)
+                                                        <article class="col-md-4 isotopeItem webdesign">
+                                                            <div class="section-portfolio-item">
+                                                                <div class="picture-cadre">
+                                                                    <div class="picture-box">
+                                                                        <img src="{{ $picture->link }}" alt="image">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </article>
+                                                    @endforeach
+                                                        <a href="#" id="addphoto">
+                                                            <span class="fa fa-plus fa-2x"></span> Ajouter une photo</a>
+                                            </div>
 
                                         </div>
 
@@ -294,6 +376,37 @@
                                         <button type="submit" class="btn btn-primary pull-right" >Ajouter</button>
                                     </div>
                                 </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade modal-photo" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="modal-photo">
+                    <div class="modal-dialog modal-sm ">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4>Ajouter une nouvelle photo</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form id="submit-modal-photo" enctype="multipart/form-data">
+                                    <div class="row" style="text-align: center">
+                                        <div class="picture-size-box">
+
+                                            <img id="preview" class="picture-size" src="http://placehold.it/200x200" alt="your image" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="image-upload" style="text-align: center;">
+                                                <label for="file-input-modal">
+                                                    <div class="btn btn-default"><i class="fa fa-camera fa-3x"></i></div>
+                                                </label>
+                                                <input id="file-input-modal" name="userpicture" type="file" accept="image/*"/>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary pull-right semi" >Ajouter</button>
+                                    </div>
+                                </form>
+
+
                             </div>
                         </div>
                     </div>

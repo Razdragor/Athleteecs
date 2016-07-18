@@ -105,14 +105,14 @@ class EventController extends Controller
             $imageName = $guid.'_assos.' . $request->file('picture')->getClientOriginalExtension();;
 
             $request->file('picture')->move(
-                storage_path() . '\uploads', $imageName
+                public_path() . '/images/evenements', $imageName
             );
-            $imageName = '/uploads/'.$imageName;
+            $imageName = '/images/evenements/'.$imageName;
         }
         if(!isset($data['association_id']))
         $data['association_id'] = 0;
         $event = Event::create(array(
-            'name' => $data['name'],
+            'name' => htmlspecialchars($data['name']),
             'picture' => $imageName,
             'address' => $data['route'],
             'city' => $data['locality'],
@@ -130,7 +130,7 @@ class EventController extends Controller
             'end_at' => $data['date_end_act']
         ));
 
-        $event->description = $data['description'];
+        $event->description = htmlspecialchars($data['description']);
         $event->save();
 
         UsersEvents::create(array(
@@ -345,12 +345,12 @@ class EventController extends Controller
                 $imageName = $guid.'_assos.' . $request->file('picture')->getClientOriginalExtension();;
 
                 $request->file('picture')->move(
-                    storage_path() . '\uploads', $imageName
+                    public_path() . '/images/evenements', $imageName
                 );
-                $event->picture = '/uploads/'.$imageName;
+                $event->picture = '/images/evenements/'.$imageName;
             }
 
-            $event->name = $data['name'];
+            $event->name = htmlspecialchars($data['name']);
             $event->address = $data['route'];
             $event->city = $data['locality'];
             $event->city_code = $data['postal_code'];
@@ -363,6 +363,7 @@ class EventController extends Controller
             $event->private = $data['private'];
             $event->started_at = $data['date_start_act'];
             $event->end_at = $data['date_end_act'];
+            $event->description = htmlspecialchars($data['description']);
             
             $event->save();
 

@@ -11,11 +11,14 @@
     height: 58px;
     padding: 18px;
     color: #B9121B;
+
 }
 .head-tchat-left{
-    width:75%;
+    width: 75%;
     float: left;
     cursor: pointer;
+    font-weight: 700;
+    color: #31353e;
 }
 .head-tchat-right{
     float: right;
@@ -93,6 +96,12 @@ img.chat-avatar{
     max-width: 50px;
 }
 
+.chat-avatar img{
+    border-radius: 30px;
+    width: 45px;
+    height: 45px;
+}
+
 .conversation_chat_show{
     margin:0px;
     max-height: 100px;
@@ -152,13 +161,22 @@ img.chat-avatar{
 }
 
 .add-button{
-    font-size: 20px;
+    font-size: 20px !important;
     cursor: pointer;
     margin-right: 5px;
 }
 
 .close-button{
     float: right;
-    font-size: 20px;
+    font-size: 20px !important;
     color: #B9121B;
+}
+
+.tchat-box small {
+    font-size:11px;
+}
+
+.chat_message {
+    margin-top:5px!important;
+    margin-bottom:5px!important;
 }

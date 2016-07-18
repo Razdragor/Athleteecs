@@ -53,6 +53,14 @@ $(document).ready(function() {
         $('#modal-product').modal('show');
     });
 
+    $("body").on('change','#file-input-modal',function(e){
+        readURL(this);
+    });
+
+    $("body").on('click','#addphoto' ,function(e){
+        $('#modal-photo').modal('show');
+    });
+
     $('#delete-modal-post').submit(function(e){
         e.preventDefault();
         $.ajax({
@@ -119,7 +127,30 @@ $(document).ready(function() {
             }
         });
     });
+    $("body").on('submit','#submit-modal-photo' ,function(e){
+        e.preventDefault();
+        var $form = $(this);
+        $.ajax({
+            url: "/picture/addAjax",
+            type: 'post',
+            contentType: false, // obligatoire pour de l'upload
+            processData: false, // obligatoire pour de l'upload
+            data: new FormData($("#submit-modal-photo")[0]),
+            success: function(data) {
+                if(data['success'] == true)
+                {
+                    $('#modal-photo').modal('hide');
 
+                    $picture = data['picture'];
+
+                    var parent = $('.tab-pane.active.photos').first();
+                    var div = parent.children().first() ;
+
+                    div.append("<div class ='row'>ok</div>");
+                }
+            }
+        });
+    });
     $('#submit-modal-post').submit(function(e){
         e.preventDefault();
         var $form = $(this);
@@ -284,10 +315,10 @@ $(document).ready(function() {
                         $last.before(
                             "<div class='comment'>" +
                             "<a class='pull-left' href='#'>" +
-                            "<img width='30' height='30' class='comment-avatar' alt='" + $user.firstname + " " + $user.lastname + "' src='images/" + $user.picture + "'>" +
+                            "<img width='30' height='30' class='comment-avatar' alt='" + $user.firstname + " " + $user.lastname + "' src='" + $user.picture + "'>" +
                             "</a>" +
                             "<div class='comment-body'>" +
-                            "<span class='message'><strong>" + $user.firstname + " " + $user.lastname + "</strong> " + $value + "</span>" +
+                            "<span class='message'><strong>" + $user.firstname + " " + $user.lastname + "</strong> " + data['message'] + "</span>" +
                             "<span class='time'>" + $user.created_at + "</span>" +
                             "</div>" +
                             "</div>");
@@ -311,24 +342,13 @@ $(document).ready(function() {
             url: '/publication/'+$publication+'/loadComment',
             data: {page: $page},
             type: 'post',
+
             success: function(data) {
                 if(data['success'] == true)
                 {
                     $comments = data['comments'];
-
                     $comments.forEach(function(a){
-                        $user = a['user'];
-                        $comment = a['comment'];
-                        $elem.before(
-                            "<div class='comment'>" +
-                            "<a class='pull-left' href='#'>"+
-                            "<img width='30' height='30' class='comment-avatar' alt='"+ $user.firstname + " " + $user.lastname+ "' src='images/"+ $user.picture + "'>"+
-                            "</a>"+
-                            "<div class='comment-body'>"+
-                            "<span class='message'><strong>"+ $user.firstname + " " + $user.lastname + "</strong> " + $comment.message + "</span>"+
-                            "<span class='time'>" + $comment.created_at + "</span>"+
-                            "</div>"+
-                            "</div>").fadeIn('slow');
+                        $elem.before(a).fadeIn('slow');
                     });
 
                     if(data['page'] == false){
@@ -336,15 +356,11 @@ $(document).ready(function() {
                     }else{
                         $elem.attr("data-url",data['page']);
                     }
-
-
-
                 }
             }
         });
 
     });
-
 
     $('.dropdown.nav-notifications .dropdown-menu .nav-notifications-body a').one('mouseover', function(e){
         var id = $(this).attr('name');
@@ -479,11 +495,36 @@ function editact(activity){
     $('#modal-activity').modal('show');
 }
 
-    function isEmpty(obj) {
-        for(var prop in obj) {
-            if(obj.hasOwnProperty(prop))
-                return false;
+function isEmpty(obj) {
+    for(var prop in obj) {
+        if(obj.hasOwnProperty(prop))
+            return false;
+    }
+
+    return true && JSON.stringify(obj) === JSON.stringify({});
+}
+
+function escapeHtml(text) {
+    var map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+
+    return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+}
+function readURL(input) {
+
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#preview').attr('src', e.target.result);
         }
 
-        return true && JSON.stringify(obj) === JSON.stringify({});
+        reader.readAsDataURL(input.files[0]);
     }
+}
+

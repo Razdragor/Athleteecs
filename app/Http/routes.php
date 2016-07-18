@@ -73,9 +73,11 @@ use Illuminate\Support\Facades\File;
         Route::post('/publication/loadAll', 'Front\PublicationController@loadAll');
 
         //Profil
+        Route::resource('photo', 'PhotoController');
         Route::resource('user', 'UserController',['except' => ['update']]);
         Route::post('/user/{user}/update', ['as' => 'user.update', 'uses' => 'UserController@update']);
         Route::post('/product/addAjax','ProductController@addAjax');
+        Route::post('/picture/addAjax','PictureController@addAjax');
 
 
         //Activité

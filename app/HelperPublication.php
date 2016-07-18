@@ -34,7 +34,7 @@ class HelperPublication
             );
         }
 
-        $message = $data['message_status'];
+        $message = htmlspecialchars($data['message_status']);
         $urls = HelperYoutube::UrlsYoutube($message);
         $videoID = false;
         foreach($urls as $url){
@@ -93,7 +93,7 @@ class HelperPublication
             );
         }
         $videoID = false;
-        $message = $data['message_status_modal'];
+        $message = htmlspecialchars($data['message_status_modal']);
         $urls = HelperYoutube::UrlsYoutube($message);
 
         foreach($urls as $url){
@@ -162,7 +162,7 @@ class HelperPublication
         return true;
     }
 
-    public static function loadComments(Publication $publication, Request $request){
+    public function loadComments(Publication $publication, Request $request){
 
         $data = $request->all();
         $comments = [];
@@ -175,26 +175,15 @@ class HelperPublication
         else{
             $page = false;
         }
-
-        foreach($result as $p){
-            $comments[] = array(
-                'user' => array(
-                    'picture' => $p->user->picture,
-                    'firstname' => $p->user->firstname,
-                    'lastname' => $p->user->lastname
-                ),
-                'comment' => array(
-                    'created_at' => $p->timeAgo($p->created_at),
-                    'message' => $p->message
-                )
-            );
+        foreach($result as $p) {
+            $comments[] = $this->constructComment($p, $p->user);
         }
 
-        return \Response::json(array(
+        return array(
             'success' => true,
             'page' => $page,
             'comments' => $comments
-        ));
+        );
     }
 
     public function loadAll(Request $request){
@@ -251,9 +240,18 @@ class HelperPublication
 
         $string .=    "</a>".
             "</div>".
-            "<div style='margin: 10px;float:left;'>".
-            "<span>" . $publication->user->firstname . ' ' . $publication->user->lastname . "</span><br>".
-            "<small><i aria-hidden='true' class='fa fa-clock-o'></i> " .$publication->timeAgo($publication->created_at) ."</small>".
+            "<div style='margin: 10px;float:left;'>";
+
+        if(!is_null($publication->association)){
+            $string .= "<span>" . $publication->user->firstname . " " . $publication->user->lastname . " - <a href='" . route('association.show', ['association' => $publication->association->id]) . "'>" . $publication->association->name . "</a></span><br>";
+        }
+        elseif(!is_null($publication->event)){
+            $string .= "<span>" . $publication->user->firstname . " " . $publication->user->lastname . " - <a href='" . route('event.show', ['event' => $publication->event->id]) . "'>" . $publication->event->name . "</a></span><br>";
+        }
+        else{
+            $string .= "<span>" . $publication->user->firstname . ' ' . $publication->user->lastname . "</span><br>";
+        }
+        $string .= "<small><i aria-hidden='true' class='fa fa-clock-o'></i> " .$publication->timeAgo($publication->created_at) ."</small>".
             "<div class='btn-group dropdown-post'>".
             "<button class='btn dropdown-toggle' data-toggle='dropdown' aria-expanded='false' style='font-size: 8px;'><i class='fa fa-chevron-down'></i>".
             "</button><ul class='dropdown-menu pull-right'><li><a href='#' onclick=".$edit.">".
@@ -331,6 +329,24 @@ class HelperPublication
             "<div class='comment-body'>".
             "<input type='text' class='form-control' name='".$publication->id."' id='post-comment' placeholder='Ecris un commentaire...'>".
             "</div></div></div></div></div></li>";
+
+        return $string;
+    }
+
+    private function constructComment(Comment $comment, User $user){
+        $string = "<div id='comment-". $comment->id ."' class='comment'>".
+        "<a class='pull-left' href='#'>".
+        "<img width='30' height='30' class='comment-avatar' alt='". $user->firstname . " " . $user->lastname. "' src='" . $user->picture . "'>".
+        "</a>".
+        "<div class='comment-body'>".
+        "<span class='message'><strong>". $user->firstname . " " . $user->lastname . "</strong> " . $comment->message ."</span>".
+        "<span class='time'>" . $comment->created_at . "</span>".
+        "</div><span class='action'>".
+        "<i class='fa fa-warning' id='signalComment'></i>";
+        if($comment->user->id == Auth::user()->id){
+            $string .= "<i class='fa fa-close' id='deleteComment'></i>";
+        }
+        $string .="</span></div>";
 
         return $string;
     }

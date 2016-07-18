@@ -8,19 +8,18 @@
 @endsection
 
 @section('content')
-<section class="section-about">
-  <div class="panel panel-default section">
-    <div class="container">
-        <div class="row">
-            <div class="section-header">
-                <h2 data-animation="bounceInUp" class="section-heading animated titleoffriends">Recherche d'amis</h2>
+<div class="container" style="margin-bottom:50px;">
+    @if(!empty($results))
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10 col-sm-offset-1 col-sm-10">
+            <div class="page-header" style="border-bottom-color: #31353E">
+                <h2>Personnes</h2>
             </div>
-            @if(!empty($results))
-                @forelse($results as $friend)
+                @foreach($results as $friend)
                     @if($friend['id'] !== Auth::user()->id)
-                        <div class="col-md-2 onefriend">
+                        <div class="col-sm-4 col-md-2">
                             <div class="team-member">
-                                <a href="/user/{{$friend['id']}}">
+                                <a href="{{ route('user.show', ['user' => $friend['id']]) }}">
                                     <figure class="member-photo">
                                         <img class="imgonefriend" src="{{ $friend['picture'] }}" alt="{{ $friend['firstname'] }} {{ $friend['lastname'] }}" width="100px" height="100px">
                                     </figure>
@@ -44,14 +43,57 @@
                             @endif
                         </div>
                     @endif
-                @empty
-                    <p class="onefriend">quelque chose</p>
-                @endforelse
-            @endif
+                @endforeach
         </div>
     </div>
-  </div>
-</section>
+    @endif
+    @if(!empty($resultsAssociation))
+        <div class="row">
+            <div class="col-md-offset-1 col-md-10 col-sm-offset-1 col-sm-10">
+                <div class="page-header" style="border-bottom-color: #31353E">
+                    <h2>Associations</h2>
+                </div>
+                @foreach($resultsAssociation as $assos)
+                    <div class="col-sm-4 col-md-2">
+                        <div class="team-member">
+                            <a href="{{ route('association.show', ['association' => $assos['id']]) }}">
+                                <figure class="member-photo">
+                                    <img class="imgonefriend" src="{{ $assos['picture'] }}" alt="{{ $assos['name'] }}" width="100px" height="100px">
+                                </figure>
+                                <div class="team-detail">
+                                    <h4>{{ $assos['name'] }}</h4>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    @endif
+    @if(!empty($resultsEvent))
+        <div class="row">
+            <div class="col-md-offset-1 col-md-10 col-sm-offset-1 col-sm-10">
+                <div class="page-header" style="border-bottom-color: #31353E">
+                    <h2>Evènements</h2>
+                </div>
+                @foreach($resultsEvent as $assos)
+                    <div class="col-sm-4 col-md-2">
+                        <div class="team-member">
+                            <a href="{{ route('association.show', ['association' => $assos['id']]) }}">
+                                <figure class="member-photo">
+                                    <img class="imgonefriend" src="{{ $assos['picture'] }}" alt="{{ $assos['name'] }}" width="100px" height="100px">
+                                </figure>
+                                <div class="team-detail">
+                                    <h4>{{ $assos['name'] }}</h4>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    @endif
+</div>
 @endsection
 
 @section('js')
