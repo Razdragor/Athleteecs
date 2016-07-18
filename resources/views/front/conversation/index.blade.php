@@ -3,6 +3,7 @@
 @section('content')
 
     <div class="row">
+        @if($user->conversations_reverse->first())
         <div class="panel panel-default col-xs-3 col-xs-offset-1">
                 @if(isset($friend->id))
                     <div class="conversation_div">
@@ -85,6 +86,20 @@
                 </div>
             </div>
         </div>
+        @else
+        <div class="panel panel-default col-xs-8 col-xs-offset-2">
+            <div class="conversation_div">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h4 class=text-center>
+                            Vous n'avez pas encore de conversation créée. <br><br>
+                            Cliquez sur un ami pour créer une conversation !
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
     </div>
 @endsection
 
