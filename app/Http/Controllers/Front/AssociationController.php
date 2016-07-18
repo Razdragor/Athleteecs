@@ -283,12 +283,14 @@ class AssociationController extends Controller
                     'afficher' => true]);
             }
 
-            UsersAssociations::create(array(
-               'user_id' => $userC->id,
-                'association_id' => $association->id,
-                'is_admin' => false
-            ));
         }
+
+        UsersAssociations::create(array(
+           'user_id' => $userC->id,
+            'association_id' => $association->id,
+            'is_admin' => false
+        ));
+
 
         return Redirect::back();
     }
