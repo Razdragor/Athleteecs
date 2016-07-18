@@ -10,11 +10,14 @@
 .head-tchat{
     height: 58px;
     padding: 18px;
+    border-bottom: 1px solid #c4c3cf;
 }
-.head-tchat-left{
-    width:75%;
+.head-tchat-left{    
+    width: 75%;
     float: left;
     cursor: pointer;
+    font-weight: 700;
+    color: #31353e;
 }
 .head-tchat-right{
     float: right;
@@ -92,6 +95,12 @@ img.chat-avatar{
     max-width: 50px;
 }
 
+.chat-avatar img{
+    border-radius: 30px;
+    width: 45px;
+    height: 45px;
+}
+
 .conversation_chat_show{
     margin:0px;
     max-height: 100px;
@@ -148,4 +157,13 @@ img.chat-avatar{
 .chat_show_user_span img{
     width: 30px;
     height: 30px;
+}
+
+.tchat-box small {
+    font-size:11px;
+}
+
+.chat_message {
+    margin-top:5px!important;
+    margin-bottom:5px!important;
 }
