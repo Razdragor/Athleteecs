@@ -395,7 +395,7 @@ $user = Auth::user();
                 if($('.'+chat_class).length)
                 {
                     $('.'+chat_class).append('<li class="left clearfix"><span class="chat-avatar pull-left"><img src="'+chat_msg[0]['user']['picture']+'" alt="'+chat_msg[0]['user']['firstname']+
-                            '" width="45px" height="45px"></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font">'+chat_msg[0]['user']['firstname']+
+                            '" width="45px" height="45px"></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font username-chatbox-gauche">'+chat_msg[0]['user']['firstname']+
                             '</strong><small class="pull-right text-muted"><span class="fa fa-clock-o">&nbsp;</span>'+heureMessage+'</small></div><p class="chat_message">'+chat_msg[0]['message']+'</p></div></li>');
 
                     $('.'+chat_class).parent().scrollTop($('.'+chat_class).parent().scrollHeight);
@@ -582,7 +582,7 @@ $user = Auth::user();
                         to_append = to_append + '<li class="right clearfix"><span class="chat-avatar pull-right"><img src="{{ $user->picture }}" alt="{{ $user->firstname.' '. $user->lastname }}" width="45px" height="45px"></span>'+
                                 '<div class="chat-body chat_sender1 clearfix"><div class="header">'+
                                 '<small class="text-muted"><span class="fa fa-clock-o">&nbsp;</span>'+heureMessage+
-                                '</small><strong class="pull-right primary-font username-chatbox">{{ $user->firstname }}</strong>'+
+                                '</small><strong class="pull-right primary-font username-chatbox-droite">{{ $user->firstname }}</strong>'+
                                 '</div>'+
                                 '<p class="chat_message">'+message['message']+'</p></div></li>';
                     }
@@ -594,7 +594,7 @@ $user = Auth::user();
                                 var heureMessage = message['created_at'];
                                 console.log(heureMessage);
                                 to_append = to_append + '<li class="left clearfix"><span class="chat-avatar pull-left"><img src="'+user['picture']+'" alt="'+user['firstname']+' '+user['lastname']+
-                                        '" width="45px" height="45px"></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font">'+user['firstname']+
+                                        '" width="45px" height="45px"></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font username-chatbox-gauche">'+user['firstname']+
                                         '</strong><small class="pull-right text-muted"><span class="fa fa-clock-o">&nbsp;</span>'+heureMessage+'</small></div><p class="chat_message">'+message['message']+'</p></div></li>';
                             }
                         });

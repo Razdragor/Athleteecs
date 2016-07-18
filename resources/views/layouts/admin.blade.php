@@ -41,21 +41,22 @@
 </head>
 <body>
 <div class="wrapper">
-    <!-- BEGIN SIDEBAR-->
     <aside class="social-sidebar">
         <div class="social-sidebar-content">
-            <!-- BEGIN USER SECTION-->
             <div class="user">
-                <a href="/admin" class="lien-admin">
                     <img width="25" height="25" src="{{ Auth::user()->picture }}" alt="{{ Auth::user()->firstname.' '.Auth::user()->lastname }}" class="avatar">
                     <span>{{ Auth::user()->firstname.' '.Auth::user()->lastname }}</span>
                     <i data-toggle="dropdown" class="trigger-user-settings fa fa-user"></i>
-                </a>
             </div>
             <div class="menu">
                 <div class="menu-content">
                     <ul id="social-sidebar-menu">
-                        <!-- BEGIN ELEMENT MENU-->
+                        <li>
+                            <a href="/admin">
+                                <!-- icon--><i class="fa fa-home"></i>
+                                <span>Accueil admin</span>
+                            </a>
+                        </li>
                         <li>
                             <a href="{{ route('admin.user.index') }}">
                                 <!-- icon--><i class="fa fa-users"></i>
@@ -80,10 +81,12 @@
                                 <span>Newsletter</span>
                             </a>
                         </li>
-
-        <!-- BEGIN CHAT SECTION-->
-
-        <!-- END CHAT SECTION-->
+                        <li>
+                            <a href="/">
+                                <!-- icon--><i class="fa fa-sign-in"></i>
+                                <span>Passer sur le front</span>
+                            </a>
+                        </li>
     </aside>
     <!-- END SIDEBAR-->
     <header>
