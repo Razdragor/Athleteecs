@@ -84,7 +84,6 @@ $user = Auth::user();
                     @endif
                 @endforeach
             </ul>
-            <a href="#">Créer un groupe</a>
 
             <div class="chat visible-lg visible-md">
                 <ul class="users-list">
