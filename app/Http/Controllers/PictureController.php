@@ -47,7 +47,7 @@ class PictureController extends Controller
                 $imageName = $guid . "." . $request->file('userpicture')->getClientOriginalExtension();;
 
                 $request->file('userpicture')->move(
-                    base_path() . '/public/images/users', $imageName
+                    public_path() . '/images/users', $imageName
                 );
 
                 $picture->link = $imageName;
