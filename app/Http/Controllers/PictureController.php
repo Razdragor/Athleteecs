@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Picture;
 use Illuminate\Http\Request;
-
+use Validator;
 use App\Http\Requests;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
 
 class PictureController extends Controller
 {
@@ -18,15 +21,21 @@ class PictureController extends Controller
     {
         if(\Request::ajax()){
 
-            $lastproduct = Product::all()->last()->get();
-
             $picture = new Picture();
+
+            dd($request->file('bader'));
 
             $data = $request->all();
 
-            $validator = Validator::make($data, [
-                'picture' => 'required|mimes:jpeg,png,jpg'
-            ]);
+            $rules = [
+                'userpicture' => 'required'
+            ];
+
+            $messages = [
+                'userpicture.required'    => 'Prenom requis'
+            ];
+
+            $validator = Validator::make($data,$rules,$messages);
 
             if ($validator->fails()) {
                 return array(
@@ -34,11 +43,11 @@ class PictureController extends Controller
                 );
             }
 
-            if ($request->hasFile('userpicture')) {
+            if($request->hasFile('bader')) {
                 $guid = sha1(time());
-                $imageName = $guid . "." . $request->file('userpicture')->getClientOriginalExtension();;
+                $imageName = $guid . "." . $request->file('bader')->getClientOriginalExtension();;
 
-                $request->file('userpicture')->move(
+                $request->file('bader')->move(
                     base_path() . '/public/images/users', $imageName
                 );
 
@@ -46,10 +55,12 @@ class PictureController extends Controller
             }
 
             $picture->user_id = Auth::user()->id;
+
             $picture->save();
 
             return \Response::json(array(
-                'picture' => $imageName
+                'success' => true,
+                'picture' =>  $picture->link
             ));
         }
     }
