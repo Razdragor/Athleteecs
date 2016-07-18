@@ -40,6 +40,8 @@ use Illuminate\Support\Facades\File;
         Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () {
             Route::get('/', 'Admin\AdminController@index');
             Route::get('/datauser', 'Admin\AdminController@datauser');
+            Route::get('/datapublication', 'Admin\AdminController@datapublication');
+            Route::get('/dataactivite', 'Admin\AdminController@dataactivite');
             Route::resource('user', 'Admin\UserController');
             Route::resource('sport', 'Admin\SportController');
             Route::resource('newsletter', 'Admin\NewsletterController',['except' => ['update']]);
@@ -155,5 +157,5 @@ use Illuminate\Support\Facades\File;
 
     });
 
-Route::get('confidentialite', ['as' => 'front.obligatoire.confidentialite', 'uses' => 'Front\ObligatoryController@confidentialite']);
-Route::get('mentionslegales', ['as' => 'front.obligatoire.mentionslegales', 'uses' => 'Front\ObligatoryController@mentionslegales']);
+Route::get('confidentialite.html', ['as' => 'front.obligatoire.confidentialite', 'uses' => 'Front\ObligatoryController@confidentialite']);
+Route::get('mentionslegales.html', ['as' => 'front.obligatoire.mentionslegales', 'uses' => 'Front\ObligatoryController@mentionslegales']);

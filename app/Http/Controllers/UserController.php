@@ -6,6 +6,7 @@ use App\Picture;
 use App\Product;
 use App\User;
 use App\UsersEquipsSports;
+use App\UsersNewsletters;
 use App\UsersSports;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -102,10 +103,8 @@ class UserController extends Controller
     public function update(User $user, Request $request)
     {
         $avaiblesexe = ["Homme","Femme","Autre"];
-
         if($user){
             $input = $request->all();
-
             if(in_array($input["sexe"],$avaiblesexe))
             {
                 $rules = [
@@ -147,6 +146,27 @@ class UserController extends Controller
                 $user->school = $input['school'];
                 $user->address= $input['address'];
                 $user->sexe= $input['sexe'];
+
+                $us = UsersNewsletters::whereEmail($user->email)->first();
+                if(array_key_exists('newsletter', $input)){
+                    if(is_null($us)){
+                        $us = UsersNewsletters::create(array(
+                            'email' => $user->email,
+                            'active' => true
+                        ));
+
+                    }
+                    $us->active = true;
+                    $us->save();
+                    $user->newsletter = true;
+                }
+                else{
+                    if(!is_null($us)){
+                        $us->active = false;
+                        $us->save();
+                    }
+                    $user->newsletter = false;
+                }
 
                 $user->save();
 

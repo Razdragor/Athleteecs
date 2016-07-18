@@ -340,7 +340,7 @@ class HelperPublication
         "</a>".
         "<div class='comment-body'>".
         "<span class='message'><strong>". $user->firstname . " " . $user->lastname . "</strong> " . $comment->message ."</span>".
-        "<span class='time'>" . $comment->created_at . "</span>".
+        "<span class='time'>" . $comment->timeAgo($comment->created_at) . "</span>".
         "</div><span class='action'>".
         "<i class='fa fa-warning' id='signalComment'></i>";
         if($comment->user->id == Auth::user()->id){

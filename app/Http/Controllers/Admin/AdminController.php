@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Comment;
+use App\Publication;
+use App\Sport;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -19,9 +23,17 @@ class AdminController extends Controller
     public function index()
     {
         $user = Auth::user();
-        //SELECT DATE(created_at) as d,count(id) from users GROUP by d
+        $posts = Publication::where('status', '!=', 'Blocked')
+            ->orderBy('score', 'DESC')
+            ->take(20)
+            ->get();
 
-        return view('admin.index', ['user' => $user]);
+        $comments = Comment::where('status', '!=', 'Blocked')
+            ->orderBy('score', 'DESC')
+            ->take(20)
+            ->get();
+
+        return view('admin.index', ['user' => $user, 'posts' => $posts, 'comments' => $comments]);
     }
 
     public function datauser(){
@@ -39,6 +51,70 @@ class AdminController extends Controller
         return \Response::json(array(
             'data' => $data
         ));
+    }
+
+    public function dataactivite(){
+        $dateend = Carbon::now()->toDateTimeString();
+        $datestart = Carbon::now()->subDay(8)->toDateTimeString();
+
+        $data = array();
+        $sports = Sport::all();
+
+        foreach ($sports as $sport){
+            $result = DB::table('activities')
+                ->join('sports', 'activities.sport_id', '=', 'sports.id')
+                ->select(DB::raw('date(activities.created_at) as Day, count(*) as Count, sports.name'))
+                ->where('sports.id', '=', $sport->id)
+                ->whereBetween('activities.created_at', [$datestart, $dateend])
+                ->groupBy(DB::raw('day(activities.created_at), activities.sport_id'))
+                ->get();
+
+            $s = array();
+
+            foreach($result as $d){
+                $s[$d->Day] = $d->Count;
+            }
+            $donnees = array_filter($s);
+            if (!empty($donnees)) {
+                $data[$sport->name] = $s;
+            }
+        }
+
+        return $data;
+    }
+
+    public function datapublication(){
+        $dateend = Carbon::now()->toDateTimeString();
+        $datestart = Carbon::now()->subDay()->toDateTimeString();
+
+        $resultPublication = DB::table('publications')
+            ->select(DB::raw('created_at as Hour, count(*) as Count'))
+            ->whereBetween('created_at', [$datestart, $dateend])
+            ->groupBy(DB::raw('day(`created_at`), hour(`created_at`)'))
+            ->get();
+
+        $post = array();
+        foreach($resultPublication as $hour){
+            $post[] = array($hour->Hour, $hour->Count);
+        }
+
+
+        $resultComment = DB::table('comments')
+            ->select(DB::raw('created_at as Hour, count(*) as Count'))
+            ->whereBetween('created_at', [$datestart, $dateend])
+            ->groupBy(DB::raw('day(`created_at`), hour(`created_at`)'))
+            ->get();
+
+        $comment = array();
+        foreach($resultComment as $hour){
+            $comment[] = array($hour->Hour, $hour->Count);
+        }
+
+        return \Response::json(array(
+            'post' => $post,
+            'comment' => $comment
+        ));
+
     }
 
     /**

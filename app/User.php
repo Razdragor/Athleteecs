@@ -61,7 +61,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function publications()
     {
-        return $this->hasMany('App\Publication')->where("status","!=","Blocked");
+        return $this->hasMany('App\Publication')->where("status","!=","Blocked")->orderby('created_at','DESC');
     }
 
     public function associations(){
