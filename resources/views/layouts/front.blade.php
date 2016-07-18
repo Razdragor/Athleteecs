@@ -148,8 +148,8 @@ $user = Auth::user();
                         <a href="{{ route('user.show',['user' => Auth::user()->id]) }}"><img src="{{ Auth::user()->picture}}" alt="Avatar" class="dropdown nav-notifications img-navbarre"></a>
 
                         <li class="dropdown nav-notifications">
-                            <a href="/conversation" data-delay="0" class="dropdown-toggle">
-                                <i class="fa fa-comments-o"></i>
+                            <a href="/conversation" data-delay="0" class="dropdown-toggle" style="margin-top: 0;padding-top: 5px;">
+                                <i class="fa fa-comments-o fa-2x"></i>
                             </a>
                         </li>
 
