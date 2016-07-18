@@ -313,7 +313,7 @@
                                                 <div class="col-md-2">
                                                     <div class="equipement-cadre">
                                                         <div class="equipement-box">
-                                                            <img src="{{asset('images/'.$equipment->picture)}}"
+                                                            <img src="{{asset($equipment->picture)}}"
                                                                  alt="Avatar" class="img-thumbnail img-responsive">
                                                         </div>
                                                     </div>

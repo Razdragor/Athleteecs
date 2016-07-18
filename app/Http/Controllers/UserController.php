@@ -134,10 +134,10 @@ class UserController extends Controller
                     $imageName = $guid . $user->id . "." . $request->file('picture')->getClientOriginalExtension();;
 
                     $request->file('picture')->move(
-                        base_path() . '/public/images/', $imageName
+                        public_path() . '/images/', $imageName
                     );
 
-                    $user->picture = '/public/images/'.$imageName;
+                    $user->picture = '/images/'.$imageName;
                 }
 
                 $user->firstname = $input['firstname'];

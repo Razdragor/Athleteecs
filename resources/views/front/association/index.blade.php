@@ -155,7 +155,7 @@
                             addMarker(location);
                             if(div){
                                 div.append("<div class='col-sm-12 filter-association'>" +
-                                                "<div class='col-sm-12 col-md-4'>" +
+                                                "<div class='col-sm-3'>" +
                                                     "<img src='"+ a.picture +"' alt='"+ a.name +"' class='img-responsive img-filter-association'>"+
                                                 "</div>" +
                                                 "<div class='col-sm-12 col-md-8'>" +
