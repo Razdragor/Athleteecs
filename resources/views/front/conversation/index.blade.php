@@ -39,7 +39,7 @@
                                     <div class="col-xs-4">
                                         @foreach($conversation->conversation->conversation_users as $conv_user)
                                             @if($conv_user->user->id != $user->id)
-                                                <img class="chat-avatar" src="{{ asset('images/'.$conv_user->user->picture) }}">
+                                                <img class="chat-avatar" src="{{ $conv_user->user->picture }}">
                                             @endif
                                         @endforeach
                                     </div>
