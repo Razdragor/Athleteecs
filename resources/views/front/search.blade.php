@@ -5,6 +5,9 @@
     <link href="{{ asset('asset/css/font-awesome/font-awesome.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('asset/css/themes/admin/facebook.css') }}">
     <link href="{{ asset('asset/css/friends.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/glyphicons_free/glyphicons.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.halflings.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
