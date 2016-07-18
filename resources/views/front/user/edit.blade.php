@@ -385,30 +385,28 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4>Ajouter un équipement</h4>
+                                <h4>Ajouter une nouvelle photo</h4>
                             </div>
                             <div class="modal-body">
                                 <form id="submit-modal-photo" enctype="multipart/form-data">
+                                    <div class="row" style="text-align: center">
+                                        <div class="picture-size-box">
 
-
-                                    <div class="col-md-12 padding-bottom-correct">
-                                        <label for="url" class="col-md-2 control-label">Lien vers l'équipement</label>
-                                        <div class="col-md-10">
-                                            <input type="text" class="form-control" name="url" placeholder="...">
+                                            <img id="preview" class="picture-size" src="http://placehold.it/200x200" alt="your image" />
                                         </div>
                                     </div>
-                                    <div class="form-actions panel-foo">
-                                        <div class="btn-group">
-                                            <div class="image-upload">
+                                    <div class="row">
+                                        <div class="image-upload" style="text-align: center;">
                                                 <label for="file-input-modal">
-                                                    <div class="btn btn-default"><i class="fa fa-camera"></i></div>
+                                                    <div class="btn btn-default"><i class="fa fa-camera fa-3x"></i></div>
                                                 </label>
-                                                <input id="file-input-modal" name="productpicture" type="file" accept="image/*"/>
-                                            </div>
+                                                <input id="file-input-modal" name="userpicture" type="file" accept="image/*"/>
                                         </div>
-                                        <button type="submit" class="btn btn-primary pull-right" >Ajouter</button>
+                                        <button type="submit" class="btn btn-primary pull-right semi" >Ajouter</button>
                                     </div>
                                 </form>
+
+
                             </div>
                         </div>
                     </div>

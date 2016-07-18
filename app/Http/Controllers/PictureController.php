@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Product;
+use App\Picture;
 use Illuminate\Http\Request;
-use Validator;
+
 use App\Http\Requests;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Redirect;
 
-
-class ProductController extends Controller
+class PictureController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,15 +17,15 @@ class ProductController extends Controller
     public function addAjax(Request $request)
     {
         if(\Request::ajax()){
+
             $lastproduct = Product::all()->last()->get();
 
-            $product = new Product();
+            $picture = new Picture();
 
             $data = $request->all();
 
             $validator = Validator::make($data, [
-                'productname' => 'required',
-                'description' => 'required'
+                'picture' => 'required|mimes:jpeg,png,jpg'
             ]);
 
             if ($validator->fails()) {
@@ -37,54 +34,29 @@ class ProductController extends Controller
                 );
             }
 
-            $product->name = $data['productname'];
-            $product->description = $data['description'];
-            $product->price= $data['price'];
-            $product->url = $data['url'];
-
-            if(!empty($lastproduct))
-            {
-                $productId = $lastproduct->id+1;
-            }
-            else
-            {
-                $productId = 1;
-            }
-
-
-            if ($request->hasFile('productpicture')) {
+            if ($request->hasFile('userpicture')) {
                 $guid = sha1(time());
-                $imageName = $guid . "." . $request->file('productpicture')->getClientOriginalExtension();;
+                $imageName = $guid . "." . $request->file('userpicture')->getClientOriginalExtension();;
 
-                $request->file('productpicture')->move(
-                    base_path() . '/public/images/products', $imageName
+                $request->file('userpicture')->move(
+                    base_path() . '/public/images/users', $imageName
                 );
 
-                $product->picture = $imageName;
-            }
-            else{
-                $product->picture = "/default_picture/default-equipement.jpg";
-                $imageName = "default_picture/default-equipement.jpg";
+                $picture->link = $imageName;
             }
 
-            $product->save();
+            $picture->user_id = Auth::user()->id;
+            $picture->save();
 
             return \Response::json(array(
-                'success' => true,
-                'productname' =>  $data['productname'],
-                'description' => $data['description'],
-                'price' => $data['price'],
-                'url' => $data['url'],
-                'productId' => $productId,
                 'picture' => $imageName
-
             ));
         }
     }
 
     public function index()
     {
-
+        //
     }
 
     /**
@@ -94,7 +66,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-
+        //
     }
 
     /**
@@ -105,8 +77,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-
-
+        //
     }
 
     /**
@@ -117,7 +88,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-
+        //
     }
 
     /**
@@ -126,9 +97,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-
+        //
     }
 
     /**
@@ -138,10 +109,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-
-
+        //
     }
 
     /**
@@ -150,8 +120,8 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete(Product $product)
+    public function destroy($id)
     {
-
+        //
     }
 }
