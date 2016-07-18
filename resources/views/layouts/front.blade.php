@@ -153,38 +153,49 @@ $user = Auth::user();
                             </a>
                         </li>
 
-                        <li class="dropdown nav-notifications">
-                            <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
-                                @if(Auth::user()->getfriendsnotificationstrue()->count()>0)<span class="badge">{{Auth::user()->getfriendsnotificationstrue()->count()}}</span>@endif<i class="fa fa-users fa-lg"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                @if(Auth::user()->friends()->count()>0)
-                                    <li class="nav-notifications-header">
-                                        <a href="{{ route('front.friends.show') }}">Voir tous les amis ({{Auth::user()->friends()->count() }})</a>
+
+
+                        @if(Auth::user()->friends()->count()>0)
+                            <li class="dropdown nav-notifications">
+                                <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
+                                    @if(Auth::user()->getfriendsnotificationstrue()->count()>0)<span class="badge">{{Auth::user()->getfriendsnotificationstrue()->count()}}</span>@endif<i class="fa fa-users fa-lg"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    @if(Auth::user()->friends()->count()>0)
+                                        <li class="nav-notifications-header">
+                                            <a href="{{ route('front.friends.show') }}">Voir tous les amis ({{Auth::user()->friends()->count() }})</a>
+                                        </li>
+                                    @endif
+                                    <li class="nav-notifications-body">
+                                        @foreach (Auth::user()->getfriendsnotifications as $notification)
+                                            @if($notification->afficher==true)
+                                                <a href="/friends/accept/{{$notification->userL_id}}" class="text-info"><i class="fa fa-user"></i>&nbsp;Demande de
+                                                    @else
+                                                        <a href="/user/{{$notification->userL_id}}" class="text-info"><i class="fa fa-user"></i>&nbsp;Ajout de
+                                                            @endif
+                                                            {{$notification->libelle}} <small class="pull-right">{{$notification->timeAgo($notification->updated_at)}}</small>
+                                                        </a>
+                                                @endforeach
                                     </li>
-                                @endif
-                                <li class="nav-notifications-body">
-                                    @foreach (Auth::user()->getfriendsnotifications as $notification)
-                                        @if($notification->afficher==true)
-                                        <a href="/friends/accept/{{$notification->userL_id}}" class="text-info"><i class="fa fa-user"></i>&nbsp;Demande de
-                                        @else
-                                        <a href="/user/{{$notification->userL_id}}" class="text-info"><i class="fa fa-user"></i>&nbsp;Ajout de
-                                        @endif
-                                    {{$notification->libelle}} <small class="pull-right">{{$notification->timeAgo($notification->updated_at)}}</small>
-                                    </a>
-                                    @endforeach
-                                </li>
                                     @if(Auth::user()->getfriendsnotificationstrue()->count()>0)
                                         <li class="nav-notifications-footer">
                                             <a tabindex="-1" href="{{ route('front.friends.show') }}">Vous avez <strong>{{Auth::user()->getfriendsnotificationstrue()->count()}}</strong> @if(Auth::user()->getfriendsnotificationstrue()->count()>1)nouvelles demandes @else nouvelle demande @endif</a>
                                         </li>
                                     @endif
-                            </ul>
-                        </li>
+                                </ul>
+                            </li>
+                        @else
+                            <li class="dropdown nav-notifications">
+                                <a href="/friends" data-delay="0" class="dropdown-toggle">
+                                    <i class="fa fa-users fa-lg"></i>
+                                </a>
+                            </li>
+                        @endif
+                        
 
                         <li class="dropdown nav-notifications">
                             <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
-                                <span class="badge">{{Auth::user()->getnotifications()->count()}}</span><i class="fa fa-warning fa-lg"></i>
+                                @if(Auth::user()->getnotifications()->count()>0)<span class="badge">{{Auth::user()->getnotifications()->count()}}</span>@endif<i class="fa fa-warning fa-lg"></i>
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="nav-notifications-header">

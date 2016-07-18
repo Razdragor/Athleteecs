@@ -109,7 +109,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-2 col-md-2"></div>
-                    <div class="col-sm-10 col-md-10">
+                    <div class="col-sm-10 col-md-8-2">
                         <!-- BEGIN TABS SELECTIONS-->
                         <div class="row">
                             <ul id="profileTab" class="nav nav-tabs">
@@ -135,7 +135,7 @@
                         <!-- END TABS SELECTIONS-->
                         <div class="row">
                             <!-- BEGIN TABS SECTIONS-->
-                            <div id="profileTabContent" class="tab-content col-sm-7 col-md-7">
+                            <div id="profileTabContent" class="tab-content">
                                 <div class="tab-pane fade active in" id="pots">
                                     <ul class="timeline-2-cols">
                                         <?php $i = 0; ?>
@@ -294,19 +294,17 @@
                                     </dl>
                                 </div>
                                 <div class="tab-pane fade" id="photos">
-                                    <div id="3" class="section-portfolio-items isotopeWrapper clearfix">
-                                        @foreach($user->pictures as $picture)
-                                            <article class="col-md-4 isotopeItem webdesign">
-                                                <div class="section-portfolio-item">
-                                                    <div class="picture-cadre">
-                                                        <div class="picture-box">
-                                                            <img src="{{ $picture->link }}" alt="image">
-                                                        </div>
+                                    @foreach($user->pictures as $picture)
+                                        <article class="col-md-4 isotopeItem webdesign">
+                                            <div class="section-portfolio-item">
+                                                <div class="picture-cadre">
+                                                    <div class="picture-box">
+                                                        <img src="{{ $picture->link }}" alt="image">
                                                     </div>
                                                 </div>
-                                            </article>
-                                        @endforeach
-                                    </div>
+                                            </div>
+                                        </article>
+                                    @endforeach
                                 </div>
                                 <div class="tab-pane fade" id="equipement">
                                     <div class="row">

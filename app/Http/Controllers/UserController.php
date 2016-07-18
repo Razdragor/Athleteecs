@@ -141,6 +141,27 @@ class UserController extends Controller
                 }
 
 
+                $picture = new Picture();
+                dd($request->all());
+                dd($request->file('userpicture'));
+
+                if($request->hasFile('userpicture')) {
+
+                    $guid = sha1(time());
+                    $imageName = $guid . "." . $request->file('userpicture')->getClientOriginalExtension();;
+
+                    $request->file('userpicture')->move(
+                        base_path() . '/public/images/users', $imageName
+                    );
+
+                    $picture->link = $imageName;
+                    $picture->user_id = $user->id;
+                    $picture->save();
+                }
+
+
+
+
                 $user->firstname = $input['firstname'];
                 $user->lastname= $input['lastname'];
                 $user->job = $input['job'];
@@ -203,12 +224,14 @@ class UserController extends Controller
                     foreach($products as $product)
                     {
                         $prod = Product::find($product);
-                        $sportid = $prod->sport->first();
+                        $sportid = $prod->sport()->first();
+                       // dd($sportid);
+                        $sportid = 1;
 
                         $userEquipsSports = new UsersEquipsSports();
                         $userEquipsSports->user_id = $user->id;
                         $userEquipsSports->product_id= $product;
-                        $userEquipsSports->sport_id= $sportid->id;
+                        $userEquipsSports->sport_id= $sportid;
 
                         $userEquipsSports->save();
                     }
