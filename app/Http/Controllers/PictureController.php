@@ -26,11 +26,12 @@ class PictureController extends Controller
             $data = $request->all();
 
             $rules = [
-                'userpicture' => 'required'
+                'userpicture' => 'required|mimes:jpeg,png,jpg'
             ];
 
             $messages = [
-                'userpicture.required'    => 'Prenom requis'
+                'userpicture.required'    => 'Prenom requis',
+                'userpicture.mimes'    => 'Format non valide'
             ];
 
             $validator = Validator::make($data,$rules,$messages);
