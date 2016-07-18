@@ -19,7 +19,7 @@
         </div>
         <div class="row">
             <div class="col-md-9 col-sm-8">
-                <div id="map" style="height: 300px;"></div>
+                <div id="map" style="height: 500px;"></div>
             </div>
             <div class="col-md-3 col-sm-3">
                 <div id="filters">
@@ -28,7 +28,7 @@
                         <ul class="list-unstyled">
                             @foreach($userSports as $sport)
                                 <li>
-                                    <input type="checkbox" name="{{ $sport->id}}"> {{ $sport->name}}
+                                    <input type="checkbox" name="{{ $sport->id}}" checked="checked"> {{ $sport->name}}
                                 </li>
                             @endforeach
                         </ul>
