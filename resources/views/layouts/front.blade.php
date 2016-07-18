@@ -184,7 +184,7 @@ $user = Auth::user();
 
                         <li class="dropdown nav-notifications">
                             <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
-                                <span class="badge">{{Auth::user()->getnotifications()->count()}}</span><i class="fa fa-warning fa-lg"></i>
+                                @if(Auth::user()->getnotifications()->count()>0)<span class="badge">{{Auth::user()->getnotifications()->count()}}</span>@endif<i class="fa fa-warning fa-lg"></i>
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="nav-notifications-header">
