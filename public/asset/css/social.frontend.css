@@ -603,3 +603,16 @@ a {
 .main {
   min-height: 350px
 }
+
+.blanc{
+    color: #fff;
+}
+
+.image-fond{
+    background: url(/images/fond.png) no-repeat 50% 44px;
+    height: 730px;
+}
+
+.text-explicatif{
+    color: #4C1B1B;
+}

@@ -334,8 +334,8 @@ fieldset[disabled] .btn-danger.active {
 }
 .btn-inverse {
   color: #ffffff;
-  background-color: #242424;
-  border-color: #242424;
+  background-color: #B9121B;
+  border-color: #B9121B;
 }
 .btn-inverse:hover,
 .btn-inverse:focus,
@@ -344,8 +344,8 @@ fieldset[disabled] .btn-danger.active {
 .btn-inverse.active,
 .open > .dropdown-toggle.btn-inverse {
   color: #ffffff;
-  background-color: #0a0a0a;
-  border-color: #050505;
+  background-color: #4C1B1B;
+  border-color: #4C1B1B;
 }
 .btn-inverse:active,
 .btn-inverse.active,
