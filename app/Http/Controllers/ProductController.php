@@ -56,7 +56,7 @@ class ProductController extends Controller
                 $imageName = $guid . "." . $request->file('productpicture')->getClientOriginalExtension();;
 
                 $request->file('productpicture')->move(
-                    base_path() . '/public/images/products', $imageName
+                    public_path() . '/images/products', $imageName
                 );
 
                 $product->picture = $imageName;
