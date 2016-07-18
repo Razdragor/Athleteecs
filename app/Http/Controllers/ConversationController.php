@@ -25,7 +25,9 @@ class ConversationController extends Controller
     {
         $user = Auth::user();
         $friend = User::where('id',$id)->first();
-        $conv = false;
+        if($friend)
+        {
+          $conv = false;
         $end = false;
         foreach($friend->conversations as $conv_users)
         {
@@ -63,7 +65,12 @@ class ConversationController extends Controller
             $conversation_user_friend->save();
         }
         return view('front.conversation.index',['user' => $user,'friend'=>$friend, 'conv'=>$conv]);
-    }
+       
+        }
+        else {
+            abort(404, 'La page n\'existe pas');
+        }
+       }
     
     public function create()
     {

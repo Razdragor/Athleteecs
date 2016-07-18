@@ -23,7 +23,7 @@ class UsersTableSeeder extends Seeder
             'score' => 0,
             'newsletter' => 0,
             'star' => 1,
-            'created_at' => Carbon\Carbon::now(),
+            'created_at' => Carbon\Carbon::now()->subDay(),
             'updated_at' => Carbon\Carbon::now()
         ]);
 

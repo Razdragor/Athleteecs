@@ -35,7 +35,7 @@ $user = Auth::user();
 <div class="wrapper">
     <aside class="social-sidebar">
         <div class="visible-lg visible-md">
-            <h4 class="blanc">Events :</h4>
+            <h4 class="blanc">Evènements :</h4>
 
             <ul>
                 @foreach($user->events as $user_event)
@@ -122,7 +122,7 @@ $user = Auth::user();
                                 <a href="{{ route('user.show',['user' => Auth::user()->id]) }}"><i class="fa fa-user"></i>&nbsp;Mon Profil</a>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-object-group"></i>&nbsp;Groupes</a>
+                                <a href="{{ route('event.index') }}"><i class="fa fa-calendar"></i>&nbsp;Evènements</a>
                             </li>
                             <li>
                                 <a href="{{ route('association.index') }}"><i class="fa fa-circle-thin"></i>&nbsp;Associations</a>
@@ -132,12 +132,9 @@ $user = Auth::user();
                                     <a href="/admin"><i class="fa fa-cogs"></i>&nbsp;Admin</a>
                                 </li>
                             @endif
-                            <li>
-                                <a href="/logout"><i class="fa fa-sign-out"></i>&nbsp;Déconnexion</a>
-                            </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="#"><i class="fa fa-info"></i>&nbsp;Aide</a>
+                                <a href="/logout"><i class="fa fa-sign-out"></i>&nbsp;Déconnexion</a>
                             </li>
                         </ul>
                     </li>

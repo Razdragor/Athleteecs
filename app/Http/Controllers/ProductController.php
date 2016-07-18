@@ -59,6 +59,8 @@ class ProductController extends Controller
                     public_path() . '/images/products', $imageName
                 );
 
+                $imageName .= '/images/products/'.$imageName;
+
                 $product->picture = $imageName;
             }
             else{
