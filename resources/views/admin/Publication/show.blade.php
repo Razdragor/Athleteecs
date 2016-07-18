@@ -23,7 +23,8 @@
         }
         .timeline-2-cols > li {
             width: 100%;
-            margin-bottom: 0;
+            margin-top: 0 !important;
+            margin-bottom: 40px;
         }
     </style>
 @endsection
@@ -42,7 +43,7 @@
                         <div class="timeline-heading row" style="margin: 0;">
                             <div style="margin:0 10px 0 0;float:left;">
                                 <a href="{{ route("admin.user.show", $publication->user->id ) }}">
-                                    <img src="{{ asset('images/'.$publication->user->picture) }}" alt="Image" class="img-responsive" style="width: 50px;height: 50px; margin: 5px;display: inline-block;">
+                                    <img src="{{ $publication->user->picture }}" alt="Image" class="img-responsive" style="width: 50px;height: 50px; margin: 5px;display: inline-block;">
                                 </a>
                             </div>
                             <div style="margin: 10px;float:left;">
@@ -93,7 +94,7 @@
         <div class="col-md-6" style="padding:20px;">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4>Informations</h4>
+                    <h3 class="panel-title">Informations</h3>
                 </div>
                 <div class="panel-body">
                     <form class="form-horizontal" method="post" action="{{ route("admin.publication.update", ['publication' => $publication->id]) }}" enctype="multipart/form-data">

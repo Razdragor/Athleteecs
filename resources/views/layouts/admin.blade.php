@@ -56,6 +56,12 @@
                     <ul id="social-sidebar-menu">
                         <!-- BEGIN ELEMENT MENU-->
                         <li>
+                            <a href="{{ url('/admin') }}">
+                                <!-- icon--><i class="fa fa-dashboard"></i>
+                                <span>Accueil</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ route('admin.user.index') }}">
                                 <!-- icon--><i class="fa fa-users"></i>
                                 <span>Utilisateurs</span>
@@ -100,7 +106,7 @@
     <div class="main">
         @yield('content')
     </div>
-    <footer>2016 - <a href="http://localhost" target="_blank">ATHLETEEC</a> / <a href="{{ route('obligatoire')}}">Confidentialité</a></footer>
+    <footer>2016 - <a href="http://localhost" target="_blank">ATHLETEEC</a> / <a href="{{ route('front.obligatoire.confidentialite')}}">Confidentialité</a> / <a href="{{ route('front.obligatoire.mentionslegales')}}">Mentions Légales</a></footer>
 </div>
 <!-- Modal-->
 <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
