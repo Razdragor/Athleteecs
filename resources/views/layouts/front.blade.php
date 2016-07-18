@@ -191,7 +191,7 @@ $user = Auth::user();
                                 </a>
                             </li>
                         @endif
-                        
+
 
                         <li class="dropdown nav-notifications">
                             <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
