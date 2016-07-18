@@ -55,7 +55,7 @@
 
                         @if(Auth::user() != $user)
                             <div>
-                                <a href="{{ url('conversation/'.$association->user_id) }}" class="btn btn-block btn-success"><i class="fa fa-envelope-alt"></i>Envoyer un
+                                <a href="{{ url('conversation/'.$user->user_id) }}" class="btn btn-block btn-success"><i class="fa fa-envelope-alt"></i>Envoyer un
                                     message</a>
                             </div>
 
