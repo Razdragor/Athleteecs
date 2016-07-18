@@ -11,6 +11,7 @@
     <link href="{{ asset('asset/css/glyphicons_free/glyphicons.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.halflings.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/friends.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -153,6 +154,7 @@
                                                     <dd><input type="text" class="form-control" name="school" value="{{ $user->school }}">
                                                     <dd class="divider"></dd>
                                                     <dt>Sports pratiqué</dt>
+                                                    <dd>(Cocher pour supprimer)</dd>
                                                     <ul class="list-unstyled"></dd>
 
                                                     @foreach($user->sports as $sport)
@@ -167,7 +169,8 @@
                                                     <dd class="divider"></dd>
 
                                                     <dt>Sports disponibles</dt>
-                                                    <ul class="list-unstyled"></dd>
+                                                    <dd>(Cocher pour selectionner)</dd>
+                                                    <ul class="list-unstyled">
                                                         @foreach($sports as $sport)
                                                         <dd>
                                                             <li>
@@ -193,7 +196,7 @@
                                             <div class="tab-pane active equipement" style="display: none;">
                                                 <div class="row equip">
                                                     <dt>Equipements utilisées</dt>
-
+                                                    <dd>(Cocher pour supprimer)</dd>
                                                 @foreach($user->products as $equipment)
                                                         <div class="row">
                                                             <ul class="list-unstyled"></dd>
@@ -221,7 +224,7 @@
                                                         </div>
                                                     @endforeach
                                                     <dt>Equipements disponible</dt>
-
+                                                    <dd>(Cocher pour selectionner)</dd>
                                                     @foreach($equipements as $equip)
                                                         <div class="row">
                                                             <ul class="list-unstyled"></dd>
@@ -337,6 +340,28 @@
                                                     @endforeach
                                                         <a href="#" id="addphoto">
                                                             <span class="fa fa-plus fa-2x"></span> Ajouter une photo</a>
+                                            </div>
+                                            <div class="tab-pane active amis" style="display: none;">
+                                                <div class="row">
+                                                    @forelse($user->friends as $friend)
+                                                        <div class="col-md-2 onefriend">
+                                                            <div class="team-member">
+                                                                <a href="/user/{{ $friend->id }}">
+                                                                    <figure class="member-photo">
+                                                                        <img class="imgonefriend" src="{{ $friend->picture }}"
+                                                                             alt="{{ $friend->firstname }} {{ $friend->lastname }}"
+                                                                             width="100px" height="100px">
+                                                                    </figure>
+                                                                    <div class="team-detail">
+                                                                        <h4>{{ $friend->firstname }} {{ $friend->lastname }}</h4>
+                                                                    </div>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    @empty
+                                                        <p class="onefriend">Vous n'avez pas encore ajoutés d'amis.</p>
+                                                    @endforelse
+                                                </div>
                                             </div>
 
                                         </div>
