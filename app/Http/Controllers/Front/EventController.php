@@ -130,7 +130,7 @@ class EventController extends Controller
             'end_at' => $data['date_end_act']
         ));
 
-        $event->description = htmlspecialchars($data['description']);
+        $event->description = $data['description'];
         $event->save();
 
         UsersEvents::create(array(
@@ -363,7 +363,7 @@ class EventController extends Controller
             $event->private = $data['private'];
             $event->started_at = $data['date_start_act'];
             $event->end_at = $data['date_end_act'];
-            $event->description = htmlspecialchars($data['description']);
+            $event->description = $data['description'];
             
             $event->save();
 
