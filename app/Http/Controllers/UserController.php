@@ -140,28 +140,6 @@ class UserController extends Controller
                     $user->picture = '/public/images/'.$imageName;
                 }
 
-
-                $picture = new Picture();
-                dd($request->all());
-                dd($request->file('userpicture'));
-
-                if($request->hasFile('userpicture')) {
-
-                    $guid = sha1(time());
-                    $imageName = $guid . "." . $request->file('userpicture')->getClientOriginalExtension();;
-
-                    $request->file('userpicture')->move(
-                        base_path() . '/public/images/users', $imageName
-                    );
-
-                    $picture->link = $imageName;
-                    $picture->user_id = $user->id;
-                    $picture->save();
-                }
-
-
-
-
                 $user->firstname = $input['firstname'];
                 $user->lastname= $input['lastname'];
                 $user->job = $input['job'];
