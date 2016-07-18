@@ -37,11 +37,11 @@
         <div class="row" style="margin-top: 40px;">
             <form action="{{ route('association.store')}}" method="post" enctype="multipart/form-data" class="form-horizontal" data-toggle="validator">
                 {{ csrf_field() }}
-                <input id="street_number" name="street_number" disabled="disabled" type="hidden"  value="{{ old('street_number') }}">
-                <input id="route" name="route" disabled="disabled" type="hidden" value="{{ old('route') }}">
-                <input id="locality" name="locality" disabled="disabled" type="hidden" value="{{ old('locality') }}">
-                <input id="region" name="region" disabled="disabled" type="hidden" value="{{ old('region') }}">
-                <input id="postal_code" name="postal_code" disabled="disabled" type="hidden" value="{{ old('postal_code') }}">
+                <input id="street_number" name="street_number" type="hidden"  value="{{ old('street_number') }}">
+                <input id="route" name="route"  type="hidden" value="{{ old('route') }}">
+                <input id="locality" name="locality"  type="hidden" value="{{ old('locality') }}">
+                <input id="region" name="region" type="hidden" value="{{ old('region') }}">
+                <input id="postal_code" name="postal_code" type="hidden" value="{{ old('postal_code') }}">
                 <input id="country" name="country" disabled="disabled" type="hidden" value="{{ old('country') }}">
                 <input id="lattitude" name="lattitude" type="hidden" value="{{ old('lat') }}">
                 <input id="longitude" name="longitude" type="hidden" value="{{ old('lng') }}">
@@ -60,7 +60,7 @@
                         <div class="form-group">
                             <label for="sport" class="col-sm-2 control-label">Sport :</label>
                             <div class="col-sm-10">
-                                <select id="select-beast" class="form-control" name="sport" required>
+                                <select id="select-beast" class="form-control" name="sport">
                                     @foreach($sports as $sport)
                                         <option value="{{ $sport->id }}">
                                             {{ $sport->name }}
@@ -83,7 +83,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="description">Description</label>
                             <div class="col-sm-10">
-                                <textarea style="resize: none" rows="4" class="form-control" name="description" id="description" required>{{ old('description') }}</textarea>
+                                <textarea style="resize: none" rows="4" class="form-control" name="description" id="description">{{ old('description') }}</textarea>
                                 @if ($errors->has('description'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('description') }}</strong>

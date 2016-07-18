@@ -55,7 +55,7 @@
 
                         @if(Auth::user() != $user)
                             <div>
-                                <a class="btn btn-block btn-success"><i class="fa fa-envelope-alt"></i>Envoyer un
+                                <a href="{{ url('conversation/'.$user->user_id) }}" class="btn btn-block btn-success"><i class="fa fa-envelope-alt"></i>Envoyer un
                                     message</a>
                             </div>
 
@@ -313,7 +313,7 @@
                                                 <div class="col-md-2">
                                                     <div class="equipement-cadre">
                                                         <div class="equipement-box">
-                                                            <img src="{{asset('images/'.$equipment->picture)}}"
+                                                            <img src="{{asset($equipment->picture)}}"
                                                                  alt="Avatar" class="img-thumbnail img-responsive">
                                                         </div>
                                                     </div>
