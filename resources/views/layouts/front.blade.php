@@ -427,7 +427,6 @@ $user = Auth::user();
     //Envoyer un message via la chat box
     $('body').on('submit','.chat_send_message', function(e){
         e.preventDefault();
-        $('input[name="message"]').val('');
         var fdata = $(this).serialize();
         $.ajax({
             type:'POST',
@@ -436,6 +435,7 @@ $user = Auth::user();
             processData: false,
             success:function(data) {
                 console.log('Success !');
+                $('input[name="message"]').val('');
                 $(".scroll-chat-box").scrollTop($(".scroll-chat-box")[0].scrollHeight);
             },
             error:function()
@@ -623,7 +623,7 @@ $user = Auth::user();
             },
             error:function()
             {
-                console.log('erreur du chat');
+                console.log(jqXHR);
             }
         });
     }
