@@ -365,7 +365,7 @@
                         </div>
                         <div class="tab-pane fade" id="info">
                             <p>
-                                {{ $association->description }}
+                                <?php echo $association->description ?>
                             </p>
                         </div>
                         <div class="tab-pane fade" id="member">
@@ -567,7 +567,15 @@
         function init(){
             initMap();
         }
+
+        var latd = parseFloat({{ $association->lattitude }});
+        var lngd= parseFloat({{ $association->longitude }});
+
         var myLatLng = {lat: 48.866667, lng: 2.333333};
+
+        if(latd && lngd){
+            myLatLng = {lat: latd, lng: lngd};
+        }
         var map;
         var marker;
         function initMap() {

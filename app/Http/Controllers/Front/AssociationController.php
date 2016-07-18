@@ -117,7 +117,7 @@ class AssociationController extends Controller
             'google' => htmlspecialchars($data['google'])
         ));
 
-        $association->description = htmlspecialchars($data['description']);
+        $association->description = $data['description'];
         $association->save();
 
         UsersAssociations::create(array(
@@ -223,7 +223,7 @@ class AssociationController extends Controller
             $association->facebook = htmlspecialchars($data['facebook']);
             $association->twitter = htmlspecialchars($data['twitter']);
             $association->google = htmlspecialchars($data['google']);
-            $association->description = htmlspecialchars($data['description']);
+            $association->description = $data['description'];
 
             $association->save();
 

@@ -13,7 +13,7 @@ class AssociationsTableSeeder extends Seeder
     {
         DB::table('associations')->insert([
             'name' => 'Association de Football ACBE',
-            'picture' => '/images/assos1.png',
+            'picture' => '/images/assos1.jpg',
             'address' => 'allée des tilleuls',
             'number_street' => '9',
             'city_code' => '76440',
