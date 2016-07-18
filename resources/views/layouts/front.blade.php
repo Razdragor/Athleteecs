@@ -151,7 +151,6 @@ $user = Auth::user();
                         </li>
 
 
-
                         @if(Auth::user()->friends()->count()>0)
                             <li class="dropdown nav-notifications">
                                 <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
@@ -226,7 +225,7 @@ $user = Auth::user();
                             </ul>
                         </li>
                     </ul>
-                    <form class="onefriend nav navbar-nav" method="GET" action="{{ route('front.search.show')}}">
+                    <form class="onefriend nav navbar-nav clearfix" method="GET" action="{{ route('front.search.show')}}">
                         {{ csrf_field() }}
                         <div id="custom-search-input">
                             <div class="input-group col-md-12">

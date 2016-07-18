@@ -128,7 +128,7 @@ body {
 .social-navbar .nav-indicators .nav-messages .nav-messages-body > a {
   border-bottom: solid 1px #eaeaea;
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 1000px) {
   .social-navbar .navbar-header .dark {
     display: none !important;
   }
@@ -358,7 +358,7 @@ fieldset[disabled] .social-sidebar .chat .chat-options .btn.active {
 .reduced-sidebar .social-sidebar .search-sidebar {
   background-color: #31353e;
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 1000px) {
   .social-sidebar .social-sidebar-user {
     border-bottom: solid 1px #647aab;
   }
@@ -367,7 +367,7 @@ fieldset[disabled] .social-sidebar .chat .chat-options .btn.active {
     background-color: rgba(0, 0, 0, 0.6);
   }
 }
-@media screen and (min-width: 767px) {
+@media screen and (min-width: 1000px) {
   .reduced-sidebar .social-sidebar .search-sidebar {
     background-color: #31353e;
   }

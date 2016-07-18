@@ -33,3 +33,21 @@
 #custom-search-input .glyphicon-search{
     font-size: 23px;
 }
+
+@media screen and (max-width: 1024px) {
+    #custom-search-input {
+        width: 350px;
+    }
+}
+
+@media screen and (max-width: 860px) {
+    #custom-search-input {
+        width: 200px;
+    }
+}
+
+@media screen and (max-width: 720px) {
+    #custom-search-input {
+        width: 100%;
+    }
+}

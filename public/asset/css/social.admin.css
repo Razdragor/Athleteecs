@@ -38,12 +38,12 @@ body {
   margin: 0 auto;
   width: 100%;
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 1000px) {
   .main {
     margin-left: 0;
   }
 }
-@media screen and (min-width: 767px) {
+@media screen and (min-width: 1000px) {
   .reduced-sidebar .main {
     margin-left: 54px;
   }
@@ -429,17 +429,17 @@ a.social-navbar .nav-indicators .nav-messages .dropdown-menu a.text-danger:hover
 .reduced-sidebar .social-navbar.navbar-super .dropdown.navbar-super-fw .dropdown-menu {
   left: 54px;
 }
-@media screen and (min-width: 767px) {
+@media screen and (min-width: 1000px) {
   .navbar-header .dark {
     display: none !important;
   }
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 1000px) {
   .navbar-header .light {
     display: none !important;
   }
 }
-@media screen and (min-width: 767px) {
+@media screen and (min-width: 1000px) {
   .reduced-sidebar .social-navbar .navbar-header {
     width: 54px;
     position: absolute;
@@ -455,7 +455,7 @@ a.social-navbar .nav-indicators .nav-messages .dropdown-menu a.text-danger:hover
     margin-left: 54px;
   }
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 1000px) {
   .social-navbar .navbar-header {
     float: left;
     width: auto;
@@ -1092,7 +1092,7 @@ fieldset[disabled] .social-sidebar .chat .chat-options .btn.active {
   margin: 2px 0;
   background-color: #3e3e3e;
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 1000px) {
   .social-sidebar {
     -webkit-transition: all 200ms ease-out;
     -o-transition: all 200ms ease-out;
@@ -1299,7 +1299,7 @@ footer,
 .reduced-sidebar .footer {
   margin-left: 54px;
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 1000px) {
   footer,
   .footer {
     margin-left: 0;

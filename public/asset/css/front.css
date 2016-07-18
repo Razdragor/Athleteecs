@@ -275,3 +275,15 @@
 .img-filter-association{
     max-height: 150px;
 }
+
+@media screen and (max-width: 720px) {
+    .onefriend{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .main{
+        margin-top:100px !important;
+    }
+}
