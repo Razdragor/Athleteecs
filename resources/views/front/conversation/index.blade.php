@@ -1,5 +1,11 @@
 @extends('layouts.front')
 
+@section('css')
+    <link href="{{ asset('asset/css/glyphicons_free/glyphicons.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.halflings.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 
     <div class="row">

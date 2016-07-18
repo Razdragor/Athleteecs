@@ -172,6 +172,14 @@ class ActivityController extends Controller
                 $activity->publication->status = "Signaled";
             }
             $activity->publication->save();
+            
+            return \Response::json(array(
+                'success' => true
+            ));
         }
+
+        return \Response::json(array(
+            'success' => false
+        ));
     }
 }

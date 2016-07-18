@@ -241,7 +241,9 @@ class HelperPublication
         $string .=    "</a>".
             "</div>".
             "<div style='margin: 10px;float:left;'>";
-
+        if($publication->user->star == true) {
+            $string .= "<img src ='".asset('images/medal-1.png')."'' alt='medal'>";
+        }
         if(!is_null($publication->association)){
             $string .= "<span>" . $publication->user->firstname . " " . $publication->user->lastname . " - <a href='" . route('association.show', ['association' => $publication->association->id]) . "'>" . $publication->association->name . "</a></span><br>";
         }

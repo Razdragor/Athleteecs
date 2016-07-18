@@ -20,36 +20,35 @@ class ProductController extends Controller
     public function addAjax(Request $request)
     {
         if(\Request::ajax()){
-            $lastproduct = Product::all()->last()->get();
 
             $product = new Product();
 
             $data = $request->all();
 
-            $validator = Validator::make($data, [
+            $rules = [
                 'productname' => 'required',
-                'description' => 'required'
-            ]);
+                'description' => 'required',
+                'productpicture' => 'mimes:jpeg,png,jpg'
+            ];
 
-            if ($validator->fails()) {
+            $messages = [
+                'productname.required'    => 'Prenom requis',
+                'description.required'    => 'Nom requis',
+                'productpicture.mimes'      => 'Le format de l\'image n\'est pas pris en charge (jpeg,png,jpg)'
+            ];
+
+            $validator = Validator::make($data,$rules,$messages);
+
+             if ($validator->fails()) {
                 return array(
                     'errors' => $validator
                 );
             }
 
-            $product->name = $data['productname'];
-            $product->description = $data['description'];
+            $product->name = htmlspecialchars($data['productname']);
+            $product->description = htmlspecialchars($data['description']);
             $product->price= $data['price'];
-            $product->url = $data['url'];
-
-            if(!empty($lastproduct))
-            {
-                $productId = $lastproduct->id+1;
-            }
-            else
-            {
-                $productId = 1;
-            }
+            $product->url = htmlspecialchars($data['url']);
 
 
             if ($request->hasFile('productpicture')) {
@@ -57,7 +56,7 @@ class ProductController extends Controller
                 $imageName = $guid . "." . $request->file('productpicture')->getClientOriginalExtension();;
 
                 $request->file('productpicture')->move(
-                    base_path() . '/public/images/products', $imageName
+                    public_path() . '/images/products', $imageName
                 );
 
                 $product->picture = $imageName;
@@ -75,9 +74,8 @@ class ProductController extends Controller
                 'description' => $data['description'],
                 'price' => $data['price'],
                 'url' => $data['url'],
-                'productId' => $productId,
+                'productId' => $product->id,
                 'picture' => $imageName
-
             ));
         }
     }

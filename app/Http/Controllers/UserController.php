@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Picture;
 use App\Product;
 use App\User;
+use App\UsersDemandsStars;
 use App\UsersEquipsSports;
 use App\UsersNewsletters;
 use App\UsersSports;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
 use Validator;
@@ -138,7 +140,6 @@ class UserController extends Controller
                     $user->picture = '/public/images/'.$imageName;
                 }
 
-
                 $user->firstname = $input['firstname'];
                 $user->lastname= $input['lastname'];
                 $user->job = $input['job'];
@@ -201,12 +202,14 @@ class UserController extends Controller
                     foreach($products as $product)
                     {
                         $prod = Product::find($product);
-                        $sportid = $prod->sport->first();
+                        $sportid = $prod->sport()->first();
+                       // dd($sportid);
+                        $sportid = 1;
 
                         $userEquipsSports = new UsersEquipsSports();
                         $userEquipsSports->user_id = $user->id;
                         $userEquipsSports->product_id= $product;
-                        $userEquipsSports->sport_id= $sportid->id;
+                        $userEquipsSports->sport_id= $sportid;
 
                         $userEquipsSports->save();
                     }
@@ -247,5 +250,52 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function demandeStar(){
+        $user = Auth::user();
+        if(!is_null($user)) {
+            $demand =  UsersDemandsStars::where('user_id', '=', $user->id)->first();
+            if(is_null($demand)){
+                UsersDemandsStars::create(array(
+                    'user_id' => $user->id,
+                    'response' => false
+                ));
+                    $message = 'La demande a bien été envoyé, vous recevrez la réponse sur votre adresse de messagerie.';
+            }
+            else{
+                if($demand->response == true){
+                    $message = 'Votre demande a déjà été traitée, consultez votre boite mail.';
+                }
+                else{
+                    $message = 'Une demande est déjà en cours de traitement.';
+                }
+            }
+
+            return \Response::json(array(
+                'success' => true,
+                'message' => $message
+            ));
+        }
+
+        return \Response::json(array(
+        'success' => false
+        ));
+    }
+    public function demandeStarRemove(){
+        $user = Auth::user();
+        if(!is_null($user)) {
+            $user->star = false;
+            $user->save();
+
+            return \Response::json(array(
+                'success' => true,
+                'message' => 'Vous n\'êtes plus reconnu en tant que personnalité'
+            ));
+        }
+
+        return \Response::json(array(
+            'success' => false
+        ));
     }
 }

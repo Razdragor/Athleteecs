@@ -58,12 +58,6 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url('/admin') }}">
-                                <!-- icon--><i class="fa fa-dashboard"></i>
-                                <span>Accueil</span>
-                            </a>
-                        </li>
-                        <li>
                             <a href="{{ route('admin.user.index') }}">
                                 <!-- icon--><i class="fa fa-users"></i>
                                 <span>Utilisateurs</span>

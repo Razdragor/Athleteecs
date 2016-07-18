@@ -229,6 +229,9 @@
                                                     </a>
                                                 </div>
                                                 <div style="margin: 10px;float:left;">
+                                                    @if($publication->user->star == true)
+                                                        <img src="{{ asset('images/medal-1.png') }}" alt="medal">
+                                                    @endif
                                                     <span>{{ $publication->user->firstname.' '.$publication->user->lastname}}</span><br>
                                                     <small><i aria-hidden="true" class="fa fa-clock-o"></i> {{ $publication->timeAgo($publication->created_at) }}</small>
 

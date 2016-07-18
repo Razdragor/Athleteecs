@@ -25,6 +25,8 @@ use Illuminate\Support\Facades\File;
     Route::model('userevent', 'App\UsersEvents');
     Route::model('notification', 'App\Notifications');
     Route::model('newsletter', 'App\Newsletter');
+    Route::model('star', 'App\UsersDemandsStars');
+
 
 
 
@@ -43,6 +45,11 @@ use Illuminate\Support\Facades\File;
             Route::get('/datapublication', 'Admin\AdminController@datapublication');
             Route::get('/dataactivite', 'Admin\AdminController@dataactivite');
             Route::resource('user', 'Admin\UserController');
+            Route::get('/user/{star}/accept', ['as' => 'admin.user.accept', 'uses' => 'Admin\UserController@accept']);
+            Route::get('/user/{star}/rejet', ['as' => 'admin.user.rejet', 'uses' => 'Admin\UserController@rejet']);
+            Route::get('/user/{user}/changeStatus', ['as' => 'admin.user.change', 'uses' => 'Admin\UserController@changeStatus']);
+            Route::get('/user/{user}/blocked', ['as' => 'admin.user.blocked', 'uses' => 'Admin\UserController@blocked']);
+            Route::get('/user/{user}/authorize', ['as' => 'admin.user.authorize', 'uses' => 'Admin\UserController@authorize']);
             Route::resource('sport', 'Admin\SportController');
             Route::resource('newsletter', 'Admin\NewsletterController',['except' => ['update']]);
             Route::post('/newsletter/{newsletter}/update', ['as' => 'admin.newsletter.update', 'uses' => 'Admin\NewsletterController@update']);
@@ -77,6 +84,8 @@ use Illuminate\Support\Facades\File;
         //Profil
         Route::resource('photo', 'PhotoController');
         Route::resource('user', 'UserController',['except' => ['update']]);
+        Route::post('/user/demandeStar', ['as' => 'user.star', 'uses' => 'UserController@demandeStar']);
+        Route::post('/user/demandeStarRemove', ['as' => 'user.star', 'uses' => 'UserController@demandeStarRemove']);
         Route::post('/user/{user}/update', ['as' => 'user.update', 'uses' => 'UserController@update']);
         Route::post('/product/addAjax','ProductController@addAjax');
         Route::post('/picture/addAjax','PictureController@addAjax');
