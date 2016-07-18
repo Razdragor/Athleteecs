@@ -10,9 +10,10 @@
 .head-tchat{
     height: 58px;
     padding: 18px;
-    border-bottom: 1px solid #c4c3cf;
+    color: #B9121B;
+
 }
-.head-tchat-left{    
+.head-tchat-left{
     width: 75%;
     float: left;
     cursor: pointer;
@@ -54,11 +55,11 @@
 .chat_conv_name{
     width:75%;
     float: left;
-    
+
 }
 .chat_show{
     cursor: pointer;
-    
+
 }
 
 .chat_show_user_span{
@@ -72,13 +73,13 @@
     border: 1px solid grey;
     padding: 4px;
     cursor: pointer;
-    max-width: 33%; 
+    max-width: 33%;
     min-width:50px;
     display: -webkit-box;
 }
 
 .chat_show_user_span:hover{
-    
+
 }
 .chat_user_add{
     width: 347px;
@@ -159,6 +160,26 @@ img.chat-avatar{
     height: 30px;
 }
 
+.add-button{
+    font-size: 20px !important;
+    cursor: pointer;
+    margin-right: 5px;
+}
+.add-button:hover{
+    color: #4C1B1B;
+}
+
+.close-button{
+    float: right;
+    font-size: 20px !important;
+    color: #B9121B;
+    opacity: inherit;
+}
+.close-button:hover{
+    color: #4C1B1B;
+    opacity: inherit;
+}
+
 .tchat-box small {
     font-size:11px;
 }
@@ -166,4 +187,12 @@ img.chat-avatar{
 .chat_message {
     margin-top:5px!important;
     margin-bottom:5px!important;
+}
+
+.username-chatbox{
+    color: #B9121B;
+}
+
+.lien-barre-user:hover{
+    color: #B9121B;
 }

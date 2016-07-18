@@ -46,10 +46,11 @@
         <div class="social-sidebar-content">
             <!-- BEGIN USER SECTION-->
             <div class="user">
-                <!-- //Notice .avatar class-->
-                <img width="25" height="25" src="{{ Auth::user()->picture }}" alt="{{ Auth::user()->firstname.' '.Auth::user()->lastname }}" class="avatar">
-                <span>{{ Auth::user()->firstname.' '.Auth::user()->lastname }}</span>
-                <i data-toggle="dropdown" class="trigger-user-settings fa fa-user"></i>
+                <a href="/admin" class="lien-admin">
+                    <img width="25" height="25" src="{{ Auth::user()->picture }}" alt="{{ Auth::user()->firstname.' '.Auth::user()->lastname }}" class="avatar">
+                    <span>{{ Auth::user()->firstname.' '.Auth::user()->lastname }}</span>
+                    <i data-toggle="dropdown" class="trigger-user-settings fa fa-user"></i>
+                </a>
             </div>
             <div class="menu">
                 <div class="menu-content">
@@ -100,7 +101,7 @@
     <div class="main">
         @yield('content')
     </div>
-    <footer>2016 - <a href="http://localhost" target="_blank">ATHLETEEC</a> / <a href="{{ route('obligatoire')}}">Confidentialité</a></footer>
+    <footer class="blanc">2016 - <a href="/" target="_blank" class="blanc">ATHLETEEC</a> / <a href="{{ route('front.obligatoire.confidentialite')}}" class="blanc">Confidentialité</a> / <a href="{{ route('front.obligatoire.mentionslegales')}}" class="blanc">Mentions Légales</a></footer>
 </div>
 <!-- Modal-->
 <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">

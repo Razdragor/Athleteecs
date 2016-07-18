@@ -35,7 +35,7 @@ $user = Auth::user();
 <div class="wrapper">
     <aside class="social-sidebar">
         <div class="visible-lg visible-md">
-            <h4>Events :</h4>
+            <h4 class="blanc">Events :</h4>
 
             <ul>
                 @foreach($user->events as $user_event)
@@ -49,12 +49,12 @@ $user = Auth::user();
                     @endif
                 @endforeach
             </ul>
-            
-            <a href="{{ route('event.index') }}">Trouver un événement</a><br>
-            <a href="{{ route('event.create') }}">Créer un event</a>
+
+            <a href="{{ route('event.index') }}" class="lien-barre-user">Trouver un événement</a><br>
+            <a href="{{ route('event.create') }}" class="lien-barre-user">Créer un event</a>
 
 
-            <h4>Associations :</h4>
+            <h4 class="blanc">Associations :</h4>
 
             <ul>
                 @foreach($user->associations as $association)
@@ -67,10 +67,10 @@ $user = Auth::user();
                     @endif
                 @endforeach
             </ul>
-            <a href="{{ route('association.index') }}">Trouver une association</a><br>
-            <a href="{{ route('association.create') }}">Créer une association</a>
+            <a href="{{ route('association.index') }}" class="lien-barre-user">Trouver une association</a><br>
+            <a href="{{ route('association.create') }}" class="lien-barre-user">Créer une association</a>
 
-            <h4>Conversations :</h4>
+            <h4 class="blanc">Conversations :</h4>
 
             <ul>
                 @foreach($user->conversations as $conversation)
@@ -114,7 +114,8 @@ $user = Auth::user();
                 <ul class="nav navbar-nav navbar-right">
                     <li class="divider-vertical"></li>
                     <li class="dropdown">
-                        <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle"><i class="fa fa-caret-down fa-lg"></i>
+                        <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
+                            <i class="fa fa-caret-down fa-lg"></i>
                         </a>
                         <ul class="dropdown-menu">
                             <li>
@@ -145,33 +146,11 @@ $user = Auth::user();
                     <ul class="nav navbar-nav navbar-right nav-indicators-body">
                       <!-- DEBUT AMIS-->
                         <a href="{{ route('user.show',['user' => Auth::user()->id]) }}"><img src="{{ Auth::user()->picture}}" alt="Avatar" class="dropdown nav-notifications img-navbarre"></a>
+
                         <li class="dropdown nav-notifications">
-                            <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
-                                @if(Auth::user()->getfriendsnotificationstrue()->count()>0)<span class="badge">{{Auth::user()->getfriendsnotificationstrue()->count()}}</span>@endif<i class="fa fa-users fa-lg"></i>
+                            <a href="/conversation" data-delay="0" class="dropdown-toggle">
+                                <i class="fa fa-comments-o"></i>
                             </a>
-                            <ul class="dropdown-menu">
-                                @if(Auth::user()->friends()->count()>0)
-                                    <li class="nav-notifications-header">
-                                        <a href="{{ route('front.friends.show') }}">Voir tous les amis ({{Auth::user()->friends()->count() }})</a>
-                                    </li>
-                                @endif
-                                <li class="nav-notifications-body">
-                                    @foreach (Auth::user()->getfriendsnotifications as $notification)
-                                        @if($notification->afficher==true)
-                                        <a href="/friends/accept/{{$notification->userL_id}}" class="text-info"><i class="fa fa-user"></i>&nbsp;Demande de
-                                        @else
-                                        <a href="/user/{{$notification->userL_id}}" class="text-info"><i class="fa fa-user"></i>&nbsp;Ajout de
-                                        @endif
-                                            {{$notification->libelle}} <small class="pull-right">{{$notification->timeAgo($notification->updated_at)}}</small>
-                                        </a>
-                                    @endforeach
-                                </li>
-                                @if(Auth::user()->getfriendsnotificationstrue()->count()>0)
-                                    <li class="nav-notifications-footer">
-                                        <a tabindex="-1" href="{{ route('front.friends.show') }}">Vous avez <strong>{{Auth::user()->getfriendsnotificationstrue()->count()}}</strong> @if(Auth::user()->getfriendsnotificationstrue()->count()>1)nouvelles demandes @else nouvelle demande @endif</a>
-                                    </li>
-                                @endif
-                            </ul>
                         </li>
 
                         <li class="dropdown nav-notifications">
@@ -249,7 +228,7 @@ $user = Auth::user();
     <div class="main">
         @yield('content')
     </div>
-    <footer>2016 - <a href="http://localhost" target="_blank">ATHLETEEC</a> / <a href="{{ route('front.obligatoire.confidentialite')}}">Confidentialité</a> / <a href="{{ route('front.obligatoire.mentionslegales')}}">Mentions Légales</a></footer>
+    <footer class="blanc">2016 - <a href="/" target="_blank" class="blanc">ATHLETEEC</a> / <a href="{{ route('front.obligatoire.confidentialite')}}" class="blanc">Confidentialité</a> / <a href="{{ route('front.obligatoire.mentionslegales')}}" class="blanc">Mentions Légales</a></footer>
 </div>
 
 
@@ -406,7 +385,7 @@ $user = Auth::user();
                 $('.'+chat_class).append('<li class="right clearfix"><span class="chat-avatar pull-right"><img src="{{ $user->picture }}" alt="{{ $user->firstname.' '. $user->lastname }}"></span>'+
                         '<div class="chat-body chat_sender1 clearfix"><div class="header">'+
                         '<small class="text-muted"><span class="fa fa-clock-o">&nbsp;</span>'+heureMessage+
-                        '</small><strong class="pull-right primary-font">{{ $user->firstname }} {{$user->lastname }}</strong>'+
+                        '</small><strong class="pull-right primary-font username-chatbox">{{ $user->firstname }} {{$user->lastname }}</strong>'+
                         '</div>'+
                         '<p class="chat_message">'+chat_msg[0]['message']+'</p></div></li>');
                 $('.'+chat_class).parent().scrollTop($(".scroll-chat-box")[0].scrollHeight);
@@ -582,7 +561,7 @@ $user = Auth::user();
                 var chat_class = 'conv_messages_'+data.conv['id'];
                 if(!($('.'+chat_class).length))
                 {
-                    to_append = to_append+'<div class="tchat-box" style="left:'+chatbox_pos+'px"><div class="panel panel-default panel-chat"><div class="head-tchat"><div class="head-tchat-left">'+data.conv['name']+'</div><div class="head-tchat-right"><i class="fa fa-user-plus chat_user_add_button" aria-hidden="true"></i><i class="fa fa-times close" aria-hidden="true"></i></div></div><div class="chat_user_add_div"></div><div class="panel-body scroll-chat-box"><ul class="scroll conv_messages_'+data.conv['id']+'">';
+                    to_append = to_append+'<div class="tchat-box" style="left:'+chatbox_pos+'px"><div class="panel panel-default panel-chat"><div class="head-tchat"><div class="head-tchat-left">'+data.conv['name']+'</div><div class="head-tchat-right"><i class="fa fa-user-plus chat_user_add_button add-button" aria-hidden="true"></i><i class="fa fa-times close close-button" aria-hidden="true"></i></div></div><div class="chat_user_add_div"></div><div class="panel-body scroll-chat-box"><ul class="scroll conv_messages_'+data.conv['id']+'">';
                     chatbox_pos+=370;
 
                     if(chatbox_pos > ($(document).width()-400))
@@ -603,7 +582,7 @@ $user = Auth::user();
                         to_append = to_append + '<li class="right clearfix"><span class="chat-avatar pull-right"><img src="{{ $user->picture }}" alt="{{ $user->firstname.' '. $user->lastname }}" width="45px" height="45px"></span>'+
                                 '<div class="chat-body chat_sender1 clearfix"><div class="header">'+
                                 '<small class="text-muted"><span class="fa fa-clock-o">&nbsp;</span>'+heureMessage+
-                                '</small><strong class="pull-right primary-font">{{ $user->firstname }}</strong>'+
+                                '</small><strong class="pull-right primary-font username-chatbox">{{ $user->firstname }}</strong>'+
                                 '</div>'+
                                 '<p class="chat_message">'+message['message']+'</p></div></li>';
                     }

@@ -6,7 +6,7 @@
 <section class="section panel panel-default">
 <div class="container panel-body">
     <div class="row add-margin-top">
-        <div class="col-md-7">
+        <div class="col-md-7 text-explicatif">
             <blockquote>
                 <div class="media">
             <span style="width: 74px;" class="pull-left text-center"><i class="fa fa-code fa-4x media-object"></i>
