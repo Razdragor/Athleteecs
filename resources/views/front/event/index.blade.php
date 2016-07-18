@@ -1,6 +1,7 @@
 @extends('layouts.front')
 
 @section('css')
+    <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')

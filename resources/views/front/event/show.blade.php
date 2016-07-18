@@ -25,7 +25,8 @@
         }
         .timeline-2-cols > li {
             width: 100%;
-            margin-bottom: 0;
+            margin-top: 0 !important;
+            margin-bottom: 40px;
         }
     </style>
 @endsection

@@ -35,13 +35,13 @@ $user = Auth::user();
 <div class="wrapper">
     <aside class="social-sidebar">
         <div class="visible-lg visible-md">
-            <h4>Events :</h4>
+            <h4 class="blanc">Events :</h4>
 
             <ul>
                 @foreach($user->events as $user_event)
                     @if($user->isMemberEvent($user_event->event->id))
                         <li>
-                            <a href="{{ route('event.index', ['events' => $user_event->event->id]) }}">
+                            <a href="{{ route('event.show', ['events' => $user_event->event->id]) }}">
                                 {{$user_event->event->name}}
 
                             </a>
@@ -49,28 +49,28 @@ $user = Auth::user();
                     @endif
                 @endforeach
             </ul>
-            
-            <a href="{{ route('event.index') }}">Trouver un événement</a><br>
-            <a href="{{ route('event.create') }}">Créer un event</a>
+
+            <a href="{{ route('event.index') }}" class="lien-barre-user">Trouver un événement</a><br>
+            <a href="{{ route('event.create') }}" class="lien-barre-user">Créer un event</a>
 
 
-            <h4>Associations :</h4>
+            <h4 class="blanc">Associations :</h4>
 
             <ul>
                 @foreach($user->associations as $association)
                     @if($user->isMemberAssociation($association->association->id))
                         <li>
-                            <a href="{{ route('association.index', ['association' => $association->association->id]) }}">
+                            <a href="{{ route('association.show', ['association' => $association->association->id]) }}">
                                 {{$association->association->name}}
                             </a>
                         </li>
                     @endif
                 @endforeach
             </ul>
-            <a href="{{ route('association.index') }}">Trouver une association</a><br>
-            <a href="{{ route('association.create') }}">Créer une association</a>
+            <a href="{{ route('association.index') }}" class="lien-barre-user">Trouver une association</a><br>
+            <a href="{{ route('association.create') }}" class="lien-barre-user">Créer une association</a>
 
-            <h4>Conversations :</h4>
+            <h4 class="blanc">Conversations :</h4>
 
             <ul>
                 @foreach($user->conversations as $conversation)
@@ -84,7 +84,6 @@ $user = Auth::user();
                     @endif
                 @endforeach
             </ul>
-            <a href="#">Créer un groupe</a>
 
             <div class="chat visible-lg visible-md">
                 <ul class="users-list">
@@ -115,7 +114,8 @@ $user = Auth::user();
                 <ul class="nav navbar-nav navbar-right">
                     <li class="divider-vertical"></li>
                     <li class="dropdown">
-                        <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle"><i class="fa fa-caret-down fa-lg"></i>
+                        <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
+                            <i class="fa fa-caret-down fa-lg"></i>
                         </a>
                         <ul class="dropdown-menu">
                             <li>
@@ -146,6 +146,13 @@ $user = Auth::user();
                     <ul class="nav navbar-nav navbar-right nav-indicators-body">
                       <!-- DEBUT AMIS-->
                         <a href="{{ route('user.show',['user' => Auth::user()->id]) }}"><img src="{{ Auth::user()->picture}}" alt="Avatar" class="dropdown nav-notifications img-navbarre"></a>
+
+                        <li class="dropdown nav-notifications">
+                            <a href="/conversation" data-delay="0" class="dropdown-toggle">
+                                <i class="fa fa-comments-o"></i>
+                            </a>
+                        </li>
+
                         <li class="dropdown nav-notifications">
                             <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
                                 @if(Auth::user()->getfriendsnotificationstrue()->count()>0)<span class="badge">{{Auth::user()->getfriendsnotificationstrue()->count()}}</span>@endif<i class="fa fa-users fa-lg"></i>
@@ -163,34 +170,15 @@ $user = Auth::user();
                                         @else
                                         <a href="/user/{{$notification->userL_id}}" class="text-info"><i class="fa fa-user"></i>&nbsp;Ajout de
                                         @endif
-                                            {{$notification->libelle}} <small class="pull-right">{{$notification->timeAgo($notification->updated_at)}}</small>
-                                        </a>
+                                    {{$notification->libelle}} <small class="pull-right">{{$notification->timeAgo($notification->updated_at)}}</small>
+                                    </a>
                                     @endforeach
                                 </li>
-                                @if(Auth::user()->getfriendsnotificationstrue()->count()>0)
-                                    <li class="nav-notifications-footer">
-                                        <a tabindex="-1" href="{{ route('front.friends.show') }}">Vous avez <strong>{{Auth::user()->getfriendsnotificationstrue()->count()}}</strong> @if(Auth::user()->getfriendsnotificationstrue()->count()>1)nouvelles demandes @else nouvelle demande @endif</a>
-                                    </li>
-                                @endif
-                            </ul>
-                        </li>
-
-                        <li class="dropdown nav-notifications">
-                            <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
-                                @if(Auth::user()->getfriendsnotificationstrue()->count()>0)<span class="badge">{{Auth::user()->getfriendsnotificationstrue()->count()}}</span>@endif<i class="fa fa-users fa-lg"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                @if(Auth::user()->friends()->count()>0)
-                                    <li class="nav-notifications-header">
-                                        <a href="{{ route('front.friends.show') }}">Voir tous les amis ({{Auth::user()->friends()->count() }})</a>
-                                    </li>
-                                @endif
-                                <li class="nav-notifications-body">
-
-                                </li>
-                                <li class="nav-notifications-footer">
-                                    <a href="/notifications">Voir toutes les notifications</a>
-                                </li>
+                                    @if(Auth::user()->getfriendsnotificationstrue()->count()>0)
+                                        <li class="nav-notifications-footer">
+                                            <a tabindex="-1" href="{{ route('front.friends.show') }}">Vous avez <strong>{{Auth::user()->getfriendsnotificationstrue()->count()}}</strong> @if(Auth::user()->getfriendsnotificationstrue()->count()>1)nouvelles demandes @else nouvelle demande @endif</a>
+                                        </li>
+                                    @endif
                             </ul>
                         </li>
 
@@ -250,7 +238,7 @@ $user = Auth::user();
     <div class="main">
         @yield('content')
     </div>
-    <footer>2016 - <a href="http://localhost" target="_blank">ATHLETEEC</a> / <a href="{{ route('front.obligatoire.confidentialite')}}">Confidentialité</a> / <a href="{{ route('front.obligatoire.mentionslegales')}}">Mentions Légales</a></footer>
+    <footer class="blanc">2016 - <a href="/" target="_blank" class="blanc">ATHLETEEC</a> / <a href="{{ route('front.obligatoire.confidentialite')}}" class="blanc">Confidentialité</a> / <a href="{{ route('front.obligatoire.mentionslegales')}}" class="blanc">Mentions Légales</a></footer>
 </div>
 
 
@@ -330,16 +318,16 @@ $user = Auth::user();
         {
             if($('.'+chat_class).length)
             {
-                $('.'+chat_class).append('<li class="right clearfix"><p>'+chat_msg[0]['friend']['firstname']+' '+chat_msg[0]['friend']['lastname']+' à été ajouté à la conversation</p></li>');
-                $('.'+chat_class).parent().scrollTop($(".scroll-chat-box")[0].scrollHeight);
+                $('.'+chat_class).append('<li class="right clearfix"><p class="chat_message">'+chat_msg[0]['friend']['firstname']+' à été ajouté à la conversation</p></li>');
+                $('.'+chat_class).parent().scrollTop($('.'+chat_class).parent().prop("scrollHeight"));
             }
             else
             {
                 $('.users-list').append('<form class="create_conversation"><input type="hidden" name="conv_id" value="'+chat_msg[0]['conv_id']+'"></input></form>');
                 var form = $(document).find('input[name="conv_id"][value="'+chat_msg[0]['conv_id']+'"]').parent();
                 create_or_show_chat(form,"{{ route('show_conversation') }}");
-                $('.'+chat_class).append('<li class="right clearfix"><p>'+chat_msg[0]['friend']['firstname']+' '+chat_msg[0]['friend']['lastname']+' à été ajouté à la conversation</p></li>');
-                $('.'+chat_class).parent().scrollTop($(".scroll-chat-box")[0].scrollHeight);
+                $('.'+chat_class).append('<li class="right clearfix"><p class="chat_message">'+chat_msg[0]['friend']['firstname']+' à été ajouté à la conversation</p></li>');
+                $('.'+chat_class).parent().scrollTop($('.'+chat_class).parent().prop("scrollHeight"));
             }
         }
     });
@@ -364,10 +352,11 @@ $user = Auth::user();
         {
             if($('.'+chat_class).length)
             {
-                $('.'+chat_class).parent().parent().find(".head-tchat-left").html(chat_msg[0]['conv_name']);
+                $(".chat_conv_name").after('<div class="head-tchat-left"></div>');
+                $('.'+chat_class).parent().parent().find(".head-tchat-left").after(chat_msg[0]['conv_name']);
                 $(".chat_conv_name").remove();
-                $('.'+chat_class).append('<li class="right clearfix"><p>'+chat_msg[0]['user']['firstname']+' '+chat_msg[0]['user']['lastname']+' à changé le nom de la conversation en : '+chat_msg[0]['conv_name']+'</p></li>');
-                $('.'+chat_class).parent().scrollTop($(".scroll-chat-box")[0].scrollHeight);
+                $('.'+chat_class).append('<li class="right clearfix"><p class="chat_message">'+chat_msg[0]['user']['firstname']+' à changé le nom de la conversation en : '+chat_msg[0]['conv_name']+'</p></li>');
+                $('.'+chat_class).parent().scrollTop($('.'+chat_class).parent().prop("scrollHeight"));
 
             }
             else
@@ -375,10 +364,11 @@ $user = Auth::user();
                 var form = $(document).find('input[name="id"][value="'+chat_msg[0]['user']['id']+'"]').parent();
                 create_or_show_chat(form,"{{ route('create_conversation') }}");
 
+                $(".chat_conv_name").after('<div class="head-tchat-left"></div>');
                 $('.'+chat_class).parent().parent().find(".head-tchat-left").html(chat_msg[0]['conv_name']);
                 $(".chat_conv_name").remove();
-                $('.'+chat_class).append('<li class="right clearfix"><p>'+chat_msg[0]['user']['firstname']+' '+chat_msg[0]['user']['lastname']+' à changé le nom de la conversation en : '+chat_msg[0]['conv_name']+'</p></li>');
-                $('.'+chat_class).parent().scrollTop($(".scroll-chat-box")[0].scrollHeight);
+                $('.'+chat_class).append('<li class="right clearfix"><p class="chat_message">'+chat_msg[0]['user']['firstname']+' à changé le nom de la conversation en : '+chat_msg[0]['conv_name']+'</p></li>');
+                $('.'+chat_class).parent().scrollTop($('.'+chat_class).parent().prop("scrollHeight"));
             }
         }
 
@@ -402,31 +392,30 @@ $user = Auth::user();
         {
             if(chat_msg[0]['user']['id'] == {{ $user->id }})
             {
-                $('.'+chat_class).append('<li class="right clearfix"><span class="chat-avatar pull-right"><img src="{{ $user->picture }}" alt="{{ $user->firstname.' '. $user->lastname }}" width="55px" height="55px"></span>'+
-                        '<div id="chat_sender1" class="chat-body clearfix"><div class="header">'+
-                        '<small class="text-muted"><span class="fa fa-clock-o">&nbsp;'+heureMessage+'</span>'+
-                        '</small><strong class="pull-right primary-font">{{ $user->firstname }} {{$user->lastname }}</strong>'+
+                $('.'+chat_class).append('<li class="right clearfix"><span class="chat-avatar pull-right"><img src="{{ $user->picture }}" alt="{{ $user->firstname.' '. $user->lastname }}"></span>'+
+                        '<div class="chat-body chat_sender1 clearfix"><div class="header">'+
+                        '<small class="text-muted"><span class="fa fa-clock-o">&nbsp;</span>'+heureMessage+
+                        '</small><strong class="pull-right primary-font username-chatbox">{{ $user->firstname }}</strong>'+
                         '</div>'+
-                        '<p>'+chat_msg[0]['message']+'</p></div></li>');
-                $('.'+chat_class).parent().scrollTop($(".scroll-chat-box")[0].scrollHeight);
+                        '<p class="chat_message">'+chat_msg[0]['message']+'</p></div></li>');
+                $('.'+chat_class).parent().scrollTop($('.'+chat_class).parent().prop("scrollHeight"));
             }
             else
             {
                 if($('.'+chat_class).length)
                 {
-                    $('.'+chat_class).append('<li class="left clearfix"><span class="chat-avatar pull-left"><img src="'+chat_msg[0]['user']['picture']+'" alt="'+chat_msg[0]['user']['firstname']+' '+chat_msg[0]['user']['lastname']+
-                            '" width="55px" height="55px"></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font">'+chat_msg[0]['user']['firstname']+' '+chat_msg[0]['user']['lastname']+
+                    $('.'+chat_class).append('<li class="left clearfix"><span class="chat-avatar pull-left"><img src="'+chat_msg[0]['user']['picture']+'" alt="'+chat_msg[0]['user']['firstname']+
+                            '" width="45px" height="45px"></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font username-chatbox-gauche">'+chat_msg[0]['user']['firstname']+
+                            '</strong><small class="pull-right text-muted"><span class="fa fa-clock-o">&nbsp;</span>'+heureMessage+'</small></div><p class="chat_message">'+chat_msg[0]['message']+'</p></div></li>');
 
-                            '</strong><small class="pull-right text-muted"><span class="fa fa-clock-o">&nbsp;'+heureMessage+'</span></small></div><p>'+chat_msg[0]['message']+'</p></div></li>');
-
-                    $('.'+chat_class).parent().scrollTop($(".scroll-chat-box")[0].scrollHeight);
+                    $('.'+chat_class).parent().scrollTop($('.'+chat_class).parent().prop("scrollHeight"));
                 }
                 else
                 {
                     var form = $(document).find('input[name="id"][value="'+chat_msg[0]['user']['id']+'"]').parent();
                     create_or_show_chat(form,"{{ route('create_conversation') }}");
-                    $('.'+chat_class).append('<div class="col-xs-8 col-xs-offset-4">'+chat_msg[0]['firstname']+' '+chat_msg[0]['lastname']+'<p>'+chat_msg[0]['message']+'</p></div>');
-                    $('.'+chat_class).parent().scrollTop($(".scroll-chat-box")[0].scrollHeight);
+                    $('.'+chat_class).append('<div class="col-xs-8 col-xs-offset-4">'+chat_msg[0]['firstname']+'<p class="chat_message">'+chat_msg[0]['message']+'</p></div>');
+                    $('.'+chat_class).parent().scrollTop($('.'+chat_class).parent().prop("scrollHeight"));
                 }
             }
         }
@@ -462,8 +451,8 @@ $user = Auth::user();
             processData: false,
             success:function(data) {
                 console.log('Success !');
-                $('#btn-input').val('');
-                $(".scroll-chat-box").scrollTop($(".scroll-chat-box")[0].scrollHeight);
+                $('input[name="message"]').val('');
+                $(".scroll-chat-box").scrollTop($('.'+chat_class).parent().prop("scrollHeight"));
             },
             error:function()
             {
@@ -506,7 +495,7 @@ $user = Auth::user();
         var div_for_input = $(this).parent().parent().parent().find(".chat_user_add_div");
         var conv_id = $(this).parent().parent().parent().find('input[type="hidden"][name="conversation_id"]').val();
         $(div_for_input).html('');
-        $(div_for_input).append('<form action="chat_add_user" method="POST" class="chat_user_add"><input type="text" name="add_user" class="form-control chat_json_user_add"><input type="hidden" name="conversation_id" value="'+conv_id+'"><br><div class="chat_show_user_div"></div></form>');
+        $(div_for_input).append('<form action="chat_add_user" method="POST" class="chat_user_add"><input type="text" name="add_user"  autocomplete="off" class="form-control chat_json_user_add"><input type="hidden" name="conversation_id" value="'+conv_id+'"><br><div class="chat_show_user_div"></div></form>');
         $(".chat_json_user_add").focus();
     });
 
@@ -525,7 +514,7 @@ $user = Auth::user();
                 var to_append='';
                 $.each(data.friends,function(i,friend){
                     console.log(friend);
-                    to_append = to_append+'<span value="'+friend.id+'" class="chat_show_user_span"><img src="'+friend.picture+'" class="search-add-user-chat-img">'+friend.firstname+' '+friend.lastname+'</span>';
+                    to_append = to_append+'<span value="'+friend.id+'" class="chat_show_user_span"><img src="'+friend.picture+'" class="search-add-user-chat-img">'+friend.firstname+'</span>';
                 });
                 $('.chat_show_user_div').html(to_append);
             },
@@ -582,7 +571,7 @@ $user = Auth::user();
                 var chat_class = 'conv_messages_'+data.conv['id'];
                 if(!($('.'+chat_class).length))
                 {
-                    to_append = to_append+'<div class="tchat-box" style="left:'+chatbox_pos+'px"><div class="panel panel-default panel-chat"><div class="head-tchat"><div class="head-tchat-left">'+data.conv['name']+'</div><div class="head-tchat-right"><i class="fa fa-user-plus chat_user_add_button" aria-hidden="true"></i><i class="fa fa-times close" aria-hidden="true"></i></div></div><div class="chat_user_add_div"></div><div class="panel-body scroll-chat-box"><ul class="scroll conv_messages_'+data.conv['id']+'">';
+                    to_append = to_append+'<div class="tchat-box" style="left:'+chatbox_pos+'px"><div class="panel panel-default panel-chat"><div class="head-tchat"><div class="head-tchat-left">'+data.conv['name']+'</div><div class="head-tchat-right"><i class="fa fa-user-plus chat_user_add_button add-button" aria-hidden="true"></i><i class="fa fa-times close close-button" aria-hidden="true"></i></div></div><div class="chat_user_add_div"></div><div class="panel-body scroll-chat-box"><ul class="scroll conv_messages_'+data.conv['id']+'">';
                     chatbox_pos+=370;
 
                     if(chatbox_pos > ($(document).width()-400))
@@ -596,16 +585,17 @@ $user = Auth::user();
                         });
                     }
                 }
+                console.log(data);
                 data.messages.forEach(function(message){
                     var heureMessage = message['created_at'];
                     if(message['user_id'] == {{ $user->id }})
                     {
-                        to_append = to_append + '<li class="right clearfix"><span class="chat-avatar pull-right"><img src="{{ $user->picture }}" alt="{{ $user->firstname.' '. $user->lastname }}" width="55px" height="55px"></span>'+
-                                '<div id="chat_sender1" class="chat-body clearfix"><div class="header">'+
-                                '<small class="text-muted"><span class="fa fa-clock-o">&nbsp;'+heureMessage+'</span>'+
-                                '</small><strong class="pull-right primary-font">{{ $user->firstname }} {{$user->lastname }}</strong>'+
+                        to_append = to_append + '<li class="right clearfix"><span class="chat-avatar pull-right"><img src="{{ $user->picture }}" alt="{{ $user->firstname.' '. $user->lastname }}" width="45px" height="45px"></span>'+
+                                '<div class="chat-body chat_sender1 clearfix"><div class="header">'+
+                                '<small class="text-muted"><span class="fa fa-clock-o">&nbsp;</span>'+heureMessage+
+                                '</small><strong class="pull-right primary-font username-chatbox-droite">{{ $user->firstname }}</strong>'+
                                 '</div>'+
-                                '<p>'+message['message']+'</p></div></li>';
+                                '<p class="chat_message">'+message['message']+'</p></div></li>';
                     }
                     else
                     {
@@ -615,8 +605,8 @@ $user = Auth::user();
                                 var heureMessage = message['created_at'];
                                 console.log(heureMessage);
                                 to_append = to_append + '<li class="left clearfix"><span class="chat-avatar pull-left"><img src="'+user['picture']+'" alt="'+user['firstname']+' '+user['lastname']+
-                                        '" width="55px" height="55px"></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font">'+user['firstname']+' '+user['lastname']+
-                                        '</strong><small class="pull-right text-muted"><span class="fa fa-clock-o">&nbsp;'+heureMessage+'</span></small></div><p>'+message['message']+'</p></div></li>';
+                                        '" width="45px" height="45px"></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font username-chatbox-gauche">'+user['firstname']+
+                                        '</strong><small class="pull-right text-muted"><span class="fa fa-clock-o">&nbsp;</span>'+heureMessage+'</small></div><p class="chat_message">'+message['message']+'</p></div></li>';
                             }
                         });
                     }
@@ -626,7 +616,7 @@ $user = Auth::user();
                 {
                     to_append = to_append + '</ul></div><div class="panel-footer"><form action="sendmessage" method="POST" class="chat_send_message"><div class="input-group">'+
                             '<input type="hidden" name="_token" value="{{ csrf_token() }}"><input type="hidden" name="conversation_id" value="'+data.conv['id']+'">'+
-                            '<input id="btn-input" name="message" type="text" autocomplete="off" placeholder="Ecrivez un message..." class="form-control input-sm">'+
+                            '<input name="message" type="text" autocomplete="off" placeholder="Ecrivez un message..." class="form-control input-sm">'+
                             '<span class="input-group-btn"><input type="submit" value="Envoyer" class="btn btn-success btn-sm"></span></div></form></div>';
                 }
                 if(view == 1)
@@ -639,18 +629,20 @@ $user = Auth::user();
                     if($('.'+chat_class).length)
                     {
                         $('.conv_messages_'+data.conv['id']).html(to_append);
-                        $(".scroll-chat-box").scrollTop($(".scroll-chat-box")[0].scrollHeight);
+                        console.log($('.'+chat_class).parent().prop("scrollHeight"));
+                        $('.'+chat_class).parent().scrollTop($('.'+chat_class).parent().prop("scrollHeight"));
                     }
                     else
                     {
                         $('.users-list').after(to_append);
-                        $(".scroll-chat-box").scrollTop($(".scroll-chat-box")[0].scrollHeight);
+                        console.log($('.'+chat_class).parent().prop("scrollHeight"));
+                        $('.'+chat_class).parent().scrollTop($('.'+chat_class).parent().prop("scrollHeight"));
                     }
                 }
             },
             error:function()
             {
-                console.log('erreur du chat');
+                console.log('Erreur chat');
             }
         });
     }

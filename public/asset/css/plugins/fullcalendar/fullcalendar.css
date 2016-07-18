@@ -253,7 +253,7 @@ fieldset[disabled] .fc-state-default.active {
   z-index: 9;
 }
 .fc-event {
-  border: 1px solid #566d9f;
+  border: 1px solid #4C1B1B;
   /* default BORDER color */
   background-color: #647aab;
   /* default BACKGROUND color */

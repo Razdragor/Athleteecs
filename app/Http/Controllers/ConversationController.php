@@ -79,7 +79,7 @@ class ConversationController extends Controller
             {
                 if($my_conversation_users->conversation)
                 {             
-                        if(count($my_conversation_users->conversation->conversation_users)==2)
+                        if($my_conversation_users->conversation->group == false)
                         {
                             foreach($my_conversation_users->conversation->conversation_users as $my_conversation_friend)
                             {
@@ -146,10 +146,16 @@ class ConversationController extends Controller
             {
                 
                 $conv = Conversation::where('id',Input::get('conv_id'))->first();
+                
+                $users = array();
+                foreach($conv->conversation_users as $conv_user)
+                {
+                    array_push($users,$conv_user->user);
+                }
                  return \Response::json(array(
                     'success' => true,
                     'conv' => $conv,
-                    'users' => $conv->conversation_users,
+                    'users' => $users,
                     'messages' => $conv->conversation_messages,
                 ));
             } 
@@ -170,7 +176,7 @@ class ConversationController extends Controller
                     
                     $conv_message = new Conversation_message();
                     $conv_message->conversation_id = Input::get('conversation_id');
-                    $conv_message->message = Input::get('message');
+                    $conv_message->message = trim(htmlentities(Input::get('message')));
                     $conv_message->user_id = $user->id;
                     $conv_message->save();
                     
@@ -212,7 +218,7 @@ class ConversationController extends Controller
                 
                 if($conv->first())
                 {
-                    $conv->update(['name' => Input::get('conv_name')]);
+                    $conv->update(['name' => trim(htmlentities(Input::get('conv_name')))]);
                     
                     $conv = Conversation::where('id',Input::get('conversation_id'))->first();
                     
@@ -227,7 +233,7 @@ class ConversationController extends Controller
                     }
                     
                     $redis = LRedis::connection();
-                    $redis->publish('change_name', json_encode(['conv_name'=>Input::get('conv_name'),
+                    $redis->publish('change_name', json_encode(['conv_name'=>trim(htmlentities(Input::get('conv_name'))),
                                                                 'conv_id'=>Input::get('conversation_id'),
                                                                 'user'=>Auth::user(),
                                                                 'users'=>$conv->conversation_users
@@ -298,7 +304,13 @@ class ConversationController extends Controller
                     if($conv->group == false)
                     {
                         $new_conv = new Conversation;
-                        $new_conv->name = $conv->name.' & '.$friend->firstname;
+                        $new_conv_name = "";
+                        foreach($conv->conversation_users as $conversation_user)
+                        {
+                            $new_conv_name = $new_conv_name.$conversation_user->user->firstname.' & ';
+                        }
+                        $new_conv_name = $new_conv_name.$friend->firstname;
+                        $new_conv->name = $new_conv_name;
                         $new_conv->group = true;
                         $new_conv->save();
 
@@ -319,6 +331,8 @@ class ConversationController extends Controller
                     }
                     else
                     {
+                        $conv->name = $conv->name.' & '.$friend->firstname;
+                        $conv->save();
                         $new_conversation_user = new Conversation_user;
                         $new_conversation_user->conversation_id = $conv->id;
                         $new_conversation_user->user_id = Input::get('friend_id');
@@ -355,6 +369,5 @@ class ConversationController extends Controller
             }
 
         }
-	}
-       
+	}  
 }

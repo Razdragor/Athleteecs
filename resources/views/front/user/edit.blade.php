@@ -169,6 +169,12 @@
                                                     <dt>Adresse postal</dt>
                                                     <dd><input type="text" class="form-control" name="address" value="{{ $user->address }}">
                                                     <dd class="divider"></dd>
+                                                    <dt>Newsletter</dt>
+                                                    @if($user->newsletter == true)
+                                                        <dd><input type="checkbox" class="" name="newsletter" checked="checked"></dd>
+                                                    @else
+                                                        <dd><input type="checkbox" class="" name="newsletter"></dd>
+                                                    @endif
 
                                                 </dl>
                                             </div>

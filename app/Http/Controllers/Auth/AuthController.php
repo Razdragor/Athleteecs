@@ -61,6 +61,21 @@ class AuthController extends Controller
             'lastname' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users|confirmed',
             'password' => 'required|min:6|confirmed',
+            'year' => 'required',
+            'month' => 'required',
+            'day' => 'required'
+        ], [
+            'firstname.required' => "Prénom requis",
+            'lastname.required' => 'Nom requis',
+            'email.required' => 'Adresse mail requise',
+            'email.unique' => 'Cette addresse mail existe déjà',
+            'email.confirmed' => 'Les champs doivent être identiques',
+            'password.required' => 'Mot de passe requis',
+            'password.confirmed' => 'Les champs doivent être identiques',
+            'password.min' => 'Le mot de passe doit faire au moins 6 caractères',
+            'year.required' => 'L\'année est requise',
+            'month.required' => 'Le mois est requis',
+            'day.required' => 'Le jour est requis'
         ]);
     }
 

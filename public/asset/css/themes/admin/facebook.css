@@ -11,9 +11,9 @@ body {
   background-color: #ecf0f1 !important;
 }
 .social-navbar {
-  background-color: #647aab;
+  background-color: #B9121B;
   color: #777777;
-  border-bottom: 1px solid #4d628f;
+  border-bottom: 1px solid #B9121B;
 }
 .social-navbar .navbar-brand {
   color: #c4c3cf !important;
@@ -26,7 +26,7 @@ body {
 .social-navbar .nav .open > a,
 .social-navbar .nav .open > a:hover,
 .social-navbar .nav .open > a:focus {
-  background-color: #4b5e8a;
+  background-color: #4C1B1B;
   border-color: #394869;
 }
 .social-navbar .navbar-nav > li > a {
@@ -35,35 +35,35 @@ body {
 .social-navbar .navbar-nav > li > a:hover,
 .social-navbar .navbar-nav > li > a:focus {
   color: #ffffff;
-  background-color: #4b5e8a;
+  background-color: #4C1B1B;
 }
 .social-navbar .navbar-nav > .active > a,
 .social-navbar .navbar-nav > .active > a:hover,
 .social-navbar .navbar-nav > .active > a:focus {
   color: #ffffff;
-  background-color: #4b5e8a;
+  background-color: #4C1B1B;
 }
 .social-navbar .navbar-nav > .disabled > a,
 .social-navbar .navbar-nav > .disabled > a:hover,
 .social-navbar .navbar-nav > .disabled > a:focus {
   color: #cccccc;
-  background-color: #4b5e8a;
+  background-color: #4C1B1B;
 }
 .social-navbar .navbar-toggle {
   color: #ffffff;
-  border-color: #4d628f;
+  border-color: #4C1B1B;
 }
 .social-navbar .navbar-toggle:hover,
 .social-navbar .navbar-toggle:focus {
-  background-color: #4d628f;
-  border-bottom: 1px solid #4d628f !important;
+  background-color: #4C1B1B;
+  border-bottom: 1px solid #4C1B1B !important;
 }
 .social-navbar .navbar-toggle .icon-bar {
   background-color: #ffffff;
 }
 .social-navbar .navbar-collapse,
 .social-navbar .navbar-form {
-  border-color: #4b5e8a;
+  border-color: #4C1B1B;
 }
 .social-navbar .navbar-link {
   color: #ffffff;
@@ -136,9 +136,9 @@ body {
     display: inline-block !important;
   }
   .social-navbar .navbar-brand {
-    background-color: #647aab !important;
+    background-color: #B9121B !important;
     color: #ffffff !important;
-    border-bottom: 1px solid #4d628f !important;
+    border-bottom: 1px solid #4C1B1B !important;
   }
   .social-navbar .dropdown-menu > li > a {
     color: #777777;
@@ -201,7 +201,7 @@ body {
 }
 .social-sidebar .user .user-settings .user-settings-content a:hover {
   color: #ffffff !important;
-  background-color: #647aab !important;
+  background-color: #B9121B !important;
 }
 .social-sidebar .user .user-settings .user-settings-content a:hover .title,
 .social-sidebar .user .user-settings .user-settings-content a:hover .content {

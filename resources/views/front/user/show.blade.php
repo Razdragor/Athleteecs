@@ -13,6 +13,26 @@
     <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.halflings.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/friends.css') }}" rel="stylesheet">
+    <style>
+        .timeline-2-cols::before {
+            content: normal;
+        }
+        .timeline-2-cols > li > .timeline-panel::before {
+            content: normal;
+        }
+
+        .timeline-2-cols > li > .timeline-panel::after {
+            content: normal;
+        }
+        .timeline-2-cols > li > .timeline-panel {
+            width: 100%;
+        }
+        .timeline-2-cols > li {
+            width: 100%;
+            margin-top: 0 !important;
+            margin-bottom: 40px;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -87,10 +107,10 @@
                         <div class="row">
                             <ul id="profileTab" class="nav nav-tabs">
                                 <li id="pots" class="ok">
-                                    <a href="#">Dernières publications</a>
+                                    <a href="#">Actualités</a>
                                 </li>
                                 <li class="active ok" id="infos">
-                                    <a href="#" data-toggle="tab">Information</a>
+                                    <a href="#" data-toggle="tab">Informations</a>
                                 </li>
                                 <li id="amis" class="ok">
                                     <a href="#">{{count($user->friends)}} @if(count($user->friends)>1) Amis @else
@@ -108,7 +128,7 @@
                         <!-- END TABS SELECTIONS-->
                         <div class="row">
                             <!-- BEGIN TABS SECTIONS-->
-                            <div id="profileTabContent" class="tab-content col-sm-9 col-md-9">
+                            <div id="profileTabContent" class="tab-content col-sm-7 col-md-7">
                                 <div class="tab-pane active pots" style="display: none;">
                                     <ul class="timeline-2-cols">
                                         <?php $i = 0; ?>
@@ -119,10 +139,8 @@
                                             }else{
                                                 echo "activite-".$publication->activity->id;
                                             }
-                                            ?>" class="<?php if($i%2){echo 'timeline-inverted';} ?> publicationJS">
+                                            ?>" class="publicationJS">
                                                 <div class="timeline-badge primary">
-                                                    <a href="#"><i rel="tooltip" title="{{ $publication->date_start }}" class="glyphicon glyphicon-record <?php if($i%2){echo 'timeline-inverted';} $i++; ?>"></i>
-                                                    </a>
                                                 </div>
                                                 <div class="timeline-panel">
                                                     <div class="timeline-heading row" style="margin: 0;">
@@ -132,7 +150,13 @@
                                                             </a>
                                                         </div>
                                                         <div style="margin: 10px;float:left;">
-                                                            <span>{{ $publication->user->firstname.' '.$publication->user->lastname}}</span><br>
+                                                            @if(!is_null($publication->association))
+                                                                <span>{{$publication->user->firstname.' '.$publication->user->lastname}} - <a href="{{ route('association.show',['association' => $publication->association->id]) }}">{{ $publication->association->name }}</a></span><br>
+                                                            @elseif(!is_null($publication->event))
+                                                                <span>{{ $publication->user->firstname.' '.$publication->user->lastname}} - <a href="{{ route('event.show',['event' => $publication->event->id]) }}">{{ $publication->event->name }}</a></span><br>
+                                                            @else
+                                                                <span>{{ $publication->user->firstname.' '.$publication->user->lastname}}</span><br>
+                                                            @endif
                                                             <small><i aria-hidden="true" class="fa fa-clock-o"></i> {{ $publication->timeAgo($publication->created_at) }}</small>
                                                         </div>
                                                     </div>
@@ -172,7 +196,38 @@
                                                             </div>
                                                         @endif
                                                     </div>
-
+                                                    <div class="timeline-footer">
+                                                        <div class="comments" id="comments-{{ $publication->id }}">
+                                                            @foreach($publication->commentspost as $comment)
+                                                                <div class="comment" id="comment-{{$comment->id}}">
+                                                                    <a class="pull-left" href="{{ route("user.show", $comment->user->id ) }}">
+                                                                        <img width="35" height="35" class="comment-avatar" alt="{{ $comment->user->firstname.' '.$comment->user->lastname }}" src="{{ $comment->user->picture }}">
+                                                                    </a>
+                                                                    <div class="comment-body">
+                                                                        <span class="message"><strong>{{ $comment->user->firstname.' '.$comment->user->lastname }}</strong> {{ $comment->message }}</span>
+                                                                        <span class="time">{{ $comment->timeago($comment->created_at) }}</span>
+                                                                    </div>
+                                                                    <span class="action">
+                                                                        <i class="fa fa-warning" id="signalComment"></i>
+                                                                        @if(Auth::user()->id == $comment->user->id)
+                                                                            <i class="fa fa-close" id="deleteComment"></i>
+                                                                        @endif
+                                                                    </span>
+                                                                </div>
+                                                            @endforeach
+                                                            @if($publication->comments->count() > 3)
+                                                                <p class='moreComment' data-url="1">Plus de commentaires</p>
+                                                            @endif
+                                                            <div class="comment">
+                                                                <a class="pull-left" href="{{ route("user.show", $publication->user->id ) }}">
+                                                                    <img width="35" height="35" class="comment-avatar" alt="{{Auth::user()->name}}" src="{{ Auth::user()->picture }}">
+                                                                </a>
+                                                                <div class="comment-body">
+                                                                    <input type="text" class="form-control" name="{{ $publication->id }}" id="post-comment" placeholder="Ecris un commentaire...">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </li>
                                         @endforeach

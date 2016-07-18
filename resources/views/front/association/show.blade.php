@@ -25,7 +25,8 @@
         }
         .timeline-2-cols > li {
             width: 100%;
-            margin-bottom: 0;
+            margin-top: 0 !important;
+            margin-bottom: 40px;
         }
     </style>
 @endsection
@@ -89,11 +90,16 @@
                     @endif
                 </div>
                 <div class="association-body-left">
-                    <h4>Evènement à venir <a href="{{url('event/create/'.$association->id)}}" class="pull-right"><i class="fa fa-plus"></i></a></h4>
+                    <h4>
+                        Evènement à venir 
+                        @if($user->isAdminAssociation($association->id))
+                            <a href="{{url('event/create/'.$association->id)}}" class="pull-right"><i class="fa fa-plus"></i></a>
+                        @endif
+                    </h4>
                     <ul class="list-unstyled">
                         @foreach($association->events as $event)
-                            <li>
-                                <a href="{{url('event/'.$event->id)}}"><i class="fa fa-calendar"></i>{{$event->name}}</a>
+                            <li class="associations_events">
+                                <a href="{{url('event/'.$event->id)}}"><i class="fa fa-calendar"></i> {{$event->name}} <span class="pull-right">{{$event->started_at}}</span></a>
                             </li>
                         @endforeach
                     </ul>
