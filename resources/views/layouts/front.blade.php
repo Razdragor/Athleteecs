@@ -309,7 +309,7 @@ $user = Auth::user();
             if($('.'+chat_class).length)
             {
                 $('.'+chat_class).append('<li class="right clearfix"><p class="chat_message">'+chat_msg[0]['friend']['firstname']+' à été ajouté à la conversation</p></li>');
-                $('.'+chat_class).parent().scrollTop($('.'+chat_class).parent().scrollHeight);
+                $('.'+chat_class).parent().scrollTop($('.'+chat_class).parent().prop("scrollHeight"));
             }
             else
             {
@@ -317,7 +317,7 @@ $user = Auth::user();
                 var form = $(document).find('input[name="conv_id"][value="'+chat_msg[0]['conv_id']+'"]').parent();
                 create_or_show_chat(form,"{{ route('show_conversation') }}");
                 $('.'+chat_class).append('<li class="right clearfix"><p class="chat_message">'+chat_msg[0]['friend']['firstname']+' à été ajouté à la conversation</p></li>');
-                $('.'+chat_class).parent().scrollTop($('.'+chat_class).parent().scrollHeight);
+                $('.'+chat_class).parent().scrollTop($('.'+chat_class).parent().prop("scrollHeight"));
             }
         }
     });
@@ -346,7 +346,7 @@ $user = Auth::user();
                 $('.'+chat_class).parent().parent().find(".head-tchat-left").after(chat_msg[0]['conv_name']);
                 $(".chat_conv_name").remove();
                 $('.'+chat_class).append('<li class="right clearfix"><p class="chat_message">'+chat_msg[0]['user']['firstname']+' à changé le nom de la conversation en : '+chat_msg[0]['conv_name']+'</p></li>');
-                $('.'+chat_class).parent().scrollTop($('.'+chat_class).parent().scrollHeight);
+                $('.'+chat_class).parent().scrollTop($('.'+chat_class).parent().prop("scrollHeight"));
 
             }
             else
@@ -358,7 +358,7 @@ $user = Auth::user();
                 $('.'+chat_class).parent().parent().find(".head-tchat-left").html(chat_msg[0]['conv_name']);
                 $(".chat_conv_name").remove();
                 $('.'+chat_class).append('<li class="right clearfix"><p class="chat_message">'+chat_msg[0]['user']['firstname']+' à changé le nom de la conversation en : '+chat_msg[0]['conv_name']+'</p></li>');
-                $('.'+chat_class).parent().scrollTop($('.'+chat_class).parent().scrollHeight);
+                $('.'+chat_class).parent().scrollTop($('.'+chat_class).parent().prop("scrollHeight"));
             }
         }
 
@@ -388,7 +388,7 @@ $user = Auth::user();
                         '</small><strong class="pull-right primary-font username-chatbox">{{ $user->firstname }}</strong>'+
                         '</div>'+
                         '<p class="chat_message">'+chat_msg[0]['message']+'</p></div></li>');
-                $('.'+chat_class).parent().scrollTop($('.'+chat_class).parent().scrollHeight);
+                $('.'+chat_class).parent().scrollTop($('.'+chat_class).parent().prop("scrollHeight"));
             }
             else
             {
@@ -398,14 +398,14 @@ $user = Auth::user();
                             '" width="45px" height="45px"></span><div class="chat-body clearfix"><div class="header"><strong class="primary-font username-chatbox-gauche">'+chat_msg[0]['user']['firstname']+
                             '</strong><small class="pull-right text-muted"><span class="fa fa-clock-o">&nbsp;</span>'+heureMessage+'</small></div><p class="chat_message">'+chat_msg[0]['message']+'</p></div></li>');
 
-                    $('.'+chat_class).parent().scrollTop($('.'+chat_class).parent().scrollHeight);
+                    $('.'+chat_class).parent().scrollTop($('.'+chat_class).parent().prop("scrollHeight"));
                 }
                 else
                 {
                     var form = $(document).find('input[name="id"][value="'+chat_msg[0]['user']['id']+'"]').parent();
                     create_or_show_chat(form,"{{ route('create_conversation') }}");
                     $('.'+chat_class).append('<div class="col-xs-8 col-xs-offset-4">'+chat_msg[0]['firstname']+'<p class="chat_message">'+chat_msg[0]['message']+'</p></div>');
-                    $('.'+chat_class).parent().scrollTop($('.'+chat_class).parent().scrollHeight);
+                    $('.'+chat_class).parent().scrollTop($('.'+chat_class).parent().prop("scrollHeight"));
                 }
             }
         }
@@ -442,7 +442,7 @@ $user = Auth::user();
             success:function(data) {
                 console.log('Success !');
                 $('input[name="message"]').val('');
-                $(".scroll-chat-box").scrollTop($('.'+chat_class).parent().scrollHeight);
+                $(".scroll-chat-box").scrollTop($('.'+chat_class).parent().prop("scrollHeight"));
             },
             error:function()
             {
@@ -618,12 +618,14 @@ $user = Auth::user();
                     if($('.'+chat_class).length)
                     {
                         $('.conv_messages_'+data.conv['id']).html(to_append);
-                        $(".scroll-chat-box").scrollTop($('.'+chat_class).parent().scrollHeight);
+                        console.log($('.'+chat_class).parent().prop("scrollHeight"));
+                        $('.'+chat_class).parent().scrollTop($('.'+chat_class).parent().prop("scrollHeight"));
                     }
                     else
                     {
                         $('.users-list').after(to_append);
-                        $(".scroll-chat-box").scrollTop($('.'+chat_class).parent().scrollHeight);
+                        console.log($('.'+chat_class).parent().prop("scrollHeight"));
+                        $('.'+chat_class).parent().scrollTop($('.'+chat_class).parent().prop("scrollHeight"));
                     }
                 }
             },
