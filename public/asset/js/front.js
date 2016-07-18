@@ -178,7 +178,7 @@ $(document).ready(function() {
                                 "<div class='section-portfolio-item'>" +
                                     "<div class='picture-cadre'>"+
                                         "<div class='picture-box'>"+
-                                            "<img src='images/users/"+$picture+"' alt='image'>"+
+                                            "<img src='http://athleteec.razdragor.fr/public/images/users/"+$picture+"' alt='image'>"+
                                         "</div>"+
                                     "</div>"+
                                 "</div>"+
