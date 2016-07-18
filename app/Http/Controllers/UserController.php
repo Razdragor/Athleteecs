@@ -140,7 +140,6 @@ class UserController extends Controller
                     $user->picture = '/public/images/'.$imageName;
                 }
 
-
                 $user->firstname = $input['firstname'];
                 $user->lastname= $input['lastname'];
                 $user->job = $input['job'];
