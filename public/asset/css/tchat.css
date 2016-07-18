@@ -10,6 +10,7 @@
 .head-tchat{
     height: 58px;
     padding: 18px;
+    color: #B9121B;
 }
 .head-tchat-left{
     width:75%;
@@ -51,11 +52,11 @@
 .chat_conv_name{
     width:75%;
     float: left;
-    
+
 }
 .chat_show{
     cursor: pointer;
-    
+
 }
 
 .chat_show_user_span{
@@ -69,13 +70,13 @@
     border: 1px solid grey;
     padding: 4px;
     cursor: pointer;
-    max-width: 33%; 
+    max-width: 33%;
     min-width:50px;
     display: -webkit-box;
 }
 
 .chat_show_user_span:hover{
-    
+
 }
 .chat_user_add{
     width: 347px;
@@ -148,4 +149,16 @@ img.chat-avatar{
 .chat_show_user_span img{
     width: 30px;
     height: 30px;
+}
+
+.add-button{
+    font-size: 20px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.close-button{
+    float: right;
+    font-size: 20px;
+    color: #B9121B;
 }

@@ -9,11 +9,11 @@
  */
 
 body {
-  color: #777777;
+  color: #B9121B;
   background: #f7f7f7;
 }
 a {
-  color: #777777;
+  color: #B9121B;
 }
 :focus {
   outline: none;
@@ -397,7 +397,7 @@ a {
   display: block;
   margin-bottom: 0;
   padding-bottom: 0;
-  background-color: #ffffff;
+  background-color: #B9121B;
   -webkit-transition: all 0.2s ease;
   -o-transition: all 0.2s ease;
   transition: all 0.2s ease;
@@ -488,7 +488,7 @@ a {
  *  Footer
  */
 .footer {
-  background: #242424;
+  background: #B9121B;
   margin: 0;
   padding: 30px 0;
   position: absolute;
@@ -552,7 +552,7 @@ a {
   /* footer social icons */
 }
 .social-network-footer a {
-  background: #333;
+  background: #4C1B1B;
   border: none;
   display: inline-block;
   position: relative;

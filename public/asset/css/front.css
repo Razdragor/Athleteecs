@@ -256,3 +256,11 @@
 .user-profile .img-top{
     max-height: 250px;
 }
+
+.blanc{
+    color: #fff;
+}
+
+.blanc:hover{
+    color: #fff
+}

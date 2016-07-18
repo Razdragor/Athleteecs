@@ -303,12 +303,12 @@ a.cke_dialog_ui_button:active {
 }
 a.cke_dialog_ui_button_ok {
   color: #ffffff;
-  border-color: #566d9f;
+  border-color: #4C1B1B;
   background-color: #647aab;
 }
 a.cke_dialog_ui_button_ok:hover {
   border-color: #cccccc;
-  background-color: #516695;
+  background-color: #4C1B1B;
 }
 span.cke_dialog_ui_button {
   cursor: pointer;

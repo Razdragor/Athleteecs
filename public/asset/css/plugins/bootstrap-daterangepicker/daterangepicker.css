@@ -100,7 +100,7 @@
 .daterangepicker .ranges li.active,
 .daterangepicker .ranges li:hover {
   background: #647aab;
-  border: 1px solid #566d9f;
+  border: 1px solid #4C1B1B;
   color: #ffffff;
 }
 .daterangepicker .calendar-date {
@@ -236,7 +236,7 @@
 .daterangepicker td.active,
 .daterangepicker td.active:hover {
   background-color: #647aab;
-  border-color: #566d9f;
+  border-color: #4C1B1B;
   color: #ffffff;
 }
 .daterangepicker td.week,

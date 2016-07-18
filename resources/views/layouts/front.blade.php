@@ -35,7 +35,7 @@ $user = Auth::user();
 <div class="wrapper">
     <aside class="social-sidebar">
         <div class="visible-lg visible-md">
-            <h4>Events :</h4>
+            <h4 class="blanc">Events :</h4>
 
             <ul>
                 @foreach($user->events as $user_event)
@@ -49,12 +49,12 @@ $user = Auth::user();
                     @endif
                 @endforeach
             </ul>
-            
+
             <a href="{{ route('event.index') }}">Trouver un événement</a><br>
             <a href="{{ route('event.create') }}">Créer un event</a>
 
 
-            <h4>Associations :</h4>
+            <h4 class="blanc">Associations :</h4>
 
             <ul>
                 @foreach($user->associations as $association)
@@ -70,7 +70,7 @@ $user = Auth::user();
             <a href="{{ route('association.index') }}">Trouver une association</a><br>
             <a href="{{ route('association.create') }}">Créer une association</a>
 
-            <h4>Conversations :</h4>
+            <h4 class="blanc">Conversations :</h4>
 
             <ul>
                 @foreach($user->conversations as $conversation)
@@ -250,7 +250,7 @@ $user = Auth::user();
     <div class="main">
         @yield('content')
     </div>
-    <footer>2016 - <a href="http://localhost" target="_blank">ATHLETEEC</a> / <a href="{{ route('front.obligatoire.confidentialite')}}">Confidentialité</a> / <a href="{{ route('front.obligatoire.mentionslegales')}}">Mentions Légales</a></footer>
+    <footer class="blanc">2016 - <a href="/" target="_blank" class="blanc">ATHLETEEC</a> / <a href="{{ route('front.obligatoire.confidentialite')}}" class="blanc">Confidentialité</a> / <a href="{{ route('front.obligatoire.mentionslegales')}}" class="blanc">Mentions Légales</a></footer>
 </div>
 
 
