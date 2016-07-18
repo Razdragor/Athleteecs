@@ -189,7 +189,11 @@ img.chat-avatar{
     margin-bottom:5px!important;
 }
 
-.username-chatbox{
+.username-chatbox-gauche{
+    color: #4C1B1B;
+}
+
+.username-chatbox-droite{
     color: #B9121B;
 }
 
