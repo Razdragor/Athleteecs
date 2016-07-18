@@ -271,3 +271,7 @@
     left: -5px;
     top: -5px;
 }
+
+.img-filter-association{
+    max-height: 150px;
+}

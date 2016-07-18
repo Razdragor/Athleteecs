@@ -16,8 +16,8 @@ class PublicationsTableSeeder extends Seeder
             'picture' => '/images/pouce.png',
             'status' => 'Success',
             'user_id' => 2,
-            'created_at' => Carbon\Carbon::now(),
-            'updated_at' => Carbon\Carbon::now()
+            'created_at' => Carbon\Carbon::now()->subHour(4),
+            'updated_at' => Carbon\Carbon::now()->subHour(4)
         ]);
 
         DB::table('videos')->insert([
@@ -40,8 +40,8 @@ class PublicationsTableSeeder extends Seeder
             'video_id' => 1,
             'status' => 'Success',
             'user_id' => 2,
-            'created_at' => Carbon\Carbon::now(),
-            'updated_at' => Carbon\Carbon::now()
+            'created_at' => Carbon\Carbon::now()->subHour(4),
+            'updated_at' => Carbon\Carbon::now()->subHour(4)
         ]);
 
         DB::table('publications')->insert([
@@ -49,8 +49,8 @@ class PublicationsTableSeeder extends Seeder
             'video_id' => 2,
             'status' => 'Success',
             'user_id' => 3,
-            'created_at' => Carbon\Carbon::now(),
-            'updated_at' => Carbon\Carbon::now()
+            'created_at' => Carbon\Carbon::now()->subHour(3),
+            'updated_at' => Carbon\Carbon::now()->subHour(3)
         ]);
 
         DB::table('publications')->insert([
@@ -68,8 +68,8 @@ class PublicationsTableSeeder extends Seeder
             'status' => 'Success',
             'user_id' => 3,
             'association_id' => 1,
-            'created_at' => Carbon\Carbon::now(),
-            'updated_at' => Carbon\Carbon::now()
+            'created_at' => Carbon\Carbon::now()->subHour(18),
+            'updated_at' => Carbon\Carbon::now()->subHour(18)
         ]);
 
         DB::table('videos')->insert([
@@ -84,8 +84,8 @@ class PublicationsTableSeeder extends Seeder
             'status' => 'Success',
             'user_id' => 1,
             'activity_id' => 1,
-            'created_at' => Carbon\Carbon::now(),
-            'updated_at' => Carbon\Carbon::now()
+            'created_at' => Carbon\Carbon::now()->subHour(2),
+            'updated_at' => Carbon\Carbon::now()->subHour(2)
         ]);
 
         DB::table('publications')->insert([

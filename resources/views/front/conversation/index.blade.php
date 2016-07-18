@@ -16,7 +16,7 @@
                         <form class="conversation_chat_show">
                                 <div class="row">                                  
                                     <div class="col-xs-4">
-                                        <img class="chat-avatar" src="{{ asset('images/'.$friend->picture) }}">
+                                        <img class="chat-avatar" src="{{ $friend->picture }}">
                                     </div>
                                     <div class="col-xs-8">
                                         <input type="hidden" name="conv_id" value="{{$conv->id}}">

@@ -50,16 +50,6 @@
             <div class="col-md-9 col-sm-9" id="associationsFilters">
 
             </div>
-            <div class="col-md-3 col-sm-3" >
-                <h3>Mes associations <small>({{ $associations->count()}})</small></h3>
-                <ul class="nav nav-tabs nav-tabs-primary nav-tabs-advanced nav-stacked">
-                    @foreach($associations as $ass)
-                        <li>
-                            <a href="{{ route('association.show', ['association' => $ass->association->id]) }}">{{ $ass->association->name }}</a>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
         </div>
     </div>
 @endsection
@@ -165,7 +155,7 @@
                             addMarker(location);
                             if(div){
                                 div.append("<div class='col-sm-12 filter-association'>" +
-                                                "<div class='col-sm-12 col-md-4 img'>" +
+                                                "<div class='col-sm-12 col-md-4'>" +
                                                     "<img src='"+ a.picture +"' alt='"+ a.name +"' class='img-responsive img-filter-association'>"+
                                                 "</div>" +
                                                 "<div class='col-sm-12 col-md-8'>" +

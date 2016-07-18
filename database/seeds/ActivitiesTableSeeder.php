@@ -17,8 +17,8 @@ class ActivitiesTableSeeder extends Seeder
             'user_id' => 1,
             'sport_id' => 2,
             'time' => 3600,
-            'created_at' => Carbon\Carbon::now(),
-            'updated_at' => Carbon\Carbon::now()
+            'created_at' => Carbon\Carbon::now()->subHour(2),
+            'updated_at' => Carbon\Carbon::now()->subHour(2)
         ]);
 
         DB::table('activities')->insert([
