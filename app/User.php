@@ -27,7 +27,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @var array
      */
     protected $fillable = [
-       'id', 'firstname', 'lastname','password', 'email', 'birthday', 'sexe', 'status','token_email','job','firm','school','address','score', 'picture', 'newsletter', 'created_at', 'updated_at', 'activated'
+       'id', 'firstname', 'lastname','password', 'email', 'birthday', 'sexe', 'status','token_email','job','firm','school','address','score', 'picture', 'newsletter', 'created_at', 'updated_at', 'activated','star'
     ];
 
     /**
@@ -64,6 +64,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->hasMany('App\Publication')->where("status","!=","Blocked")->orderby('created_at','DESC');
     }
 
+    public function publicationsAll()
+    {
+        return $this->hasMany('App\Publication');
+    }
+
+    public function commentsAll()
+    {
+        return $this->hasMany('App\Comment');
+    }
+
     public function associations(){
         return $this->hasMany('App\UsersAssociations');
     }
@@ -92,6 +102,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
                 return true;
         }
         return false;
+    }
+
+    public function demandsPersonnalite(){
+        return $this->hasOne('App\UsersDemandsStars');
     }
 
     public function events(){

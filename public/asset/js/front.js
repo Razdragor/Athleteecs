@@ -24,6 +24,34 @@ $(document).ready(function() {
 
         $('#modal-delete').modal('show');
     });
+    $("body").on('click','#demandeStar' ,function(e){
+        var elem = $(this);
+        $.ajax({
+            url: '/user/demandeStar',
+            type: 'post',
+            success: function(data) {
+                if(data['success']){
+                    var elemnext = elem.next();
+                    elem.remove();
+                    elemnext.html(data['message']);
+                }
+            }
+        });
+    });
+    $("body").on('click','#demandeStarRemove' ,function(e){
+        var elem = $(this);
+        $.ajax({
+            url: '/user/demandeStarRemove',
+            type: 'post',
+            success: function(data) {
+                if(data['success']){
+                    var elemnext = elem.next();
+                    elem.remove();
+                    elemnext.html(data['message']);
+                }
+            }
+        });
+    });
 
     $("body").on('click','#signalepost' ,function(e){
         var self = $(this);

@@ -35,6 +35,36 @@
             </div>
             <div class="col-md-10 col-sm-12">
                 <h1>{{$user->firstname." ".$user->lastname }}</h1>
+                <h4>
+                    @if($user->star == true)
+                        Statut : Personnalité
+                    @else
+                        Statut : Athlète
+                    @endif
+                </h4>
+                <?php
+                    $de = $user->demandsPersonnalite;
+                ?>
+                @if(!is_null($de) && $de->response == false)
+                    <p>Demande de personnalité :<br>
+                    <a href="{{ route('admin.user.accept', ['star' => $de->id]) }}" class="btn btn-default">Valider</a>
+                    <a href="{{ route('admin.user.rejet', ['star' => $de->id]) }}" class="btn btn-default">Refuser</a>
+                    </p>
+                @else
+                    @if($user->star == true)
+                        <a href="{{ route('admin.user.change', ['user' => $user->id]) }}" class="btn btn-default">Passer en athlète</a>
+                    @else
+                        <a href="{{ route('admin.user.change', ['user' => $user->id]) }}" class="btn btn-default">Passer en personnalité</a>
+                    @endif
+                @endif
+
+                @if($user->status == "success")
+                    <a href="{{ route('admin.user.blocked', ['user' => $user->id]) }}" class="btn btn-default">Bloquer l'utilisateur</a>
+                @else
+                    <a href="{{ route('admin.user.authorize', ['user' => $user->id]) }}" class="btn btn-default">Autorisé l'utilisateur</a>
+                @endif
+
+
             </div>
 
     </div>

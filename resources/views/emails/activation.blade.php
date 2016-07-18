@@ -1,4 +1,3 @@
-
 <h2>Merci de votre inscription!</h2>
 <p>
     Afin de profiter au maximum de Athleteec, nous vous invitons à valider votre inscription avec le lien suivant :
