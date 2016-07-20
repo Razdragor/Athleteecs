@@ -5,6 +5,9 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Activity;
 use App\User;
+use App\Sport;
+use App\Publication;
+use App\Association;
 
 
 class UserTest extends TestCase
