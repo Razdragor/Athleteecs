@@ -183,25 +183,53 @@ class UserTest extends TestCase
 
 	public function test_sports_can_be_created()
 	{
-			$users = factory(App\User::class)->create();
+			
+	}
 
-    		$activity = $users->activities()->create([
-    		'description' => '10 Km de paris',
-            'status' => 'Success',
-            'sport_id' => 2,
-            'time' => 3600,
-            'created_at' => Carbon\Carbon::now()->subHour(2),
-            'updated_at' => Carbon\Carbon::now()->subHour(2)
-    		]); 
 
-    		$found_activity = Activity::find($activity->id);
+	public function test_sports_can_be_deleted()
+	{
+			
+	}
 
-    		$this->assertEquals($found_activity->description,"10 Km de paris");
-    		$this->assertEquals($found_activity->time,"1h ");
 
-	
-			$this->seeInDatabase('activities',['id'=>$activity->id,'description'=>'10 Km de paris','time'=>'3600']);
+	public function test_sports_can_be_updated()
+	{
+			
+	}
+
+	public function test_publications_can_be_created()
+	{
 
 	}
+
+	public function test_publications_can_be_deleted()
+	{
+
+	}
+
+
+	public function test_publications_can_be_updated()
+	{
+
+	}
+
+
+	public function test_associations_can_be_created()
+	{
+
+	}
+
+	public function test_associations_can_be_deleted()
+	{
+		
+	}
+
+	public function test_associations_can_be_updated()
+	{
+		
+	}
+
+
 
 }
