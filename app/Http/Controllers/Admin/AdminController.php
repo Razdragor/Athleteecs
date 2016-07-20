@@ -83,7 +83,7 @@ class AdminController extends Controller
         return $data;
     }
 
-    public function datapublication($jour, $intervalle){
+    public function datapublication($table = 'publications', $subDay = 30, $intervalle = 'jour', $jourSelection){
         //Fonction jour/mois/année
         // Inscrit / date
         // Commentaire / date
@@ -94,19 +94,23 @@ class AdminController extends Controller
         // Event / sport
         // Event/ association
         $dateend = Carbon::now()->toDateTimeString();
-        $datestart = Carbon::now()->subDay($jour)->toDateTimeString();
+        $datestart = Carbon::now()->subDay($subDay)->toDateTimeString();
 
-        if($intervalle == 'heure'){
+        if($intervalle == 'jour'){
             $periode = 'day(`created_at`), hour(`created_at`)';
-        } elseif ($intervalle == 'jour') {
+            $jourSelection = hour($jourSelection);
+        } elseif ($intervalle == 'mois') {
             $periode = 'day(`created_at`)';
+            $jourSelection = day($jourSelection);
         } else {
             $periode = '';
+            $jourSelection = month($jourSelection);
         }
 
-        $resultPublication = DB::table('publications')
+        $resultPublication = DB::table($table)
             ->select(DB::raw('created_at as Day, count(*) as Count'))
             ->whereBetween('created_at', [$datestart, $dateend])
+            ->where($jourSelection)
             ->groupBy(DB::raw($periode))
             ->get();
 
@@ -115,20 +119,9 @@ class AdminController extends Controller
             $post[] = array($hour->Day, $hour->Count);
         }
 
-        $resultComment = DB::table('comments')
-            ->select(DB::raw('created_at as Day, count(*) as Count'))
-            ->whereBetween('created_at', [$datestart, $dateend])
-            ->groupBy(DB::raw($periode))
-            ->get();
-
-        $comment = array();
-        foreach($resultComment as $hour){
-            $comment[] = array($hour->Day, $hour->Count);
-        }
-
         return \Response::json(array(
-            'post' => $post,
-            'comment' => $comment
+            'table' => $table,
+            'post' => $post
         ));
 
     }
