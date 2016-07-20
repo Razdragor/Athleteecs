@@ -83,7 +83,7 @@ class AdminController extends Controller
         return $data;
     }
 
-    public function datapublication(){
+    public function datapublication($jour, $intervalle){
         //Fonction jour/mois/année
         // Inscrit / date
         // Commentaire / date
@@ -94,12 +94,20 @@ class AdminController extends Controller
         // Event / sport
         // Event/ association
         $dateend = Carbon::now()->toDateTimeString();
-        $datestart = Carbon::now()->subDay(30)->toDateTimeString();
+        $datestart = Carbon::now()->subDay($jour)->toDateTimeString();
+
+        if($intervalle == 'heure'){
+            $periode = 'day(`created_at`), hour(`created_at`)';
+        } elseif ($intervalle == 'jour') {
+            $periode = 'day(`created_at`)';
+        } else {
+            $periode = '';
+        }
 
         $resultPublication = DB::table('publications')
             ->select(DB::raw('created_at as Day, count(*) as Count'))
             ->whereBetween('created_at', [$datestart, $dateend])
-            ->groupBy(DB::raw('day(`created_at`)'))
+            ->groupBy(DB::raw($periode))
             ->get();
 
         $post = array();
@@ -107,11 +115,10 @@ class AdminController extends Controller
             $post[] = array($hour->Day, $hour->Count);
         }
 
-
         $resultComment = DB::table('comments')
             ->select(DB::raw('created_at as Day, count(*) as Count'))
             ->whereBetween('created_at', [$datestart, $dateend])
-            ->groupBy(DB::raw('day(`created_at`)'))
+            ->groupBy(DB::raw($periode))
             ->get();
 
         $comment = array();
