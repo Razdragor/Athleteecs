@@ -207,6 +207,7 @@
                 $('.jqplot-highlighter-tooltip').addClass('ui-corner-all')
             });
             getRequest('admin/datapublication', function(data) {
+                console.log(data);
                 var plot1 = $.jqplot("chart2", [data['post'], data['comment']], {
                     seriesColors: ["rgb(247,35, 12)", "rgb(44,117,255)"],
                     highlighter: {
@@ -251,7 +252,7 @@
                                 angle: -30,
                                 textColor: '#dddddd'
                             },
-                            tickInterval: "1 days",
+                            tickInterval: "30 days",
                             drawMajorGridlines: false
                         },
                         yaxis: {

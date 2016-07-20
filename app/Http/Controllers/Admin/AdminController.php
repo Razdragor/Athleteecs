@@ -84,30 +84,39 @@ class AdminController extends Controller
     }
 
     public function datapublication(){
+        //Fonction jour/mois/année
+        // Inscrit / date
+        // Commentaire / date
+        //Publication / date
+        // Activité / sport
+        // message chat / jour
+        //Association / sport
+        // Event / sport
+        // Event/ association
         $dateend = Carbon::now()->toDateTimeString();
-        $datestart = Carbon::now()->subDay()->toDateTimeString();
+        $datestart = Carbon::now()->subDay(30)->toDateTimeString();
 
         $resultPublication = DB::table('publications')
-            ->select(DB::raw('created_at as Hour, count(*) as Count'))
+            ->select(DB::raw('created_at as Day, count(*) as Count'))
             ->whereBetween('created_at', [$datestart, $dateend])
-            ->groupBy(DB::raw('day(`created_at`), hour(`created_at`)'))
+            ->groupBy(DB::raw('day(`created_at`)'))
             ->get();
 
         $post = array();
         foreach($resultPublication as $hour){
-            $post[] = array($hour->Hour, $hour->Count);
+            $post[] = array($hour->Day, $hour->Count);
         }
 
 
         $resultComment = DB::table('comments')
-            ->select(DB::raw('created_at as Hour, count(*) as Count'))
+            ->select(DB::raw('created_at as Day, count(*) as Count'))
             ->whereBetween('created_at', [$datestart, $dateend])
-            ->groupBy(DB::raw('day(`created_at`), hour(`created_at`)'))
+            ->groupBy(DB::raw('day(`created_at`)'))
             ->get();
 
         $comment = array();
         foreach($resultComment as $hour){
-            $comment[] = array($hour->Hour, $hour->Count);
+            $comment[] = array($hour->Day, $hour->Count);
         }
 
         return \Response::json(array(
