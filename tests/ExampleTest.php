@@ -12,11 +12,16 @@ class ExampleTest extends TestCase
      * @return void
      */
     public function testBasicExample()
-    {   
+    {
          $this->visit('/login')
          ->click('register')
          ->seePageIs('/register');
 
+     }
+
+     public function testSearchController(){
+        $chaineATester = 'bertrand';
+        
      }
 
 }
