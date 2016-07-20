@@ -171,7 +171,7 @@
                             <input type="checkbox" name="newsletter" checked="checked"> S'inscrire à la newsletter ?
                         </label>
                     </div>
-                <button type="submit" class="btn btn-lg btn-inverse btn-block">S'inscrire</button>
+                <button id="register" type="submit" class="btn btn-lg btn-inverse btn-block">S'inscrire</button>
             </form>
         </div>
     </div>
