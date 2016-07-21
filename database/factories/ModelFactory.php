@@ -38,3 +38,15 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'updated_at' => Carbon\Carbon::now()
     ];
 });
+
+$factory->define(App\Activity::class, function (Faker\Generator $faker)
+{
+	return[
+	    	'description' => $faker->sentence($nbWords = 6, $variableNbWords = true),
+            'status' => 'Success',
+            'sport_id' => $faker->randomDigit,
+            'time' => $faker->numberBetween($min = 0, $max = 100),
+            'created_at' => Carbon\Carbon::now()->subHour(2),
+            'updated_at' => Carbon\Carbon::now()->subHour(2)
+	];	
+});

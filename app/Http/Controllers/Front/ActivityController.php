@@ -23,7 +23,9 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        //
+        $activities = Activity::all();
+
+        return $activities;
     }
 
     /**
@@ -85,9 +87,10 @@ class ActivityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Activity $activity)
+    public function show($id)
     {
-        //
+        $activity = Activity::find($id);
+        return $activity;
     }
 
     /**

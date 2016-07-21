@@ -26,6 +26,9 @@ class RegisterTest extends TestCase
 
     public function testNewUserRegistration()
 	{
+
+		$this->withoutEvents();
+
 	    $this->visit('/register')
 	         ->type('Jacquie', 'firstname')
 	         ->type('Michel', 'lastname')
