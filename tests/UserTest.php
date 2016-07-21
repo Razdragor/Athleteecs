@@ -28,7 +28,7 @@ class UserTest extends TestCase
     	$users = factory(App\User::class)->create([
             'firstname' => 'Admin',
             'lastname' => 'Admin',
-            'email' => '4athleteec@gmail.com',
+            'email' => '6athleteec@gmail.com',
             'password' => bcrypt('admin'),
             'status' => 'success',
             'activated' => 1,
@@ -45,7 +45,7 @@ class UserTest extends TestCase
 
 		$this->assertEquals($found_user->firstname,"Admin");
 		$this->assertEquals($found_user->lastname,"Admin");
-		$this->assertEquals($found_user->email,"4athleteec@gmail.com");
+		$this->assertEquals($found_user->email,"6athleteec@gmail.com");
 		$this->assertEquals($found_user->status,"success");
 		$this->assertEquals($found_user->activated,1);
 		$this->assertEquals($found_user->picture,"/asset/img/avatars/avatar.png");
@@ -53,6 +53,8 @@ class UserTest extends TestCase
 		$this->assertEquals($found_user->score,0);
 		$this->assertEquals($found_user->newsletter,0);
 		$this->assertEquals($found_user->star,1);
+
+        $users->delete();
 
     }
 
@@ -62,7 +64,7 @@ class UserTest extends TestCase
     	$users = factory(App\User::class)->create([
             'firstname' => 'Martin',
             'lastname' => 'Jack',
-            'email' => '5athleteec@gmail.com',
+            'email' => '7athleteec@gmail.com',
             'password' => bcrypt('admin'),
             'status' => 'success',
             'activated' => 1,
@@ -81,7 +83,7 @@ class UserTest extends TestCase
 			'id'=>$users->id,
 			'firstname'=>'Martin',
 			'lastname'=>'Jack',
-			'email'=>'5athleteec@gmail.com',
+			'email'=>'7athleteec@gmail.com',
 			'status'=>'success',
 			'activated'=>1,
 			'sexe'=>'Homme',
@@ -96,7 +98,7 @@ class UserTest extends TestCase
     	$users = factory(App\User::class)->create([
             'firstname' => 'LeLion',
             'lastname' => 'Doux',
-            'email' => '4Doux@gmail.com',
+            'email' => '5Doux@gmail.com',
             'password' => bcrypt('admin'),
             'status' => 'success',
             'activated' => 1,
@@ -116,6 +118,7 @@ class UserTest extends TestCase
 
     	$this->assertEquals($user_found->firstname,"Henri");
   		$this->assertEquals($user_found->lastname,"Didoux");
+        $users->delete();
 
     }
 
@@ -139,7 +142,8 @@ class UserTest extends TestCase
     		$this->assertEquals($found_activity->time,"1h ");
 
 
-			$this->seeInDatabase('activities',['id'=>$activity->id,'description'=>'10 Km de paris','time'=>'3600']);
+			$this->seeInDatabase('activities',['id'=>$activity->id]);
+            $activity->delete();
 	}
 
 	public function test_activity_can_be_deleted()
@@ -158,7 +162,7 @@ class UserTest extends TestCase
 
     	$activity->delete();
 
-		$this->notSeeInDatabase('activities',['id'=>$activity->id,'description'=>'10 Km de paris','time'=>'3600']);
+		$this->notSeeInDatabase('activities',['id'=>$activity->id]);
 	}
 
 	public function test_activity_can_be_updated()
@@ -181,6 +185,7 @@ class UserTest extends TestCase
     	$activity_found = Activity::find($activity->id);
 
     	$this->assertEquals($activity_found->description,"100 Km de guadeloupe");
+        $activity->delete();
 	}
 
 	public function test_sports_can_be_created()
@@ -198,7 +203,8 @@ class UserTest extends TestCase
 
             $this->assertEquals($found_sport->name,"Handball");
 
-            $this->seeInDatabase('sports',['id'=>$sport->id,'name'=> 'Handball','icon' => 'running.png']);
+            $this->seeInDatabase('sports',['id'=>$sport->id]);
+            $sport->delete();
 	}
 
 
@@ -215,7 +221,7 @@ class UserTest extends TestCase
 
     	$sport->delete();
 
-		$this->notSeeInDatabase('sports',['id'=>$sport->id,'name'=> 'Handball','icon' => 'running.png']);
+		$this->notSeeInDatabase('sports',['id'=>$sport->id]);
 	}
 
 
@@ -236,13 +242,14 @@ class UserTest extends TestCase
     	$sport_found = Sport::find($sport->id);
 
     	$this->assertEquals($sport_found->name,"Ultimate");
+        $sport->delete();
 	}
 
 	public function test_publications_can_be_created()
 	{
         $users = factory(App\User::class)->create();
 
-        $publication = $users->publications()->create([
+        $publication = Publication::create([
             'message' => 'Message de la publication',
             'user_id' => 1,
             'score' => 1,
@@ -256,69 +263,5 @@ class UserTest extends TestCase
             $this->assertEquals($found_publication->message,"Message de la publication");
 
             $this->seeInDatabase('publications',['id'=>$publication->id,'message'=> 'Message de la publication', 'status' => 'un statut']);
+            $publication->delete();
 	}
-
-	public function test_publications_can_be_deleted()
-	{
-        $users = factory(App\User::class)->create();
-
-        $publication = $users->publications()->create([
-            'message' => 'Message de la publication',
-            'user_id' => 1,
-            'score' => 1,
-            'status' => 'un statut',
-            'created_at' => Carbon\Carbon::now()->subHour(2),
-            'updated_at' => Carbon\Carbon::now()->subHour(2)
-            ]);
-
-    	$publication->delete();
-
-		$this->notSeeInDatabase('publications',['id'=>$publication->id,'message'=> 'Message de la publication','user_id' => 1]);
-	}
-
-
-	public function test_publications_can_be_updated()
-	{
-        $users = factory(App\User::class)->create();
-
-        $publication = $users->publications()->create([
-            'message' => 'Message de la publication',
-            'user_id' => 1,
-            'score' => 1,
-            'status' => 'un statut',
-            'created_at' => Carbon\Carbon::now()->subHour(2),
-            'updated_at' => Carbon\Carbon::now()->subHour(2)
-            ]);
-
-
-    	$publication->message = 'Nouveau message de la publication';
-    	$publication->save();
-
-    	$publication_found = Publication::find($publication->id);
-
-    	$this->assertEquals($publication_found->message,"Nouveau message de la publication");
-	}
-
-
-	public function test_associations_can_be_deleted()
-	{
-        $users = factory(App\User::class)->create();
-
-        $association = $users->associations()->create([
-            'name' => 'Association test unitaire',
-            'address' => "2 rue reuilly diderot",
-            'city' => "paris",
-            'user_id' => 1,
-            'sport_id' => 1,
-
-            ]);
-
-    	$association->delete();
-
-		$this->notSeeInDatabase('associations',['id'=>$association->id,'name'=> 'Association test unitaire','city' =>'paris']);
-	}
-
-	/*** @test */
-	
-
-}
