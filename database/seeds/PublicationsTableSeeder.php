@@ -97,5 +97,143 @@ class PublicationsTableSeeder extends Seeder
             'created_at' => Carbon\Carbon::now(),
             'updated_at' => Carbon\Carbon::now()
         ]);
+
+        DB::table('publications')->insert([
+            'message' => 'C\'est quand le prochain match ?',
+            'status' => 'Success',
+            'user_id' => 3,
+            'association_id' => 1,
+            'created_at' => Carbon\Carbon::now()->subHour(18),
+            'updated_at' => Carbon\Carbon::now()->subHour(18)
+        ]);
+        DB::table('publications')->insert([
+            'message' => 'C\'est quand le prochain match ?',
+            'status' => 'Success',
+            'user_id' => 3,
+            'association_id' => 1,
+            'created_at' => Carbon\Carbon::now()->subHour(18),
+            'updated_at' => Carbon\Carbon::now()->subHour(18)
+        ]);
+        DB::table('publications')->insert([
+            'message' => 'C\'est quand le prochain match ?',
+            'status' => 'Success',
+            'user_id' => 3,
+            'association_id' => 1,
+            'created_at' => Carbon\Carbon::now()->subHour(18),
+            'updated_at' => Carbon\Carbon::now()->subHour(18)
+        ]);
+        DB::table('publications')->insert([
+            'message' => 'C\'est quand le prochain match ?',
+            'status' => 'Success',
+            'user_id' => 3,
+            'association_id' => 1,
+            'created_at' => Carbon\Carbon::now()->subHour(18),
+            'updated_at' => Carbon\Carbon::now()->subHour(18)
+        ]);
+        DB::table('publications')->insert([
+            'message' => 'C\'est quand le prochain match ?',
+            'status' => 'Success',
+            'user_id' => 3,
+            'association_id' => 1,
+            'created_at' => Carbon\Carbon::now()->subHour(18),
+            'updated_at' => Carbon\Carbon::now()->subHour(18)
+        ]);
+        DB::table('publications')->insert([
+            'message' => 'C\'est quand le prochain match ?',
+            'status' => 'Success',
+            'user_id' => 3,
+            'association_id' => 1,
+            'created_at' => Carbon\Carbon::now()->subHour(18),
+            'updated_at' => Carbon\Carbon::now()->subHour(18)
+        ]);
+        DB::table('publications')->insert([
+            'message' => 'C\'est quand le prochain match ?',
+            'status' => 'Success',
+            'user_id' => 3,
+            'association_id' => 1,
+            'created_at' => Carbon\Carbon::now()->subHour(18),
+            'updated_at' => Carbon\Carbon::now()->subHour(18)
+        ]);
+        DB::table('publications')->insert([
+            'message' => 'C\'est quand le prochain match ?',
+            'status' => 'Success',
+            'user_id' => 3,
+            'association_id' => 1,
+            'created_at' => Carbon\Carbon::now()->subHour(18),
+            'updated_at' => Carbon\Carbon::now()->subHour(18)
+        ]);
+        DB::table('publications')->insert([
+            'message' => 'C\'est quand le prochain match ?',
+            'status' => 'Success',
+            'user_id' => 3,
+            'association_id' => 1,
+            'created_at' => Carbon\Carbon::now()->subHour(18),
+            'updated_at' => Carbon\Carbon::now()->subHour(18)
+        ]);
+        DB::table('publications')->insert([
+            'message' => 'C\'est quand le prochain match ?',
+            'status' => 'Success',
+            'user_id' => 3,
+            'association_id' => 1,
+            'created_at' => Carbon\Carbon::now()->subHour(18),
+            'updated_at' => Carbon\Carbon::now()->subHour(18)
+        ]);
+        DB::table('publications')->insert([
+            'message' => 'C\'est quand le prochain match ?',
+            'status' => 'Success',
+            'user_id' => 3,
+            'association_id' => 1,
+            'created_at' => Carbon\Carbon::now()->subHour(18),
+            'updated_at' => Carbon\Carbon::now()->subHour(18)
+        ]);
+        DB::table('publications')->insert([
+            'message' => 'C\'est quand le prochain match ?',
+            'status' => 'Success',
+            'user_id' => 3,
+            'association_id' => 1,
+            'created_at' => Carbon\Carbon::now()->subHour(18),
+            'updated_at' => Carbon\Carbon::now()->subHour(18)
+        ]);
+        DB::table('publications')->insert([
+            'message' => 'C\'est quand le prochain match ?',
+            'status' => 'Success',
+            'user_id' => 3,
+            'association_id' => 1,
+            'created_at' => Carbon\Carbon::now()->subHour(18),
+            'updated_at' => Carbon\Carbon::now()->subHour(18)
+        ]);
+        DB::table('publications')->insert([
+            'message' => 'C\'est quand le prochain match ?',
+            'status' => 'Success',
+            'user_id' => 3,
+            'association_id' => 1,
+            'created_at' => Carbon\Carbon::now()->subHour(18),
+            'updated_at' => Carbon\Carbon::now()->subHour(18)
+        ]);
+        DB::table('publications')->insert([
+            'message' => 'C\'est quand le prochain match ?',
+            'status' => 'Success',
+            'user_id' => 3,
+            'association_id' => 1,
+            'created_at' => Carbon\Carbon::now()->subHour(18),
+            'updated_at' => Carbon\Carbon::now()->subHour(18)
+        ]);
+        DB::table('publications')->insert([
+            'message' => 'C\'est quand le prochain match ?',
+            'status' => 'Success',
+            'user_id' => 3,
+            'association_id' => 1,
+            'created_at' => Carbon\Carbon::now()->subHour(18),
+            'updated_at' => Carbon\Carbon::now()->subHour(18)
+        ]);
+        DB::table('publications')->insert([
+            'message' => 'C\'est quand le prochain match ?',
+            'status' => 'Success',
+            'user_id' => 3,
+            'association_id' => 1,
+            'created_at' => Carbon\Carbon::now()->subHour(18),
+            'updated_at' => Carbon\Carbon::now()->subHour(18)
+        ]);
+
     }
 }
