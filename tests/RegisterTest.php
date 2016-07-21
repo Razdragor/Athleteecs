@@ -6,16 +6,6 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class RegisterTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testExample()
-    {
-        $this->assertTrue(true);
-    }
-
     public function testRegisterLink()
     {   
          $this->visit('/login')
@@ -23,7 +13,7 @@ class RegisterTest extends TestCase
          ->seePageIs('/register');
 
     }
-
+ 
     public function testNewUserRegistration()
 	{
 

@@ -255,7 +255,7 @@ class UserTest extends TestCase
 
             $this->assertEquals($found_publication->message,"Message de la publication");
 
-            $this->seeInDatabase('sports',['id'=>$publication->id,'message'=> 'Message de la publication', 'status' => 'un statut']);
+            $this->seeInDatabase('publications',['id'=>$publication->id,'message'=> 'Message de la publication', 'status' => 'un statut']);
 	}
 
 	public function test_publications_can_be_deleted()
@@ -273,7 +273,7 @@ class UserTest extends TestCase
 
     	$publication->delete();
 
-		$this->notSeeInDatabase('sports',['id'=>$publication->id,'message'=> 'Message de la publication','user_id' => 1]);
+		$this->notSeeInDatabase('publications',['id'=>$publication->id,'message'=> 'Message de la publication','user_id' => 1]);
 	}
 
 
@@ -300,27 +300,6 @@ class UserTest extends TestCase
 	}
 
 
-	public function test_associations_can_be_created()
-	{
-        $users = factory(App\User::class)->create();
-
-        $association = $users->associations()->create([
-            'name' => 'Association test unitaire',
-            'address' => "2 rue reuilly diderot",
-            'city' => "paris",
-            'user_id' => 1,
-            'sport_id' => 1,
-            'created_at' => Carbon\Carbon::now()->subHour(2),
-            'updated_at' => Carbon\Carbon::now()->subHour(2)
-            ]);
-
-            $found_association = Association::find($association->id);
-
-            $this->assertEquals($found_association->name,"Association test unitaire");
-
-            $this->seeInDatabase('sports',['id'=>$association->id,'name'=> 'Association test unitaire', 'city' => 'paris']);
-	}
-
 	public function test_associations_can_be_deleted()
 	{
         $users = factory(App\User::class)->create();
@@ -331,38 +310,15 @@ class UserTest extends TestCase
             'city' => "paris",
             'user_id' => 1,
             'sport_id' => 1,
-            'created_at' => Carbon\Carbon::now()->subHour(2),
-            'updated_at' => Carbon\Carbon::now()->subHour(2)
+
             ]);
 
     	$association->delete();
 
-		$this->notSeeInDatabase('sports',['id'=>$association->id,'name'=> 'Association test unitaire','city' =>'paris']);
+		$this->notSeeInDatabase('associations',['id'=>$association->id,'name'=> 'Association test unitaire','city' =>'paris']);
 	}
 
-	public function test_associations_can_be_updated()
-	{
-        $users = factory(App\User::class)->create();
-
-        $association = $users->associations()->create([
-            'name' => 'Association test unitaire',
-            'address' => "2 rue reuilly diderot",
-            'city' => "paris",
-            'user_id' => 1,
-            'sport_id' => 1,
-            'created_at' => Carbon\Carbon::now()->subHour(2),
-            'updated_at' => Carbon\Carbon::now()->subHour(2)
-            ]);
-
-
-    	$association->name = 'Changement Association test unitaire';
-    	$association->save();
-
-    	$association_found = Association::find($association->id);
-
-    	$this->assertEquals($association_found->name,"Changement Association test unitaire");
-	}
-
-
+	/*** @test */
+	
 
 }

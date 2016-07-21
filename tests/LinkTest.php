@@ -22,5 +22,4 @@ class LinkTest extends TestCase
             ->seePageIs('/login');
     }
 
-
 }
