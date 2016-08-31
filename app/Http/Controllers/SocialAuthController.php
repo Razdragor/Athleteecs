@@ -40,7 +40,13 @@ class SocialAuthController extends Controller
                 'verified'
             ])->scopes(['email', 'public_profile']));
         }elseif($provider == 'google'){
-            $user = $service->createOrGetUser(Socialite::driver($provider));
+            if(!empty($data['error'])) {
+                return redirect()->to('/');
+            }
+            else
+            {
+                $user = $service->createOrGetUser(Socialite::driver($provider));
+            }
         }elseif($provider == 'twitter') {
 
             if(!empty($data['denied'])) {
