@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Association;
 use App\Event;
 use App\Http\Controllers\Controller;
+use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
@@ -25,13 +26,14 @@ class SearchController extends Controller
 
     public function search(){
         $terme = Input::get('terme');
-        $results = array();
-        $resultsAssociation = array();
-        $resultsEvent = array();
+        $results = [];
+        $resultsAssociation = [];
+        $resultsEvent = [];
+        $resultsProducts = [];
         $user = Auth::user();
         // On va chercher sur les noms, prénom en like et un mail strict
         if(!empty($terme)){
-             //searchfriend amélioré mais probleme avec 2 orWhere(DB:raw  ...) | je sais pas comment régler ça, remplacer par User plutot que DB, mais ça ne marche pas
+            //searchfriend amélioré mais probleme avec 2 orWhere(DB:raw  ...) | je sais pas comment régler ça, remplacer par user plutot que DB, mais ça ne marche pas
             $queries = User::where('firstname', 'LIKE', $terme.'%')
                 ->orWhere('lastname', 'LIKE', $terme.'%')
                 ->orWhere(DB::raw("CONCAT(`firstname`, ' ', `lastname`)"), 'LIKE', $terme.'%')
@@ -40,17 +42,22 @@ class SearchController extends Controller
                 ->get();
 
             foreach ($queries as $query) {
+                if($query->id != $user->id){
                     $results[] = ['id' => $query->id, 'firstname' => $query->firstname, 'lastname' => $query->lastname, 'picture' => $query->picture];
+                }
             }
 
             //search association
-            $queryassociation = Association::where('name', 'LIKE', '%'.$terme.'%')->get();
+            $queryassociation = Association::where('name', 'LIKE', $terme.'%')->get();
 
             foreach ($queryassociation as $query) {
                 $resultsAssociation[] = ['id' => $query->id, 'name' => $query->name, 'picture' => $query->picture];
             }
 
             //search association
+
+
+            //Cas ou elles sont privé
             $queryEvent = Event::where('name', 'LIKE', $terme.'%')
                 ->where('private', '=', '0')
                 ->get();
@@ -65,16 +72,12 @@ class SearchController extends Controller
                 ->get();
 
             $queryEvent3 = Event::where('name', 'LIKE', $terme.'%')
+                ->where('user_id', '=', $user->id)
                 ->get();
 
 
-
-
             foreach ($queryEvent as $query) {
-                if(!$query->private || ($user->isAuthorisedEvent($query) || $user->isAdminEvent($query->id)))
-                {
-                    $resultsEvent[] = ['id' => $query->id, 'name' => $query->name, 'picture' => $query->picture];
-                }
+                $resultsEvent[] = ['id' => $query->id, 'name' => $query->name, 'picture' => $query->picture];
             }
             foreach ($queryEvent2 as $query) {
                 $resultsEvent[] = ['id' => $query->id, 'name' => $query->name, 'picture' => $query->picture];
@@ -83,11 +86,30 @@ class SearchController extends Controller
                 $resultsEvent[] = ['id' => $query->id, 'name' => $query->name, 'picture' => $query->picture];
             }
 
+
+            foreach($resultsEvent as $k1=>$v1){
+                foreach($resultsEvent as $k2=>$v2){
+                    if($k2 != $k1){
+                        if(array_values($v1) == array_values($v2)){
+                            unset($resultsEvent[$k1]);
+
+                        }
+                    }
+                }
+            }
+
+            $queryProducts = Product::where('name', 'LIKE', $terme.'%')
+                ->get();
+
+            foreach ($queryProducts as $query) {
+                $resultsProducts[] = ['id' => $query->id, 'name' => $query->name, 'picture' => $query->picture];
+            }
+
         } else {
             $results = [];
         }
 
-        return view('front.search', [ 'results' => $results,'resultsEvent' => $resultsEvent , 'resultsAssociation' => $resultsAssociation, 'user' => $user]);
+        return view('front.search', [ 'results' => $results,'resultsEvent' => $resultsEvent , 'resultsAssociation' => $resultsAssociation, 'user' => $user,'resultsProducts' => $resultsProducts]);
     }
 
 }

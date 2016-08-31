@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Brand;
 use App\Caracteristique;
+use App\Notifications;
 use App\Product;
 use App\Publication;
 use App\Rate;
@@ -158,6 +159,18 @@ class ProductController extends Controller
         $user_prod->sport_id = $prod->sport->id;
 
         $user_prod->save();
+
+        if(!is_null($user)){
+            Notifications::firstOrCreate([
+                'user_id' => $user->id,
+                'userL_id' => 1, //OSEF du nom de la colonne, on récupère les bonnes info grace à la colone notification.
+                'libelle' => $user->firstname." ".$user->lastname,
+                'action_id' => $prod->id,
+                'action_name' => $prod->name,
+                'notification' => 'produitsajoutstar',
+                'afficher' => true]);
+        }
+
 
         Session::flash('flash_message', 'Equipement ajouté a votre profil !');
 

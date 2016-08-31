@@ -24,7 +24,7 @@ class HelperPublication
         $data = $request->all();
         $user = Auth::user();
         $validator = Validator::make($data, [
-            'message_status' => 'required',
+            'message_status' => '',
             'picture_status' => 'mimes:jpeg,png,jpg'
         ]);;
 

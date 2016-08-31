@@ -43,12 +43,18 @@ class PublicationController extends Controller
      */
     public function store(Request $request)
     {
-        $publication = HelperPublication::store($request);
-        if(is_array($publication) && array_key_exists('errors',$publication)){
-            return Redirect::back()->withErrors($publication['errors']);
-        }
 
-        Publication::create($publication);
+        $data = $request->all();
+
+        if(!empty($data['message_status']) || $request->hasFile('picture_status'))
+        {
+            $publication = HelperPublication::store($request);
+            if(is_array($publication) && array_key_exists('errors',$publication)){
+                return Redirect::back()->withErrors($publication['errors']);
+            }
+
+            Publication::create($publication);
+        }
 
         return Redirect::back();
     }

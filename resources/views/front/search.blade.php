@@ -96,6 +96,39 @@
             </div>
         </div>
     @endif
+    @if(!empty($resultsProducts))
+        <div class="row">
+            <div class="col-md-offset-1 col-md-10 col-sm-offset-1 col-sm-10">
+                <div class="page-header" style="border-bottom-color: #31353E">
+                    <h2>Produits</h2>
+                </div>
+                @foreach($resultsProducts as $event)
+                    <div class="col-sm-4 col-md-2">
+                        <div class="team-member">
+                            <a href="{{ route('product.show', ['product' => $event['id']]) }}">
+                                <figure class="member-photo">
+                                    <img class="imgonefriend" src="{{ asset($event['picture']) }}" alt="{{ $event['name'] }}" width="100px" height="100px">
+                                </figure>
+                                <div class="team-detail">
+                                    <h4>{{ $event['name'] }}</h4>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    @endif
+
+    @if(empty($results) && empty($resultsAssociation) && empty($resultsEvent) && empty($resultsProducts))
+        <div class="row">
+            <div class="col-md-offset-1 col-md-10 col-sm-offset-1 col-sm-10">
+                <div class="page-header" style="border-bottom-color: #31353E">
+                    <h2>Aucun résultats sur le site ne correspond à votre recherche!</h2>
+                </div>
+            </div>
+        </div>
+    @endif
 </div>
 @endsection
 

@@ -108,6 +108,7 @@ use Illuminate\Support\Facades\File;
         //Profil
 //        Route::resource('photo', 'PhotoController');
         Route::resource('user', 'UserController',['except' => ['update']]);
+        Route::get('/user', ['as' => 'user.index', 'uses' => 'UserController@index']);
         Route::post('/user/demandeStar', ['as' => 'user.star', 'uses' => 'UserController@demandeStar']);
         Route::post('/user/demandeStarRemove', ['as' => 'user.star', 'uses' => 'UserController@demandeStarRemove']);
         Route::post('/user/{user}/update', ['as' => 'user.update', 'uses' => 'UserController@update']);

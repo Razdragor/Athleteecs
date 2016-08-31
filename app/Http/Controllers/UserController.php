@@ -25,7 +25,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('front.user.index');
+        abort(404);
     }
 
     /**
@@ -68,30 +68,33 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $userSports = $user->sports;
-        $arraySport = [];
+        if(Auth::user()->id == $user->id){
+            $userSports = $user->sports;
+            $arraySport = [];
 
-        foreach($userSports as $us){
-            $arraySport[] = $us->id;
+            foreach($userSports as $us){
+                $arraySport[] = $us->id;
+            }
+
+            $sports = DB::table('sports')
+                ->whereNotIn('id', $arraySport)
+                ->get();
+
+            $userEquipement = $user->products;
+            $arrayUser = [];
+
+            foreach($userEquipement as $us){
+                $arrayUser[] = $us->id;
+            }
+
+            $equipements = DB::table('products')
+                ->whereNotIn('id', $arrayUser)
+                ->get();
+
+            return view('front.user.edit',['user' => $user, 'sports' => $sports,'equipements' => $equipements]);
+        } else {
+            return Redirect::route('front.index');
         }
-
-        $sports = DB::table('sports')
-            ->whereNotIn('id', $arraySport)
-            ->get();
-
-        $userEquipement = $user->products;
-        $arrayUser = [];
-
-        foreach($userEquipement as $us){
-            $arrayUser[] = $us->id;
-        }
-
-        $equipements = DB::table('products')
-            ->whereNotIn('id', $arrayUser)
-            ->get();
-
-
-        return view('front.user.edit',['user' => $user, 'sports' => $sports,'equipements' => $equipements]);
     }
 
     /**

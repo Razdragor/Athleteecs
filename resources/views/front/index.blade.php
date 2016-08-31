@@ -43,7 +43,7 @@
                                     <div class="tab-pane fade active in" id="tab_home">
                                         <form role="form" style="position: relative" action="{{ route("publication.store")}}" method="post" enctype="multipart/form-data">
                                             {{csrf_field()}}
-                                        <textarea id="user-post" name="message_status" placeholder="Partage ton statut" rows="3" class="form-control" style="resize: none;border: none;box-shadow: none" required></textarea>
+                                        <textarea id="user-post" name="message_status" placeholder="Partage ton statut" rows="3" class="form-control" style="resize: none;border: none;box-shadow: none"></textarea>
                                         <div class="form-actions panel-foo">
                                             <div class="btn-group">
                                                 <div class="image-upload">
@@ -74,7 +74,7 @@
                                                 <div class="form-group">
                                                     <label for="datetimepicker1" class="">Date de début :</label>
                                                     <div class="input-group date" id="datetimepicker1">
-                                                        <input type="text" class="form-control" placeholder="__/__/____ __:__" name="date_start_act" required>
+                                                        <input type="text" class="form-control" placeholder="__/__/____ __:__" name="date_start_act" required readonly>
                                                         <span class="input-group-addon">
                                                         <span class="fa-calendar fa"></span>
                                                         </span>
@@ -371,7 +371,7 @@
                         <div class="form-group">
                             <label for="datetimepicker1-modal" class="">Date de début :</label>
                             <div class="input-group date" id="datetimepicker1-modal">
-                                <input type="text" class="form-control" placeholder="__/__/____ __:__" name="date_start_act_modal" id="date_start_act_modal">
+                                <input type="text" class="form-control" placeholder="__/__/____ __:__" name="date_start_act_modal" id="date_start_act_modal" readonly>
                                 <span class="input-group-addon">
                                     <span class="fa-calendar fa"></span>
                                 </span>

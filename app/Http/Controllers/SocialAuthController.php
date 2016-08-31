@@ -26,8 +26,10 @@ class SocialAuthController extends Controller
         return Socialite::driver($provider)->redirect();
     }
 
-    public function callback(SocialAccountService $service, $provider)
+    public function callback(SocialAccountService $service, $provider,Request $request)
     {
+        $data = $request->all();
+
         if($provider == 'facebook') {
             $user = $service->createOrGetUser(Socialite::driver($provider)->fields([
                 'name',
@@ -39,8 +41,13 @@ class SocialAuthController extends Controller
             ])->scopes(['email', 'public_profile']));
         }elseif($provider == 'google'){
             $user = $service->createOrGetUser(Socialite::driver($provider));
-        } elseif($provider == 'twitter') {
-            $user = $service->createOrGetUser(Socialite::driver($provider));
+        }elseif($provider == 'twitter') {
+
+            if(!empty($data['denied'])) {
+                return redirect()->to('/');
+            } else {
+                $user = $service->createOrGetUser(Socialite::driver($provider));
+            }
         }
 
         if(isset($user)) {
