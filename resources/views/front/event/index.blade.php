@@ -8,14 +8,13 @@
 
 @section('content')
     <div class="container" style="margin-bottom: 25px;">
-        <div class="row">
-            <div style="width: 90%;margin:auto;position: relative">
-                <div><h1>Événements</h1></div>
-                <div style="position: absolute;right: 0px;top:20px">
-                    <a href="{{ route('event.create') }}" class="btn btn-default btn-xs">Créer un événement</a>
-                </div>
+        <div class="container">
+            <div>
+                <h1>Événements</h1>
+                    <a href="{{ route('event.create') }}" class="btn btn-default btn-xs" style="float: right;">Créer un événement</a>
+
             </div>
-            <div style="border-bottom: solid black 1px;width: 90%;margin:auto"></div>
+            <div style="border-bottom: solid black 1px;width: 100%;margin:auto auto 20px auto"></div>
         </div>
         <div class="row">
             <div class="col-md-9 col-sm-8">
@@ -34,11 +33,11 @@
                         </ul>
                     @endif
                     @if(count($sports) > 0)
-                        <h4>Autres Sports</h4>
+                        <h4>Sports</h4>
                         <ul class="list-unstyled">
                             @foreach($sports as $sport)
                                 <li>
-                                    <input type="checkbox" name="{{ $sport->id}}"> {{ $sport->name}}
+                                    <input type="checkbox" name="{{ $sport->id}}" checked="checked"> {{ $sport->name}}
                                 </li>
                             @endforeach
                         </ul>

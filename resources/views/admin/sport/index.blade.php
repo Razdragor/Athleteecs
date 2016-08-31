@@ -12,6 +12,7 @@
         <div class="text-right" style="margin-bottom: 10px;">
             <a href="{{ route('admin.sport.create') }}" class="btn btn-default">Ajouter un sport</a>
         </div>
+
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Liste des sports</h3>

@@ -24,11 +24,11 @@
     @yield('css')
 
 </head>
+
 <body id="app-layout">
     <div class="wrapper">
-        <header>
             <nav id="navbar" role="navigation" class="social-navbar navbar navbar-default navbar-fixed-top">
-                <div class="container logocentrer">
+                <div class="logocentrer">
                     <div class="navbar-header">
                         <a href="{{ url('/') }}" class="navbar-brand">
                             <img class="logo-athleteec" src="{{ asset('asset/img/logo.svg') }}" alt=""/>
@@ -36,7 +36,6 @@
                     </div>
                 </div>
             </nav>
-        </header>
         <div class="main">
             @yield('content')
         </div>

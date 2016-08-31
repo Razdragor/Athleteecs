@@ -56,7 +56,20 @@ class UsersTableSeeder extends Seeder
             'created_at' => Carbon\Carbon::now(),
             'updated_at' => Carbon\Carbon::now()
         ]);
-
+        DB::table('users')->insert([
+            'firstname' => 'ju ',
+            'lastname' => 'vi',
+            'email' => 'julian.michau@gmail.com',
+            'password' => bcrypt('admin'),
+            'status' => 'success',
+            'activated' => 1,
+            'sexe' => 'Homme',
+            'score' => 0,
+            'picture' => 'http://fr.web.img4.acsta.net/c_100_100/b_1_d6d6d6/medias/nmedia/18/35/65/82/18655069.jpg',
+            'newsletter' => 0,
+            'created_at' => Carbon\Carbon::now(),
+            'updated_at' => Carbon\Carbon::now()
+        ]);
 
         DB::table('role_user')->insert([
             'user_id' => 1,
@@ -70,6 +83,10 @@ class UsersTableSeeder extends Seeder
 
         DB::table('role_user')->insert([
             'user_id' => 3,
+            'role_id' => 2
+        ]);
+        DB::table('role_user')->insert([
+            'user_id' => 4,
             'role_id' => 2
         ]);
     }

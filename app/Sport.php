@@ -36,4 +36,13 @@ class Sport extends Model
     public function userSport(){
         return $this->hasMany('App\UsersSports', 'sport_id');
     }
+//
+//    public function categories()
+//    {
+//        return $this->hasMany('App\SportsCategories', 'sport_id');
+//    }
+    public function categories()
+    {
+        return $this->belongsToMany('App\Category', 'sports_categories', 'sport_id', 'category_id');
+    }
 }

@@ -1,0 +1,86 @@
+.social-navbar .navbar-header {
+    width: 200px;
+    height: 60px;
+}
+.logo-front {
+    width: 120px;
+    display: block;
+    margin: 0px 25px;
+    height: 60px;
+}
+
+.navbar-brand
+{
+    height: 0px;
+}
+.social-navbar {
+    max-height: 60px;
+}
+header
+{
+    overflow: auto;
+}
+.social-sidebar {
+    top : 60px;
+    padding-top: 20px;
+}
+
+.navbar-brand {
+    height: 60px;
+}
+
+.social-navbar .navbar-header img {
+    margin-top: -13px;
+}
+.correctmain
+{
+    margin-top: 10px;
+}
+
+.left-correct
+{
+    padding-left: 15px !important;
+}
+
+h4.blanc {
+    text-align: center;
+    color: black;
+    background-color: white;
+    margin-left: 15px;
+    margin-right: 15px;
+    padding: 3px;
+    margin-bottom: 20px;
+}
+a.lien-barre-user
+{
+    color: white;
+}
+.link_social_nav{
+    padding-bottom: 15px;
+    padding-left: 30px;
+}
+
+.bloc-menu-social
+{
+    padding-bottom: 15px;
+}
+h4.blanc:hover {
+    color: black;
+}
+.lien-barre-user
+{
+
+    transition: color 0.3s ease;
+}
+.lien-barre-user:hover {
+    color: #B9121B;
+    text-decoration: none;
+}
+
+ul.ul-event{
+    padding-left: 20px;
+}
+
+.lien-barre,.event-none{
+    color: white;
+}

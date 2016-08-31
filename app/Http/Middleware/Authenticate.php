@@ -24,6 +24,13 @@ class Authenticate
                 return redirect()->guest('login');
             }
         }
+//        if (Auth::attempt(['status' => "validation email"])) {
+//            if ($request->ajax() || $request->wantsJson()) {
+//                return response('Unauthorized.', 401);
+    //            } else {
+//                return redirect()->guest('login');
+//            }
+//        }
 
         return $next($request);
     }

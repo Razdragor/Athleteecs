@@ -242,11 +242,6 @@
     height: 60px;
 }
 
-.checkbox-correct{
-    text-align: center;
-    padding-top: 15px;
-}
-
 .post_picture_video img{
     max-height: 400px;
 }
@@ -274,6 +269,16 @@
 
 .img-filter-association{
     max-height: 150px;
+    width: 100%;
+    padding: 5px;
+}
+
+.img-full-size{
+    width: 100%;
+}
+
+.filter-event{
+    border: 1px solid #dddddd;
 }
 
 @media screen and (max-width: 720px) {

@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('css')
+    <link href="{{ asset('asset/css/layouts/register.css') }}" rel="stylesheet">
+@endsection
 @section('content')
 
 
@@ -74,7 +76,7 @@
                     <input name="email_confirmation" placeholder="Confirmation votre e-mail" type="email" required class="form-control">
                 </div>
                 <div class="form-group">
-                    <input name="password" placeholder="Nouveau mot de passe" type="password" required class="form-control">
+                    <input name="password" placeholder="Mot de passe" type="password" required class="form-control">
                     @if ($errors->has('password'))
                         <span class="help-block">
                             <strong>{{ $errors->first('password') }}</strong>

@@ -148,29 +148,6 @@ class UserController extends Controller
                 $user->address= $input['address'];
                 $user->sexe= $input['sexe'];
 
-                $us = UsersNewsletters::whereEmail($user->email)->first();
-                if(array_key_exists('newsletter', $input)){
-                    if(is_null($us)){
-                        $us = UsersNewsletters::create(array(
-                            'email' => $user->email,
-                            'active' => true
-                        ));
-
-                    }
-                    $us->active = true;
-                    $us->save();
-                    $user->newsletter = true;
-                }
-                else{
-                    if(!is_null($us)){
-                        $us->active = false;
-                        $us->save();
-                    }
-                    $user->newsletter = false;
-                }
-
-                $user->save();
-
                 if(!empty($input['sport']))
                 {
                     $sports = $request->input('sport');
@@ -181,6 +158,12 @@ class UserController extends Controller
                         $userSport->user_id = $user->id;
                         $userSport->sport_id= $sport;
                         $userSport->save();
+
+                        $userNewsletter = new UsersNewsletters();
+                        $userNewsletter->email = $user->email;
+                        $userNewsletter->active = 0;
+                        $userNewsletter->sport_id = $sport;
+                        $userNewsletter->save();
                     }
                 }
 
@@ -192,8 +175,70 @@ class UserController extends Controller
                     {
                         $match = ['user_id' => $user->id, 'sport_id' => $sport];
                         $userSport = UsersSports::where($match)->delete();
+
+                        $match = ['email' => $user->email, 'sport_id' => $sport];
+                        $userNewsletter = UsersNewsletters::where($match)->delete();
+
                     }
+
                 }
+
+                //$us = UsersNewsletters::whereEmail($user->email)->where('sport_id',0)->first();
+
+                $us = UsersNewsletters::where('email',$user->email)->where('sport_id',0)->first();
+
+                if(array_key_exists('newsletter', $input)){
+                    if(is_null($us)){
+                        $us = UsersNewsletters::create(array(
+                            'email' => $user->email,
+                            'sport_id' => 0,
+                            'active' => true
+                        ));
+
+                    }
+
+                    $us->active = true;
+                    $us->sport_id = 0;
+
+                    if(UsersNewsletters::where('email',$user->email)->count() > 1)
+                    {
+                        $record = UsersNewsletters::where('email',$user->email)->where('sport_id','!=',0)->get();
+
+                        foreach($record as $re)
+                        {
+                            $re->active = 1;
+                            $re->save();
+                        }
+
+                    }
+
+                    $us->save();
+
+                    $user->newsletter = true;
+
+                }
+                else{
+                    if(!is_null($us)){
+                        $us->active = false;
+
+                        if(UsersNewsletters::where('email',$user->email)->count() > 1)
+                        {
+                            $record = UsersNewsletters::where('email',$user->email)->where('sport_id','!=',0)->get();
+
+                            foreach($record as $re)
+                            {
+                                $re->active = 0;
+                                $re->save();
+                            }
+
+                        }
+                        $us->save();
+                    }
+                    $user->newsletter = false;
+                }
+
+
+                $user->save();
 
                 if(!empty($input['equipement']))
                 {

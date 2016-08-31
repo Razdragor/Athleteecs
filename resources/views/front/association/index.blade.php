@@ -8,14 +8,12 @@
 
 @section('content')
     <div class="container" style="margin-bottom: 25px;">
-        <div class="row">
-            <div style="width: 90%;margin:auto;position: relative">
-                <div><h1>Associations</h1></div>
+        <div class="container">
+                <h1>Associations</h1>
                 <div style="position: absolute;right: 0px;top:20px">
                     <a href="{{ route('association.create') }}" class="btn btn-default btn-xs">Créer une association</a>
                 </div>
-            </div>
-            <div style="border-bottom: solid black 1px;width: 90%;margin:auto"></div>
+            <div style="border-bottom: solid black 1px;width: 100%;margin:auto auto 20px auto"></div>
         </div>
         <div class="row">
             <div class="col-md-9 col-sm-8">

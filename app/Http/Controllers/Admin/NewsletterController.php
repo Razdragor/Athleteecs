@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Newsletter;
+use App\Sport;
+use App\User;
 use App\UsersNewsletters;
+use App\UsersSports;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -41,7 +44,8 @@ class NewsletterController extends Controller
      */
     public function create()
     {
-        return view('admin.newsletter.create');
+        $sports = Sport::all();
+        return view('admin.newsletter.create',['sports' =>$sports]);
     }
 
     /**
@@ -53,6 +57,7 @@ class NewsletterController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+
         $rules = [
             'name' => 'required',
             'text' => 'required',
@@ -64,28 +69,40 @@ class NewsletterController extends Controller
 
         $validator = Validator::make($data,$rules,$messages);
 
+
         if($validator->fails())
         {
             $request->flash();
             return Redirect::back()->withErrors($validator);
         }
 
+
         $newsletter = Newsletter::create(array(
             'objet' => $data['name'],
-            'text' => $data['text']
+            'text' => $data['text'],
+            'sport_id' => $data['sport_id']
         ));
 
         return Redirect::route('admin.newsletter.show', ['newsletter' => $newsletter]);
     }
 
     public function send(Newsletter $newsletter){
-        $users = UsersNewsletters::where('active', '=', 1)->get();
+
+        if($newsletter->sport_id != 0)
+        {
+            $users = UsersNewsletters::where('active', '=', 1)->where('sport_id',$newsletter->sport_id)->get();
+        }
+        else{
+            $users = UsersNewsletters::where('active', '=', 1)->where('sport_id',0)->get();
+        }
+
         foreach($users as $user){
             $this->mailer->send('emails.newsletter', ['text' => $newsletter->text ] ,function (Message $m) use ($user,$newsletter) {
                 $m->from('esgi.athleteec@gmail.com', 'Athleteec');
                 $m->to($user->email)->subject($newsletter->objet);
             });
         }
+
 
         return Redirect::route('admin.newsletter.show', ['newsletter' => $newsletter])->with('message','Newsletter transmise avec succès');
     }

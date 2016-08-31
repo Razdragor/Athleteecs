@@ -68,10 +68,14 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <h2>L'événement commence : {{ $event->started_at }}</h2>
+                {{--<h2>L'événement commence : {{ $event->started_at }}</h2>--}}
+                <h2>L'événement commence : {{ date("d/m/Y", strtotime($event->started_at))}}</h2>
+
+
             </div>
             <div class="col-md-6">
-                <h2>et se termine : {{ $event->end_at }}</h2>
+                {{--<h2>et se termine : {{ $event->end_at }}</h2>--}}
+                <h2>et se termine : {{ date("d/m/Y", strtotime($event->end_at)) }}</h2>
             </div>
         </div>
         <div class="row">
@@ -83,7 +87,7 @@
                 </div>
                 @if($user->isMemberEvent($event->id))
                     <div class="col-sm-12 col-md-12 col-lg-6">
-                        <a class="btn btn-block btn-primary" href="{{ route('event.quit', ['event' => $event]) }}">Quitter</a>
+                        <a class="btn btn-block btn-primary" href="{{ route('event.quit', ['event' => $event]) }}">Quitter l'événement</a>
                     </div>
                 @endif
             </div>

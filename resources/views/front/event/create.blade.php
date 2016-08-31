@@ -27,11 +27,10 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div style="width: 90%;margin:auto;">
-                <div><h1>Créer votre événement </h1></div>
-            </div>
-            <div style="border-bottom: solid black 1px;width: 90%;margin:auto"></div>
+        <div class="container">
+
+                <h1>Créer votre événement </h1>
+            <div style="border-bottom: solid black 1px;width: 100%;margin:auto auto 20px auto"></div>
         </div>
         <div class="row" style="margin-top: 40px;">
             <form action="{{ route('event.store')}}" method="post" enctype="multipart/form-data" class="form-horizontal form_valid" data-toggle="validator">

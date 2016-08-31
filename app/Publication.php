@@ -18,8 +18,9 @@ class Publication extends Model
      *
      * @var array
      */
+
     protected $fillable = [
-        'id','message', 'picture', 'user_id', 'activity_id', 'group_id', 'association_id', 'created_at', 'updated_at', 'video_id', 'score', 'status'
+        'id','message', 'picture', 'user_id', 'activity_id', 'group_id', 'event_id', 'association_id', 'created_at', 'updated_at', 'video_id','product_id', 'score', 'status'
     ];
 
     /**
@@ -53,6 +54,11 @@ class Publication extends Model
     public function association()
     {
         return $this->belongsTo('App\Association');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo('App\Product');
     }
 
     public function event()

@@ -76,6 +76,18 @@
                             </a>
                         </li>
                         <li>
+                            <a href="{{ route('admin.category.index') }}">
+                                <!-- icon--><i class="fa fa-folder-o"></i>
+                                <span>Categorie & Détails</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.product.index') }}">
+                                <!-- icon--><i class="fa fa-usd"></i>
+                                <span>Produits</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ route('admin.newsletter.index') }}">
                                 <!-- icon--><i class="fa fa-envelope-o"></i>
                                 <span>Newsletter</span>

@@ -48,6 +48,8 @@ class IndexController extends Controller
             ->take(3)
             ->get();
 
+
+
         return view('front.index', ["sports" => $sports, "publications" => $posts, "events" => $events]);
     }
 

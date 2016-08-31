@@ -275,7 +275,7 @@
                                         <dd class="divider"></dd>
                                         <dt>Sports pratiqué</dt>
 
-                                        @if((count($user->sports)) > 1)
+                                        @if((count($user->sports)) > 0)
                                             @foreach($user->sports as $sport)
                                                 <dd>{{ $sport->name }}</dd>
                                             @endforeach

@@ -18,7 +18,7 @@ class Newsletter extends Model
      * @var array
      */
     protected $fillable = [
-        'id','objet',"text","created_at","updated_at"];
+        'id','sport_id','objet',"text","created_at","updated_at"];
 
     /**
      * The attributes that should be hidden for arrays.

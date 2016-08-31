@@ -18,10 +18,13 @@ class CreateProductsTable extends Migration
             $table->string('name',100);
             $table->string('description');
             $table->string('picture')->nullable();
+            $table->integer('note')->nullable();
+            $table->boolean('active')->default(false);
             $table->decimal('price')->nullable();
             $table->string('url')->nullable();
             $table->bigInteger('brand_id')->nullable();
             $table->bigInteger('category_id')->nullable();
+            $table->bigInteger('sport_id')->nullable();
             $table->timestamps();
         });
     }

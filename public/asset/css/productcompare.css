@@ -1,0 +1,147 @@
+.product
+{
+    border: 1px solid #fff;
+    background: #fff;
+    margin: 10px;
+    background-image: none;
+    width: 240px;
+}
+.product.product_compare
+{
+    border: 1px solid #fff;
+    background: #fff;
+    margin: 4px;
+    background-image: none;
+    width: 240px;
+    height: 280px;
+}
+
+
+.product_info
+{
+    background: url('https://www.decathlon.fr/skins/images/background-listing.png') top no-repeat #fdfdfd;
+    padding: 12px 0 0;
+    height: 70px;
+}
+
+.product.col-md-2
+{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.product_visuel
+{
+    margin: 0 auto 0 auto;
+}
+
+a.product_brand.product__list_left, div.product__list_left.rating,a.product_name.product__list_left,input#checkcompare{
+    margin-left:10px;
+}
+a.product_brand.product__list_left,a.product_name.product__list_left:hover,a.more_info_title {
+    text-decoration: none;
+}
+.product_brand {
+    font-weight: bold;
+}
+.product_name, .product_brand{
+    position: relative;
+    width: 150px;
+    display: block;
+    color: #2b2b2b;
+    font-size: 11px;
+    text-decoration: none;
+}
+
+.indicator{
+    color: #2b2b2b;
+    font-size: 11px;
+
+}
+
+.product_price{
+    position: absolute;
+    top: 102px;
+    right: 10px;
+    text-align: right;
+}
+.a_partir_de{
+    font-size: 8px;
+    margin: 0 0 2px;
+}
+
+.product_price_span{
+    background: url('https://www.decathlon.fr/skins/images/fdprice-yellow.png') left bottom no-repeat #fffb0a;
+    height: 28px;
+    line-height: 28px;
+    padding: 0 4px 0 15px;
+    font-size: 11pt;
+    color: #1e1e1d;
+    font-weight: bold;
+    display: block;
+}
+
+div.more_info div.more_info_content,.more_info_title {
+    background: #0082c3!important;
+    color: #fff !important;
+}
+
+
+.product{
+    transition: all .4s ease-out;
+}
+
+.info_count,.info_it,.info_ensotck,span.indicator{
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.checkbox-correct{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.product_price_compare{
+    position: absolute;
+    top: 218px;
+    right: 10px;
+    text-align: right;
+}
+.detail_name,.detail_result{
+    text-align: center;
+}
+
+.detail_name{
+    padding-bottom: 5px;
+    background-color: gainsboro;
+}
+
+.detail_name_content{
+    font-weight: bold;
+}
+
+.detail_result_content {
+    margin: 0;
+    padding: 10px;
+    font-size: 13px;
+}
+
+.detail_result{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.details_box{
+    border-bottom: 1px solid #dcdcdc;
+    min-height: 60px;
+    position: relative;
+}
+
+.rating.details_box
+{
+    border-top: 1px solid #dcdcdc;
+
+}
+
+.detailstar{
+    text-align: center;
+}

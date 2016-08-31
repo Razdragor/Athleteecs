@@ -1,0 +1,65 @@
+.footer{
+    position: absolute;
+    bottom: 0;
+    padding: 0px;
+}
+
+.row.copyright
+{
+    margin-top: 0px;
+}
+
+p.blanc{
+    margin: 0px;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.wrapper {
+    position: static;
+    min-height: 0px;
+}
+
+.social-network-footer {
+    margin-top: 10px;
+}
+div.col-sm-12.align-center{
+    margin-bottom: 5px;
+}
+
+.logocentrer {
+    padding-right: 0px;
+    display: block;
+    padding-left: 8%;
+}
+img.logo-athleteec{
+    height: 50px;
+    width: 251px;
+}
+.navbar-header{
+    padding-top: 2px;
+}
+.container {
+    width: 1000px;
+}
+.social-navbar{
+    height: 60px;
+}
+
+.panel
+{
+    -webkit-box-shadow: none;
+}
+
+.section:first-child
+{
+    margin-top: 90px;
+}
+
+.panel-default{
+    border: none;
+}
+
+html{
+    background-color: white;
+}

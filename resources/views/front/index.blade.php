@@ -7,6 +7,8 @@
     <link href="{{ asset('asset/css/glyphicons_free/glyphicons.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.halflings.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/layouts/indexall.css') }}" rel="stylesheet">
+
 @endsection
 
 @section('content')
@@ -190,7 +192,9 @@
                                                                     echo "editact(".$publication->activity->id.")";
                                                                 }
                                                             ?>">
-                                                            <span class="fa fa-pencil"></span> Modifier</a>
+                                                            {{--@if(!is_null($publication->product))--}}
+                                                                <span class="fa fa-pencil"></span>Modifier</a>
+                                                            {{--@endif--}}
                                                     </li>
                                                     <li>
                                                         <a href="#" id="deletepost">
@@ -240,6 +244,41 @@
                                                 {{$publication->message}}
                                         </div>
                                     @endif
+                                    @if(!is_null($publication->product))
+                                        <div class="post_equipement">
+                                            <div class="col-md-6">
+                                                <div class="post_equipement_image">
+                                                    <a href="{{ route('product.show',['product' => $publication->product]) }}">
+                                                        <img src="{{ asset($publication->product->picture) }}" alt="{{ $publication->product->name }}" width="150px" height="150px">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="product_name">
+                                                    <br><span class="product_name_content">{{ $publication->product->name }}</span>
+                                                </div>
+<br>
+                                                <div class="rating" id="{{ $publication->product->id }}">
+                                                    @if($publication->product->ratesvalue() != 0 )
+                                                        <strong>Note global</strong> <br> {{ceil($publication->product->ratesvalue())}}/5<div class="ui massive star rating user" data-rating="{{ceil($publication->product->ratesvalue())}}" data-max-rating="5"></div>
+                                                    @else
+                                                        <strong>Note global </strong> <br> 0/5<div class="ui massive star rating user" data-rating="0" data-max-rating="5"></div>
+                                                    @endif
+                                                    @if(!empty($user->rates))
+                                                        @foreach($user->rates as $rateuser)
+                                                            @if($rateuser->product_id == $product->id)
+                                                                <strong>Votre note </strong><br> <div class="ui massive star rating user" data-rating="{{ceil($rateuser->value)}}" data-max-rating="5"></div>
+                                                            @endif
+                                                        @endforeach
+                                                    @endif
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    @endif
+
+
                                 </div>
                                 <div class="timeline-footer">
                                     <div class="comments" id="comments-{{ $publication->id }}">
@@ -440,4 +479,8 @@
     <script src="{{ asset('asset/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js') }}"></script>
     <script src="{{ asset('asset/js/plugins/selectize.js/standalone/selectize.min.js') }}"></script>
     <script src="{{ asset('asset/js/scroll.js') }}"></script>
+    {{--<script type="text/javascript" src=" https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.4/semantic.min.js">    </script>--}}
+    <script>
+        $('.ui.star.rating.user').rating('disable');
+    </script>
 @endsection

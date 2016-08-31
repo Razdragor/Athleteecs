@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('css')
+    <link href="{{ asset('asset/css/layouts/reset.css') }}" rel="stylesheet">
+    @endsection
 <!-- Main Content -->
 @section('content')
 <div class="image-fond">

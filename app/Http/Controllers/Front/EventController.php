@@ -243,7 +243,19 @@ class EventController extends Controller
                         $potential_user->is_authorised = 1;
                         $potential_user->save();
                     }
-                    
+                    $user = Auth::user();
+
+                    Notifications::firstOrCreate([
+                        'user_id' => $friend->id,
+                        'userL_id' => $user->id,
+                        'libelle' => $user->firstname." ".$user->lastname,
+                        'action_id' => $event->id,
+                        'action_name' => $event->name,
+                        'notification' => 'events',
+                        'afficher' => true]);
+
+
+
                     return \Response::json(array(
                         'friend'=>$friend,
                         'event_id'=>$event->id,
@@ -419,9 +431,19 @@ class EventController extends Controller
                     'user_id' => $user->id,
                     'userL_id' => $event->id, //OSEF du nom de la colonne, on récupère les bonnes info grace à la colone notification.
                     'libelle' => $userC->firstname." ".$userC->lastname." a rejoint l'event ".$event->name,
+                    'action_id' => $event->id,
+                    'action_name' => $event->name,
                     'notification' => 'events',
+                    'accepter' => 1,
                     'afficher' => true]);
             }
+
+            UsersDemandsEvents::firstOrCreate([
+                'user_id' => $userC->id,
+                'event_id' =>  $event->id,
+                'is_authorised' => 1
+            ]);
+
             UsersEvents::create(array(
                'user_id' => $userC->id,
                 'event_id' => $event->id,

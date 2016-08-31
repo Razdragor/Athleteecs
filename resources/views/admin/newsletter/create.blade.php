@@ -29,6 +29,17 @@
                 <form class="form-horizontal" method="post" action="{{ route("admin.newsletter.store") }}" enctype="multipart/form-data">
                     {{csrf_field()}}
                     <div class="form-group padding">
+                        <label class="col-sm-2 control-label" for="sport_id">Sports Concernés</label>
+                        <div class="col-sm-10">
+                            <select name="sport_id" class="form-control">
+                                <option value="0" selected="selected">Tous les sports</option>
+                            @foreach($sports as $sport)
+                                    <option value="{{$sport->id}}">{{$sport->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group padding">
                         <label class="col-sm-2 control-label" for="name">Objet</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}" required>

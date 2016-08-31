@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('css')
+    <link href="{{ asset('asset/css/layouts/obligatoire.css') }}" rel="stylesheet">
+@endsection
 
 @section('content')
     <div class="pagesobligatory">

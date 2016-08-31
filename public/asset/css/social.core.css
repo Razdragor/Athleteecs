@@ -7263,6 +7263,7 @@ button.close {
 .modal-body {
   position: relative;
   padding: 15px;
+  min-height: 130px;
 }
 .modal-footer {
   padding: 15px;

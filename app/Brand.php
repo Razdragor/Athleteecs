@@ -17,8 +17,7 @@ class Brand extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'name'
+    protected $fillable = ['name'
     ];
 
     /**
@@ -29,8 +28,4 @@ class Brand extends Model
     protected $hidden = [
     ];
 
-    public function products()
-    {
-        return $this->hasMany('App\Product');
-    }
 }

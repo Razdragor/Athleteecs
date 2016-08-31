@@ -41,24 +41,48 @@ use Illuminate\Support\Facades\File;
 
         Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () {
             Route::get('/', 'Admin\AdminController@index');
+
             Route::get('/datauser', 'Admin\AdminController@datauser');
             Route::get('/datapublication', 'Admin\AdminController@datapublication');
             Route::get('/dataactivite', 'Admin\AdminController@dataactivite');
+
             Route::resource('user', 'Admin\UserController');
             Route::get('/user/{star}/accept', ['as' => 'admin.user.accept', 'uses' => 'Admin\UserController@accept']);
             Route::get('/user/{star}/rejet', ['as' => 'admin.user.rejet', 'uses' => 'Admin\UserController@rejet']);
             Route::get('/user/{user}/changeStatus', ['as' => 'admin.user.change', 'uses' => 'Admin\UserController@changeStatus']);
             Route::get('/user/{user}/blocked', ['as' => 'admin.user.blocked', 'uses' => 'Admin\UserController@blocked']);
             Route::get('/user/{user}/authorize', ['as' => 'admin.user.authorize', 'uses' => 'Admin\UserController@authorize']);
+
             Route::resource('sport', 'Admin\SportController');
+
             Route::resource('newsletter', 'Admin\NewsletterController',['except' => ['update']]);
             Route::post('/newsletter/{newsletter}/update', ['as' => 'admin.newsletter.update', 'uses' => 'Admin\NewsletterController@update']);
             Route::get('/newsletter/{newsletter}/delete',  ['as' => 'admin.newsletter.delete', 'uses' => 'Admin\NewsletterController@destroy']);
             Route::get('/newsletter/{newsletter}/send',  ['as' => 'admin.newsletter.send', 'uses' => 'Admin\NewsletterController@send']);
+
             Route::get('/sport/{sport}/destroy',  ['as' => 'admin.sport.delete', 'uses' => 'Admin\SportController@destroy']);
             Route::resource('publication', 'Admin\PublicationController',['except' => ['update']]);
             Route::post('/publication/{publication}/update', ['as' => 'admin.publication.update', 'uses' => 'Admin\PublicationController@update']);
             Route::get('/comment/{comment}/destroy',  ['as' => 'admin.comment.destroy', 'uses' => 'Admin\CommentController@destroy']);
+
+            Route::resource('product', 'Admin\ProductController');
+            Route::post('/product/{product}/update', ['as' => 'admin.product.update', 'uses' => 'Admin\ProductController@update']);
+            Route::get('/product/{product}/delete',  ['as' => 'admin.product.delete', 'uses' => 'Admin\ProductController@destroy']);
+            Route::get('/product-validation',['as' => 'admin.product.valider', 'uses' => 'Admin\ProductController@validation']);
+
+
+            Route::get('/ajaxdouble',['as' => 'product.ajaxdoublex', 'uses' => 'Admin\ProductController@ajaxdouble']);
+
+            Route::resource('category', 'Admin\CategoryController');
+            Route::post('/category/{category}/update', ['as' => 'admin.category.update', 'uses' => 'Admin\CategoryController@update']);
+            Route::get('/category/{category}/delete',  ['as' => 'admin.category.delete', 'uses' => 'Admin\CategoryController@destroy']);
+            Route::post('/category/addAjax','Admin\CategoryController@addAjax');
+
+
+            Route::post('/detail/{detail}/update', ['as' => 'admin.detail.update', 'uses' => 'Admin\DetailController@update']);
+            Route::get('/detail/{detail}/delete',  ['as' => 'admin.detail.delete', 'uses' => 'Admin\DetailController@destroy']);
+            Route::post('/detail/addAjax','Admin\DetailController@addAjax');
+
         });
 
     Route::group(['middleware' => ['role:user|admin']], function () {
@@ -82,13 +106,32 @@ use Illuminate\Support\Facades\File;
         Route::post('/publication/loadAll', 'Front\PublicationController@loadAll');
 
         //Profil
-        Route::resource('photo', 'PhotoController');
+//        Route::resource('photo', 'PhotoController');
         Route::resource('user', 'UserController',['except' => ['update']]);
         Route::post('/user/demandeStar', ['as' => 'user.star', 'uses' => 'UserController@demandeStar']);
         Route::post('/user/demandeStarRemove', ['as' => 'user.star', 'uses' => 'UserController@demandeStarRemove']);
         Route::post('/user/{user}/update', ['as' => 'user.update', 'uses' => 'UserController@update']);
         Route::post('/product/addAjax','ProductController@addAjax');
-        Route::post('/picture/addAjax','PictureController@addAjax');
+        Route::get('/picture/addAjax','PictureController@addAjax');
+
+        Route::get('/user/remove', ['as' => 'user.equipremove', 'uses' => 'ProductController@removeequipement']);
+
+        //Produit
+        Route::resource('product', 'ProductController');
+        Route::post('/product/addAjax','ProductController@addAjax');
+        Route::get('/product',['as' => 'product.index', 'uses' => 'ProductController@index']);
+        Route::get('/product-ajax',['as' => 'product.filter', 'uses' => 'ProductController@searchAjax']);
+        Route::get('/ajaxproduct',['as' => 'product.ajaxproduct', 'uses' => 'ProductController@ajaxproduct']);
+
+        Route::post('/product/search',['as' => 'product.search', 'uses' => 'ProductController@search']);
+        Route::post('/product/compare',['as' => 'product.compare', 'uses' => 'ProductController@compare']);
+
+        Route::post('/product/{product}/post',['as' => 'product.post', 'uses' => 'ProductController@postproduct']);
+
+
+        Route::get('/product-add',['as' => 'product.adduser', 'uses' => 'ProductController@addequipement']);
+
+        Route::get('/vote-equipement',['as' => 'product.rate', 'uses' => 'ProductController@rateproduct']);
 
 
         //Activité

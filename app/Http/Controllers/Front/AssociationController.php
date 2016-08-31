@@ -279,8 +279,11 @@ class AssociationController extends Controller
                     'user_id' => $user->id,
                     'userL_id' => $association->id, //OSEF du nom de la colonne, on récupère les bonnes info grace à la colone notification.
                     'libelle' => $userC->firstname." ".$userC->lastname." a rejoint l'association ".$association->name,
+                    'action_id' => $association->id,
+                    'action_name' => $association->name,
                     'notification' => 'associations',
                     'afficher' => true]);
+
             }
 
         }

@@ -1,0 +1,94 @@
+.social-navbar{
+    height: 85px;
+}
+.signin .social-buttons a:hover {
+    color: white;
+    opacity: 1;
+}
+.signin .signin-or {
+    position: relative;
+    font-size: 1.5em;
+    color: #aaa;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+.signin .signin-or .hr-or {
+    background-color: #B9121B;
+    height: 1px;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+.signin .signin-or .span-or {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: -0.6em;
+    margin-left: -1.5em;
+    background-color: white;
+    width: 3em;
+    text-align: center;
+}
+.signin .signin-form .input-group.i {
+    width: 2em;
+}
+.signin .signin-form .help-block {
+    color: red;
+}
+.signin .forgot-password {
+    float: right;
+}
+.footer{
+    position: absolute;
+    bottom: 0;
+    padding: 0px;
+}
+
+.row.copyright
+{
+    margin-top: 0px;
+}
+
+p.blanc{
+    margin: 0px;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.wrapper {
+    position: static;
+    min-height: 0px;
+}
+
+.social-network-footer {
+    margin-top: 10px;
+}
+div.col-sm-12.align-center{
+    margin-bottom: 5px;
+}
+
+.logocentrer {
+    padding-right: 0px;
+    display: block;
+    padding-left: 8%;
+}
+img.logo-athleteec{
+    height: 75px;
+    width: 251px;
+}
+.navbar-header{
+    padding-top: 2px;
+}
+.container {
+    width: 1000px;
+}
+
+.image-fond{
+    background: url(/images/fond.png) no-repeat 50% 70px;
+    height: 900px;
+}
+
+.add-margin-top{
+    margin-top: 145px;
+}

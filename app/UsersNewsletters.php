@@ -18,7 +18,7 @@ class UsersNewsletters extends Model
      * @var array
      */
     protected $fillable = [
-        'id','email', 'active','created_at','updated_at'
+        'id','sport_id','email', 'active','created_at','updated_at'
     ];
 
     /**

@@ -199,6 +199,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         return $this->hasMany('App\Picture');
     }
+    public function rates()
+    {
+        return $this->hasMany('App\Rate','user_id');
+    }
+
+    /**
+     * Scope a query to only include users of a given type.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
 
     // les demandes d'amis reçues
     public function demandsto(){
@@ -220,13 +230,14 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function getallnotifications(){
         return $this->hasMany('App\Notifications')
-            ->whereIn('notification', ['events', 'associations', 'groups', 'users_links'])
-            ->orderBy('updated_at', 'DESC');
+            ->whereIn('notification', ['events', 'associations', 'groups', 'users_links', 'produitsajout', 'produitsajoutstar'])
+            ->orderBy('created_at', 'DESC');
     }
 
     public function getnotifications(){
         return $this->hasMany('App\Notifications')
             ->where('afficher', true)
+            ->where('notification', '!=' ,'users_links')
             ->orderBy('id', 'DESC');
     }
 
@@ -234,7 +245,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->hasMany('App\Notifications')
             ->where('afficher', true)
             ->where('notification', 'users_links')
-            ->orderBy('updated_at', 'DESC');
+            ->orderBy('updated_at', 'DESC')
+            ->get();
     }
 
     public function getfriendsnotifications(){
@@ -244,11 +256,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
             ->limit(8);
     }
 
-    public function geteventsnotificationstrue(){
+    public function getnotificationstrue()
+    {
         return $this->hasMany('App\Notifications')
             ->where('afficher', true)
-            ->where('notification', 'events')
-            ->orderBy('updated_at', 'DESC');
+            ->where('notification', '!=', 'users_links')
+            ->orderBy('id', 'DESC');
     }
 
     public function geteventsnotifications(){

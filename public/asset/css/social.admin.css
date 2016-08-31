@@ -15,7 +15,7 @@ body {
   margin-right: 6px;
 }
 .wrapper .main {
-  margin-top: 60px;
+  margin-top: 80px;
 }
 
 
@@ -548,30 +548,36 @@ a.social-navbar .nav-indicators .nav-messages .dropdown-menu a.text-danger:hover
     right: 40px;
     width: 125px;
   }
+
   .social-navbar .nav-indicators {
     width: 100%;
     background-color: #3e3e3e;
-    position: absolute!important;
+    position: absolute !important;
     top: 40px;
   }
+
   .social-navbar .nav-indicators .dropdown-toggle {
     color: #a9a9a9 !important;
   }
+
   .social-navbar .nav-indicators .dropdown-toggle:hover,
   .social-navbar .nav-indicators .dropdown-toggle:active,
   .social-navbar .nav-indicators .dropdown-toggle:focus {
     background-color: #252525 !important;
     color: #a9a9a9 !important;
   }
+
   .social-navbar .nav-indicators-body {
     margin: 0 auto !important;
-  @media screen and (max-width: 480px)
+  }
+}
+  @media screen and (max-width: 480px){
   .social-navbar .nav-indicators-body {
     margin: 0 auto !important;
     float: none !important;
     width: 240px;
-  }
     float: none !important;
+
   }
   .social-navbar .nav-indicators-body .dropdown {
     position: static !important;
@@ -1299,6 +1305,7 @@ footer,
 .reduced-sidebar .footer {
   margin-left: 54px;
 }
+
 @media screen and (max-width: 1000px) {
   footer,
   .footer {

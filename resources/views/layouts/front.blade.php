@@ -10,10 +10,13 @@
     <title>@if(Auth::user()->getnotifications()->count()>0)({{Auth::user()->getnotifications()->count()}})@endif ATHLETEEC</title>
 
     <!-- Fonts -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.4/semantic.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
 
     <!-- Styles -->
+
     <link href="{{ asset('asset/css/social.core.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/social.admin.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/font-awesome/font-awesome.css') }}" rel="stylesheet">
@@ -26,6 +29,8 @@
     <link href="{{ asset('asset/css/front.search.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/front.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/tchat.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/layouts/correction.css') }}" rel="stylesheet">
+
 </head>
 <body id="app-layout">
 <?php
@@ -35,42 +40,81 @@ $user = Auth::user();
 <div class="wrapper">
     <aside class="social-sidebar">
         <div class="visible-lg visible-md">
-            <h4 class="blanc">Evènements :</h4>
 
-            <ul>
-                @foreach($user->events as $user_event)
-                    @if($user->isMemberEvent($user_event->event->id))
-                        <li>
-                            <a href="{{ route('event.show', ['events' => $user_event->event->id]) }}">
-                                {{$user_event->event->name}}
-
-                            </a>
-                        </li>
-                    @endif
-                @endforeach
-            </ul>
-
-            <a href="{{ route('event.index') }}" class="lien-barre-user">Trouver un événement</a><br>
-            <a href="{{ route('event.create') }}" class="lien-barre-user">Créer un event</a>
+            <div class="bloc-menu-social">
+                <h4 class="blanc">Evènements</h4>
 
 
-            <h4 class="blanc">Associations :</h4>
+                <div class="link_social_nav">
+                    <a href="{{ route('event.index') }}" class="lien-barre-user">Trouver un événement</a><br>
+                </div>
+                <div class="link_social_nav">
+                    <a href="{{ route('event.create') }}" class="lien-barre-user">Créer un event</a>
+                </div>
+                <div class="link_social_nav">
+                    <span class="lien-barre">Mes événements</span>
+                    <ul class="ul-event">
+                        @if($user->events->count() > 0)
+                            @foreach($user->events as $user_event)
+                                @if($user->isMemberEvent($user_event->event->id))
+                                    <li>
+                                        <a href="{{ route('event.show', ['events' => $user_event->event->id]) }}" class="lien-barre-user">
+                                            {{$user_event->event->name}}
+                                        </a>
+                                    </li>
+                                @endif
+                            @endforeach
+                        @else
+                            <li class="event-none">Aucun événement</li>
+                        @endif
+                    </ul>
+                </div>
 
-            <ul>
-                @foreach($user->associations as $association)
-                    @if($user->isMemberAssociation($association->association->id))
-                        <li>
-                            <a href="{{ route('association.show', ['association' => $association->association->id]) }}">
-                                {{$association->association->name}}
-                            </a>
-                        </li>
-                    @endif
-                @endforeach
-            </ul>
-            <a href="{{ route('association.index') }}" class="lien-barre-user">Trouver une association</a><br>
-            <a href="{{ route('association.create') }}" class="lien-barre-user">Créer une association</a>
 
-            <h4 class="blanc">Conversations :</h4>
+            </div>
+
+            <div class="bloc-menu-social">
+                <h4 class="blanc">Equipements</h4>
+
+
+                <div class="link_social_nav">
+                    <a href="{{ route('product.index') }}" class="lien-barre-user">Liste des équipements</a><br>
+                </div>
+
+
+            </div>
+            <div class="bloc-menu-social">
+                <h4 class="blanc">Associations</h4>
+
+                <div class="link_social_nav">
+                    <a href="{{ route('association.index') }}" class="lien-barre-user">Trouver une association</a><br>
+                </div>
+                <div class="link_social_nav">
+                    <a href="{{ route('association.create') }}" class="lien-barre-user">Créer une association</a>
+                </div>
+                <div class="link_social_nav">
+                    <span class="lien-barre">Mes associations</span>
+                    <ul class="ul-event">
+                        @if($user->associations->count() > 0)
+                            @foreach($user->associations as $association)
+                                @if($user->isMemberAssociation($association->association->id))
+                                    <li>
+                                        <a href="{{ route('association.show', ['association' => $association->association->id]) }}" class="lien-barre-user">
+                                            {{$association->association->name}}
+                                        </a>
+                                    </li>
+                                @endif
+                            @endforeach
+                        @else
+                            <li class="event-none">Aucune association</li>
+                        @endif
+                    </ul>
+                </div>
+
+            </div>
+
+
+            <h4 class="blanc">Conversations</h4>
 
             <ul>
                 @foreach($user->conversations as $conversation)
@@ -110,7 +154,7 @@ $user = Auth::user();
                     <img class ="logo-front" width="25" height="25" src="{{ asset('asset/img/logo.svg') }}" alt="Social">
                 </a>
             </div>
-            <div>
+            <div class="correctmain">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="divider-vertical"></li>
                     <li class="dropdown">
@@ -120,12 +164,6 @@ $user = Auth::user();
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="{{ route('user.show',['user' => Auth::user()->id]) }}"><i class="fa fa-user"></i>&nbsp;Mon Profil</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('event.index') }}"><i class="fa fa-calendar"></i>&nbsp;Evènements</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('association.index') }}"><i class="fa fa-circle-thin"></i>&nbsp;Associations</a>
                             </li>
                             @if(Auth::user()->hasRole('admin'))
                                 <li>
@@ -150,82 +188,21 @@ $user = Auth::user();
                             </a>
                         </li>
 
-
-                        @if(Auth::user()->friends()->count()>0)
-                            <li class="dropdown nav-notifications">
-                                <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
+                        <li class="dropdown nav-notifications">
+                                <a id="notificationfriends" href="/friends" class="dropdown-toggle">
                                     @if(Auth::user()->getfriendsnotificationstrue()->count()>0)<span class="badge">{{Auth::user()->getfriendsnotificationstrue()->count()}}</span>@endif<i class="fa fa-users fa-lg"></i>
                                 </a>
-                                <ul class="dropdown-menu">
-                                    @if(Auth::user()->friends()->count()>0)
-                                        <li class="nav-notifications-header">
-                                            <a href="{{ route('front.friends.show') }}">Voir tous les amis ({{Auth::user()->friends()->count() }})</a>
-                                        </li>
-                                    @endif
-                                    <li class="nav-notifications-body">
-                                        @foreach (Auth::user()->getfriendsnotifications as $notification)
-                                            @if($notification->afficher==true)
-                                                <a href="/friends/accept/{{$notification->userL_id}}" class="text-info"><i class="fa fa-user"></i>&nbsp;Demande de
-                                                    @else
-                                                        <a href="/user/{{$notification->userL_id}}" class="text-info"><i class="fa fa-user"></i>&nbsp;Ajout de
-                                                            @endif
-                                                            {{$notification->libelle}} <small class="pull-right">{{$notification->timeAgo($notification->updated_at)}}</small>
-                                                        </a>
-                                                @endforeach
-                                    </li>
-                                    @if(Auth::user()->getfriendsnotificationstrue()->count()>0)
-                                        <li class="nav-notifications-footer">
-                                            <a tabindex="-1" href="{{ route('front.friends.show') }}">Vous avez <strong>{{Auth::user()->getfriendsnotificationstrue()->count()}}</strong> @if(Auth::user()->getfriendsnotificationstrue()->count()>1)nouvelles demandes @else nouvelle demande @endif</a>
-                                        </li>
-                                    @endif
-                                </ul>
                             </li>
-                        @else
+
                             <li class="dropdown nav-notifications">
-                                <a href="/friends" data-delay="0" class="dropdown-toggle">
-                                    <i class="fa fa-users fa-lg"></i>
+                                <a id="notification" href="/notifications" class="dropdown-toggle">
+                                    @if(Auth::user()->getnotificationstrue()->count()>0)<span class="badge">{{Auth::user()->getnotificationstrue()->count()}}</span>@endif<i class="fa fa-warning fa-lg"></i>
                                 </a>
                             </li>
-                        @endif
 
 
-                        <li class="dropdown nav-notifications">
-                            <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="0" class="dropdown-toggle">
-                                @if(Auth::user()->getnotifications()->count()>0)<span class="badge">{{Auth::user()->getnotifications()->count()}}</span>@endif<i class="fa fa-warning fa-lg"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-notifications-header">
-                                    <a tabindex="-1" href="#">Vous avez <strong>{{Auth::user()->getnotifications()->count()}}</strong> @if(Auth::user()->getnotifications()->count()>1)nouvelles notifications @else nouvelle notification @endif</a>
-                                </li>
-                                <li class="nav-notifications-body">
-                                    @foreach(Auth::user()->notifications as $notification)
-                                        @if($notification->notification == 'events')
-                                            <a href="#" style="white-space: normal" name="{{$notification->id}}">
-                                                <span>{{$notification->libelle}}</span>
-                                                <small class="pull-right">{{$notification->timeAgo($notification->created_at)}}</small>
-                                            </a>
-                                        @endif
-                                        @if($notification->notification == 'associations')
-                                            <a href="{{ route('association.show', ['association' => $notification->userL_id]) }}" style="white-space: normal" name="{{$notification->id}}">
-                                                <span>{{$notification->libelle}}</span>
-                                                <small class="pull-right">{{$notification->timeAgo($notification->created_at)}}</small>
-                                            </a>
-                                        @endif
-                                        @if($notification->notification == 'events')
-                                            <a href="#" style="white-space: normal" name="{{$notification->id}}">
-                                                <span>{{$notification->libelle}}</span>
-                                                <small class="pull-right">{{$notification->timeAgo($notification->created_at)}}</small>
-                                            </a>
-                                        @endif
-                                    @endforeach
-                                </li>
-                                <li class="nav-notifications-footer">
-                                    <a href="/notifications">Voir toutes les notifications</a>
-                                </li>
-                            </ul>
-                        </li>
                     </ul>
-                    <form class="onefriend nav navbar-nav clearfix" method="GET" action="{{ route('front.search.show')}}">
+                    <form class="onefriend nav navbar-nav clearfix left-correct" method="GET" action="{{ route('front.search.show')}}">
                         {{ csrf_field() }}
                         <div id="custom-search-input">
                             <div class="input-group col-md-12">

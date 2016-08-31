@@ -79,15 +79,15 @@
                 <div class="page-header" style="border-bottom-color: #31353E">
                     <h2>Evènements</h2>
                 </div>
-                @foreach($resultsEvent as $assos)
+                @foreach($resultsEvent as $event)
                     <div class="col-sm-4 col-md-2">
                         <div class="team-member">
-                            <a href="{{ route('association.show', ['association' => $assos['id']]) }}">
+                            <a href="{{ route('event.show', ['event' => $event['id']]) }}">
                                 <figure class="member-photo">
-                                    <img class="imgonefriend" src="{{ $assos['picture'] }}" alt="{{ $assos['name'] }}" width="100px" height="100px">
+                                    <img class="imgonefriend" src="{{ $event['picture'] }}" alt="{{ $event['name'] }}" width="100px" height="100px">
                                 </figure>
                                 <div class="team-detail">
-                                    <h4>{{ $assos['name'] }}</h4>
+                                    <h4>{{ $event['name'] }}</h4>
                                 </div>
                             </a>
                         </div>

@@ -22,7 +22,13 @@ class FriendsController extends Controller
      */
     public function index(){
         $user = Auth::user();
+
+        Notifications::where('user_id', $user->id)
+            ->where('notification', 'users_links')
+            ->update(['afficher' => false]);
+
         return view('front.friends', ['user' => $user]);
+
     }
 
     /**

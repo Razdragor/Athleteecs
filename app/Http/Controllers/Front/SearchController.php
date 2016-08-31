@@ -51,11 +51,35 @@ class SearchController extends Controller
             }
 
             //search association
-            $queryEvent = Event::where('name', 'LIKE', '%'.$terme.'%')
-                    ->where('private', '=', '0')
-                    ->get();
+            $queryEvent = Event::where('name', 'LIKE', $terme.'%')
+                ->where('private', '=', '0')
+                ->get();
+
+
+            $queryEvent2 = Event::join('users_demands_events', 'users_demands_events.event_id', '=', 'events.id')
+                ->where('name', 'LIKE', $terme.'%')
+                ->where('private', '=', '1')
+                ->where('users_demands_events.user_id', '=', $user->id)
+                ->where('is_authorised', '=', 1)
+                ->select('events.id', 'events.name', 'events.picture')
+                ->get();
+
+            $queryEvent3 = Event::where('name', 'LIKE', $terme.'%')
+                ->get();
+
+
+
 
             foreach ($queryEvent as $query) {
+                if(!$query->private || ($user->isAuthorisedEvent($query) || $user->isAdminEvent($query->id)))
+                {
+                    $resultsEvent[] = ['id' => $query->id, 'name' => $query->name, 'picture' => $query->picture];
+                }
+            }
+            foreach ($queryEvent2 as $query) {
+                $resultsEvent[] = ['id' => $query->id, 'name' => $query->name, 'picture' => $query->picture];
+            }
+            foreach ($queryEvent3 as $query) {
                 $resultsEvent[] = ['id' => $query->id, 'name' => $query->name, 'picture' => $query->picture];
             }
 

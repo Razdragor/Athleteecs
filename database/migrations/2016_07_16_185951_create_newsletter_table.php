@@ -16,6 +16,7 @@ class CreateNewsletterTable extends Migration
             $table->increments('id');
             $table->string('objet');
             $table->text('text');
+            $table->bigInteger('sport_id')->nullable();
             $table->timestamps();
         });
     }

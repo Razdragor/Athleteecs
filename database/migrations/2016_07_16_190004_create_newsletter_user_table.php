@@ -16,6 +16,7 @@ class CreateNewsletterUserTable extends Migration
             $table->increments('id');
             $table->string('email');
             $table->boolean('active');
+            $table->bigInteger('sport_id')->nullable();
             $table->timestamps();
         });
     }
