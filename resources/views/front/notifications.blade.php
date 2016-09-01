@@ -63,7 +63,7 @@
                             @elseif($notification->notification=='produitsajout')
                                 @if($notification->accepter == 1)
                                     <li class="list-group-item">
-                                        <a href="/equipement/{{$notification->action_id}}">
+                                        <a href="/product/{{$notification->action_id}}">
                                             <div class="label label-info feed-icon"><i class="fa fa-info"></i></div>
                                             <span>&nbsp;<b>{{$notification->libelle}}</b> à valider votre produit : <b>{{$notification->action_name}}</b></span>
                                             <span class="feed-time"><em>{{$notification->timeAgo($notification->created_at)}}</em></span>
