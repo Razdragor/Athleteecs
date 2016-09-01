@@ -12,6 +12,8 @@
     <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.halflings.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/friends.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/productcreate.css') }}" rel="stylesheet">
+
 
     <style>
         .timeline-2-cols::before {
@@ -67,9 +69,9 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="name">Nom :</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control-static" name="name" placeholder="Nom...">
+                                            <input type="text" class="form-control-static fix_with" name="name" placeholder="Nom...">
                                             @if($errors->first('name'))
-                                                <div class="alert alert-danger">
+                                                <div class="alert alert-danger fix_with">
                                                     {{$errors->first('name')}}
                                                 </div>
                                             @endif
@@ -78,7 +80,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="brand">Marque :</label>
                                         <div class="col-sm-10">
-                                            <select name="brand" class="form-control">
+                                            <select name="brand" class="form-control fix_with">
                                                 @foreach($brands as $brand)
                                                     <option value="{{ $brand->id }}">{{$brand->name}}</option>
                                                 @endforeach
@@ -88,7 +90,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="sport">Sport :</label>
                                         <div class="col-sm-10">
-                                            <select name="sport" class="form-control">
+                                            <select name="sport" class="form-control fix_with">
                                                 @foreach($sports as $sport)
                                                     <option value="{{ $sport->id }}">{{$sport->name}}</option>
                                                 @endforeach
@@ -98,7 +100,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="category">Categorie :</label>
                                         <div class="col-sm-10">
-                                            <select name="category" id="category" class="form-control">
+                                            <select name="category" id="category" class="form-control fix_with">
                                                 @foreach($categories as $category)
                                                     <option value="{{ $category->id }}">{{$category->name}}</option>
                                                 @endforeach
@@ -108,9 +110,9 @@
                                     <div class="form-group">
                                         <label for="description" class="col-sm-2 control-label">Description :</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control-static" name="description" placeholder="Description..."/>
+                                            <input type="text" class="form-control-static fix_with" name="description" placeholder="Description..."/>
                                             @if($errors->first('description'))
-                                                <div class="alert alert-danger">
+                                                <div class="alert alert-danger fix_with">
                                                     {{$errors->first('description')}}
                                                 </div>
                                             @endif
@@ -119,9 +121,9 @@
                                     <div class="form-group">
                                         <label for="url" class="col-sm-2 control-label">Url :</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control-static" name="url" placeholder="Url..."/>
+                                            <input type="text" class="form-control-static fix_with" name="url" placeholder="Url..."/>
                                             @if($errors->first('url'))
-                                                <div class="alert alert-danger">
+                                                <div class="alert alert-danger fix_with">
                                                     {{$errors->first('url')}}
                                                 </div>
                                             @endif
@@ -139,12 +141,13 @@
                                                 <input type="file" name="picture" id="picture" class="filehide"/>
                                             </div>
                                         </div>
+                                    </div>
                                         <div class="form-group">
                                             <label for="price" class="col-sm-2 control-label">Prix :</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control-static" name="price" placeholder="Prix..."/>
+                                                <input type="text" class="form-control-static fix_with" name="price" placeholder="Prix..."/>
                                                 @if($errors->first('price'))
-                                                    <div class="alert alert-danger">
+                                                    <div class="alert alert-danger fix_with">
                                                         {{$errors->first('price')}}
                                                     </div>
                                                 @endif
@@ -156,17 +159,16 @@
                                             <div class="col-sm-10" id="caracteristique">
                                                 @foreach($details as $categorydetails)
                                                     <p class="form-control-static"><b>{{$categorydetails->name}}</b></p>
-                                                    <input type="text" class="form-control-static" name="caracteristiques[{{$categorydetails->id}}]"/>
+                                                    <input type="text" class="form-control-static fix_with" name="caracteristiques[{{$categorydetails->id}}]"/>
                                                 @endforeach
                                             </div>
                                         </div>
                                         <input type="hidden" class="form-control-static" name="id_demande" value="{{\Illuminate\Support\Facades\Auth::user()->id}}"/>
 
-                                    </div>
-                                    <div class="form-button-add">
-                                        <button type="submit" class="btn btn-default">Demander un nouvel équipement</button>
-                                        <a href="{{ route('product.index', ['products' => $products]) }}" class="btn btn-default">Retour</a>
-                                    </div>
+                                       <div class="form-button-add" style="margin-top: 70px">
+                                           <a href="{{ route('product.index', ['products' => $products]) }}" class="btn btn-default">Retour</a>
+                                           <button type="submit" class="btn btn-default">Demander un nouvel équipement</button>
+                                       </div>
                                 </form>
                             </div>
                         </div>

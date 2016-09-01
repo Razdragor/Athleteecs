@@ -23,11 +23,12 @@
             font-weight: 100;
             font-family: 'Lato';
         }
-
+        .error-page
+        {
+            width: 356px;
+        }
         .container {
-            text-align: center;
-            display: table-cell;
-            vertical-align: middle;
+            margin-top: 150px;
         }
 
         .content {
@@ -38,7 +39,7 @@
 </head>
 <body class="backgroundsignin">
 <div class="container">
-    <div class="row">
+    <div class="container">
         <div class="col-sm-offset-2 col-sm-8 col-md-offset-4 col-md-4">
             <div class="error-page"><i class="fa fa-warning fa-5x"></i>
                 <h1>Vous n'aez pas accès à cette page</h1>

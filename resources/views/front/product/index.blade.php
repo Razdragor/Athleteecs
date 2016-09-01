@@ -100,7 +100,7 @@
                                 </div>
                             </div>
                         @endforeach
-                            <button type="submit" id="compareButton" class="btn" style="display: inline-block;position: absolute;top: 305px;left: 16%;">Comparer</button>
+                            <button type="submit" id="compareButton" class="btn" style="float: right;background-color: #B9121B;color: white;">Comparer</button>
                     </form>
                 </div>
             </div>

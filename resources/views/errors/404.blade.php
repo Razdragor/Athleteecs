@@ -25,9 +25,7 @@
             }
 
             .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
+                margin-top: 150px;
             }
 
             .content {

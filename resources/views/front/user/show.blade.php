@@ -214,7 +214,7 @@
                                                 </li>
                                             @endforeach
                                         @else
-                                            <dt>Aucune publication pour le moment</dt>
+                                            <p class="onefriend">Aucune publication pour le moment</p>
                                         @endif
                                     </ul>
                                 </div>
@@ -269,7 +269,8 @@
                                     </dl>
                                 </div>
                                 <div class="tab-pane fade" id="photo">
-                                    @foreach($user->pictures as $picture)
+                                    @if($user->pictures->count() > 0)
+                                        @foreach($user->pictures as $picture)
                                         <article class="col-md-4 isotopeItem webdesign">
                                             <div class="section-portfolio-item">
                                                 <div class="picture-cadre">
@@ -283,9 +284,10 @@
                                                 <button type="submit" class="link_button_product">Retirer l'image</button>
                                             </form>
                                         </article>
-
-
-                                    @endforeach
+                                        @endforeach
+                                    @else
+                                        <p class="onefriend">Vous n'avez pas de photo pour le moment</p>
+                                        @endif
                                 </div>
                                 <div class="tab-pane fade" id="equipement">
                                     <div class="container">

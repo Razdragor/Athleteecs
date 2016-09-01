@@ -322,16 +322,22 @@
                         <div class="timeline-panel">
                             <div class="timeline-body">
                                 <div class="post_activity_msg">
-                                    <h1>Première utilisation?</h1>
-                                    <div>Postez une publication pour commencer l'aventure ATHLETEEC!</div>
+                                    <h1>C'est votre première fois ?</h1>
                                     <br>
-                                    <div>Les images et les vidéos youtube que vous publier se retrouvent dans votre <a href="http://athleteec.linkeway.com/user/7"><b>profil</b></a>.</div>
+                                    <div>Il y'a un début à tout ! Pour commencer vous pouvez poster une publication !</div>
                                     <br>
-                                    <div>Recherchez vos amis sportifs en utilisant la barre de recherche via leurs noms et prénoms ou bien par leur adresses mails.</div>
+                                    <div>N'hesitez pas à remplir votre <a href="{{route('user.show', ['user' => \Illuminate\Support\Facades\Auth::user()])}}"><b>profil</b></a> pour assigner les sports qui vous intéresse.</div>
                                     <br>
-                                    <div>Comparez, ajoutez, partagez, aimez et notez <a href="http://athleteec.linkeway.com/lesequipements"><b>les équipements</b></a> que vous utilisez au quotidien puis partagez les avec vos amis!</div>
+                                    <div>Visitez la <a href="{{ route('product.index') }}"><b>liste des équipements</b></a> pour les ajouter ou les partager à votre profil !</div>
                                     <br>
-                                    <div>Créer un <a href="http://athleteec.linkeway.com/event/create"><b>évènement</b></a> et une <a href="http://athleteec.linkeway.com/association/create"><b>association</b></a> n'a jamais été aussi simple!</div>
+                                    <div>Recherchez vos amis sportifs grâce à la barre de recherche via leurs noms et prénoms ou bien par leur adresses mails.</div>
+                                    <br>
+                                    <div>Vous pouvez dès à présent <a href="{{ route('event.index')}}"><b>rejoindre un événement</b></a> ou en <a href="{{ route('event.create') }}"><b>créer un nouveau</b></a>!</div>
+                                    <br>
+                                    <div>Si vous faites souvent les mêmes événements autour d'un sport, vous pouvez accéder aux <a href="{{ route('association.index')}}"><b>associations</b></a> pour gérer plus facilement vos évenements !</div>
+                                    <br>
+                                    <div>A vous de jouer !</div>
+
                                 </div>
                             </div>
                         </div>

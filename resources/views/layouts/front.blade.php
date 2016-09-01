@@ -42,7 +42,7 @@ $user = Auth::user();
         <div class="visible-lg visible-md">
 
             <div class="bloc-menu-social">
-                <h4 class="blanc">Evènements</h4>
+                <h4 class="blanc">Événements</h4>
 
 
                 <div class="link_social_nav">
@@ -74,7 +74,7 @@ $user = Auth::user();
             </div>
 
             <div class="bloc-menu-social">
-                <h4 class="blanc">Equipements</h4>
+                <h4 class="blanc">Équipements</h4>
 
 
                 <div class="link_social_nav">
