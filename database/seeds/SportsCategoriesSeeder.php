@@ -14,19 +14,19 @@ class SportsCategoriesSeeder extends Seeder
         DB::table('sports_categories')->insert([
             'id' => 1,
             'sport_id' => 1,
-            'category_id' => 1
+            'category_id' => 3
 
         ]);
         DB::table('sports_categories')->insert([
             'id' => 2,
-            'sport_id' => 1,
-            'category_id' => 2
+            'sport_id' => 3,
+            'category_id' => 1
 
         ]);
         DB::table('sports_categories')->insert([
             'id' => 3,
-            'sport_id' => 2,
-            'category_id' => 1
+            'sport_id' => 3,
+            'category_id' => 2
         ]);
 
     }

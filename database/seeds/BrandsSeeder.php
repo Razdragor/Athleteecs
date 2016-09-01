@@ -21,5 +21,17 @@ class BrandsSeeder extends Seeder
             'created_at' => Carbon\Carbon::now(),
             'updated_at' => Carbon\Carbon::now()
         ]);
+        DB::table('brands')->insert([
+            'name' => 'Kipsta',
+            'created_at' => Carbon\Carbon::now(),
+            'updated_at' => Carbon\Carbon::now()
+        ]);
+
+        DB::table('brands')->insert([
+            'name' => 'Btwin',
+            'created_at' => Carbon\Carbon::now(),
+            'updated_at' => Carbon\Carbon::now()
+        ]);
+
     }
 }

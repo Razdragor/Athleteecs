@@ -12,14 +12,21 @@ class CategoriesTableSeeder extends Seeder
     public function run()
     {
         DB::table('categories')->insert([
-            'name' => 'Poids',
+            'name' => 'Casques',
             'created_at' => Carbon\Carbon::now(),
             'updated_at' => Carbon\Carbon::now()
         ]);
         DB::table('categories')->insert([
-            'name' => 'Tapis',
+            'name' => 'Maillots',
             'created_at' => Carbon\Carbon::now(),
             'updated_at' => Carbon\Carbon::now()
         ]);
+
+        DB::table('categories')->insert([
+            'name' => 'Ballons',
+            'created_at' => Carbon\Carbon::now(),
+            'updated_at' => Carbon\Carbon::now()
+        ]);
+
     }
 }

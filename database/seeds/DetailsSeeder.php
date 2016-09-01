@@ -13,15 +13,29 @@ class DetailsSeeder extends Seeder
     {
         DB::table('details')->insert([
             'id' => 1,
-            'name'=> "Poid"
+            'name'=> "Légèreté"
         ]);
         DB::table('details')->insert([
             'id' => 2,
-            'name'=> "Amorti"
+            'name'=> "Ventilation"
         ]);
         DB::table('details')->insert([
             'id' => 3,
-            'name'=> "Autonomie"
+            'name'=> "Protection"
         ]);
+        DB::table('details')->insert([
+            'id' => 4,
+            'name'=> "Toucher de balle"
+        ]);
+        DB::table('details')->insert([
+            'id' => 5,
+            'name'=> "Garantie"
+        ]);
+        DB::table('details')->insert([
+            'id' => 6,
+            'name'=> "Entretien"
+        ]);
+
+
     }
 }

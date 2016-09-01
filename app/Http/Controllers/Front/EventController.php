@@ -76,7 +76,7 @@ class EventController extends Controller
             'name' => 'required',
             'description' => 'required',
             'picture' => 'required|mimes:jpeg,png,jpg',
-            'lattitude' => 'required',
+//            'lattitude' => 'required',
             'sport' => 'required',
             'date_start_act' => 'required',
             'date_end_act' => 'required'

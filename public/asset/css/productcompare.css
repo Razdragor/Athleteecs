@@ -128,6 +128,7 @@ div.more_info div.more_info_content,.more_info_title {
 .detail_result{
     padding-top: 20px;
     padding-bottom: 20px;
+    min-height: 100px;
 }
 
 .details_box{
