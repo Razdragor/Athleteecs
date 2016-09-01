@@ -50,7 +50,7 @@
 
             </div>
             <div class="col-md-3 col-sm-3" >
-                <h3>Mes events <small>({{ $events->count()}})</small></h3>
+                <h3>Mes événements <small>({{ $events->count()}})</small></h3>
                 <ul class="nav nav-tabs nav-tabs-primary nav-tabs-advanced nav-stacked">
                     @foreach($events as $ass)
                         <li>

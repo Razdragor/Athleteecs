@@ -40,21 +40,33 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label" for="name">Marque :</label>
+                                <label class="col-sm-2 control-label" for="brand">Marque :</label>
                                 <div class="col-sm-10">
                                     <p class="form-control-static">{{ $product->brand->name }}</p>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label" for="name">Sport :</label>
+                                <label class="col-sm-2 control-label" for="sport">Sport :</label>
                                 <div class="col-sm-10">
                                     <p class="form-control-static">{{ $product->sport->name }}</p>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label" for="name">Categorie :</label>
+                                <label class="col-sm-2 control-label" for="category">Categorie :</label>
                                 <div class="col-sm-10">
                                     <p class="form-control-static">{{ $product->category->name }}</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="description" class="col-sm-2 control-label">Description :</label>
+                                <div class="col-sm-10">
+                                    <p class="form-control-static">{{ $product->description }}</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="url" class="col-sm-2 control-label">Url :</label>
+                                <div class="col-sm-10">
+                                    <p class="form-control-static">{{ $product->url }}</p>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -67,12 +79,6 @@
                                 <label for="existicon" class="col-sm-2 control-label">Prix :</label>
                                 <div class="col-sm-10">
                                     <p class="form-control-static">{{ $product->price }}</p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="existicon" class="col-sm-2 control-label">Description :</label>
-                                <div class="col-sm-10">
-                                    <p class="form-control-static">{{ $product->description }}</p>
                                 </div>
                             </div>
                             <div class="form-group">

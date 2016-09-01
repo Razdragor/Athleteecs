@@ -145,3 +145,7 @@ div.more_info div.more_info_content,.more_info_title {
 .detailstar{
     text-align: center;
 }
+a.product_link:hover {
+    color: #B9121B;
+    text-decoration: none;
+}

@@ -101,6 +101,14 @@
                                     <input type="text" class="form-control-static" name="description" value="{{ $product->description }}"/>
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label for="url" class="col-sm-2 control-label">Url :</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control-static" name="url" value="{{ $product->url }}"/>
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <label for="caracteristique" class="col-sm-2 control-label">Caractéristiques:</label>
                                 <div class="col-sm-10">

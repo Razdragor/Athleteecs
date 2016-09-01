@@ -25,6 +25,7 @@ class CreateProductsTable extends Migration
             $table->bigInteger('brand_id')->nullable();
             $table->bigInteger('category_id')->nullable();
             $table->bigInteger('sport_id')->nullable();
+            $table->bigInteger('id_demande')->nullable();
             $table->timestamps();
         });
     }

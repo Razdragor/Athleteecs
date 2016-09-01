@@ -16,7 +16,11 @@
             </div>
         @endif
         <div class="container">
-            <h1>Liste produits</h1>
+            <h1>Liste des équipements</h1>
+
+            <div class="text-right" style="position: absolute;right: 40px;top: 100px;">
+                <a href="{{ route('product.create') }}" >Ajouter un produit</a>
+            </div>
             <div style="border-bottom: solid black 1px;width: 100%;margin:auto auto 20px auto"></div>
             <form class="form" method="POST" enctype="multipart/form-data" action="{{ route('product.search') }}">
                 {{ csrf_field() }}
@@ -50,9 +54,6 @@
                 </div>
                 <button type="submit" class="btn">Filtrer</button>
             </form>
-            <div class="text-right" style="margin-bottom: 10px;">
-                <a href="{{ route('product.create') }}" class="btn btn-default">Ajouter un produit</a>
-            </div>
         </div>
         @if($old_category_id != 0)
             <div class="container">
@@ -99,7 +100,7 @@
                                 </div>
                             </div>
                         @endforeach
-                            <button type="submit" id="compareButton" class="btn">Comparer</button>
+                            <button type="submit" id="compareButton" class="btn" style="display: inline-block;position: absolute;top: 305px;left: 16%;">Comparer</button>
                     </form>
                 </div>
             </div>
@@ -228,7 +229,7 @@
         });
         $("body").on('change','#checkcompare' ,function(e)
         {
-            if($('.check:checked').size() >= 2)
+            if($('.check:checked').size() >= 2 && $('.check:checked').size() <= 5)
             {
                 $('#compareButton').show();
             }

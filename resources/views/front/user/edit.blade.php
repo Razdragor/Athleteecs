@@ -12,6 +12,10 @@
     <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.halflings.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/friends.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/product.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/useredit.css') }}" rel="stylesheet">
+
+
 @endsection
 
 @section('content')
@@ -57,7 +61,7 @@
                                         <div class="col-sm-2 col-md-2 hidden-xs  padding-bottom-correct">
                                             <a id="edit-profile-button" href="{{ route('user.show',['user'=>$user])}}" class="btn btn-block btn-primary">Annuler</a>
                                         </div>
-                                        <div class="col-sm-2 col-md-2 hidden-xs">
+                                        <div class="col-sm-2 col-md-2 hidden-xs" style="float: right;">
                                          <button type="submit" class="btn btn-block btn-primary">Modifier</button>
                                         </div>
                                     </div>
@@ -131,7 +135,7 @@
                                                         </option>
                                                     </select></dd>
                                                     <dd class="divider"></dd>
-                                                    <dt>Status</dt>
+                                                    <dt>Statut</dt>
                                                     <dd>
                                                         @if($user->star == true)
                                                             Personnalité <br>
@@ -150,24 +154,26 @@
                                                     <dt>Entreprise</dt>
                                                     <dd><input type="text" class="form-control" name="firm" value="{{ $user->firm }}">
                                                     <dd class="divider"></dd>
-                                                    <dt>Scolarité</dt>
+                                                    <dt>Nom de votre école</dt>
                                                     <dd><input type="text" class="form-control" name="school" value="{{ $user->school }}">
                                                     <dd class="divider"></dd>
-                                                    <dt>Sports pratiqué</dt>
-                                                    <dd>(Cocher pour supprimer)</dd>
-                                                    <ul class="list-unstyled"></dd>
 
-                                                    @foreach($user->sports as $sport)
-                                                        <dd>
-                                                            <li>
-                                                                <input type="checkbox" id="{{$sport->id}}" name="sportsuppr[]" value="{{$sport->id}}">{{ $sport->name }}
-                                                            </li>
-                                                        </dd>
+                                                    @if($user->sports->count() > 0)
+                                                        <dt>Sports pratiqué</dt>
+                                                        <dd>(Cocher pour supprimer)</dd>
+                                                        <ul class="list-unstyled"></dd>
 
-                                                    @endforeach
-                                                    </ul>
-                                                    <dd class="divider"></dd>
+                                                        @foreach($user->sports as $sport)
+                                                            <dd>
+                                                                <li>
+                                                                    <input type="checkbox" id="{{$sport->id}}" name="sportsuppr[]" value="{{$sport->id}}">{{ $sport->name }}
+                                                                </li>
+                                                            </dd>
 
+                                                        @endforeach
+                                                        </ul>
+                                                        <dd class="divider"></dd>
+                                                    @endif
                                                     <dt>Sports disponibles</dt>
                                                     <dd>(Cocher pour selectionner)</dd>
                                                     <ul class="list-unstyled">
@@ -180,7 +186,7 @@
                                                         @endforeach
                                                     </ul>
                                                     <dd class="divider"></dd>
-                                                    <dt>Adresse postal</dt>
+                                                    <dt>Adresse postale</dt>
                                                     <dd><input type="text" class="form-control" name="address" value="{{ $user->address }}">
                                                     <dd class="divider"></dd>
                                                     <dt>Newsletter</dt>
@@ -194,72 +200,52 @@
                                                 </dl>
                                             </div>
                                             <div class="tab-pane active equipement" style="display: none;">
-                                                <div class="row equip">
-                                                    <dt>Equipements utilisées</dt>
-                                                    <dd>(Cocher pour supprimer)</dd>
-                                                @foreach($user->products as $equipment)
-                                                        <div class="row">
-                                                            <ul class="list-unstyled"></dd>
-                                                                <li>
-                                                                    <div class="col-md-1">
-                                                                        <div class="equipement-cadre">
-                                                                            <div class="equipement-box">
-                                                                                <img src="{{asset('images/'.$equipment->picture)}}"
-                                                                                     alt="Avatar" class="img-thumbnail img-responsive">
-                                                                            </div>
-                                                                        </div>
+                                                <div class="container equip">
+                                                @foreach($user->products as $product)
+                                                        <div class="product col-md-2" id="{{$product->id}}">
+                                                            <div class="product_image">
+                                                                <a href="{{ route('product.show', ['product' => $product]) }}">
+                                                                    <img alt="{{$product->name}}" src="{{asset($product->picture)}}" class="product_visuel" height="180px" width="180px" style="display: block">
+                                                                </a>
+                                                            </div>
+                                                            <div class="product_info">
+                                                                <div class="rating product__list_left" id="{{ $product->id }}">
+                                                                    @if($product->ratesvalue() != 0 )
+                                                                        <div class="ui star rating user" data-rating="{{ceil($product->ratesvalue())}}" data-max-rating="5"></div>
+                                                                    @else
+                                                                        <div class="ui star rating user" data-rating="0" data-max-rating="5"></div>
+                                                                    @endif
+                                                                    <div class="more_info_star">
+                                                                        <span class="info_it">Note des utilisateurs :
+                                                                        <span class='info_enstock'><strong>{{ceil($product->ratesvalue())}}/5</strong></span></span><br/>
+                                                                        <span class='info_count'><strong>{{ $product->ratescount()}} avis</strong></span>
                                                                     </div>
-                                                                    <div class="col-md-9">
-                                                                        <a href="{{ $equipment->url }}">
-                                                                            <dd>{{ $equipment->name }}</dd>
+                                                                </div>
+                                                                <a href="#" class="product_brand product__list_left">{{$product->brand->name}}</a>
+                                                                <a href="{{ route('product.show', ['product' => $product])}}" class="product_name product__list_left">{{$product->name}}</a>
+                                                                <div class="product_price">
+                                                                    <span class="a_partir_de">À partir de</span>
+                                                                    <span class="product_price_span">{{$product->price}} €</span>
+                                                                </div>
+                                                                <div class="more_info">
+                                                                    <div class="more_info_content">
+                                                                        <a href="{{ route('product.show', ['product' => $product])}}" class="more_info_title" title="">
+                                                                            PLUS D’INFOS
                                                                         </a>
-                                                                        <dd>{{ $equipment->description }}</dd>
                                                                     </div>
-                                                                    <div class="col-md-1 checkbox-correct">
-                                                                        <input type="checkbox" id="{{$equipment->id}}" name="equipementsuppr[]" value="{{$equipment->id}}" >
-                                                                    </div>
-
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    @endforeach
-                                                    <dt>Equipements disponible</dt>
-                                                    <dd>(Cocher pour selectionner)</dd>
-                                                    @foreach($equipements as $equip)
-                                                        <div class="row">
-                                                            <ul class="list-unstyled"></dd>
-                                                                <li>
-                                                                    <div class="col-md-1">
-                                                                        <div class="equipement-cadre">
-                                                                            <div class="equipement-box">
-                                                                                <img src="{{asset('images/'.$equip->picture)}}"
-                                                                                     alt="Avatar" class="img-thumbnail img-responsive">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-9">
-                                                                        <a href="{{ $equip->url }}">
-                                                                            <dd>{{ $equip->name }}</dd>
-                                                                        </a>
-                                                                        <dd>{{ $equip->description }}</dd>
-                                                                    </div>
-
-                                                                    <div class="col-md-1 checkbox-correct">
-                                                                        <input type="checkbox" id="{{$equip->id}}" name="equipement[]" value="{{$equip->id}}">
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    @endforeach
-
+                                                                </div>
+                                                            </div>
                                                 </div>
-                                                <div class="row">
+                                                @endforeach
+                                                    <div class="container">
                                                     <div class="col-md-12 text-center">
-                                                    <a href="#" id="addproduct">
-                                                        <span class="fa fa-plus"></span> Ajouter un équipement</a>
+                                                    <a href="{{ route('product.create') }}" id="addproduct">
+                                                    <span class="fa fa-plus"></span> Demander un nouvel équipement</a>
 
                                                     </div>
-                                                </div>
+                                                    </div>
+                                            </div>
+
                                             </div>
                                             <div class="tab-pane active pots" style="display: none;">
                                                 <ul class="timeline-2-cols">
@@ -336,18 +322,18 @@
                                                         <div class="section-portfolio-item">
                                                             <div class="picture-cadre">
                                                                 <div class="picture-box">
-                                                                    <img src="{{ asset('images/users/'.$picture->link) }}" alt="image">
+                                                                    <img src="{{ $picture->link }}" alt="image">
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <form class="form" method="POST" enctype="multipart/form-data" action="{{ route('picture.delete',['$picture' => $picture]) }}">
+                                                            {{ csrf_field() }}
+                                                            <button type="submit" class="link_button_product">Retirer l'image</button>
+                                                        </form>
                                                     </article>
+
+
                                                 @endforeach
-                                                    <div class="row">
-                                                        <div class="col-md-12 text-center">
-                                                            <a href="#" id="addphoto">
-                                                                <span class="fa fa-plus"></span> Ajouter une photo</a>
-                                                        </div>
-                                                    </div>
                                             </div>
                                             <div class="tab-pane active amis" style="display: none;">
                                                 <div class="row">
@@ -381,91 +367,38 @@
                         </div>
 
                     </form>
-                    <div class="modal fade modal-photo" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="modal-photo">
-                        <div class="modal-dialog modal-sm ">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4>Ajouter une nouvelle photo</h4>
-                                </div>
-                                <div class="modal-body">
 
-                                    <form id="submit-modal-photo" enctype="multipart/form-data">
-                                        <div class="row" style="text-align: center">
-                                            <div class="picture-size-box">
-
-                                                <img id="preview" class="picture-size" src="http://placehold.it/200x200" alt="your image" />
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="image-upload" style="text-align: center;">
-                                                <label for="file-input-modal">
-                                                    <div class="btn btn-default"><i class="fa fa-camera fa-3x"></i></div>
-                                                </label>
-                                                <input id="file-input-modal" name="userpicture" type="file"/>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary pull-right semi">Ajouter</button>
-                                        </div>
-                                    </form>
-
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal fade modal-product" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="modal-product">
-                    <div class="modal-dialog modal-sm ">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4>Ajouter un équipement</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form id="submit-modal-product" enctype="multipart/form-data">
-
-                                    <div class="col-md-12 padding-bottom-correct">
-                                        <label for="productname" class="col-md-2">Nom de l'équipement</label>
-                                        <div class="col-md-10">
-                                            <input type="text" class="form-control" name="productname" placeholder="...">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 padding-bottom-correct">
-                                        <label for="description" class="col-md-2 control-label">Description</label>
-                                        <div class="col-md-10">
-                                            <input type="text" class="form-control" name="description" placeholder="...">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 padding-bottom-correct">
-                                        <label for="price" class="col-md-2 control-label">Prix</label>
-                                        <div class="col-md-10">
-                                            <input type="number" class="form-control" name="price" placeholder="...">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 padding-bottom-correct">
-                                        <label for="url" class="col-md-2 control-label">Lien vers l'équipement</label>
-                                        <div class="col-md-10">
-                                            <input type="text" class="form-control" name="url" placeholder="...">
-                                        </div>
-                                    </div>
-                                    <div class="form-actions panel-foo">
-                                        <div class="btn-group">
-                                            <div class="image-upload">
-                                                <label for="file-input-modal">
-                                                    <div class="btn btn-default"><i class="fa fa-camera"></i></div>
-                                                </label>
-                                                <input id="file-input-modal" name="productpicture" type="file" accept="image/*"/>
-                                            </div>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary pull-right" >Ajouter</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
             </div>
         </div>
     </div>
 @endsection
+@section('js')
+<script type="text/javascript" src=" https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.4/semantic.min.js">    </script>
+
+<script>
+
+    $('.ui.star.rating.user').rating('disable');
+    $('.more_info').hide();
+    $('.more_info_star').hide();
+
+
+    $('.rating.product__list_left').hover(
+            function() {
+                $(this).find( ".more_info_star").show();
+            }, function() {
+                $('.more_info_star').hide();
+            }
+    );
+
+
+    $(".product.col-md-2").hover(
+            function() {
+                $(this).find( ".more_info").show();
+            }, function() {
+                $('.more_info').hide();
+            }
+    );
+</script>
+    @endsection

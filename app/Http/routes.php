@@ -113,9 +113,14 @@ use Illuminate\Support\Facades\File;
         Route::post('/user/demandeStarRemove', ['as' => 'user.star', 'uses' => 'UserController@demandeStarRemove']);
         Route::post('/user/{user}/update', ['as' => 'user.update', 'uses' => 'UserController@update']);
         Route::post('/product/addAjax','ProductController@addAjax');
+
         Route::get('/picture/addAjax','PictureController@addAjax');
 
-        Route::get('/user/remove', ['as' => 'user.equipremove', 'uses' => 'ProductController@removeequipement']);
+        Route::post('/picture/{picture}/delete', ['as' => 'picture.delete', 'uses' => 'PictureController@delete']);
+
+
+
+        Route::post('/user/{product}/product', ['as' => 'product.remove', 'uses' => 'ProductController@removeequipement']);
 
         //Produit
         Route::resource('product', 'ProductController');
@@ -130,7 +135,7 @@ use Illuminate\Support\Facades\File;
         Route::post('/product/{product}/post',['as' => 'product.post', 'uses' => 'ProductController@postproduct']);
 
 
-        Route::get('/product-add',['as' => 'product.adduser', 'uses' => 'ProductController@addequipement']);
+        Route::post('/product/{product}/useradd',['as' => 'product.adduser', 'uses' => 'ProductController@addequipement']);
 
         Route::get('/vote-equipement',['as' => 'product.rate', 'uses' => 'ProductController@rateproduct']);
 
@@ -212,3 +217,6 @@ use Illuminate\Support\Facades\File;
 
 Route::get('confidentialite.html', ['as' => 'front.obligatoire.confidentialite', 'uses' => 'Front\ObligatoryController@confidentialite']);
 Route::get('mentionslegales.html', ['as' => 'front.obligatoire.mentionslegales', 'uses' => 'Front\ObligatoryController@mentionslegales']);
+
+Route::get('/sociallink', ['as' => 'urlsSociaux', 'uses' => 'Front\ObligatoryController@mentionslegales']);
+

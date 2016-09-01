@@ -134,4 +134,22 @@ class PictureController extends Controller
     {
         //
     }
+
+    public function delete(Picture $picture)
+    {
+        $user = Auth::user();
+        if(!empty($picture))
+        {
+            $picture = Picture::find($picture->id);
+            if(Auth::user()->id == $picture->user_id)
+            {
+                $picture->delete();
+            }
+
+        }
+        return view('front.user.show',['user' => $user]);
+    }
+
+
+
 }

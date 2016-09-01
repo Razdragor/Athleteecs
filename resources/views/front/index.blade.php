@@ -119,6 +119,7 @@
                             </div>
                         </div>
                     </li>
+                    @if(count($publications) > 0 )
                     <?php $i = 1;$y = 0; ?>
                     @for($z =0; $z < count($publications);$z++)
                         @if($y < count($events) && $i % 3 == 0)
@@ -316,6 +317,26 @@
                         </li>
                         @endif
                     @endfor
+                    @else
+                        <li class="timeline-inverted">
+                        <div class="timeline-panel">
+                            <div class="timeline-body">
+                                <div class="post_activity_msg">
+                                    <h1>Première utilisation?</h1>
+                                    <div>Postez une publication pour commencer l'aventure ATHLETEEC!</div>
+                                    <br>
+                                    <div>Les images et les vidéos youtube que vous publier se retrouvent dans votre <a href="http://athleteec.linkeway.com/user/7"><b>profil</b></a>.</div>
+                                    <br>
+                                    <div>Recherchez vos amis sportifs en utilisant la barre de recherche via leurs noms et prénoms ou bien par leur adresses mails.</div>
+                                    <br>
+                                    <div>Comparez, ajoutez, partagez, aimez et notez <a href="http://athleteec.linkeway.com/lesequipements"><b>les équipements</b></a> que vous utilisez au quotidien puis partagez les avec vos amis!</div>
+                                    <br>
+                                    <div>Créer un <a href="http://athleteec.linkeway.com/event/create"><b>évènement</b></a> et une <a href="http://athleteec.linkeway.com/association/create"><b>association</b></a> n'a jamais été aussi simple!</div>
+                                </div>
+                            </div>
+                        </div>
+                        </li>
+                    @endif
                     <li style="float: none;" class="clearfix"></li>
                 </ul>
                 <input id="loadAllPublication" value="1" type="hidden" />

@@ -6,6 +6,7 @@ use App\Brand;
 use App\Caracteristique;
 use App\Category;
 use App\Http\Controllers\Controller;
+use App\Notifications;
 use App\Product;
 use App\Sport;
 use App\SportsCategories;
@@ -93,6 +94,8 @@ class ProductController extends Controller
             $product->name = htmlspecialchars($data['name']);
             $product->description = htmlspecialchars($data['description']);
             $product->price= $data['price'];
+            $product->url= $data['url'];
+
 
             $product->brand_id = $data['brand'];
             $product->sport_id = $data['sport'];
@@ -180,8 +183,23 @@ class ProductController extends Controller
         $product_id = $request->input('product');
 
         $prod = Product::find($product_id);
-
         $prod->active = 1;
+
+        $user = Auth::user();
+
+        if(!is_null($user)){
+            Notifications::firstOrCreate([
+                'user_id' => $prod->userdemand->id,
+                'userL_id' => 1, //OSEF du nom de la colonne, on récupère les bonnes info grace à la colone notification.
+                'libelle' => $user->firstname." ".$user->lastname,
+                'action_id' => $prod->id,
+                'accepter'=> 1,
+                'action_name' => $prod->name,
+                'notification' => 'produitsajout',
+                'afficher' => true]);
+        }
+
+
         $prod->save();
 
         Session::flash('flash_message', 'Produit validé !');

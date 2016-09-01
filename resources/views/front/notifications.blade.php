@@ -91,10 +91,10 @@
                                 <span>Il n'y a pas encore eut d'actions effectuée sur le site.</span>
                             </li>
                         @endforelse
-
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 @endsection
+

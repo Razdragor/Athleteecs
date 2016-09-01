@@ -39,32 +39,10 @@
         <div class="main">
             @yield('content')
         </div>
-        <footer class="section footer">
+        <footer class="section footer" style="height: 80px;">
             <div class="container">
-                <div class="row social-network-footer">
-                    <div class="col-sm-12 align-center">
-                        <ul>
-                            <li>
-                                <a title="Facebook" class="btn btn-social-icon btn-facebook"><i class="fa fa-facebook"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a title="Twitter" class="btn btn-social-icon btn-twitter"><i class="fa fa-twitter"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a title="Google+" class="btn btn-social-icon btn-google-plus"><i class="fa fa-google-plus"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a title="Linkedin" class="btn btn-social-icon btn-linkedin"><i class="fa fa-linkedin"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
                 <div class="row copyright">
-                    <div class="col-sm-12">
+                    <div class="col-sm-12" style="margin-top: 30px;">
                         <p class="blanc">2016 - <a href="/" target="_blank">ATHLETEEC</a> / <a href="{{ route('front.obligatoire.confidentialite')}}">Confidentialité</a> / <a href="{{ route('front.obligatoire.mentionslegales')}}">Mentions Légales</a></p>
                     </div>
                 </div>

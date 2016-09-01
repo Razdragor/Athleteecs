@@ -50,6 +50,8 @@
                                 <td>{{ $product->brand->name}}</td>
                                 <td>{{ $product->category->name}}</td>
                                 <td>{{ $product->sport->name }}</td>
+
+
                                 <td>
                                     <a href="{{ route('admin.product.show', ['product' => $product]) }}">Consulter</a>
                                 </td>
@@ -76,7 +78,10 @@
                                 <th>Marque</th>
                                 <th>Catégorie</th>
                                 <th>Sport</th>
+                                <th>Utilisateur</th>
                                 <th>Actions</th>
+
+
                             </tr>
                             </thead>
                             <tbody>
@@ -88,6 +93,12 @@
                                     <td>{{ $product->brand->name}}</td>
                                     <td>{{ $product->category->name}}</td>
                                     <td>{{ $product->sport->name }}</td>
+                                    @if(!empty($product->userdemand))
+                                        <td><a href="{{ route('admin.user.show',['user'=> $product->userdemand]) }}">{{ $product->userdemand->email }}</a></td>
+                                    @else
+                                        <td>Administrateur</td>
+
+                                    @endif
                                     <td>
                                         <a href="{{ route('admin.product.show', ['product' => $product]) }}">Consulter</a>
                                     </td>

@@ -12,6 +12,7 @@
     <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.halflings.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/friends.css') }}" rel="stylesheet">
+
     <style>
         .timeline-2-cols::before {
             content: normal;
@@ -37,17 +38,19 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
+        <div class="container">
 
             <h1>Creation d'un produit</h1>
+            <div style="border-bottom: solid black 1px;width: 100%;margin:auto"></div>
 
                 <div class="container" style="margin-top:40px;">
                     <div class="row">
                         <div class="col-md-12 padding" >
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h4>Informssations</h4>
+                                    <h4>Information</h4>
                                 </div>
+
                                 <div class="panel-body">
                                     @if (count($errors) > 0)
                                         <div class="alert alert-danger">
@@ -103,6 +106,28 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label for="description" class="col-sm-2 control-label">Description :</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control-static" name="description" placeholder="Description..."/>
+                                            @if($errors->first('description'))
+                                                <div class="alert alert-danger">
+                                                    {{$errors->first('description')}}
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="url" class="col-sm-2 control-label">Url :</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control-static" name="url" placeholder="Url..."/>
+                                            @if($errors->first('url'))
+                                                <div class="alert alert-danger">
+                                                    {{$errors->first('url')}}
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="picture" class="col-sm-2 control-label">Image :</label>
                                         <div class="col-sm-10">
                                             <div class="image-upload">
@@ -125,17 +150,7 @@
                                                 @endif
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="description" class="col-sm-2 control-label">Description :</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control-static" name="description" placeholder="Description..."/>
-                                                @if($errors->first('description'))
-                                                    <div class="alert alert-danger">
-                                                        {{$errors->first('description')}}
-                                                    </div>
-                                                @endif
-                                            </div>
-                                        </div>
+
                                         <div class="form-group">
                                             <label for="caracteristique" class="col-sm-2 control-label">Caractéristiques:</label>
                                             <div class="col-sm-10" id="caracteristique">
@@ -145,9 +160,13 @@
                                                 @endforeach
                                             </div>
                                         </div>
+                                        <input type="hidden" class="form-control-static" name="id_demande" value="{{\Illuminate\Support\Facades\Auth::user()->id}}"/>
+
                                     </div>
-                                    <button type="submit" class="btn btn-default">Ajouter</button>
-                                    <a href="{{ route('product.index', ['products' => $products]) }}" class="btn btn-default">Retour</a>
+                                    <div class="form-button-add">
+                                        <button type="submit" class="btn btn-default">Demander un nouvel équipement</button>
+                                        <a href="{{ route('product.index', ['products' => $products]) }}" class="btn btn-default">Retour</a>
+                                    </div>
                                 </form>
                             </div>
                         </div>

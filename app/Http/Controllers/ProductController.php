@@ -145,11 +145,9 @@ class ProductController extends Controller
             'old_category_id' => '', 'old_category_name'=>'']);
     }
 
-    public function addequipement(Request $request)
+    public function addequipement(Product $product)
     {
-        $product_id = $request->input('product');
-
-        $prod = Product::find($product_id);
+        $prod = Product::find($product->id);
 
         $user_prod = new UsersEquipsSports();
         $user = Auth::user();
@@ -177,14 +175,14 @@ class ProductController extends Controller
         return view('front.product.show', ['user'=> $user,'product' => $prod]);
     }
 
-    public function removeequipement(Request $request)
+    public function removeequipement(Product $product)
     {
-        $product_id = $request->input('product');
-        $prod = Product::find($product_id);
+        $prod = Product::find($product->id);
 
         $user = Auth::user();
-        $user_prod = UsersEquipsSports::where('user_id', $user->id)->where('product_id',$prod->id);
-        $user_prod->delete();
+        $user_prod = UsersEquipsSports::where('user_id', $user->id)->where('product_id',$prod->id)->delete();
+
+        Session::flash('flash_message', 'Equipement supprimé !');
 
         return view('front.user.show',['user' => $user]);
 
@@ -209,7 +207,7 @@ class ProductController extends Controller
         }
         elseif($sport_id == 0 && $category_id != 0)
         {
-            $products = Product::where('category_id', $category_id)->paginate(20);
+            $products = Product::where('category_id', $category_id)->where('active',true)->paginate(20);
             $category = Category::find($category_id);
             $oldcategory = $category->name;
 
@@ -337,6 +335,11 @@ class ProductController extends Controller
             $product->brand_id = $data['brand'];
             $product->sport_id = $data['sport'];
             $product->category_id = $data['category'];
+            $product->url= $data['url'];
+
+            $product->id_demande= Auth::user()->id;
+
+
             $product->active = false;
 
 
@@ -408,11 +411,6 @@ class ProductController extends Controller
         $publication->created_at = Carbon::now();
         $publication->updated_at = Carbon::now();
         $publication->save();
-
-        $products = Product::where('active',true)->paginate(20);
-        $sports = Sport::all();
-        $categories = Category::all();
-        $user = Auth::user();
 
         Session::flash('flash_message', 'Produit partagé !');
         $user = Auth::user();

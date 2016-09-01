@@ -49,7 +49,7 @@ $user = Auth::user();
                     <a href="{{ route('event.index') }}" class="lien-barre-user">Trouver un événement</a><br>
                 </div>
                 <div class="link_social_nav">
-                    <a href="{{ route('event.create') }}" class="lien-barre-user">Créer un event</a>
+                    <a href="{{ route('event.create') }}" class="lien-barre-user">Créer un événement</a>
                 </div>
                 <div class="link_social_nav">
                     <span class="lien-barre">Mes événements</span>

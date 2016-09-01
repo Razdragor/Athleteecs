@@ -13,6 +13,7 @@
     <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/glyphicons_pro/glyphicons.halflings.css') }}" rel="stylesheet">
     <link href="{{ asset('asset/css/friends.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/product.css') }}" rel="stylesheet">
     <style>
         .timeline-2-cols::before {
             content: normal;
@@ -138,109 +139,83 @@
                             <div id="profileTabContent" class="tab-content">
                                 <div class="tab-pane fade active in" id="pots">
                                     <ul class="timeline-2-cols">
-                                        <?php $i = 0; ?>
-                                        @foreach($user->publications as $publication)
-                                            <li id="<?php
-                                            if(is_null($publication->activity)){
-                                                echo "publication-".$publication->id;
-                                            }else{
-                                                echo "activite-".$publication->activity->id;
-                                            }
-                                            ?>" class="publicationJS">
-                                                <div class="timeline-badge primary">
-                                                </div>
-                                                <div class="timeline-panel">
-                                                    <div class="timeline-heading row" style="margin: 0;">
-                                                        <div style="margin:0 10px 0 0;float:left;">
-                                                            <a href="{{ route("user.show", $publication->user->id ) }}">
-                                                                <img src="<?php echo $publication->user->picture ?>" alt="Image" class="img-responsive" style="width: 50px;height:50px; margin: 5px;display: inline-block;">
-                                                            </a>
-                                                        </div>
-                                                        <div style="margin: 10px;float:left;">
-                                                            @if($publication->user->star == true)
-                                                                <img src="{{ asset('images/medal-1.png') }}" alt="medal">
-                                                            @endif
-                                                            @if(!is_null($publication->association))
-                                                                <span>{{$publication->user->firstname.' '.$publication->user->lastname}} - <a href="{{ route('association.show',['association' => $publication->association->id]) }}">{{ $publication->association->name }}</a></span><br>
-                                                            @elseif(!is_null($publication->event))
-                                                                <span>{{ $publication->user->firstname.' '.$publication->user->lastname}} - <a href="{{ route('event.show',['event' => $publication->event->id]) }}">{{ $publication->event->name }}</a></span><br>
-                                                            @else
-                                                                <span>{{ $publication->user->firstname.' '.$publication->user->lastname}}</span><br>
-                                                            @endif
-                                                            <small><i aria-hidden="true" class="fa fa-clock-o"></i> {{ $publication->timeAgo($publication->created_at) }}</small>
-                                                        </div>
-                                                    </div>
-                                                    <div class="timeline-body">
-                                                        @if(is_null($publication->activity))
-                                                            <div class="post_activity_msg">
-                                                                {{$publication->message}}
-                                                            </div>
-                                                            <div class="post_picture_video">
-                                                                @if(!is_null($publication->video))
-                                                                    <div class="video-container"><iframe src="https://www.youtube.com/embed/{{$publication->video->url}}" frameborder="0" allowfullscreen></iframe></div>
-                                                                @elseif(!is_null($publication->picture))
-                                                                    <img src="{{ asset($publication->picture) }}" alt="" class="img-responsive">
-                                                                @endif
-                                                            </div>
 
-                                                        @else
-                                                            <div class="post_picture_video">
-                                                                @if(!is_null($publication->video))
-                                                                    <div class="video-container"><iframe src="https://www.youtube.com/embed/{{$publication->video->url}}" frameborder="0" allowfullscreen></iframe></div>
-                                                                @elseif(!is_null($publication->picture))
-                                                                    <img src="{{ asset($publication->picture) }}" alt="" class="img-responsive">
-                                                                @endif
-                                                            </div>
-                                                            <div class="post_activity">
-                                                                <div class="post_activity_img">
-                                                                    <img src="{{ asset("../images/icons/".$publication->activity->sport->icon) }}" alt="{{ $publication->activity->sport->name }}" class="img-responsive">
-                                                                </div>
-                                                                <div class="post_activity_stats">
-                                                                    <span data-text="{{$publication->activity->date_start}}"><i aria-hidden="true" class="fa fa-calendar"></i>{{$publication->activity->getDateStartString() }}</span>
-                                                                    <span data-text="{{$publication->activity->getTimeSecondes() }}">Durée : {{$publication->activity->time }}</span>
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="post_activity_msg">
-                                                                {{$publication->message}}
-                                                            </div>
-                                                        @endif
+                                        @if($user->publications->count() > 0)
+                                            <?php $i = 0; ?>
+                                            @foreach($user->publications as $publication)
+                                                <li id="<?php
+                                                if(is_null($publication->activity)){
+                                                    echo "publication-".$publication->id;
+                                                }else{
+                                                    echo "activite-".$publication->activity->id;
+                                                }
+                                                ?>" class="publicationJS">
+                                                    <div class="timeline-badge primary">
                                                     </div>
-                                                    <div class="timeline-footer">
-                                                        <div class="comments" id="comments-{{ $publication->id }}">
-                                                            @foreach($publication->commentspost as $comment)
-                                                                <div class="comment" id="comment-{{$comment->id}}">
-                                                                    <a class="pull-left" href="{{ route("user.show", $comment->user->id ) }}">
-                                                                        <img width="35" height="35" class="comment-avatar" alt="{{ $comment->user->firstname.' '.$comment->user->lastname }}" src="{{ $comment->user->picture }}">
-                                                                    </a>
-                                                                    <div class="comment-body">
-                                                                        <span class="message"><strong>{{ $comment->user->firstname.' '.$comment->user->lastname }}</strong> {{ $comment->message }}</span>
-                                                                        <span class="time">{{ $comment->timeago($comment->created_at) }}</span>
-                                                                    </div>
-                                                                    <span class="action">
-                                                                        <i class="fa fa-warning" id="signalComment"></i>
-                                                                        @if(Auth::user()->id == $comment->user->id)
-                                                                            <i class="fa fa-close" id="deleteComment"></i>
-                                                                        @endif
-                                                                    </span>
-                                                                </div>
-                                                            @endforeach
-                                                            @if($publication->comments->count() > 3)
-                                                                <p class='moreComment' data-url="1">Plus de commentaires</p>
-                                                            @endif
-                                                            <div class="comment">
-                                                                <a class="pull-left" href="{{ route("user.show", $publication->user->id ) }}">
-                                                                    <img width="35" height="35" class="comment-avatar" alt="{{Auth::user()->name}}" src="{{ Auth::user()->picture }}">
+                                                    <div class="timeline-panel">
+                                                        <div class="timeline-heading row" style="margin: 0;">
+                                                            <div style="margin:0 10px 0 0;float:left;">
+                                                                <a href="{{ route("user.show", $publication->user->id ) }}">
+                                                                    <img src="<?php echo $publication->user->picture ?>" alt="Image" class="img-responsive" style="width: 50px;height:50px; margin: 5px;display: inline-block;">
                                                                 </a>
-                                                                <div class="comment-body">
-                                                                    <input type="text" class="form-control" name="{{ $publication->id }}" id="post-comment" placeholder="Ecris un commentaire...">
-                                                                </div>
+                                                            </div>
+                                                            <div style="margin: 10px;float:left;">
+                                                                @if($publication->user->star == true)
+                                                                    <img src="{{ asset('images/medal-1.png') }}" alt="medal">
+                                                                @endif
+                                                                @if(!is_null($publication->association))
+                                                                    <span>{{$publication->user->firstname.' '.$publication->user->lastname}} - <a href="{{ route('association.show',['association' => $publication->association->id]) }}">{{ $publication->association->name }}</a></span><br>
+                                                                @elseif(!is_null($publication->event))
+                                                                    <span>{{ $publication->user->firstname.' '.$publication->user->lastname}} - <a href="{{ route('event.show',['event' => $publication->event->id]) }}">{{ $publication->event->name }}</a></span><br>
+                                                                @else
+                                                                    <span>{{ $publication->user->firstname.' '.$publication->user->lastname}}</span><br>
+                                                                @endif
+                                                                <small><i aria-hidden="true" class="fa fa-clock-o"></i> {{ $publication->timeAgo($publication->created_at) }}</small>
                                                             </div>
                                                         </div>
+                                                        <div class="timeline-body">
+                                                            @if(is_null($publication->activity))
+                                                                <div class="post_activity_msg">
+                                                                    {{$publication->message}}
+                                                                </div>
+                                                                <div class="post_picture_video">
+                                                                    @if(!is_null($publication->video))
+                                                                        <div class="video-container"><iframe src="https://www.youtube.com/embed/{{$publication->video->url}}" frameborder="0" allowfullscreen></iframe></div>
+                                                                    @elseif(!is_null($publication->picture))
+                                                                        <img src="{{ asset($publication->picture) }}" alt="" class="img-responsive">
+                                                                    @endif
+                                                                </div>
+
+                                                            @else
+                                                                <div class="post_picture_video">
+                                                                    @if(!is_null($publication->video))
+                                                                        <div class="video-container"><iframe src="https://www.youtube.com/embed/{{$publication->video->url}}" frameborder="0" allowfullscreen></iframe></div>
+                                                                    @elseif(!is_null($publication->picture))
+                                                                        <img src="{{ asset($publication->picture) }}" alt="" class="img-responsive">
+                                                                    @endif
+                                                                </div>
+                                                                <div class="post_activity">
+                                                                    <div class="post_activity_img">
+                                                                        <img src="{{ asset("../images/icons/".$publication->activity->sport->icon) }}" alt="{{ $publication->activity->sport->name }}" class="img-responsive">
+                                                                    </div>
+                                                                    <div class="post_activity_stats">
+                                                                        <span data-text="{{$publication->activity->date_start}}"><i aria-hidden="true" class="fa fa-calendar"></i>{{$publication->activity->getDateStartString() }}</span>
+                                                                        <span data-text="{{$publication->activity->getTimeSecondes() }}">Durée : {{$publication->activity->time }}</span>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="post_activity_msg">
+                                                                    {{$publication->message}}
+                                                                </div>
+                                                            @endif
+                                                        </div>
+
                                                     </div>
-                                                </div>
-                                            </li>
-                                        @endforeach
+                                                </li>
+                                            @endforeach
+                                        @else
+                                            <dt>Aucune publication pour le moment</dt>
+                                        @endif
                                     </ul>
                                 </div>
                                 <div class="tab-pane fade" id="infos">
@@ -273,7 +248,7 @@
                                             @endif
                                         </dd>
                                         <dd class="divider"></dd>
-                                        <dt>Sports pratiqué</dt>
+                                        <dt>Sports pratiqués</dt>
 
                                         @if((count($user->sports)) > 0)
                                             @foreach($user->sports as $sport)
@@ -283,7 +258,7 @@
                                             <dd>Non renseigné</dd>
                                         @endif
                                                 <dd class="divider"></dd>
-                                        <dt>Adresse postal</dt>
+                                        <dt>Adresse postale</dt>
                                         <dd>@if(!empty(($user->address)))
                                                 {{ $user->address}}
                                             @else
@@ -303,29 +278,71 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <form class="form" method="POST" enctype="multipart/form-data" action="{{ route('picture.delete',['$picture' => $picture]) }}">
+                                                {{ csrf_field() }}
+                                                <button type="submit" class="link_button_product">Retirer l'image</button>
+                                            </form>
                                         </article>
+
+
                                     @endforeach
                                 </div>
                                 <div class="tab-pane fade" id="equipement">
-                                    <div class="row">
-                                        @foreach($user->products as $equipment)
-                                            <div class="row">
-                                                <div class="col-md-2">
-                                                    <div class="equipement-cadre">
-                                                        <div class="equipement-box">
-                                                            <img src="{{asset($equipment->picture)}}"
-                                                                 alt="Avatar" class="img-thumbnail img-responsive">
+                                    <div class="container">
+                                        @foreach($user->products as $product)
+                                            <div class="product col-md-2" id="{{$product->id}}">
+                                                <div class="product_image">
+                                                    <a href="{{ route('product.show', ['product' => $product]) }}">
+                                                        <img alt="{{$product->name}}" src="{{asset($product->picture)}}" class="product_visuel" height="180px" width="180px" style="display: block">
+                                                    </a>
+                                                </div>
+                                                <div class="product_info">
+                                                    <div class="rating product__list_left" id="{{ $product->id }}">
+                                                        @if($product->ratesvalue() != 0 )
+                                                            <div class="ui star rating user" data-rating="{{ceil($product->ratesvalue())}}" data-max-rating="5"></div>
+                                                        @else
+                                                            <div class="ui star rating user" data-rating="0" data-max-rating="5"></div>
+                                                        @endif
+                                                        <div class="more_info_star">
+                                    <span class="info_it">Note des utilisateurs :
+                                    <span class='info_enstock'><strong>{{ceil($product->ratesvalue())}}/5</strong></span></span><br/>
+                                                            <span class='info_count'><strong>{{ $product->ratescount()}} avis</strong></span>
+                                                        </div>
+                                                    </div>
+                                                    <a href="#" class="product_brand product__list_left">{{$product->brand->name}}</a>
+                                                    <a href="{{ route('product.show', ['product' => $product])}}" class="product_name product__list_left">{{$product->name}}</a>
+                                                    <div class="product_price">
+                                                        <span class="a_partir_de">À partir de</span>
+                                                        <span class="product_price_span">{{$product->price}} €</span>
+                                                    </div>
+                                                    <div class="more_info">
+                                                        <div class="more_info_content">
+                                                            <a href="{{ route('product.show', ['product' => $product])}}" class="more_info_title" title="">
+                                                                PLUS D’INFOS
+                                                            </a>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-10">
-                                                    <a href="{{ $equipment->url }}">
-                                                        <dd>{{ $equipment->name }}</dd>
-                                                    </a>
-                                                    <dd>{{ $equipment->description }}</dd>
+                                                <div class="product_action_bar">
+                                                    <form class="form" method="POST" enctype="multipart/form-data" action="{{ route('product.remove',['$product' => $product]) }}">
+                                                        {{ csrf_field() }}
+                                                        <button type="submit" class="link_button_product">Supprimer de votre profil</button>
+                                                    </form>
+                                                    <form class="form" method="POST" enctype="multipart/form-data" action="{{ route('product.post',['$product' => $product]) }}">
+                                                        {{ csrf_field() }}
+                                                        <button type="submit" class="link_button_product">Partager l'équipement sur votre mur</button>
+                                                    </form>
                                                 </div>
                                             </div>
+
                                         @endforeach
+                                    </div>
+                                    <div class="container" style="padding-top: 40px;">
+                                        <div class="col-md-12 text-center">
+                                            <a href="{{ route('product.create') }}" id="addproduct">
+                                                <span class="fa fa-plus"></span> Demander un nouvel équipement</a>
+
+                                        </div>
                                     </div>
                                 </div>
 
@@ -367,4 +384,30 @@
 
 @section('js')
     <script src="{{ asset('asset/js/plugins/isotope/jquery.isotope.min.js') }}"></script>
+    <script type="text/javascript" src=" https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.4/semantic.min.js">    </script>
+
+    <script>
+
+        $('.ui.star.rating.user').rating('disable');
+        $('.more_info').hide();
+        $('.more_info_star').hide();
+
+
+        $('.rating.product__list_left').hover(
+                function() {
+                    $(this).find( ".more_info_star").show();
+                }, function() {
+                    $('.more_info_star').hide();
+                }
+        );
+
+
+        $(".product.col-md-2").hover(
+                function() {
+                    $(this).find( ".more_info").show();
+                }, function() {
+                    $('.more_info').hide();
+                }
+        );
+    </script>
 @endsection

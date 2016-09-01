@@ -156,3 +156,15 @@ div.product.col-md-2:hover{
     right: 10px;
     text-align: right;
 }
+.link_button_product{
+    width: 100%;
+}
+
+.product_action_bar
+{
+    padding-top: 20px;
+}
+
+.picture-box{
+    width: 100%;
+}

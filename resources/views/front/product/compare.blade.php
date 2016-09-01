@@ -34,8 +34,10 @@
                     <a href="#" class="product_brand product__list_left">{{$product->brand->name}}</a>
                     <a href="{{ route('product.show', ['product' => $product])}}" class="product_name product__list_left">{{$product->name}}</a>
                     <div class="product_price">
-                        <span class="a_partir_de">À partir de</span>
-                        <span class="product_price_span">{{$product->price}} €</span>
+                        <a href="{{$product->url}}" class="product_link">
+                            <span class="a_partir_de">À partir de</span>
+                            <span class="product_price_span">{{$product->price}} €</span>
+                        </a>
                     </div>
 
                 </div>

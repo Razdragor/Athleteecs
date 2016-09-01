@@ -50,7 +50,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="name">Nom</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}" required>
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Nom de l'événement" value="{{ old('name') }}" required>
                                 @if ($errors->has('name'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('name') }}</strong>
@@ -82,7 +82,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="description">Description</label>
+                            <label class="col-sm-2 control-label" for="description">Déscription</label>
                             <div class="col-sm-10">
                                 <textarea style="resize: none" rows="4" class="form-control" name="description" id="description" required>{{ old('description') }}</textarea>
                                 @if ($errors->has('description'))

@@ -37,8 +37,10 @@
                 <div class="product_info">
                     <a href="#" class="product_brand product__list_left">{{$product->brand->name}}</a>
                     <div class="product_price">
-                        <span class="a_partir_de">À partir de</span>
-                        <span class="product_price_span">{{$product->price}} €</span>
+                        <a href="{{ $product->url }}" alt="link_product" class="product_link">
+                            <span class="a_partir_de">À partir de</span>
+                            <span class="product_price_span">{{$product->price}} €</span>
+                        </a>
                     </div>
                 </div>
 
@@ -131,7 +133,12 @@
                     <div class="container">
                         <div class="detail_result">
                             @if($user->products->where('id',$product->id)->count() == 0)
-                                <a href="{{ route('product.adduser', ['product' => $product]) }}">Ajouté a votre profil</a>
+
+                                <form class="form" method="POST" enctype="multipart/form-data" action="{{ route('product.adduser',['$product' => $product]) }}">
+                                    {{ csrf_field() }}
+                                    <button type="submit">Ajouté à votre profil</button>
+                                </form>
+
                             @else
                                 <div class="detail_result">
                                     <span class="detail_result_content">Vous possedez déjà cette équipement</span>

@@ -102,6 +102,17 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label for="url" class="col-sm-2 control-label">Url</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control-static" name="url" placeholder="Url..."/>
+                                    @if($errors->first('url'))
+                                        <div class="alert alert-danger">
+                                            {{$errors->first('url')}}
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label for="caracteristique" class="col-sm-2 control-label">Caractéristiques:</label>
                                 <div class="col-sm-10" id="caracteristique">
                                     @foreach($details as $categorydetails)

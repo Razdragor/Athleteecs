@@ -20,7 +20,7 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
-        'id','ean','name','active', 'description','picture', 'price', 'url', 'created_at', 'updated_at', 'brand_id', 'category_id','sport_id'
+        'id','ean','name','active', 'description','picture', 'price', 'url', 'created_at','id_demande','updated_at', 'brand_id', 'category_id','sport_id'
     ];
 
     /**
@@ -47,6 +47,11 @@ class Product extends Model
     public function brand()
     {
         return $this->belongsTo('App\Brand', 'brand_id');
+    }
+
+    public function userdemand()
+    {
+        return $this->belongsTo('App\User', 'id_demande');
     }
 
     public function category()

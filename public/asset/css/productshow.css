@@ -145,3 +145,7 @@ a.product_brand.product__list_left{
     font-size: 20px;
     padding-top: 20px;
 }
+a.product_link:hover {
+    color: #B9121B;
+    text-decoration: none;
+}

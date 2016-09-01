@@ -39,6 +39,14 @@
                                     <p class="form-control-static">{{ $product->name }}</p>
                                 </div>
                             </div>
+                            @if(!empty($product->userdemand))
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="name">Email du demandeur</label>
+                                <div class="col-sm-10">
+                                    <p class="form-control-static">{{ $product->userdemand->email}}</p>
+                                </div>
+                            </div>
+                            @endif
                             <div class="form-group">
                                 <label class="col-sm-2 control-label" for="name">Marque :</label>
                                 <div class="col-sm-10">

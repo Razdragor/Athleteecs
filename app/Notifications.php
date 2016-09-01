@@ -13,7 +13,7 @@ class Notifications extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'user_id', 'userL_id', 'notification','action_id','action_name', 'libelle', 'afficher', 'created_at', 'updated_at'
+        'id', 'user_id', 'userL_id', 'notification','action_id','action_name','accepter', 'libelle', 'afficher', 'created_at', 'updated_at'
     ];
 
     public function timeAgo($timestamp, $ref = 0){
