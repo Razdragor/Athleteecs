@@ -42,7 +42,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($products as $product)
+                        @foreach($products->where('active',1) as $product)
                             <tr>
                                 <td>{{ $product->id }}</td>
                                 <td><img src="{{ asset($product->picture) }}" alt="{{ $product->name }}" class="avatar" width="25" height="25"></td>
@@ -85,7 +85,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($products as $product)
+                            @foreach($products->where('active',0) as $product)
                                 <tr>
                                     <td>{{ $product->id }}</td>
                                     <td><img src="{{ asset($product->picture) }}" alt="{{ $product->name }}" class="avatar" width="25" height="25"></td>
