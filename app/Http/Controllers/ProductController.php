@@ -361,9 +361,9 @@ class ProductController extends Controller
                     public_path() . '/images/products', $imageName
                 );
 
-                $imageName .= '/images/products/'.$imageName;
+                $finalimageName = '/images/products/'.$imageName;
 
-                $product->picture = $imageName;
+                $product->picture = $finalimageName;
             }
             else
             {

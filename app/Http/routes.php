@@ -60,6 +60,8 @@ use Illuminate\Support\Facades\File;
             Route::get('/newsletter/{newsletter}/delete',  ['as' => 'admin.newsletter.delete', 'uses' => 'Admin\NewsletterController@destroy']);
             Route::get('/newsletter/{newsletter}/send',  ['as' => 'admin.newsletter.send', 'uses' => 'Admin\NewsletterController@send']);
 
+            Route::post('/sport/{sport}/update', ['as' => 'admin.sport.update', 'uses' => 'Admin\SportController@update']);
+
             Route::get('/sport/{sport}/destroy',  ['as' => 'admin.sport.delete', 'uses' => 'Admin\SportController@destroy']);
             Route::resource('publication', 'Admin\PublicationController',['except' => ['update']]);
             Route::post('/publication/{publication}/update', ['as' => 'admin.publication.update', 'uses' => 'Admin\PublicationController@update']);

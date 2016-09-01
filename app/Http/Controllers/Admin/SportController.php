@@ -118,9 +118,9 @@ class SportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Sport $sport)
     {
-        //
+        return view('admin.sport.edit' , [ 'sport' => $sport]);
     }
 
     /**
@@ -132,7 +132,14 @@ class SportController extends Controller
      */
     public function update(Request $request, Sport $sport)
     {
-        //
+        $data = $request->all();
+
+        $sport_final = Sport::find($sport->id);
+
+        $sport_final->name = $data['name'];
+        $sport_final->save();
+
+        return view('admin.sport.show', ['sport'=>$sport]);
     }
 
 
