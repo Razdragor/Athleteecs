@@ -268,17 +268,25 @@
 }
 
 .img-filter-association{
-    max-height: 150px;
-    width: 100%;
+    height: 150px;
+    width: 150px;
     padding: 5px;
+    margin: 0 auto;
 }
+.img-filter-event{
+    height: 150px;
+    padding: 5px;
+    margin: 0 auto;
+}
+
 
 .img-full-size{
     width: 100%;
 }
 
 .filter-event{
-    border: 1px solid #dddddd;
+    border: 1px solid #B9121B;
+    margin-bottom: 5px;
 }
 
 @media screen and (max-width: 720px) {

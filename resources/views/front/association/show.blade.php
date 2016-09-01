@@ -41,15 +41,17 @@
                 </div>
             </div>
             <div class="col-sm-8 col-md-9" style="position: relative">
-                <div id="user-status" class="text-left col-sm-10 col-md-10" style="position: absolute;bottom: 10px;">
+                <div id="user-status" class="text-left col-sm-10 col-md-10" style="position: absolute;bottom: 50%;">
                     <h1>{{ $association->name }}</h1>
                 </div>
             </div>
         </div>
         <div class="row">
+            @if(\Illuminate\Support\Facades\Auth::user()->id != $association->user_id)
             <div class="col-sm-4 col-md-3">
                 <a href="{{ url('conversation/'.$association->user_id) }}" class="btn btn-block btn-success"><i class="fa fa-envelope-alt"></i>Envoyer un message</a>
             </div>
+            @endif
             <div class="col-sm-8 col-md-9">
                 @if($user->isAdminAssociation($association->id))
                     <div class="col-sm-6 col-md-4 col-lg-2">
@@ -109,7 +111,7 @@
                     <div id="map"></div>
                 </div>
                 @if($user->isMemberAssociation($association->id))
-                    <div class="col-sm-12 col-md-12 col-lg-6">
+                    <div class="col-sm-12 col-md-12 col-lg-6" style="margin-left: 100px;margin-top: 25px;">
                         <a class="btn btn-block btn-primary" href="{{ route('association.quit', ['association' => $association]) }}">Quitter</a>
                     </div>
                 @endif
@@ -167,7 +169,7 @@
                                                                 <input id="file-input" name="picture_status" type="file"/>
                                                             </div>
                                                         </div>
-                                                        <button type="submit" class="btn btn-primary pull-right">Post</button>
+                                                        <button type="submit" class="btn btn-primary pull-right">Publier</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -225,7 +227,7 @@
                                                                 <input id="file-input2" name="picture_status" type="file"/>
                                                             </div>
                                                         </div>
-                                                        <button type="submit" class="btn btn-primary pull-right">Post</button>
+                                                        <button type="submit" class="btn btn-primary pull-right">Publier</button>
                                                     </div>
                                                 </form>
                                             </div>

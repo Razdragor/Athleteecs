@@ -41,15 +41,19 @@
                 </div>
             </div>
             <div class="col-sm-8 col-md-9" style="position: relative">
-                <div id="user-status" class="text-left col-sm-10 col-md-10" style="position: absolute;bottom: 10px;">
+                <div id="user-status" class="text-left col-sm-10 col-md-10" style="position: absolute;bottom: 30%">
                     <h1>{{ $event->name }}</h1>
+                    <h3>L'événement commence : {{ date("d/m/Y", strtotime($event->started_at))}} et se termine : {{ date("d/m/Y", strtotime($event->end_at)) }}</h3>
+
                 </div>
             </div>
         </div>
         <div class="row">
+            @if(\Illuminate\Support\Facades\Auth::user()->id != $event->user_id)
             <div class="col-sm-4 col-md-3">
                 <a href="{{ url('conversation/'.$event->user_id) }}" class="btn btn-block btn-success"><i class="fa fa-envelope-alt"></i>Envoyer un message</a>
             </div>
+            @endif
             <div class="col-sm-8 col-md-9">
                 @if($user->isAdminEvent($event->id))
                     <div class="col-sm-6 col-md-4 col-lg-2">
@@ -68,14 +72,12 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                {{--<h2>L'événement commence : {{ $event->started_at }}</h2>--}}
-                <h2>L'événement commence : {{ date("d/m/Y", strtotime($event->started_at))}}</h2>
 
 
             </div>
             <div class="col-md-6">
                 {{--<h2>et se termine : {{ $event->end_at }}</h2>--}}
-                <h2>et se termine : {{ date("d/m/Y", strtotime($event->end_at)) }}</h2>
+                <h2></h2>
             </div>
         </div>
         <div class="row">
@@ -86,13 +88,11 @@
                     <div id="map"></div>
                 </div>
                 @if($user->isMemberEvent($event->id))
-                    <div class="col-sm-12 col-md-12 col-lg-6">
+                    <div class="col-sm-12 col-md-12 col-lg-6" style="margin-left: 100px;margin-top: 25px;">
                         <a class="btn btn-block btn-primary" href="{{ route('event.quit', ['event' => $event]) }}">Quitter l'événement</a>
                     </div>
                 @endif
             </div>
-            <p>
-            </p>
             <div class="col-sm-8 col-md-9">
                 <div class="row" style="margin:0;">
                     <ul id="profileTab" class="nav nav-tabs">
@@ -146,7 +146,7 @@
                                                                 <input id="file-input" name="picture_status" type="file"/>
                                                             </div>
                                                         </div>
-                                                        <button type="submit" class="btn btn-primary pull-right">Poster</button>
+                                                        <button type="submit" class="btn btn-primary pull-right">Publier</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -204,7 +204,7 @@
                                                                 <input id="file-input2" name="picture_status" type="file"/>
                                                             </div>
                                                         </div>
-                                                        <button type="submit" class="btn btn-primary pull-right">Poster</button>
+                                                        <button type="submit" class="btn btn-primary pull-right">Publier</button>
                                                     </div>
                                                 </form>
                                             </div>

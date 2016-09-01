@@ -143,7 +143,9 @@ class PictureController extends Controller
             $picture = Picture::find($picture->id);
             if(Auth::user()->id == $picture->user_id)
             {
-                $picture->delete();
+//                $picture->delete();
+                $picture->user_id = 0;
+                $picture->save();
             }
 
         }

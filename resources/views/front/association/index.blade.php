@@ -152,7 +152,7 @@
                             var location = {lat: parseFloat(a.lattitude), lng: parseFloat(a.longitude) };
                             addMarker(location);
                             if(div){
-                                div.append("<div class='col-sm-12 filter-association'>" +
+                                div.append("<div class='col-sm-12 filter-event'>" +
                                                 "<div class='col-sm-3'>" +
                                                     "<img src='"+ a.picture +"' alt='"+ a.name +"' class='img-responsive img-filter-association'>"+
                                                 "</div>" +
